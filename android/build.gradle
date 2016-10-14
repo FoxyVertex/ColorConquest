@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId "com.thefoxarmy.rainbowwarrior"
-        minSdkVersion 8
+        minSdkVersion 15
         targetSdkVersion 24
     }
 }
