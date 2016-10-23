@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="robopods-bolts-ios-1.14.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.robovm/robopods-bolts-ios/1.14.0/9af31651b319253310c5d34d265bb92de70ddfe7/robopods-bolts-ios-1.14.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.robovm/robopods-bolts-ios/1.14.0/acc6408187262b60852726a1f338a92a0938e562/robopods-bolts-ios-1.14.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

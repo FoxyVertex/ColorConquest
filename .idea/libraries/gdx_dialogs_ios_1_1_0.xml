@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="gdx-dialogs-ios-1.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.tomgrill.gdxdialogs/gdx-dialogs-ios/1.1.0/99e7e473061a2a1be906884b283be9b3b0eda01e/gdx-dialogs-ios-1.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.tomgrill.gdxdialogs/gdx-dialogs-ios/1.1.0/d6f0d1e3c85b883281fc05c6c64a19fb81868a6a/gdx-dialogs-ios-1.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

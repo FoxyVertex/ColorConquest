@@ -8,7 +8,6 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new RainbowWarrior(), config);
-		config.width = 1280;
-		config.height = 1280;
+
 	}
 }

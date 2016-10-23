@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="gdx-facebook-android-1.2.2">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/android/build/intermediates/exploded-aar/de.tomgrill.gdxfacebook/gdx-facebook-android/1.2.2/res" />
+      <root url="jar://$PROJECT_DIR$/android/build/intermediates/exploded-aar/de.tomgrill.gdxfacebook/gdx-facebook-android/1.2.2/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.tomgrill.gdxfacebook/gdx-facebook-android/1.2.2/87189774e96ef01359380e3d210476354b53de3f/gdx-facebook-android-1.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
