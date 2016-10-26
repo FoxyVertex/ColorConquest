@@ -18,16 +18,15 @@ public class RainbowWarrior extends Game {
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(0.7f, 0, 1, 1);
+        Gdx.gl.glClearColor(0.4f, 0, 0.6f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //batch.begin();
         super.render();
-        //batch.end();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
         super.dispose();
+
     }
 }

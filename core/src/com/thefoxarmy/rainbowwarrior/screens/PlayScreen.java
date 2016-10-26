@@ -1,5 +1,6 @@
 package com.thefoxarmy.rainbowwarrior.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,13 +15,14 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
 import com.thefoxarmy.rainbowwarrior.sprites.Player;
+import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
 import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsCreator;
 
 
 public class PlayScreen implements Screen {
 
     public TiledMap level;
-    private Player player;
+    public Player player;
     private RainbowWarrior game;
     //Camera stuff
     private OrthographicCamera cam;
@@ -29,13 +31,13 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dRenderer;
 
-    public PlayScreen(RainbowWarrior game, String path) {
+    PlayScreen(RainbowWarrior game, String path) {
 
         this.game = game;
 
         //Camera stuff
         cam = new OrthographicCamera();
-        viewport = new StretchViewport(Globals.V_WIDTH / Globals.PPM, Globals.V_HEIGHT / Globals.PPM, cam);
+        viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cam);
 
         level = new TmxMapLoader().load(path);
         mapRenderer = new OrthogonalTiledMapRenderer(level, 1 / Globals.PPM);
@@ -46,7 +48,7 @@ public class PlayScreen implements Screen {
 
         new WorldPhysicsCreator(this);
 
-        player = new Player(this);
+        player = new Player(this, new PlayerInputAdapter(this));
 
     }
 
@@ -57,8 +59,9 @@ public class PlayScreen implements Screen {
 
     private void tick(float delta) {
         world.step(1 / 60f, 6, 2);
+        cam.position.x = player.body.getPosition().x;
+        cam.position.y = player.body.getPosition().y;
         player.tick(delta);
-        cam.position.set(player.body.getPosition().x, player.body.getPosition().y, 0);
         cam.update();
         mapRenderer.setView(cam);
     }
@@ -66,11 +69,17 @@ public class PlayScreen implements Screen {
     @Override
     public void render(float delta) {
         tick(delta);
+
+
+        //Drawing Area
+        mapRenderer.render();
+        b2dRenderer.render(world, cam.combined);
+
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
-        b2dRenderer.render(world, cam.combined);
-        mapRenderer.render();
+        player.draw(game.batch);
         game.batch.end();
+
     }
 
     @Override
@@ -97,7 +106,7 @@ public class PlayScreen implements Screen {
     public void dispose() {
         world.dispose();
         b2dRenderer.dispose();
-
+        player.dispose();
     }
 
     public World getWorld() {
