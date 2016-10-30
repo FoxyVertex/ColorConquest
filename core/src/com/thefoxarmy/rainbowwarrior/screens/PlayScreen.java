@@ -1,6 +1,5 @@
 package com.thefoxarmy.rainbowwarrior.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -37,13 +36,13 @@ public class PlayScreen implements Screen {
 
         //Camera stuff
         cam = new OrthographicCamera();
-        viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cam);
+        viewport = new StretchViewport(Globals.V_WIDTH / Globals.PPM, Globals.V_HEIGHT / Globals.PPM, cam);
 
         level = new TmxMapLoader().load(path);
         mapRenderer = new OrthogonalTiledMapRenderer(level, 1 / Globals.PPM);
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
-        world = new World(new Vector2(0, -10f), true);
+        world = new World(new Vector2(0, -9.89f), true);
         b2dRenderer = new Box2DDebugRenderer();
 
         new WorldPhysicsCreator(this);

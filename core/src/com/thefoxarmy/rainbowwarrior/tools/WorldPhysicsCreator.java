@@ -15,7 +15,7 @@ public class WorldPhysicsCreator {
 
     public WorldPhysicsCreator(PlayScreen screen) {
         PolygonShape polygon = new PolygonShape();
-        for (MapObject object : screen.level.getLayers().get("Blocks").getObjects()) {
+        for (MapObject object : screen.level.getLayers().get("blocks").getObjects()) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             BodyDef bdef = new BodyDef();
             bdef.type = BodyDef.BodyType.StaticBody;
