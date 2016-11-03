@@ -1,0 +1,45 @@
+
+test.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+comicsansPlaceHolder
+  rotate: false
+  xy: 1, 277
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+megamantest
+  rotate: false
+  xy: 1, 35
+  size: 320, 240
+  orig: 320, 240
+  offset: 0, 0
+  index: -1
+badlogic
+  rotate: false
+  xy: 515, 533
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+rainbow
+  rotate: false
+  xy: 1, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+
+test2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+levels/ts_test
+  rotate: false
+  xy: 1, 1
+  size: 353, 305
+  orig: 353, 305
+  offset: 0, 0
+  index: -1
