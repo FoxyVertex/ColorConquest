@@ -1,6 +1,5 @@
 package com.thefoxarmy.rainbowwarrior.tools;
 
-
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;

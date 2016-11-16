@@ -2,6 +2,7 @@ package com.thefoxarmy.rainbowwarrior.screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -22,6 +23,7 @@ public class PlayScreen implements Screen {
 
     public TiledMap level;
     public Player player;
+    public TextureAtlas mainAtlas;
     private RainbowWarrior game;
     //Camera stuff
     private OrthographicCamera cam;
@@ -47,8 +49,9 @@ public class PlayScreen implements Screen {
 
         new WorldPhysicsCreator(this);
 
+        mainAtlas = new TextureAtlas("peri/idle.pack");
         player = new Player(this, new PlayerInputAdapter(this));
-
+        cam.position.y = player.body.getPosition().y;
     }
 
     @Override
@@ -59,7 +62,13 @@ public class PlayScreen implements Screen {
     private void tick(float delta) {
         world.step(1 / 60f, 6, 2);
         cam.position.x = player.body.getPosition().x;
-        cam.position.y = player.body.getPosition().y;
+        if (player.body.getPosition().y >= (cam.viewportHeight / 4) * 3)
+            cam.position.y = player.body.getPosition().y;
+
+        if (player.body.getPosition().y <= (cam.viewportHeight) / 3)
+            cam.position.y = player.body.getPosition().y;
+
+
         player.tick(delta);
         cam.update();
         mapRenderer.setView(cam);
@@ -72,12 +81,13 @@ public class PlayScreen implements Screen {
 
         //Drawing Area
         mapRenderer.render();
-        b2dRenderer.render(world, cam.combined);
+
 
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
         player.draw(game.batch);
         game.batch.end();
+        b2dRenderer.render(world, cam.combined);
 
     }
 
