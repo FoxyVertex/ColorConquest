@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.thefoxarmy.rainbowwarrior.Globals;
@@ -52,7 +53,7 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(10 / Globals.PPM);
         fdef.shape = shape;
-        body.createFixture(fdef);
+        final Fixture fixture = body.createFixture(fdef);
 
 
         FixtureDef top = new FixtureDef();
@@ -78,8 +79,20 @@ public class Player extends Sprite {
         body.applyLinearImpulse(new Vector2(0, 4), body.getWorldCenter(), true);
     }
 
+    private State getMotionAnimationState() {
+
+        if (body.getLinearVelocity().y > 0 && (previousAnimation == State.IDLE || previousAnimation == State.WALKING))
+            return State.JUMP;
+        else if (body.getLinearVelocity().y < 0)
+            return State.FALLING;
+        else if (body.getLinearVelocity().x != 0)
+            return State.WALKING;
+        else
+            return State.IDLE;
+    }
+
     private enum State {
-        IDLE, JUMP, WALKING
+        IDLE, JUMP, WALKING, FALLING
     }
 
 }

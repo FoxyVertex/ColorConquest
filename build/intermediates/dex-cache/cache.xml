@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\net.dermetfan.libgdx-utils\libgdx-utils\0.13.3\96b4f9d59b869f1cbf83b055ec763519da83a125\libgdx-utils-0.13.3.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="96b4f9d59b869f1cbf83b055ec763519da83a125">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\libgdx-utils-0.13.3_c33a3b6e41551dc0b057366e6f5b6e8fc26a16fc.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-applinks\1.4.0\8ad21bf21784dacce5f2043afb97218cc377e835\bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\bolts-applinks-1.4.0_5cca0c2b974fd7cf23c53db0639454eafd1dd05b.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.12.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="26645b518694e20a97fc19a6a3c3933c0cc41bc1">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\com.facebook.android-facebook-android-sdk-4.12.1_41fbc03220d1aff58df7bccba4c3f90f932cd4e5.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\core\build\libs\core-1.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="de7c864b7bf52dcdc16a78b48aac55a3c60f200b">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\debug\core-1.0_ab0845929693d3baabbdf0a8a0fa7201942e5906.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-box2d\1.9.4\98a0d25c9f0637fecac6e4aacf7287aa635964f5\gdx-box2d-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="98a0d25c9f0637fecac6e4aacf7287aa635964f5">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-box2d-1.9.4_aec5666a96e1386b4ddd1a9c85cae1887b3525c9.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.github.czyzby\gdx-kiwi\1.8.1.9.4\b216c4a1f368a8dd720a690e0e81a920fba545de\gdx-kiwi-1.8.1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="b216c4a1f368a8dd720a690e0e81a920fba545de">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-kiwi-1.8.1.9.4_73af5efdd6aafb5bb081be48f1ba654882c76ad6.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-ai\1.8.0\ec30677d8ab1a8b8aa4b853c5f4e4b1361f50bf5\gdx-ai-1.8.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ec30677d8ab1a8b8aa4b853c5f4e4b1361f50bf5">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-ai-1.8.0_dc063d8605c374e1dd2c358f4e33e43fa73d67de.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\internal_impl-23.4.0_7c286aefbd5e638deaa49b4a99a266cc9152accc.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-freetype\1.9.4\8816dd669b8ca09e7d5e9575807e92c4318f708\gdx-freetype-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="08816dd669b8ca09e7d5e9575807e92c4318f708">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-freetype-1.9.4_c9f19ce114fa1f2630423c65fc1caab2dba160b8.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-controllers\1.9.4\d182ca36785df4226ef63009a3d96462952665c3\gdx-controllers-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="d182ca36785df4226ef63009a3d96462952665c3">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-controllers-1.9.4_f03067eb37d3be3301bde2e2daff316cf1dcfdd0.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.underwaterapps.overlap2druntime\overlap2d-runtime-libgdx\0.1.0\1dd0d0808d1e44fe10c749d8216c44e5c4c99361\overlap2d-runtime-libgdx-0.1.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="1dd0d0808d1e44fe10c749d8216c44e5c4c99361">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\overlap2d-runtime-libgdx-0.1.0_75690ded2d8677a07c8d9f9c76fe461d76db8ff4.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\com.android.support-cardview-v7-23.4.0_f0a468e0be97533e5fb2a3f667b0ea5a907b1062.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.badlogicgames.box2dlights\box2dlights\1.4\3d77ad5b4164fb32fc67e2446e35911bb0aaf0bd\box2dlights-1.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="3d77ad5b4164fb32fc67e2446e35911bb0aaf0bd">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\box2dlights-1.4_fc1cd3799566f12151e249caea2de247bfd235e9.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\bolts-tasks-1.4.0_eda02675efcd0d0619fcf189dab7128244076b38.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.9.4\194b33382d6d58fad031521ba3331d926c476c9b\gdx-backend-android-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="194b33382d6d58fad031521ba3331d926c476c9b">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-backend-android-1.9.4_d1166237f290c4be47a71ac7f378239929bdd088.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\com.android.support-support-v4-23.4.0_62fb31759cd51a1da8b551cd95bc3a98f6efc93b.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-controllers-android\1.9.4\dd3d37ac9f03084edc1b1d9aa7c7b3e08b6744a3\gdx-controllers-android-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="dd3d37ac9f03084edc1b1d9aa7c7b3e08b6744a3">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-controllers-android-1.9.4_f3e6c6e6535fa2e179113e26187111bfc454cf25.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\exploded-aar\de.tomgrill.gdxdialogs\gdx-dialogs-android\1.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="a74ff99a125dbb377e041b555eebfcf5e51331d9">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\de.tomgrill.gdxdialogs-gdx-dialogs-android-1.1.0_05593b92c746710d4d5476720bef1eb49e41c062.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\exploded-aar\com.android.support\customtabs\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="2d1eaa9e0b98f8fc4c2b989d9b30d4f1480648ac">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\com.android.support-customtabs-23.4.0_80a79f0296e180825ada48a49aeddde063b9a31d.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\de.tomgrill.gdxfacebook\gdx-facebook-core\1.2.2\9c729251038ef749dbc4457584d68e22998cfb6d\gdx-facebook-core-1.2.2.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="9c729251038ef749dbc4457584d68e22998cfb6d">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-facebook-core-1.2.2_c5a001eefb60117294c1ed2516f45600938acbd9.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.9.4\4b4b7962d1bc75af0438f5c81ec1010557bc9ee5\gdx-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="4b4b7962d1bc75af0438f5c81ec1010557bc9ee5">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-1.9.4_b3142488e49eba3ca63fc4ccdaf4e313210109e3.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\support-annotations-23.4.0_d43c88110c745f45e5d29930a4cb91ed460a724e.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\com.badlogicgames.ashley\ashley\1.7.0\a7c4083c0a42027a3c03ba7ccecef6cbe1c5f0a4\ashley-1.7.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="a7c4083c0a42027a3c03ba7ccecef6cbe1c5f0a4">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\ashley-1.7.0_9c499f4e594588394669980db3fbd68ec3ad8455.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\net.dermetfan.libgdx-utils\libgdx-utils-box2d\0.13.3\8cf92d93d3022a9616636a67b0864b781d349066\libgdx-utils-box2d-0.13.3.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="8cf92d93d3022a9616636a67b0864b781d349066">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\libgdx-utils-box2d-0.13.3_b8b04bd581713fe1c0285861d5e8abdc8b97c229.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\exploded-aar\de.tomgrill.gdxfacebook\gdx-facebook-android\1.2.2\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="defc6bc7f5b7374308f6c4446572e66bc7f94ce6">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\de.tomgrill.gdxfacebook-gdx-facebook-android-1.2.2_48c8d1411032566fa307f01b63467c41f3a5573b.jar" />
+    </item>
+    <item
+        jar="C:\Users\seth\.gradle\caches\modules-2\files-2.1\de.tomgrill.gdxdialogs\gdx-dialogs-core\1.1.0\f1b81e4141dec9cbaafc3e9a2114420108502f20\gdx-dialogs-core-1.1.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="f1b81e4141dec9cbaafc3e9a2114420108502f20">
+        <dex dex="C:\Users\seth\Programming\Games\LibGDX\RainbowWarrior\android\build\intermediates\pre-dexed\release\gdx-dialogs-core-1.1.0_891d03d6866b17d5727b10528e38feb8ef5a91c4.jar" />
+    </item>
+
+</items>
