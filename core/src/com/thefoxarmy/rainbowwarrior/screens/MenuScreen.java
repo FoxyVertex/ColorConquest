@@ -33,7 +33,7 @@ public class MenuScreen implements Screen {
         mainMenu = new Stage(new ScreenViewport());
 
 
-        TextButton btnPlay = new TextButton("Spiel", skin, "default");
+        TextButton btnPlay = new TextButton("Play", skin, "default");
         btnPlay.setSize(200, 50);
         btnPlay.setPosition(Gdx.graphics.getWidth() / 2 - btnPlay.getWidth() / 2, Gdx.graphics.getHeight() - btnPlay.getHeight() - 40);
 
@@ -42,7 +42,7 @@ public class MenuScreen implements Screen {
         table.setWidth(mainMenu.getWidth());
         table.setPosition(Gdx.graphics.getWidth() / 2, btnPlay.getY() - 50, Align.center | Align.top);
 
-        TextButton btnNew = new TextButton("NeuSpiel", skin);
+        TextButton btnNew = new TextButton("New Game", skin);
         btnNew.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
@@ -52,14 +52,14 @@ public class MenuScreen implements Screen {
         table.padTop(15);
         table.add(btnNew).pad(10);
 
-        btnContinue = new TextButton("Forztezen Spiel", skin);
+        btnContinue = new TextButton("Continue Game", skin);
         btnContinue.setVisible(false);
         table.padTop(30);
         if (Gdx.files.local("save.json").exists())
             btnContinue.setVisible(true);
         table.add(btnContinue).pad(10);
 
-        TextButton btnLoad = new TextButton("Belastung Spiel", skin);
+        TextButton btnLoad = new TextButton("Load Save", skin);
         table.padTop(30);
         table.add(btnLoad).pad(10);
         btnPlay.addListener(new ClickListener() {
