@@ -11,6 +11,8 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
 
 
     private PlayScreen screen;
+    private boolean backKeyPrev = false;
+    private boolean forwardKeyPrev = false;
 
     public PlayerInputAdapter(PlayScreen screen) {
         this.screen = screen;
@@ -41,6 +43,6 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             backKeyPrev = false;
         }
 
-    }
 
+    }
 }
