@@ -61,6 +61,7 @@ public class Player extends Sprite {
         shape.setPosition(new Vector2(0, 5).scl(Globals.PPM));
         top.shape = shape;
         body.createFixture(top);
+        body.setLinearDamping(5f);
     }
 
     public void tick(float delta) {
