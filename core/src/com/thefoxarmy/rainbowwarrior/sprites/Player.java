@@ -3,7 +3,7 @@ package com.thefoxarmy.rainbowwarrior.sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -25,18 +25,24 @@ public class Player extends Sprite {
     private State currentAnimation;
     private State previousAnimation;
     private Animation walkAnim;
-
+    private Animation jumpAnim;
+    private Animation fallAnim;
+    private boolean moving = false;
+    private boolean facingLeft = false;
 
     public Player(PlayScreen screen, PlayerInputAdapter input) {
-        super(screen.mainAtlas.findRegion("periIdle"));
+        super(screen.mainAtlas.findRegion("idle"));
 
         this.world = screen.getWorld();
         def();
 
 
-        setBounds(0, 0, 64 / Globals.PPM, 64 / Globals.PPM);
+        setBounds(0, 0, getRegionWidth() / 8.5f / Globals.PPM, getRegionHeight() / 8.5f / Globals.PPM);
 
-        idleAnim = new Animation(0.1f, new TextureAtlas(Gdx.files.internal("peri/idle.pack")).getRegions(), Animation.PlayMode.LOOP);
+
+        idleAnim = new Animation(1 / 16f, screen.mainAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
+        walkAnim = new Animation(1 / 16f, screen.mainAtlas.findRegions("walk"), Animation.PlayMode.LOOP);
+        fallAnim = new Animation(1 / 16f, screen.mainAtlas.findRegions("fall"), Animation.PlayMode.LOOP);
         currentAnimation = State.IDLE;
 
         this.input = new PlayerInputAdapter(screen);
@@ -51,7 +57,7 @@ public class Player extends Sprite {
         body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(10 / Globals.PPM);
+        shape.setRadius(15 / Globals.PPM);
         fdef.shape = shape;
         final Fixture fixture = body.createFixture(fdef);
 
@@ -68,7 +74,7 @@ public class Player extends Sprite {
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
         setRotation((float) Math.toDegrees(body.getAngle()));
         timer += delta;
-        setRegion(idleAnim.getKeyFrame(timer, true));
+        setRegion(getFrame(delta));
     }
 
     public void dispose() {
@@ -81,14 +87,46 @@ public class Player extends Sprite {
 
     private State getMotionAnimationState() {
 
-        if (body.getLinearVelocity().y > 0 && (previousAnimation == State.IDLE || previousAnimation == State.WALKING))
+        if (body.getLinearVelocity().y > 0 || body.getLinearVelocity().y < 0 && previousAnimation == State.JUMP) {
             return State.JUMP;
-        else if (body.getLinearVelocity().y < 0)
+        } else if (body.getLinearVelocity().y < 0) {
             return State.FALLING;
-        else if (body.getLinearVelocity().x != 0)
+        } else if (body.getLinearVelocity().x != 0 && previousAnimation != State.JUMP) {
             return State.WALKING;
-        else
+        } else {
             return State.IDLE;
+        }
+
+    }
+
+    private TextureRegion getFrame(float delta) {
+        currentAnimation = getMotionAnimationState();
+        TextureRegion region;
+
+        switch (currentAnimation) {
+            case JUMP:
+                //region = jumpAnim.getKeyFrame(timer);
+                //break;
+            case WALKING:
+                region = walkAnim.getKeyFrame(timer, true);
+                break;
+            case FALLING:
+                region = fallAnim.getKeyFrame(timer, true);
+                break;
+            default:
+                region = idleAnim.getKeyFrame(timer, true);
+        }
+
+        if ((body.getLinearVelocity().x < 0) && !region.isFlipX()) {
+            region.flip(true, false);
+            moving = false;
+        } else if ((body.getLinearVelocity().x > 0 || moving) && region.isFlipX()) {
+            region.flip(true, false);
+            moving = true;
+        }
+        timer = currentAnimation == previousAnimation ? timer + delta : 0;
+        previousAnimation = currentAnimation;
+        return region;
     }
 
     private enum State {

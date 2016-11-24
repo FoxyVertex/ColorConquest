@@ -49,7 +49,7 @@ public class PlayScreen implements Screen {
 
         new WorldPhysicsCreator(this);
 
-        mainAtlas = new TextureAtlas("peri/idle.pack");
+        mainAtlas = new TextureAtlas("GreyGuy.pack");
         player = new Player(this, new PlayerInputAdapter(this));
         cam.position.y = player.body.getPosition().y;
     }

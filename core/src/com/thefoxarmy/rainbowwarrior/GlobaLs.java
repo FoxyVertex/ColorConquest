@@ -6,5 +6,4 @@ public class Globals {
             V_WIDTH = 400,
             V_HEIGHT = 225,
             PPM = 100;
-
 }
