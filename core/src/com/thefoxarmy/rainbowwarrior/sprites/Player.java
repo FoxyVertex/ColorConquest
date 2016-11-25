@@ -27,8 +27,7 @@ public class Player extends Sprite {
     private Animation walkAnim;
     private Animation jumpAnim;
     private Animation fallAnim;
-    private boolean moving = false;
-    private boolean facingLeft = false;
+    private boolean runningRight = false;
 
     public Player(PlayScreen screen, PlayerInputAdapter input) {
         super(screen.mainAtlas.findRegion("idle"));
@@ -118,15 +117,21 @@ public class Player extends Sprite {
                 region = idleAnim.getKeyFrame(timer, true);
         }
 
-        if ((body.getLinearVelocity().x < 0) && !region.isFlipX()) {
+        //Flip the character to the direction they're funning
+        if ((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
-            moving = false;
-        } else if ((body.getLinearVelocity().x > 0 || moving) && region.isFlipX()) {
+            runningRight = false;
+        } else if ((body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
             region.flip(true, false);
-            moving = true;
+            runningRight = true;
         }
+
+        //if the current state is the same as the previous state increase the state timer.
+        //otherwise the state has changed and we need to reset timer.
         timer = currentAnimation == previousAnimation ? timer + delta : 0;
+        //update previous state
         previousAnimation = currentAnimation;
+
         return region;
     }
 
