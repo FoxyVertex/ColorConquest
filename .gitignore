@@ -1,6 +1,6 @@
-*/.gradle/
-*/.gradle/*
-*/.idea/
-*/.idea/*
-*/build/
-*/build/*
+/.gradle/
+/.idea/
+/build/
+/android/build/
+/core/build/
+/desktop/build/
