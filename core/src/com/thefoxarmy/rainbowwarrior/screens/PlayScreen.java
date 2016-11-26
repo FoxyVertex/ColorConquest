@@ -1,5 +1,7 @@
 package com.thefoxarmy.rainbowwarrior.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -16,6 +18,8 @@ import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
 import com.thefoxarmy.rainbowwarrior.sprites.Player;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
+import com.thefoxarmy.rainbowwarrior.tools.SaveValuesAsJSON;
+import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsContactListener;
 import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsCreator;
 
 /**
@@ -33,16 +37,17 @@ public class PlayScreen implements Screen {
     private TiledMapRenderer mapRenderer;
     private World world;
     private Box2DDebugRenderer b2dRenderer;
-
+    private Preferences prefs;
     /**
      * Initializes the current level and sets up the playing screen
+     *
      * @param game the main game class
      * @param path path to the `tmx` level
      */
     PlayScreen(RainbowWarrior game, String path) {
 
         this.game = game;
-
+        this.prefs = Gdx.app.getPreferences("User Data");
         //Camera stuff
         cam = new OrthographicCamera();
         viewport = new StretchViewport(Globals.V_WIDTH / Globals.PPM, Globals.V_HEIGHT / Globals.PPM, cam);
@@ -52,6 +57,7 @@ public class PlayScreen implements Screen {
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         world = new World(new Vector2(0, -9.89f), true);
+        world.setContactListener(new WorldPhysicsContactListener(this));
         b2dRenderer = new Box2DDebugRenderer();
 
         new WorldPhysicsCreator(this);
@@ -60,8 +66,8 @@ public class PlayScreen implements Screen {
         //Spawns the player at a location designated on the map
         player = new Player(this,
                 new PlayerInputAdapter(player),
-                new Vector2(level.getLayers().get("spawnPoint").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
-                            level.getLayers().get("spawnPoint").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
+                new Vector2(level.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
+                        level.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
                 )
         );
         cam.position.y = player.body.getPosition().y;
@@ -77,6 +83,7 @@ public class PlayScreen implements Screen {
 
     /**
      * Calculates all physics on behalf of the world
+     *
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     private void tick(float delta) {
@@ -96,6 +103,7 @@ public class PlayScreen implements Screen {
 
     /**
      * Renders all the things
+     *
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     @Override
@@ -117,7 +125,8 @@ public class PlayScreen implements Screen {
 
     /**
      * Updates the screen's width and height when resized
-     * @param width new screen width
+     *
+     * @param width  new screen width
      * @param height new screen height
      */
     @Override
@@ -161,10 +170,22 @@ public class PlayScreen implements Screen {
 
     /**
      * Gets the world for anyone who needs it
+     *
      * @return the world
      */
     public World getWorld() {
         return world;
+    }
+
+    public void switchLevel() {
+        if (!level.getProperties().get("hasCutscene", Boolean.class)) {
+            prefs.putString("Level", level.getProperties().get("nextLevel", String.class));
+            prefs.flush();
+            game.setScreen(new PlayScreen(game, prefs.getString("Level")));
+        } else {
+            //Play Cutscene or whatever...
+        }
+
     }
 }
 

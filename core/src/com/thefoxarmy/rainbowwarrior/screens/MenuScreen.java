@@ -1,6 +1,7 @@
 package com.thefoxarmy.rainbowwarrior.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -26,6 +27,7 @@ public class MenuScreen implements Screen {
     private Skin skin;
     private Table table;
     private TextButton btnContinue;
+    private Preferences prefs;
     //private TextButton btnBattle;
     //private TextButton btnQuit;
 
@@ -35,6 +37,7 @@ public class MenuScreen implements Screen {
      */
     public MenuScreen(RainbowWarrior game) {
         this.game = game;
+        prefs = Gdx.app.getPreferences("User Data");
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         mainMenu = new Stage(new ScreenViewport());
@@ -62,8 +65,10 @@ public class MenuScreen implements Screen {
         btnContinue = new TextButton("Continue Game", skin);
         btnContinue.setVisible(false);
         table.padTop(30);
-        if (Gdx.files.local("save.json").exists())
+        if (prefs.contains("Level")) {
             btnContinue.setVisible(true);
+            prefs.flush();
+        }
         table.add(btnContinue).pad(10);
 
         TextButton btnLoad = new TextButton("Load Save", skin);
@@ -79,7 +84,7 @@ public class MenuScreen implements Screen {
         btnContinue.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                loadLevel(new JsonReader().parse(Gdx.files.local("save.json")).getString("level"));
+                loadLevel(prefs.getString("Level"));
             }
         });
 
@@ -101,10 +106,10 @@ public class MenuScreen implements Screen {
     }
 
     private void newSave() {
-        final FileHandle newSave = Gdx.files.local("save.json");
-        final String lvl = "\"level\": \"levels/test.tmx\"";
-        if (!newSave.exists()) {
-            newSave.writeString("{\n" + lvl + "\n}", false);
+
+        if (!prefs.contains("Level")) {
+            prefs.putString("Level", "levels/test.tmx");
+            prefs.flush();
         } else {
             final Dialog dl = new Dialog("Overwrite Existing save?", skin);
 
@@ -114,7 +119,8 @@ public class MenuScreen implements Screen {
             btnYes.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent i, float x, float y) {
-                    newSave.writeString("{\n" + lvl + "\n}", false);
+                    prefs.putString("Level", "test.tmx");
+                    prefs.flush();
                     dl.setVisible(false);
                 }
             });
@@ -137,7 +143,7 @@ public class MenuScreen implements Screen {
     }
 
     private void loadLevel(String level) {
-        game.setScreen(new PlayScreen(game, level));
+        game.setScreen(new PlayScreen(game, prefs.getString("Level")));
     }
 
     @Override

@@ -76,14 +76,8 @@ public class Player extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(15 / Globals.PPM);
         fdef.shape = shape;
+        fdef.filter.categoryBits = Globals.PLAYER_BIT;
         final Fixture fixture = body.createFixture(fdef);
-
-
-        FixtureDef top = new FixtureDef();
-        shape.setRadius(61 / Globals.PPM);
-        shape.setPosition(new Vector2(0, 5).scl(Globals.PPM));
-        top.shape = shape;
-        body.createFixture(top);
         body.setLinearDamping(5f);
     }
 
@@ -111,7 +105,7 @@ public class Player extends Sprite {
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     public void jump(float delta) {
-        body.applyLinearImpulse(new Vector2(0, 4), body.getWorldCenter(), true);
+        body.applyLinearImpulse(new Vector2(0, 7), body.getWorldCenter(), true);
     }
 
     /**

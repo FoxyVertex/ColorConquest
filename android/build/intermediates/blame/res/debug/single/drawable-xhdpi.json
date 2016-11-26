@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
+        "source": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\res\\drawable-xhdpi\\ic_launcher.png"
+    },
+    {
         "merged": "C:\\Users\\aidan\\Projects\\Prismatica\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
         "source": "C:\\Users\\aidan\\Projects\\Prismatica\\android\\res\\drawable-xhdpi\\ic_launcher.png"
     }

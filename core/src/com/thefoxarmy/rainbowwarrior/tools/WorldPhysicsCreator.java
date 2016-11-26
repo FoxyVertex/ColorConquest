@@ -16,21 +16,32 @@ import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
 public class WorldPhysicsCreator {
     /**
      * Sets up all of the physics for the world
+     *
      * @param screen the play screen is used for doing things that this class needs tp do
      */
+    private PolygonShape polygon;
+
     public WorldPhysicsCreator(PlayScreen screen) {
-        PolygonShape polygon = new PolygonShape();
+        polygon = new PolygonShape();
         for (MapObject object : screen.level.getLayers().get("blocks").getObjects()) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            BodyDef bdef = new BodyDef();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / Globals.PPM, (rect.getY() + rect.getHeight() / 2) / Globals.PPM);
-            Body body = screen.getWorld().createBody(bdef);
-            FixtureDef fdef = new FixtureDef();
-            polygon.setAsBox((rect.getWidth() / 2) / Globals.PPM, (rect.getHeight() / 2) / Globals.PPM);
-            fdef.shape = polygon;
-            body.createFixture(fdef);
+            initializeRect(screen, Globals.BLOCK_BIT, object);
         }
+
+        initializeRect(screen, Globals.END_LEVEL_BIT, screen.level.getLayers().get("triggerPoints").getObjects().get("EndPoint"));
+
+    }
+
+    private void initializeRect(PlayScreen screen, short categoryBit, MapObject object) {
+        Rectangle rect = ((RectangleMapObject) object).getRectangle();
+        BodyDef bdef = new BodyDef();
+        bdef.type = BodyDef.BodyType.StaticBody;
+        bdef.position.set((rect.getX() + rect.getWidth() / 2) / Globals.PPM, (rect.getY() + rect.getHeight() / 2) / Globals.PPM);
+        Body body = screen.getWorld().createBody(bdef);
+        FixtureDef fdef = new FixtureDef();
+        polygon.setAsBox((rect.getWidth() / 2) / Globals.PPM, (rect.getHeight() / 2) / Globals.PPM);
+        fdef.shape = polygon;
+        fdef.filter.categoryBits = categoryBit;
+        body.createFixture(fdef);
     }
 
 }

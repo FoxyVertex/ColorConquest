@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="60" tilewidth="16" tileheight="16" nextobjectid="120">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="60" tilewidth="16" tileheight="16" nextobjectid="121">
+ <properties>
+  <property name="hasCutscene" type="bool" value="false"/>
+  <property name="nextLevel" value="levels/level2.tmx"/>
+ </properties>
  <tileset firstgid="1" name="ts_test" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="323" columns="19">
   <image source="ts_test.jpg" trans="ff00ff" width="353" height="305"/>
  </tileset>
@@ -115,10 +119,10 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,163,163,163,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,163,163,163,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,163,163,163,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,163,163,163,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -184,7 +188,8 @@
   <object id="117" x="480" y="544" height="272"/>
   <object id="118" x="0" y="560" height="256"/>
  </objectgroup>
- <objectgroup name="spawnPoint" offsetx="16" offsety="0">
+ <objectgroup name="triggerPoints">
   <object id="119" name="p1SpawnPoint" x="80.75" y="399.75" width="16" height="16"/>
+  <object id="120" name="EndPoint" x="432" y="736" width="48" height="64"/>
  </objectgroup>
 </map>

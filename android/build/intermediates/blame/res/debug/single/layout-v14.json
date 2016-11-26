@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\res\\merged\\debug\\layout-v14\\gdxdialogs_inputtext.xml",
+        "source": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\exploded-aar\\de.tomgrill.gdxdialogs\\gdx-dialogs-android\\1.1.0\\res\\layout-v14\\gdxdialogs_inputtext.xml"
+    },
+    {
         "merged": "C:\\Users\\aidan\\Projects\\Prismatica\\android\\build\\intermediates\\res\\merged\\debug\\layout-v14\\gdxdialogs_inputtext.xml",
         "source": "C:\\Users\\aidan\\Projects\\Prismatica\\android\\build\\intermediates\\exploded-aar\\de.tomgrill.gdxdialogs\\gdx-dialogs-android\\1.1.0\\res\\layout-v14\\gdxdialogs_inputtext.xml"
     }
