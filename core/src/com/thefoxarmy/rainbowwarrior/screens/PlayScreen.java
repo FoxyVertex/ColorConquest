@@ -1,6 +1,7 @@
 package com.thefoxarmy.rainbowwarrior.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,7 +19,6 @@ import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
 import com.thefoxarmy.rainbowwarrior.sprites.Player;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
-import com.thefoxarmy.rainbowwarrior.tools.SaveValuesAsJSON;
 import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsContactListener;
 import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsCreator;
 
@@ -28,7 +28,7 @@ import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsCreator;
 public class PlayScreen implements Screen {
 
     public TiledMap level;
-    public Player player;
+    private Player player;
     public TextureAtlas mainAtlas;
     private RainbowWarrior game;
     //Camera stuff
@@ -38,6 +38,7 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dRenderer;
     private Preferences prefs;
+
     /**
      * Initializes the current level and sets up the playing screen
      *
@@ -87,6 +88,7 @@ public class PlayScreen implements Screen {
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     private void tick(float delta) {
+
         world.step(1 / 60f, 6, 2);
         cam.position.x = player.body.getPosition().x;
         if (player.body.getPosition().y >= (cam.viewportHeight / 4) * 3)
@@ -97,6 +99,8 @@ public class PlayScreen implements Screen {
 
 
         player.tick(delta);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+            pause();
         cam.update();
         mapRenderer.setView(cam);
     }
@@ -177,6 +181,9 @@ public class PlayScreen implements Screen {
         return world;
     }
 
+    /**
+    * Update the user's preferences file and create a new playScreen based on the nextLevel property of the current TiledMap.
+    */
     public void switchLevel() {
         if (!level.getProperties().get("hasCutscene", Boolean.class)) {
             prefs.putString("Level", level.getProperties().get("nextLevel", String.class));

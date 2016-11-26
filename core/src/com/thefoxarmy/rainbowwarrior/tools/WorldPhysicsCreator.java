@@ -11,26 +11,32 @@ import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
 
 /**
- * Sets up all of the physics for the world
+ * This class reads object layers from the currently loaded tiled map and creates box2d fixtures for them in order to create collision for the player.
  */
 public class WorldPhysicsCreator {
     /**
-     * Sets up all of the physics for the world
-     *
-     * @param screen the play screen is used for doing things that this class needs tp do
+     * Loops though each layer and creates fixtures that the player can collide with, and sets up TriggerPoints.
+     * @param screen this instance is used to get the current tiled map.
      */
     private PolygonShape polygon;
 
     public WorldPhysicsCreator(PlayScreen screen) {
         polygon = new PolygonShape();
+        //For every rectangular object in the "blocks" object layer of the tile map, initialize a rectangle to create a physical fixture.
         for (MapObject object : screen.level.getLayers().get("blocks").getObjects()) {
             initializeRect(screen, Globals.BLOCK_BIT, object);
         }
-
+        //Generate fixtures for the endpoints in the triggerPoints object layer of the tiled map so that the player can collide with it to go to the next level.
         initializeRect(screen, Globals.END_LEVEL_BIT, screen.level.getLayers().get("triggerPoints").getObjects().get("EndPoint"));
 
     }
 
+    /**
+     * This method creates a fixture based on a specified tiledMap object. object
+     * @param screen needed for accessing the current level loaded and b2dWorld.
+     * @param categoryBit The "type" of fixture being created. Used in collsions.
+     * @param object The map object that will be used to create the rectangular fixtures.
+     */
     private void initializeRect(PlayScreen screen, short categoryBit, MapObject object) {
         Rectangle rect = ((RectangleMapObject) object).getRectangle();
         BodyDef bdef = new BodyDef();

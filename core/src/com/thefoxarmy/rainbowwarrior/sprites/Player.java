@@ -16,7 +16,7 @@ import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
 
 /**
- * The Player class represents the local player.
+ * This class handles all of the input, animation, and physics for the local player.
  */
 
 public class Player extends Sprite {
@@ -40,7 +40,7 @@ public class Player extends Sprite {
      * Sets up animation, input, and physics for the player.
      * @param screen Used by the player to access things beyond the player class such as the world
      * @param input Used for having multiple local users
-     * @param spawnPoint Used to spawn the player and for the `teleport to spawn` debug key
+     * @param spawnPoint Used to predefine the players spawn location for each map.
      */
 
     public Player(PlayScreen screen, PlayerInputAdapter input, Vector2 spawnPoint) {
@@ -82,7 +82,7 @@ public class Player extends Sprite {
     }
 
     /**
-     * Calculates all physics stuff for the player.
+     * Links the player's sprite's regions to the body, and handles physics caluclations.
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     public void tick(float delta) {
@@ -109,8 +109,8 @@ public class Player extends Sprite {
     }
 
     /**
-     * Calculates and returns the current active player animation.
-     * @return the state in which the player's animation is.
+     * Determent the cornet state in which to the player is, based on the player's current state of motion.
+     * @return the current motion state of the player.
      */
     private State getMotionAnimationState() {
 
