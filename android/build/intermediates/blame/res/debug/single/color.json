@@ -6,13 +6,5 @@
     {
         "merged": "C:\\Users\\aidan\\Projects\\Prismatica\\android\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_button_text_color.xml",
         "source": "C:\\Users\\aidan\\Projects\\Prismatica\\android\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.12.1\\res\\color\\com_facebook_button_text_color.xml"
-    },
-    {
-        "merged": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_send_button_text_color.xml",
-        "source": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.12.1\\res\\color\\com_facebook_send_button_text_color.xml"
-    },
-    {
-        "merged": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\res\\merged\\debug\\color\\com_facebook_button_text_color.xml",
-        "source": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.12.1\\res\\color\\com_facebook_button_text_color.xml"
     }
 ]

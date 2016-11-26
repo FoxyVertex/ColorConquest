@@ -1,29 +1,5 @@
 [
     {
-        "outputFile": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-in\\values-in.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 60,
-                    "endOffset": 111
-                },
-                "from": {
-                    "file": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.12.1\\res\\values-in\\values-in.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 55,
-                        "endColumn": 60,
-                        "endOffset": 111
-                    }
-                }
-            }
-        ]
-    },
-    {
         "outputFile": "C:\\Users\\aidan\\Projects\\Prismatica\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-in\\values-in.xml",
         "map": [
             {
