@@ -30,12 +30,12 @@ public class Player extends Sprite {
     private Animation fallAnim;
 
     private boolean runningRight = false;
-    private Vector2 position;
+    public Vector2 spawnPoint;
 
-    public Player(PlayScreen screen, PlayerInputAdapter input, Vector2 position) {
+    public Player(PlayScreen screen, PlayerInputAdapter input, Vector2 spawnPoint) {
         super(screen.mainAtlas.findRegion("idle"));
 
-        this.position = position;
+        this.spawnPoint = spawnPoint;
         this.world = screen.getWorld();
         def();
 
@@ -48,13 +48,13 @@ public class Player extends Sprite {
         fallAnim = new Animation(1 / 16f, screen.mainAtlas.findRegions("fall"), Animation.PlayMode.LOOP);
         currentAnimation = State.IDLE;
 
-        this.input = new PlayerInputAdapter(screen);
+        this.input = new PlayerInputAdapter(this);
         Gdx.input.setInputProcessor(input);
     }
 
     private void def() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(position.x / Globals.PPM, position.y / Globals.PPM);
+        bdef.position.set(spawnPoint.scl(1 / Globals.PPM));
         bdef.type = BodyDef.BodyType.DynamicBody;
 
         body = world.createBody(bdef);

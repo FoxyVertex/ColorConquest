@@ -52,9 +52,9 @@ public class PlayScreen implements Screen {
         mainAtlas = new TextureAtlas("GreyGuy.pack");
         //Spawns the player at a location designated on the map
         player = new Player(this,
-                new PlayerInputAdapter(this),
+                new PlayerInputAdapter(player),
                 new Vector2(level.getLayers().get("spawnPoint").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
-                        level.getLayers().get("spawnPoint").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
+                            level.getLayers().get("spawnPoint").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
                 )
         );
         cam.position.y = player.body.getPosition().y;
