@@ -50,7 +50,13 @@ public class PlayScreen implements Screen {
         new WorldPhysicsCreator(this);
 
         mainAtlas = new TextureAtlas("GreyGuy.pack");
-        player = new Player(this, new PlayerInputAdapter(this));
+        //Spawns the player at a location designated on the map
+        player = new Player(this,
+                new PlayerInputAdapter(this),
+                new Vector2(level.getLayers().get("spawnPoint").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
+                        level.getLayers().get("spawnPoint").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
+                )
+        );
         cam.position.y = player.body.getPosition().y;
     }
 

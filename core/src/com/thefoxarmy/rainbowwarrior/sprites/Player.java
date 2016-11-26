@@ -17,9 +17,10 @@ import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
 
 public class Player extends Sprite {
     public Body body;
-    FixtureDef fdef;
+    //FixtureDef fdef;
     private World world;
     private PlayerInputAdapter input;
+
     private float timer;
     private Animation idleAnim;
     private State currentAnimation;
@@ -27,11 +28,14 @@ public class Player extends Sprite {
     private Animation walkAnim;
     private Animation jumpAnim;
     private Animation fallAnim;
-    private boolean runningRight = false;
 
-    public Player(PlayScreen screen, PlayerInputAdapter input) {
+    private boolean runningRight = false;
+    private Vector2 position;
+
+    public Player(PlayScreen screen, PlayerInputAdapter input, Vector2 position) {
         super(screen.mainAtlas.findRegion("idle"));
 
+        this.position = position;
         this.world = screen.getWorld();
         def();
 
@@ -50,7 +54,7 @@ public class Player extends Sprite {
 
     private void def() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(100 / Globals.PPM, 500 / Globals.PPM);
+        bdef.position.set(position.x / Globals.PPM, position.y / Globals.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
 
         body = world.createBody(bdef);
