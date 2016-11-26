@@ -15,6 +15,9 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
 
+/**
+ * Handles all of the menus
+ */
 public class MenuScreen implements Screen {
 
 
@@ -26,6 +29,10 @@ public class MenuScreen implements Screen {
     //private TextButton btnBattle;
     //private TextButton btnQuit;
 
+    /**
+     * Sets up the title screen
+     * @param game the main game class
+     */
     public MenuScreen(RainbowWarrior game) {
         this.game = game;
 

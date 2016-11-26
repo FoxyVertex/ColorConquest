@@ -10,8 +10,14 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
 
+/**
+ * Sets up all of the physics for the world
+ */
 public class WorldPhysicsCreator {
-
+    /**
+     * Sets up all of the physics for the world
+     * @param screen the play screen is used for doing things that this class needs tp do
+     */
     public WorldPhysicsCreator(PlayScreen screen) {
         PolygonShape polygon = new PolygonShape();
         for (MapObject object : screen.level.getLayers().get("blocks").getObjects()) {

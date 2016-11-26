@@ -15,6 +15,10 @@ import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
 
+/**
+ * The Player class represents the local player.
+ */
+
 public class Player extends Sprite {
     public Body body;
     //FixtureDef fdef;
@@ -31,6 +35,13 @@ public class Player extends Sprite {
 
     private boolean runningRight = false;
     public Vector2 spawnPoint;
+
+    /**
+     * Sets up animation, input, and physics for the player.
+     * @param screen Used by the player to access things beyond the player class such as the world
+     * @param input Used for having multiple local users
+     * @param spawnPoint Used to spawn the player and for the `teleport to spawn` debug key
+     */
 
     public Player(PlayScreen screen, PlayerInputAdapter input, Vector2 spawnPoint) {
         super(screen.mainAtlas.findRegion("idle"));
@@ -52,6 +63,9 @@ public class Player extends Sprite {
         Gdx.input.setInputProcessor(input);
     }
 
+    /**
+     * Defines all fixtures to create the body of the player.
+     */
     private void def() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(spawnPoint.scl(1 / Globals.PPM));
@@ -73,6 +87,10 @@ public class Player extends Sprite {
         body.setLinearDamping(5f);
     }
 
+    /**
+     * Calculates all physics stuff for the player.
+     * @param delta a float that is the amount of time in seconds since the last frame
+     */
     public void tick(float delta) {
         input.handleInput(delta);
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
@@ -81,14 +99,25 @@ public class Player extends Sprite {
         setRegion(getFrame(delta));
     }
 
+    /**
+     * Discards the player's texture from memory.
+     */
     public void dispose() {
         getTexture().dispose();
     }
 
+    /**
+     * Makes the player jump when called
+     * @param delta a float that is the amount of time in seconds since the last frame
+     */
     public void jump(float delta) {
         body.applyLinearImpulse(new Vector2(0, 4), body.getWorldCenter(), true);
     }
 
+    /**
+     * Calculates and returns the current active player animation.
+     * @return the state in which the player's animation is.
+     */
     private State getMotionAnimationState() {
 
         if (body.getLinearVelocity().y > 0 || body.getLinearVelocity().y < 0 && previousAnimation == State.JUMP) {
@@ -103,6 +132,11 @@ public class Player extends Sprite {
 
     }
 
+    /**
+     * Gets the current frames of the current animation and modifies the animation timer
+     * @param delta a float that is the amount of time in seconds since the last frame
+     * @return a TextureRegion to set the player's animation
+     */
     private TextureRegion getFrame(float delta) {
         currentAnimation = getMotionAnimationState();
         TextureRegion region;
@@ -139,6 +173,9 @@ public class Player extends Sprite {
         return region;
     }
 
+    /**
+     * A bunch of motion states the player could be in
+     */
     private enum State {
         IDLE, JUMP, WALKING, FALLING
     }

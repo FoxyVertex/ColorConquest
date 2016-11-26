@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
 
+/**
+ * The main game class
+ */
 public class RainbowWarrior extends Game {
     public SpriteBatch batch;
 

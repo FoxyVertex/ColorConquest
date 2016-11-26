@@ -18,7 +18,9 @@ import com.thefoxarmy.rainbowwarrior.sprites.Player;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
 import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsCreator;
 
-
+/**
+ * Handles level loading, all of the objects in the world, and anything outside of a menu
+ */
 public class PlayScreen implements Screen {
 
     public TiledMap level;
@@ -32,6 +34,11 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dRenderer;
 
+    /**
+     * Initializes the current level and sets up the playing screen
+     * @param game the main game class
+     * @param path path to the `tmx` level
+     */
     PlayScreen(RainbowWarrior game, String path) {
 
         this.game = game;
@@ -60,11 +67,18 @@ public class PlayScreen implements Screen {
         cam.position.y = player.body.getPosition().y;
     }
 
+    /**
+     * Currently, does nothing
+     */
     @Override
     public void show() {
 
     }
 
+    /**
+     * Calculates all physics on behalf of the world
+     * @param delta a float that is the amount of time in seconds since the last frame
+     */
     private void tick(float delta) {
         world.step(1 / 60f, 6, 2);
         cam.position.x = player.body.getPosition().x;
@@ -80,6 +94,10 @@ public class PlayScreen implements Screen {
         mapRenderer.setView(cam);
     }
 
+    /**
+     * Renders all the things
+     * @param delta a float that is the amount of time in seconds since the last frame
+     */
     @Override
     public void render(float delta) {
         tick(delta);
@@ -97,26 +115,43 @@ public class PlayScreen implements Screen {
 
     }
 
+    /**
+     * Updates the screen's width and height when resized
+     * @param width new screen width
+     * @param height new screen height
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
     }
 
+    /**
+     * Currently, does nothing
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * Currently, does nothing
+     */
     @Override
     public void resume() {
 
     }
 
+    /**
+     * Currently, does nothing
+     */
     @Override
     public void hide() {
 
     }
 
+    /**
+     * Discards all textures in memory
+     */
     @Override
     public void dispose() {
         world.dispose();
@@ -124,6 +159,10 @@ public class PlayScreen implements Screen {
         player.dispose();
     }
 
+    /**
+     * Gets the world for anyone who needs it
+     * @return the world
+     */
     public World getWorld() {
         return world;
     }
