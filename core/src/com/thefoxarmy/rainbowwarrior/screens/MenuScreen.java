@@ -54,6 +54,7 @@ public class MenuScreen implements Screen {
         btnNew.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
+                Assets.playSound(Assets.clickSound);
                 newSave();
             }
         });
@@ -77,6 +78,7 @@ public class MenuScreen implements Screen {
         btnPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
+                Assets.playSound(Assets.clickSound);
                 mainMenu.addActor(table);
             }
         });
@@ -84,6 +86,7 @@ public class MenuScreen implements Screen {
         btnContinue.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
+                Assets.playSound(Assets.clickSound);
                 loadLevel(prefs.getString("Level"));
             }
         });
@@ -105,6 +108,9 @@ public class MenuScreen implements Screen {
 
     }
 
+    /**
+     * Called to create a new save and prompt if override is desirable
+     */
     private void newSave() {
         //If there's no User data, create it, and make the continue button viable.
         if (!prefs.contains("Level")) {
@@ -122,6 +128,7 @@ public class MenuScreen implements Screen {
             btnYes.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent i, float x, float y) {
+                    Assets.playSound(Assets.clickSound);
                     prefs.putString("Level", "levels/test.tmx").flush();
                     dl.setVisible(false);
                 }
@@ -131,6 +138,7 @@ public class MenuScreen implements Screen {
             btnNo.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent i, float x, float y) {
+                    Assets.playSound(Assets.clickSound);
                     dl.setVisible(false);
                 }
             });

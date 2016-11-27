@@ -120,15 +120,24 @@ public class GameScreen implements Screen {
         }
     }
 
+    /**
+     * This is called to update physics for the READY state
+     */
     public void updateReady() {
         if (input.justTouched()) {
             gameState = GameState.RUNNING;
         }
     }
+    /**
+     * This is called to show stuff for the READY state
+     */
     public void presentReady() {
 
     }
 
+    /**
+     * This is called to update physics for the RUNNING state
+     */
     public void updateRunning(float delta) {
         if (input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             gameState = GameState.PAUSED;
@@ -153,6 +162,9 @@ public class GameScreen implements Screen {
         mapRenderer.setView(cam);
         hud.stage.act();
     }
+    /**
+     * This is called to show stuff for the READY state
+     */
     public void presentRunning() {
         mapRenderer.render();
         b2dRenderer.render(world, cam.combined);
@@ -164,6 +176,9 @@ public class GameScreen implements Screen {
         hud.stage.draw();
     }
 
+    /**
+     * This is called to update physics for the PAUSED state
+     */
     public void updatePaused() {
 
         if (input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -173,22 +188,37 @@ public class GameScreen implements Screen {
         }
 
     }
+    /**
+     * This is called to show stuff for the PAUSED state
+     */
     public void presentPaused() {
         game.batch.setProjectionMatrix(pauseMenu.stage.getCamera().combined);
         pauseMenu.stage.act();
         pauseMenu.stage.draw();
     }
 
+    /**
+     * This is called to update physics for the LEVEL_END state
+     */
     public void updateLevelEnd() {
 
     }
+    /**
+     * This is called to show stuff for the LEVEL_END state
+     */
     public void presentLevelEnd() {
 
     }
 
+    /**
+     * This is called to update physics for the SHOW state
+     */
     public void updateGameOver() {
 
     }
+    /**
+     * This is called to show stuff for the SHOW state
+     */
     public void presentGameOver() {
 
     }
@@ -291,6 +321,9 @@ public class GameScreen implements Screen {
 
     }
 
+    /**
+     * This houses the different game states.
+     */
     public enum GameState {
         READY,
         RUNNING,

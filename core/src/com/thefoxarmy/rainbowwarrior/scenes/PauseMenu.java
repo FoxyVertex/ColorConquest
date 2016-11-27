@@ -23,6 +23,8 @@ import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
 
 /**
  * Created by aidan on 11/26/2016.
+ *
+ * This scene allows the game to have a pause menu.
  */
 
 public class PauseMenu implements Disposable {
@@ -34,6 +36,11 @@ public class PauseMenu implements Disposable {
     private TextButton btnResume;
     private TextButton btnQuit;
 
+    /**
+     * This sets up the pause menu's stage and lets it be amazing
+     * @param sb the sprite batch is used to setup the stage
+     * @param screen the GameScreen is used to access the `game` variable to quit the game
+     */
     public PauseMenu(SpriteBatch sb, final GameScreen screen){
         viewport = new ScreenViewport(new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -44,12 +51,14 @@ public class PauseMenu implements Disposable {
             @Override
             public void clicked(InputEvent i, float x, float y) {
                 GameScreen.gameState = GameScreen.GameState.RUNNING;
+                Assets.playSound(Assets.clickSound);
             }
         });
         btnQuit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
                 screen.game.setScreen(new MenuScreen(screen.game));
+                Assets.playSound(Assets.clickSound);
             }
         });
 
@@ -70,6 +79,9 @@ public class PauseMenu implements Disposable {
         stage.dispose();
     }
 
+    /**
+     * This method is called to switch the input adapter to the pausemenu's when shown.
+     */
     public void show() {
         Gdx.input.setInputProcessor(stage);
     }

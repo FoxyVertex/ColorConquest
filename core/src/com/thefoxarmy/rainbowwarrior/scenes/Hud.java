@@ -16,6 +16,8 @@ import com.thefoxarmy.rainbowwarrior.Globals;
 
 /**
  * Created by aidan on 11/26/2016.
+ *
+ * This class represents the heads up display and is currently housing a placeholder for it.
  */
 
 public class Hud implements Disposable {
@@ -36,6 +38,10 @@ public class Hud implements Disposable {
     private Label worldLabel;
     private Label marioLabel;
 
+    /**
+     * The constructor sets up the stage.
+     * @param sb the sprite batch is used to set up the stage.
+     */
     public Hud(SpriteBatch sb){
         //define our tracking variables
         worldTimer = 300;

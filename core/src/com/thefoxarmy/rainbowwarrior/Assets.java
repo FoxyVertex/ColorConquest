@@ -2,6 +2,7 @@ package com.thefoxarmy.rainbowwarrior;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -23,13 +24,18 @@ public class Assets {
     public static AssetManager manager;
     public static TextureAtlas mainAtlas;
 
+    public static Sound clickSound;
+
+    /**
+     * Called on game start. Loads all assets into easily accessible variables.
+     */
     public static void load() {
         manager = new AssetManager();
 
-
+        manager.load("click.wav", Sound.class);
 
         manager.finishLoading();
-
+        clickSound = manager.get("click.wav", Sound.class);
         Assets.mainAtlas = new TextureAtlas("GreyGuy.pack");
 
         playerIdleAnim = new Animation(1 / 16f, Assets.mainAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
@@ -37,5 +43,12 @@ public class Assets {
         playerFallAnim = new Animation(1 / 16f, Assets.mainAtlas.findRegions("fall"), Animation.PlayMode.LOOP);
 
         guiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+    }
+
+    public static void playSound (Sound sound) {
+        /*
+        * TODO: only play if sound is enabled
+        */
+        sound.play(1);
     }
 }
