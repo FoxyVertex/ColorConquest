@@ -4,12 +4,12 @@
         "source": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.12.1\\res\\drawable-mdpi-v4\\com_facebook_button_icon_white.png"
     },
     {
-        "merged": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\com_facebook_tooltip_blue_topnub.png",
-        "source": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.12.1\\res\\drawable-mdpi-v4\\com_facebook_tooltip_blue_topnub.png"
-    },
-    {
         "merged": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\com_facebook_close.png",
         "source": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.12.1\\res\\drawable-mdpi-v4\\com_facebook_close.png"
+    },
+    {
+        "merged": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\com_facebook_tooltip_blue_topnub.png",
+        "source": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\exploded-aar\\com.facebook.android\\facebook-android-sdk\\4.12.1\\res\\drawable-mdpi-v4\\com_facebook_tooltip_blue_topnub.png"
     },
     {
         "merged": "C:\\Users\\seth\\Programming\\Games\\LibGDX\\RainbowWarrior\\android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\com_facebook_button_send_icon_blue.png",
