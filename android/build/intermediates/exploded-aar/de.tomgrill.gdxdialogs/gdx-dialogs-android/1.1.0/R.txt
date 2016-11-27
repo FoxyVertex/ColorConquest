@@ -1,6 +1,0 @@
-int id gdxDialogsEditTextInput 0x7f040003
-int id gdxDialogsEnterMessage 0x7f040002
-int id gdxDialogsEnterTitle 0x7f040001
-int id layout_root 0x7f040000
-int layout gdxdialogs_inputtext 0x7f020000
-int style GdxTheme 0x7f030000
