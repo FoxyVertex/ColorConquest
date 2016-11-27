@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
+import com.thefoxarmy.rainbowwarrior.managers.Assets;
 
 /**
  * The main game class
@@ -15,7 +16,6 @@ public class RainbowWarrior extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-
         Assets.load();
         setScreen(new MenuScreen(this));
     }
