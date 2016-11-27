@@ -1,4 +1,4 @@
-package com.thefoxarmy.rainbowwarrior;
+package com.thefoxarmy.rainbowwarrior.managers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
