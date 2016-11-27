@@ -23,7 +23,7 @@ public class Player extends Sprite {
     public Body body;
     //FixtureDef fdef;
     private World world;
-    private PlayerInputAdapter input;
+    public PlayerInputAdapter input;
 
     private float timer;
     private State currentState;

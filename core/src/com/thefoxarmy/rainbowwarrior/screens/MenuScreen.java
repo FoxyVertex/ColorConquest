@@ -6,12 +6,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.thefoxarmy.rainbowwarrior.Assets;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
 
 /**
@@ -22,7 +24,6 @@ public class MenuScreen implements Screen {
 
     private RainbowWarrior game;
     private Stage mainMenu;
-    private Skin skin;
     private Table table;
     private TextButton btnContinue;
     private Preferences prefs;
@@ -37,20 +38,18 @@ public class MenuScreen implements Screen {
         this.game = game;
         prefs = Gdx.app.getPreferences("User Data"); //Initialize the user preferences.
 
-        skin = new Skin(Gdx.files.internal("uiskin.json"));
         mainMenu = new Stage(new ScreenViewport());
 
 
-        TextButton btnPlay = new TextButton("Play", skin, "default");
+        TextButton btnPlay = new TextButton("Play", Assets.guiSkin, "default");
         btnPlay.setSize(200, 50);
         btnPlay.setPosition(Gdx.graphics.getWidth() / 2 - btnPlay.getWidth() / 2, Gdx.graphics.getHeight() - btnPlay.getHeight() - 40);
-
 
         table = new Table();
         table.setWidth(mainMenu.getWidth());
         table.setPosition(Gdx.graphics.getWidth() / 2, btnPlay.getY() - 50, Align.center | Align.top);
 
-        TextButton btnNew = new TextButton("New Game", skin);
+        TextButton btnNew = new TextButton("New Game", Assets.guiSkin);
         //Call the newSave() method when the new button is pushed.
         btnNew.addListener(new ClickListener() {
             @Override
@@ -61,7 +60,7 @@ public class MenuScreen implements Screen {
         table.padTop(15);
         table.add(btnNew).pad(10);
 
-        btnContinue = new TextButton("Continue Game", skin);
+        btnContinue = new TextButton("Continue Game", Assets.guiSkin);
         btnContinue.setVisible(false);
         table.padTop(30);
         //If user data has been stored, the contuse button is viable.
@@ -71,7 +70,7 @@ public class MenuScreen implements Screen {
         }
         table.add(btnContinue).pad(10);
 
-        TextButton btnLoad = new TextButton("Load Save", skin);
+        TextButton btnLoad = new TextButton("Load Save", Assets.guiSkin);
         table.padTop(30);
         table.add(btnLoad).pad(10);
         //When the play button is clicked, load the play options options table.
@@ -114,11 +113,11 @@ public class MenuScreen implements Screen {
             prefs.flush();
             //IF there is User Data, however, create a dialog prompt asking the user if it's okay to overwrite their existing User data.
         } else {
-            final Dialog dl = new Dialog("Overwrite Existing save?", skin);
+            final Dialog dl = new Dialog("Overwrite Existing save?", Assets.guiSkin);
 
             Table btnTable = new Table();
 
-            TextButton btnYes = new TextButton("Yes", skin);
+            TextButton btnYes = new TextButton("Yes", Assets.guiSkin);
             //If the user agrees, their userdata will be overwritten, and the dialog will disappear
             btnYes.addListener(new ClickListener() {
                 @Override
@@ -128,7 +127,7 @@ public class MenuScreen implements Screen {
                 }
             });
             //If the user refuses, the dialog will dissapear
-            TextButton btnNo = new TextButton("No", skin);
+            TextButton btnNo = new TextButton("No", Assets.guiSkin);
             btnNo.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent i, float x, float y) {
