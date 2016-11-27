@@ -28,6 +28,8 @@ import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsCreator;
  */
 public class GameScreen implements Screen {
 
+    GameState gameState;
+
     public TiledMap level;
     private Player player;
     private RainbowWarrior game;
@@ -71,6 +73,7 @@ public class GameScreen implements Screen {
                 )
         );
         cam.position.y = player.body.getPosition().y;
+        gameState = GameState.READY;
     }
 
     /**
@@ -87,7 +90,35 @@ public class GameScreen implements Screen {
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     private void tick(float delta) {
+        switch (gameState) {
+            case READY:
+                updateReady();
+                break;
+            case RUNNING:
+                updateRunning(delta);
+                break;
+            case PAUSED:
+                updatePaused();
+                break;
+            case LEVEL_END:
+                updateLevelEnd();
+                break;
+            case OVER:
+                updateGameOver();
+                break;
+        }
+    }
 
+    public void updateReady() {
+        if (Gdx.input.justTouched()) {
+            gameState = GameState.RUNNING;
+        }
+    }
+    public void presentReady() {
+
+    }
+
+    public void updateRunning(float delta) {
         world.step(1 / 60f, 6, 2);
         cam.position.x = player.body.getPosition().x;
         cam.position.y = player.body.getPosition().y;
@@ -99,12 +130,36 @@ public class GameScreen implements Screen {
         cam.position.y = Utilities.clamp(player.body.getPosition().y, cam.viewportHeight / 2, (mapPixelHeight / Globals.PPM) - (cam.viewportHeight / 2));
 
 
+
         player.tick(delta);
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
-            pause();
         cam.update();
         mapRenderer.setView(cam);
     }
+    public void presentRunning() {
+        player.draw(game.batch);
+    }
+
+    public void updatePaused() {
+
+    }
+    public void presentPaused() {
+
+    }
+
+    public void updateLevelEnd() {
+
+    }
+    public void presentLevelEnd() {
+
+    }
+
+    public void updateGameOver() {
+
+    }
+    public void presentGameOver() {
+
+    }
+
 
     /**
      * Renders all the things
@@ -115,17 +170,28 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         tick(delta);
 
-
-        //Drawing Area
         mapRenderer.render();
-
-
         game.batch.setProjectionMatrix(cam.combined);
         game.batch.begin();
-        player.draw(game.batch);
+        switch (gameState) {
+            case READY:
+                presentReady();
+                break;
+            case RUNNING:
+                presentRunning();
+                break;
+            case PAUSED:
+                presentPaused();
+                break;
+            case LEVEL_END:
+                presentLevelEnd();
+                break;
+            case OVER:
+                presentGameOver();
+                break;
+        }
         game.batch.end();
         b2dRenderer.render(world, cam.combined);
-
     }
 
     /**
@@ -194,6 +260,14 @@ public class GameScreen implements Screen {
             //Play Cutscene or whatever...
         }
 
+    }
+
+    public enum GameState {
+        READY,
+        RUNNING,
+        PAUSED,
+        LEVEL_END,
+        OVER
     }
 }
 
