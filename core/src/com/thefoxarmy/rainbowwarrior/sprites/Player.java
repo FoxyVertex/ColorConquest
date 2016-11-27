@@ -1,7 +1,6 @@
 package com.thefoxarmy.rainbowwarrior.sprites;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -13,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.thefoxarmy.rainbowwarrior.Assets;
 import com.thefoxarmy.rainbowwarrior.Globals;
-import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
+import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
 
 /**
@@ -41,7 +40,7 @@ public class Player extends Sprite {
      * @param spawnPoint Used to predefine the players spawn location for each map.
      */
 
-    public Player(PlayScreen screen, PlayerInputAdapter input, Vector2 spawnPoint) {
+    public Player(GameScreen screen, PlayerInputAdapter input, Vector2 spawnPoint) {
         super(Assets.mainAtlas.findRegion("idle"));
 
         this.spawnPoint = spawnPoint;

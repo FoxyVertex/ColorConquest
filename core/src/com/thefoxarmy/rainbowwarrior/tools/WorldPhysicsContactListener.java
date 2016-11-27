@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.thefoxarmy.rainbowwarrior.Globals;
-import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
+import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 
 /**
  * Created by seth on 11/26/2016.
@@ -16,12 +16,12 @@ import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
 
 public class WorldPhysicsContactListener implements ContactListener {
 
-    private PlayScreen screen;
+    private GameScreen screen;
     /**
      * Instantiates an instance of a worldContactlistener for the world to use.
      * @param screen Used in order to access other objects within the current level loaded.
      */
-    public WorldPhysicsContactListener(PlayScreen screen) {
+    public WorldPhysicsContactListener(GameScreen screen) {
         this.screen = screen;
     }
 

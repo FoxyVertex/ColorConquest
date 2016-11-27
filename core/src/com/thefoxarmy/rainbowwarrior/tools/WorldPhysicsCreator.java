@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.thefoxarmy.rainbowwarrior.Globals;
-import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
+import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 
 /**
  * This class reads object layers from the currently loaded tiled map and creates box2d fixtures for them in order to create collision for the player.
@@ -20,7 +20,7 @@ public class WorldPhysicsCreator {
      */
     private PolygonShape polygon;
 
-    public WorldPhysicsCreator(PlayScreen screen) {
+    public WorldPhysicsCreator(GameScreen screen) {
         polygon = new PolygonShape();
         //For every rectangular object in the "blocks" object layer of the tile map, initialize a rectangle to create a physical fixture.
         for (MapObject object : screen.level.getLayers().get("blocks").getObjects()) {
@@ -37,7 +37,7 @@ public class WorldPhysicsCreator {
      * @param categoryBit The "type" of fixture being created. Used in collsions.
      * @param object The map object that will be used to create the rectangular fixtures.
      */
-    private void initializeRect(PlayScreen screen, short categoryBit, MapObject object) {
+    private void initializeRect(GameScreen screen, short categoryBit, MapObject object) {
         Rectangle rect = ((RectangleMapObject) object).getRectangle();
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.StaticBody;

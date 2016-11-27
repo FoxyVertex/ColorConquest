@@ -3,7 +3,6 @@ package com.thefoxarmy.rainbowwarrior.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
 
@@ -120,17 +118,17 @@ public class MenuScreen implements Screen {
 
             Table btnTable = new Table();
 
-            TextButton btnYes = new TextButton("Ja", skin);
+            TextButton btnYes = new TextButton("Yes", skin);
             //If the user agrees, their userdata will be overwritten, and the dialog will disappear
             btnYes.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent i, float x, float y) {
-                    prefs.putString("Level", "test.tmx").flush();
+                    prefs.putString("Level", "levels/test.tmx").flush();
                     dl.setVisible(false);
                 }
             });
             //If the user refuses, the dialog will dissapear
-            TextButton btnNo = new TextButton("NEIN", skin);
+            TextButton btnNo = new TextButton("No", skin);
             btnNo.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent i, float x, float y) {
@@ -152,7 +150,7 @@ public class MenuScreen implements Screen {
      * @param level string to load the TMX.
      */
     private void loadLevel(String level) {
-        game.setScreen(new PlayScreen(game, prefs.getString("Level")));
+        game.setScreen(new GameScreen(game, prefs.getString("Level")));
     }
 
     @Override

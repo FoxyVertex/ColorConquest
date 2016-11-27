@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -15,18 +15,18 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.thefoxarmy.rainbowwarrior.Assets;
 import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
 import com.thefoxarmy.rainbowwarrior.sprites.Player;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
+import com.thefoxarmy.rainbowwarrior.tools.Utilities;
 import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsContactListener;
 import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsCreator;
 
 /**
  * Handles level loading, all of the objects in the world, and anything outside of a menu
  */
-public class PlayScreen implements Screen {
+public class GameScreen implements Screen {
 
     public TiledMap level;
     private Player player;
@@ -45,7 +45,7 @@ public class PlayScreen implements Screen {
      * @param game the main game class
      * @param path path to the `tmx` level
      */
-    PlayScreen(RainbowWarrior game, String path) {
+    GameScreen(RainbowWarrior game, String path) {
 
         this.game = game;
         this.prefs = Gdx.app.getPreferences("User Data");
@@ -90,11 +90,13 @@ public class PlayScreen implements Screen {
 
         world.step(1 / 60f, 6, 2);
         cam.position.x = player.body.getPosition().x;
-        if (player.body.getPosition().y >= (cam.viewportHeight / 4) * 3)
-            cam.position.y = player.body.getPosition().y;
+        cam.position.y = player.body.getPosition().y;
 
-        if (player.body.getPosition().y <= (cam.viewportHeight) / 3)
-            cam.position.y = player.body.getPosition().y;
+        MapProperties levelProps = level.getProperties();
+        int mapPixelWidth = levelProps.get("width", Integer.class) * levelProps.get("tilewidth", Integer.class);
+        int mapPixelHeight = levelProps.get("height", Integer.class) * levelProps.get("tileheight", Integer.class);
+        cam.position.x = Utilities.clamp(player.body.getPosition().x, cam.viewportWidth / 2, (mapPixelWidth / Globals.PPM) - (cam.viewportWidth / 2));
+        cam.position.y = Utilities.clamp(player.body.getPosition().y, cam.viewportHeight / 2, (mapPixelHeight / Globals.PPM) - (cam.viewportHeight / 2));
 
 
         player.tick(delta);
@@ -187,7 +189,7 @@ public class PlayScreen implements Screen {
         if (!level.getProperties().get("hasCutscene", Boolean.class)) {
             prefs.putString("Level", level.getProperties().get("nextLevel", String.class));
             prefs.flush();
-            game.setScreen(new PlayScreen(game, prefs.getString("Level")));
+            game.setScreen(new GameScreen(game, prefs.getString("Level")));
         } else {
             //Play Cutscene or whatever...
         }
