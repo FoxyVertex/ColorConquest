@@ -1,7 +1,7 @@
-/.gradle/
-/.idea/
-/build/
-/android/build/
-/core/build/
-/desktop/build/
+.gradle
+.idea
+build/
+android/build/
+core/build/
+desktop/build/
 .idea/workspace.xml

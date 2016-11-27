@@ -16,6 +16,7 @@ public class RainbowWarrior extends Game {
     public void create() {
         batch = new SpriteBatch();
 
+        Assets.load();
         setScreen(new MenuScreen(this));
     }
 

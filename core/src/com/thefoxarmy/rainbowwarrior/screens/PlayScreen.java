@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.thefoxarmy.rainbowwarrior.Assets;
 import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
 import com.thefoxarmy.rainbowwarrior.sprites.Player;
@@ -29,7 +30,6 @@ public class PlayScreen implements Screen {
 
     public TiledMap level;
     private Player player;
-    public TextureAtlas mainAtlas;
     private RainbowWarrior game;
     //Camera stuff
     private OrthographicCamera cam;
@@ -63,7 +63,6 @@ public class PlayScreen implements Screen {
 
         new WorldPhysicsCreator(this);
 
-        mainAtlas = new TextureAtlas("GreyGuy.pack");
         //Spawns the player at a location designated on the map
         player = new Player(this,
                 new PlayerInputAdapter(player),

@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.thefoxarmy.rainbowwarrior.Assets;
 import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.screens.PlayScreen;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
@@ -26,12 +27,9 @@ public class Player extends Sprite {
     private PlayerInputAdapter input;
 
     private float timer;
-    private Animation idleAnim;
-    private State currentAnimation;
-    private State previousAnimation;
-    private Animation walkAnim;
-    private Animation jumpAnim;
-    private Animation fallAnim;
+    private State currentState;
+    private State previousState;
+
 
     private boolean runningRight = false;
     public Vector2 spawnPoint;
@@ -44,20 +42,15 @@ public class Player extends Sprite {
      */
 
     public Player(PlayScreen screen, PlayerInputAdapter input, Vector2 spawnPoint) {
-        super(screen.mainAtlas.findRegion("idle"));
+        super(Assets.mainAtlas.findRegion("idle"));
 
         this.spawnPoint = spawnPoint;
         this.world = screen.getWorld();
         def();
 
-
         setBounds(0, 0, getRegionWidth() / 8.5f / Globals.PPM, getRegionHeight() / 8.5f / Globals.PPM);
 
-
-        idleAnim = new Animation(1 / 16f, screen.mainAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
-        walkAnim = new Animation(1 / 16f, screen.mainAtlas.findRegions("walk"), Animation.PlayMode.LOOP);
-        fallAnim = new Animation(1 / 16f, screen.mainAtlas.findRegions("fall"), Animation.PlayMode.LOOP);
-        currentAnimation = State.IDLE;
+        currentState = State.IDLE;
 
         this.input = new PlayerInputAdapter(this);
         Gdx.input.setInputProcessor(input);
@@ -114,11 +107,11 @@ public class Player extends Sprite {
      */
     private State getMotionAnimationState() {
 
-        if (body.getLinearVelocity().y > 0 || body.getLinearVelocity().y < 0 && previousAnimation == State.JUMP) {
+        if (body.getLinearVelocity().y > 0 || body.getLinearVelocity().y < 0 && previousState == State.JUMP) {
             return State.JUMP;
         } else if (body.getLinearVelocity().y < 0) {
             return State.FALLING;
-        } else if (body.getLinearVelocity().x != 0 && previousAnimation != State.JUMP) {
+        } else if (body.getLinearVelocity().x != 0 && previousState != State.JUMP) {
             return State.WALKING;
         } else {
             return State.IDLE;
@@ -132,21 +125,21 @@ public class Player extends Sprite {
      * @return a TextureRegion to set the player's animation
      */
     private TextureRegion getFrame(float delta) {
-        currentAnimation = getMotionAnimationState();
+        currentState = getMotionAnimationState();
         TextureRegion region;
 
-        switch (currentAnimation) {
+        switch (currentState) {
             case JUMP:
                 //region = jumpAnim.getKeyFrame(timer);
                 //break;
             case WALKING:
-                region = walkAnim.getKeyFrame(timer, true);
+                region = Assets.playerWalkAnim.getKeyFrame(timer, true);
                 break;
             case FALLING:
-                region = fallAnim.getKeyFrame(timer, true);
+                region = Assets.playerFallAnim.getKeyFrame(timer, true);
                 break;
             default:
-                region = idleAnim.getKeyFrame(timer, true);
+                region = Assets.playerIdleAnim.getKeyFrame(timer, true);
         }
 
         //Flip the character to the direction they're funning
@@ -160,9 +153,9 @@ public class Player extends Sprite {
 
         //if the current state is the same as the previous state increase the state timer.
         //otherwise the state has changed and we need to reset timer.
-        timer = currentAnimation == previousAnimation ? timer + delta : 0;
+        timer = currentState == previousState ? timer + delta : 0;
         //update previous state
-        previousAnimation = currentAnimation;
+        previousState = currentState;
 
         return region;
     }
