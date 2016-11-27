@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
 
 /**
@@ -18,7 +17,6 @@ public class RainbowWarrior extends Game {
         batch = new SpriteBatch();
 
         Assets.load();
-        Levels.load();
         setScreen(new MenuScreen(this));
     }
 
