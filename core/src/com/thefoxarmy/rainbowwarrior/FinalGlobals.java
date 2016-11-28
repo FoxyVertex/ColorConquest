@@ -3,7 +3,7 @@ package com.thefoxarmy.rainbowwarrior;
 /**
  * A set of predefined constant that might need to be used by any class.
  */
-public class Globals {
+public class FinalGlobals {
     public static final float
             V_WIDTH = 400,
             V_HEIGHT = 225,

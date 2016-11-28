@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.thefoxarmy.rainbowwarrior.Globals;
+import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 
 /**
@@ -24,10 +24,10 @@ public class WorldPhysicsCreator {
         polygon = new PolygonShape();
         //For every rectangular object in the "blocks" object layer of the tile map, initialize a rectangle to create a physical fixture.
         for (MapObject object : screen.level.getLayers().get("blocks").getObjects()) {
-            initializeRect(screen, Globals.BLOCK_BIT, object);
+            initializeRect(screen, FinalGlobals.BLOCK_BIT, object);
         }
         //Generate fixtures for the endpoints in the triggerPoints object layer of the tiled map so that the player can collide with it to go to the next level.
-        initializeRect(screen, Globals.END_LEVEL_BIT, screen.level.getLayers().get("triggerPoints").getObjects().get("EndPoint"));
+        initializeRect(screen, FinalGlobals.END_LEVEL_BIT, screen.level.getLayers().get("triggerPoints").getObjects().get("EndPoint"));
 
     }
 
@@ -41,10 +41,10 @@ public class WorldPhysicsCreator {
         Rectangle rect = ((RectangleMapObject) object).getRectangle();
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.StaticBody;
-        bdef.position.set((rect.getX() + rect.getWidth() / 2) / Globals.PPM, (rect.getY() + rect.getHeight() / 2) / Globals.PPM);
+        bdef.position.set((rect.getX() + rect.getWidth() / 2) / FinalGlobals.PPM, (rect.getY() + rect.getHeight() / 2) / FinalGlobals.PPM);
         Body body = screen.getWorld().createBody(bdef);
         FixtureDef fdef = new FixtureDef();
-        polygon.setAsBox((rect.getWidth() / 2) / Globals.PPM, (rect.getHeight() / 2) / Globals.PPM);
+        polygon.setAsBox((rect.getWidth() / 2) / FinalGlobals.PPM, (rect.getHeight() / 2) / FinalGlobals.PPM);
         fdef.shape = polygon;
         fdef.filter.categoryBits = categoryBit;
         body.createFixture(fdef);

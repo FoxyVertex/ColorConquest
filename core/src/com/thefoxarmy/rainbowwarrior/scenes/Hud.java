@@ -1,5 +1,6 @@
 package com.thefoxarmy.rainbowwarrior.scenes;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
-import com.thefoxarmy.rainbowwarrior.Globals;
+import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 
 /**
  * Created by aidan on 11/26/2016.
@@ -17,10 +18,7 @@ import com.thefoxarmy.rainbowwarrior.Globals;
  * This class represents the heads up display and is currently housing a placeholder for it.
  */
 
-public class Hud implements Disposable {
-    //Scene2D.ui Stage and its own Viewport for HUD
-    public Stage stage;
-    private Viewport viewport;
+public class Hud extends Scene {
 
     //Mario score/time Tracking Variables
     private Integer worldTimer;
@@ -37,19 +35,15 @@ public class Hud implements Disposable {
 
     /**
      * The constructor sets up the stage.
-     * @param sb the sprite batch is used to set up the stage.
+     * @param screen the screen is passed to super
      */
-    public Hud(SpriteBatch sb){
+    public Hud(final Screen screen){
+        super(screen);
+
         //define our tracking variables
         worldTimer = 300;
         timeCount = 0;
         score = 0;
-
-
-        //setup the HUD viewport using a new camera seperate from our gamecam
-        //define our stage using that viewport and our games spritebatch
-        viewport = new FitViewport(Globals.V_WIDTH, Globals.V_HEIGHT, new OrthographicCamera());
-        stage = new Stage(viewport, sb);
 
         //define a table used to organize our hud's labels
         Table table = new Table();
@@ -91,5 +85,9 @@ public class Hud implements Disposable {
     @Override
     public void dispose() {
         stage.dispose();
+    }
+
+    public void show() {
+
     }
 }

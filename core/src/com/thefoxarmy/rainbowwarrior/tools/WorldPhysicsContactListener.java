@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.thefoxarmy.rainbowwarrior.Globals;
+import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 
 /**
@@ -38,7 +38,7 @@ public class WorldPhysicsContactListener implements ContactListener {
         int collisionDefinition = fixtureA.getFilterData().categoryBits | fixtureB.getFilterData().categoryBits;
         //Checks to see if a select two kinds of fixtures collide.
         switch (collisionDefinition) {
-            case Globals.PLAYER_BIT | Globals.END_LEVEL_BIT:
+            case FinalGlobals.PLAYER_BIT | FinalGlobals.END_LEVEL_BIT:
                 screen.switchLevel();
         }
     }

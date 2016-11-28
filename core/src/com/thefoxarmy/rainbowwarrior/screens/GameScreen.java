@@ -15,7 +15,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.thefoxarmy.rainbowwarrior.Globals;
+import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
 import com.thefoxarmy.rainbowwarrior.scenes.Hud;
 import com.thefoxarmy.rainbowwarrior.scenes.PauseMenu;
@@ -56,16 +56,16 @@ public class GameScreen implements Screen {
      * @param game the main game class
      * @param path path to the `tmx` level
      */
-    GameScreen(RainbowWarrior game, String path) {
+    public GameScreen(RainbowWarrior game, String path) {
 
         this.game = game;
         this.prefs = Gdx.app.getPreferences("User Data");
         //Camera stuff
         cam = new OrthographicCamera();
-        viewport = new StretchViewport(Globals.V_WIDTH / Globals.PPM, Globals.V_HEIGHT / Globals.PPM, cam);
+        viewport = new StretchViewport(FinalGlobals.V_WIDTH / FinalGlobals.PPM, FinalGlobals.V_HEIGHT / FinalGlobals.PPM, cam);
 
         level = new TmxMapLoader().load(path);
-        mapRenderer = new OrthogonalTiledMapRenderer(level, 1 / Globals.PPM);
+        mapRenderer = new OrthogonalTiledMapRenderer(level, 1 / FinalGlobals.PPM);
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         world = new World(new Vector2(0, -9.89f), true);
@@ -83,8 +83,8 @@ public class GameScreen implements Screen {
         );
         cam.position.y = player.body.getPosition().y;
         gameState = GameState.READY;
-        hud = new Hud(game.batch);
-        pauseMenu = new PauseMenu(game.batch, this);
+        hud = new Hud(this);
+        pauseMenu = new PauseMenu(this);
     }
 
     /**
@@ -152,8 +152,8 @@ public class GameScreen implements Screen {
         MapProperties levelProps = level.getProperties();
         int mapPixelWidth = levelProps.get("width", Integer.class) * levelProps.get("tilewidth", Integer.class);
         int mapPixelHeight = levelProps.get("height", Integer.class) * levelProps.get("tileheight", Integer.class);
-        cam.position.x = Utilities.clamp(player.body.getPosition().x, cam.viewportWidth / 2, (mapPixelWidth / Globals.PPM) - (cam.viewportWidth / 2));
-        cam.position.y = Utilities.clamp(player.body.getPosition().y, cam.viewportHeight / 2, (mapPixelHeight / Globals.PPM) - (cam.viewportHeight / 2));
+        cam.position.x = Utilities.clamp(player.body.getPosition().x, cam.viewportWidth / 2, (mapPixelWidth / FinalGlobals.PPM) - (cam.viewportWidth / 2));
+        cam.position.y = Utilities.clamp(player.body.getPosition().y, cam.viewportHeight / 2, (mapPixelHeight / FinalGlobals.PPM) - (cam.viewportHeight / 2));
 
 
 
@@ -192,6 +192,11 @@ public class GameScreen implements Screen {
      * This is called to show stuff for the PAUSED state
      */
     public void presentPaused() {
+        mapRenderer.render();
+        game.batch.setProjectionMatrix(cam.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
         game.batch.setProjectionMatrix(pauseMenu.stage.getCamera().combined);
         pauseMenu.stage.act();
         pauseMenu.stage.draw();

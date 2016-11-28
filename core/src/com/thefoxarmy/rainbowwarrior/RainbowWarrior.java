@@ -15,9 +15,11 @@ public class RainbowWarrior extends Game {
 
     @Override
     public void create() {
+        DynamicGlobals.game = this;
+        DynamicGlobals.prefs = Gdx.app.getPreferences("User Data");
         batch = new SpriteBatch();
         Assets.load();
-        setScreen(new MenuScreen(this));
+        setScreen(new MenuScreen());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.thefoxarmy.rainbowwarrior.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
@@ -21,10 +23,7 @@ import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
  * This scene allows the game to have a pause menu.
  */
 
-public class PauseMenu implements Disposable {
-
-    public Stage stage;
-    private Viewport viewport;
+public class PauseMenu extends Scene {
 
     //Scene2D widgets
     private TextButton btnResume;
@@ -32,12 +31,10 @@ public class PauseMenu implements Disposable {
 
     /**
      * This sets up the pause menu's stage and lets it be amazing
-     * @param sb the sprite batch is used to setup the stage
-     * @param screen the GameScreen is used to access the `game` variable to quit the game
+     * @param screen the screen is used to be passed to super
      */
-    public PauseMenu(SpriteBatch sb, final GameScreen screen){
-        viewport = new ScreenViewport(new OrthographicCamera());
-        stage = new Stage(viewport, sb);
+    public PauseMenu(final Screen screen){
+        super(screen);
 
         btnResume = new TextButton("Resume", Assets.guiSkin);
         btnQuit = new TextButton("Quit", Assets.guiSkin);
@@ -51,7 +48,7 @@ public class PauseMenu implements Disposable {
         btnQuit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                screen.game.setScreen(new MenuScreen(screen.game));
+                DynamicGlobals.game.setScreen(new MenuScreen());
                 Assets.playSound(Assets.clickSound);
             }
         });
