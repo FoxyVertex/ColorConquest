@@ -48,8 +48,9 @@ public class PauseMenu extends Scene {
         btnQuit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                DynamicGlobals.game.setScreen(new MenuScreen());
+                DynamicGlobals.game.setScreen(DynamicGlobals.menuScreen);
                 Assets.playSound(Assets.clickSound);
+                Gdx.input.setInputProcessor(DynamicGlobals.menuScreen.currentScene.stage);
             }
         });
 
@@ -75,5 +76,9 @@ public class PauseMenu extends Scene {
      */
     public void show() {
         Gdx.input.setInputProcessor(stage);
+    }
+
+    public void tick(float delta) {
+
     }
 }

@@ -42,13 +42,10 @@ public class Assets {
         playerWalkAnim = new Animation(1 / 16f, Assets.mainAtlas.findRegions("walk"), Animation.PlayMode.LOOP);
         playerFallAnim = new Animation(1 / 16f, Assets.mainAtlas.findRegions("fall"), Animation.PlayMode.LOOP);
 
-        guiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        guiSkin = new Skin(Gdx.files.internal("skin/clean-crispy-ui.json"));
     }
 
     public static void playSound (Sound sound) {
-        /*
-        * TODO: only play if sound is enabled
-        */
-        sound.play(1);
+        if (UserPrefs.isSoundEnabled()) sound.play(1);
     }
 }

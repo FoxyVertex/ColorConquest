@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
 import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
 
@@ -16,9 +17,9 @@ public class RainbowWarrior extends Game {
     @Override
     public void create() {
         DynamicGlobals.game = this;
-        DynamicGlobals.prefs = Gdx.app.getPreferences("User Data");
         batch = new SpriteBatch();
         Assets.load();
+        UserPrefs.load();
         setScreen(new MenuScreen());
     }
 

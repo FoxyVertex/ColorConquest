@@ -2,8 +2,6 @@ package com.thefoxarmy.rainbowwarrior.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -15,8 +13,10 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
+import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
 import com.thefoxarmy.rainbowwarrior.scenes.Hud;
 import com.thefoxarmy.rainbowwarrior.scenes.PauseMenu;
 import com.thefoxarmy.rainbowwarrior.sprites.Player;
@@ -30,23 +30,18 @@ import static com.badlogic.gdx.Gdx.input;
 /**
  * Handles level loading, all of the objects in the world, and anything outside of a menu
  */
-public class GameScreen implements Screen {
+public class GameScreen extends Screen {
 
     public static GameState gameState;
 
     public TiledMap level;
     private Player player;
-    public RainbowWarrior game;
     //Camera stuff
     private OrthographicCamera cam;
     private Viewport viewport;
     private TiledMapRenderer mapRenderer;
     private World world;
     private Box2DDebugRenderer b2dRenderer;
-    private Preferences prefs;
-
-    private Hud hud;
-    private PauseMenu pauseMenu;
 
     public float timeSinceStartLevel = 0;
 
@@ -58,8 +53,6 @@ public class GameScreen implements Screen {
      */
     public GameScreen(RainbowWarrior game, String path) {
 
-        this.game = game;
-        this.prefs = Gdx.app.getPreferences("User Data");
         //Camera stuff
         cam = new OrthographicCamera();
         viewport = new StretchViewport(FinalGlobals.V_WIDTH / FinalGlobals.PPM, FinalGlobals.V_HEIGHT / FinalGlobals.PPM, cam);
@@ -77,14 +70,16 @@ public class GameScreen implements Screen {
         //Spawns the player at a location designated on the map
         player = new Player(this,
                 new PlayerInputAdapter(player),
-                new Vector2(level.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
+                new Vector2(
+                        level.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
                         level.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
                 )
         );
         cam.position.y = player.body.getPosition().y;
         gameState = GameState.READY;
-        hud = new Hud(this);
-        pauseMenu = new PauseMenu(this);
+        DynamicGlobals.hudScene = new Hud(this);
+        DynamicGlobals.pauseMenuScene = new PauseMenu(this);
+        DynamicGlobals.gameScreen = this;
     }
 
     /**
@@ -141,7 +136,7 @@ public class GameScreen implements Screen {
     public void updateRunning(float delta) {
         if (input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             gameState = GameState.PAUSED;
-            pauseMenu.show();
+            DynamicGlobals.pauseMenuScene.show();
             return;
         }
 
@@ -160,7 +155,7 @@ public class GameScreen implements Screen {
         player.tick(delta);
         cam.update();
         mapRenderer.setView(cam);
-        hud.stage.act();
+        DynamicGlobals.hudScene.stage.act();
     }
     /**
      * This is called to show stuff for the READY state
@@ -168,12 +163,12 @@ public class GameScreen implements Screen {
     public void presentRunning() {
         mapRenderer.render();
         b2dRenderer.render(world, cam.combined);
-        game.batch.setProjectionMatrix(cam.combined);
-        game.batch.begin();
-        player.draw(game.batch);
-        game.batch.end();
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+        DynamicGlobals.game.batch.setProjectionMatrix(cam.combined);
+        DynamicGlobals.game.batch.begin();
+        player.draw(DynamicGlobals.game.batch);
+        DynamicGlobals.game.batch.end();
+        DynamicGlobals.game.batch.setProjectionMatrix(DynamicGlobals.hudScene.stage.getCamera().combined);
+        DynamicGlobals.hudScene.stage.draw();
     }
 
     /**
@@ -193,13 +188,13 @@ public class GameScreen implements Screen {
      */
     public void presentPaused() {
         mapRenderer.render();
-        game.batch.setProjectionMatrix(cam.combined);
-        game.batch.begin();
-        player.draw(game.batch);
-        game.batch.end();
-        game.batch.setProjectionMatrix(pauseMenu.stage.getCamera().combined);
-        pauseMenu.stage.act();
-        pauseMenu.stage.draw();
+        DynamicGlobals.game.batch.setProjectionMatrix(cam.combined);
+        DynamicGlobals.game.batch.begin();
+        player.draw(DynamicGlobals.game.batch);
+        DynamicGlobals.game.batch.end();
+        DynamicGlobals.game.batch.setProjectionMatrix(DynamicGlobals.pauseMenuScene.stage.getCamera().combined);
+        DynamicGlobals.pauseMenuScene.stage.act();
+        DynamicGlobals.pauseMenuScene.stage.draw();
     }
 
     /**
@@ -316,9 +311,8 @@ public class GameScreen implements Screen {
     */
     public void switchLevel() {
         if (!level.getProperties().get("hasCutscene", Boolean.class)) {
-            prefs.putString("Level", level.getProperties().get("nextLevel", String.class));
-            prefs.flush();
-            game.setScreen(new GameScreen(game, prefs.getString("Level")));
+            UserPrefs.setLevel(level.getProperties().get("nextLevel", String.class));
+            DynamicGlobals.game.setScreen(new GameScreen(DynamicGlobals.game, UserPrefs.getLevel()));
             timeSinceStartLevel = 0;
         } else {
             //Play Cutscene or whatever...

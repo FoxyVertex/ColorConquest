@@ -11,6 +11,8 @@ public class FinalGlobals {
 
     public static String TITLE = "Rainbow Warrior";
 
+    public static String firstLevel = "levels/test.tmx";
+
     //Collision bits made to test object collsions MUST BE A POWER OF 2
     public static final short NOTHING_BIT = 0,
             BLOCK_BIT = 1,

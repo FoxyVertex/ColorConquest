@@ -60,12 +60,12 @@ public class Hud extends Scene {
         worldLabel = new Label("WORLD", Assets.guiSkin);
         marioLabel = new Label("MARIO", Assets.guiSkin);
 
-        countdownLabel.setFontScale(0.5f);
-        scoreLabel.setFontScale(0.5f);
-        timeLabel.setFontScale(0.5f);
-        levelLabel.setFontScale(0.5f);
-        worldLabel.setFontScale(0.5f);
-        marioLabel.setFontScale(0.5f);
+        countdownLabel.setFontScale(1.5f);
+        scoreLabel.setFontScale(1.5f);
+        timeLabel.setFontScale(1.5f);
+        levelLabel.setFontScale(1.5f);
+        worldLabel.setFontScale(1.5f);
+        marioLabel.setFontScale(1.5f);
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
         table.add(marioLabel).expandX().padTop(10);
@@ -88,6 +88,10 @@ public class Hud extends Scene {
     }
 
     public void show() {
+
+    }
+
+    public void tick(float delta) {
 
     }
 }
