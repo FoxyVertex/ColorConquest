@@ -64,7 +64,7 @@ public class PlayMenu extends Scene {
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
