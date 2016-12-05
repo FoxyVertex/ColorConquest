@@ -12,3 +12,9 @@
 /android/android.iml
 *.iml
 RainbowWarrior.ipr
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
