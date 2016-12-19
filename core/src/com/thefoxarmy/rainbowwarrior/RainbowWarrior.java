@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
+import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
 
@@ -22,7 +23,9 @@ public class RainbowWarrior extends Game {
         Assets.load();
         UserPrefs.load();
         Levels.load();
+        new GameScreen();
         setScreen(new MenuScreen());
+
     }
 
     @Override

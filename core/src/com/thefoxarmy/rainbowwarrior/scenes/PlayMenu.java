@@ -127,6 +127,6 @@ public class PlayMenu extends Scene {
      * @param level string to load the TMX.
      */
     private void loadLevel(String level) {
-        DynamicGlobals.game.setScreen(new GameScreen(Levels.levels.get(Levels.currentLevel)));
+        DynamicGlobals.game.setScreen(DynamicGlobals.gameScreen);
     }
 }

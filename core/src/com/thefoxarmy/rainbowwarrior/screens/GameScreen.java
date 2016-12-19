@@ -47,17 +47,26 @@ public class GameScreen extends Screen {
     public float timeSinceStartLevel = 0;
 
     /**
-     * Initializes the current tiledMap and sets up the playing screen
-     *
-     * @param path path to the `tmx` tiledMap
+     * Sets up the GameScreen for being cached
      */
-    public GameScreen(Levels.Level level) {
+    public GameScreen() {
+        Levels.Level level = Levels.levels.get(UserPrefs.getLevel());
         this.currentLevel = level;
 
         //Camera stuff
         cam = new OrthographicCamera();
         viewport = new StretchViewport(FinalGlobals.V_WIDTH / FinalGlobals.PPM, FinalGlobals.V_HEIGHT / FinalGlobals.PPM, cam);
 
+        DynamicGlobals.hudScene = new Hud(this);
+        DynamicGlobals.pauseMenuScene = new PauseMenu(this);
+        DynamicGlobals.gameScreen = this;
+    }
+
+    /**
+     * Currently, does nothing
+     */
+    @Override
+    public void show() {
         tiledMap = new TmxMapLoader().load(currentLevel.path);
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / FinalGlobals.PPM);
 
@@ -78,17 +87,6 @@ public class GameScreen extends Screen {
         );
         cam.position.y = player.body.getPosition().y;
         gameState = GameState.READY;
-        DynamicGlobals.hudScene = new Hud(this);
-        DynamicGlobals.pauseMenuScene = new PauseMenu(this);
-        DynamicGlobals.gameScreen = this;
-    }
-
-    /**
-     * Currently, does nothing
-     */
-    @Override
-    public void show() {
-
     }
 
     /**
@@ -308,13 +306,26 @@ public class GameScreen extends Screen {
     /**
     * Update the user's preferences file and create a new playScreen based on the nextLevel property of the current TiledMap.
     */
-    public void switchLevel() {
-        if (!currentLevel.hasCutscene) {
-            UserPrefs.setLevel(currentLevel.nextLevel.index);
-            DynamicGlobals.game.setScreen(new GameScreen(Levels.levels.get(UserPrefs.getLevel())));
-            timeSinceStartLevel = 0;
+    public void switchLevel(Levels.Level nextLevel) {
+        // This is the previous level switching code
+//        if (!currentLevel.hasCutscene) {
+//            UserPrefs.setLevel(currentLevel.nextLevel.index);
+//            DynamicGlobals.game.setScreen(new GameScreen(Levels.levels.get(UserPrefs.getLevel())));
+//            timeSinceStartLevel = 0;
+//        } else {
+//            //Play Cutscene or whatever...
+//        }
+
+        if (currentLevel.hasCutscene) {
+            // TODO: Implement CutScenes
+            // For now, this will just load the next level
+            currentLevel = nextLevel;
+            UserPrefs.setLevel(nextLevel.index);
+            this.show();
         } else {
-            //Play Cutscene or whatever...
+            currentLevel = nextLevel;
+            UserPrefs.setLevel(nextLevel.index);
+            this.show();
         }
 
     }

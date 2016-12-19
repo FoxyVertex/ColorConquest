@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
+import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 
 /**
@@ -39,7 +40,9 @@ public class WorldPhysicsContactListener implements ContactListener {
         //Checks to see if a select two kinds of fixtures collide.
         switch (collisionDefinition) {
             case FinalGlobals.PLAYER_BIT | FinalGlobals.END_LEVEL_BIT:
-                screen.switchLevel();
+                Levels.Level nextLevel = screen.currentLevel.nextLevel;
+                screen.switchLevel(nextLevel);
+                break;
         }
     }
 
