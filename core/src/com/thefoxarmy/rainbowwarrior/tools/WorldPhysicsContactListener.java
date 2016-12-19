@@ -19,7 +19,7 @@ public class WorldPhysicsContactListener implements ContactListener {
     private GameScreen screen;
     /**
      * Instantiates an instance of a worldContactlistener for the world to use.
-     * @param screen Used in order to access other objects within the current level loaded.
+     * @param screen Used in order to access other objects within the current tiledMap loaded.
      */
     public WorldPhysicsContactListener(GameScreen screen) {
         this.screen = screen;

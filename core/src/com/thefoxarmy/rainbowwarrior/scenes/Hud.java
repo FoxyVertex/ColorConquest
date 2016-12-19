@@ -22,7 +22,6 @@ public class Hud extends Scene {
 
     //Mario score/time Tracking Variables
     private Integer worldTimer;
-    private float timeCount;
     private Integer score;
 
     //Scene2D widgets
@@ -42,7 +41,6 @@ public class Hud extends Scene {
 
         //define our tracking variables
         worldTimer = 300;
-        timeCount = 0;
         score = 0;
 
         //define a table used to organize our hud's labels
@@ -54,7 +52,7 @@ public class Hud extends Scene {
 
         //define our labels using the String, and a Label style consisting of a font and color
         countdownLabel = new Label(String.format("%03d", worldTimer), Assets.guiSkin);
-        scoreLabel =new Label(String.format("%06d", score), Assets.guiSkin);
+        scoreLabel = new Label(String.format("%06d", score), Assets.guiSkin);
         timeLabel = new Label("TIME", Assets.guiSkin);
         levelLabel = new Label("1-1", Assets.guiSkin);
         worldLabel = new Label("WORLD", Assets.guiSkin);

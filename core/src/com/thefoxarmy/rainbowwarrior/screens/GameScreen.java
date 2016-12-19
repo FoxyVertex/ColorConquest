@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
-import com.thefoxarmy.rainbowwarrior.RainbowWarrior;
+import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
 import com.thefoxarmy.rainbowwarrior.scenes.Hud;
 import com.thefoxarmy.rainbowwarrior.scenes.PauseMenu;
@@ -28,13 +28,14 @@ import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsCreator;
 import static com.badlogic.gdx.Gdx.input;
 
 /**
- * Handles level loading, all of the objects in the world, and anything outside of a menu
+ * Handles tiledMap loading, all of the objects in the world, and anything outside of a menu
  */
 public class GameScreen extends Screen {
 
     public static GameState gameState;
 
-    public TiledMap level;
+    public TiledMap tiledMap;
+    public Levels.Level currentLevel;
     private Player player;
     //Camera stuff
     private OrthographicCamera cam;
@@ -46,19 +47,19 @@ public class GameScreen extends Screen {
     public float timeSinceStartLevel = 0;
 
     /**
-     * Initializes the current level and sets up the playing screen
+     * Initializes the current tiledMap and sets up the playing screen
      *
-     * @param game the main game class
-     * @param path path to the `tmx` level
+     * @param path path to the `tmx` tiledMap
      */
-    public GameScreen(RainbowWarrior game, String path) {
+    public GameScreen(Levels.Level level) {
+        this.currentLevel = level;
 
         //Camera stuff
         cam = new OrthographicCamera();
         viewport = new StretchViewport(FinalGlobals.V_WIDTH / FinalGlobals.PPM, FinalGlobals.V_HEIGHT / FinalGlobals.PPM, cam);
 
-        level = new TmxMapLoader().load(path);
-        mapRenderer = new OrthogonalTiledMapRenderer(level, 1 / FinalGlobals.PPM);
+        tiledMap = new TmxMapLoader().load(currentLevel.path);
+        mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / FinalGlobals.PPM);
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         world = new World(new Vector2(0, -9.89f), true);
@@ -71,8 +72,8 @@ public class GameScreen extends Screen {
         player = new Player(this,
                 new PlayerInputAdapter(player),
                 new Vector2(
-                        level.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
-                        level.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
+                        tiledMap.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
+                        tiledMap.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
                 )
         );
         cam.position.y = player.body.getPosition().y;
@@ -144,13 +145,11 @@ public class GameScreen extends Screen {
         world.step(1 / 60f, 6, 2);
         cam.position.x = player.body.getPosition().x;
         cam.position.y = player.body.getPosition().y;
-        MapProperties levelProps = level.getProperties();
+        MapProperties levelProps = tiledMap.getProperties();
         int mapPixelWidth = levelProps.get("width", Integer.class) * levelProps.get("tilewidth", Integer.class);
         int mapPixelHeight = levelProps.get("height", Integer.class) * levelProps.get("tileheight", Integer.class);
         cam.position.x = Utilities.clamp(player.body.getPosition().x, cam.viewportWidth / 2, (mapPixelWidth / FinalGlobals.PPM) - (cam.viewportWidth / 2));
         cam.position.y = Utilities.clamp(player.body.getPosition().y, cam.viewportHeight / 2, (mapPixelHeight / FinalGlobals.PPM) - (cam.viewportHeight / 2));
-
-
 
         player.tick(delta);
         cam.update();
@@ -310,9 +309,9 @@ public class GameScreen extends Screen {
     * Update the user's preferences file and create a new playScreen based on the nextLevel property of the current TiledMap.
     */
     public void switchLevel() {
-        if (!level.getProperties().get("hasCutscene", Boolean.class)) {
-            UserPrefs.setLevel(level.getProperties().get("nextLevel", String.class));
-            DynamicGlobals.game.setScreen(new GameScreen(DynamicGlobals.game, UserPrefs.getLevel()));
+        if (!currentLevel.hasCutscene) {
+            UserPrefs.setLevel(currentLevel.nextLevel.index);
+            DynamicGlobals.game.setScreen(new GameScreen(Levels.levels.get(UserPrefs.getLevel())));
             timeSinceStartLevel = 0;
         } else {
             //Play Cutscene or whatever...

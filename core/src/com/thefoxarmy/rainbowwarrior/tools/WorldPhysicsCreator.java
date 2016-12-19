@@ -23,17 +23,17 @@ public class WorldPhysicsCreator {
     public WorldPhysicsCreator(GameScreen screen) {
         polygon = new PolygonShape();
         //For every rectangular object in the "blocks" object layer of the tile map, initialize a rectangle to create a physical fixture.
-        for (MapObject object : screen.level.getLayers().get("blocks").getObjects()) {
+        for (MapObject object : screen.tiledMap.getLayers().get("blocks").getObjects()) {
             initializeRect(screen, FinalGlobals.BLOCK_BIT, object);
         }
-        //Generate fixtures for the endpoints in the triggerPoints object layer of the tiled map so that the player can collide with it to go to the next level.
-        initializeRect(screen, FinalGlobals.END_LEVEL_BIT, screen.level.getLayers().get("triggerPoints").getObjects().get("EndPoint"));
+        //Generate fixtures for the endpoints in the triggerPoints object layer of the tiled map so that the player can collide with it to go to the next tiledMap.
+        initializeRect(screen, FinalGlobals.END_LEVEL_BIT, screen.tiledMap.getLayers().get("triggerPoints").getObjects().get("EndPoint"));
 
     }
 
     /**
      * This method creates a fixture based on a specified tiledMap object. object
-     * @param screen needed for accessing the current level loaded and b2dWorld.
+     * @param screen needed for accessing the current tiledMap loaded and b2dWorld.
      * @param categoryBit The "type" of fixture being created. Used in collsions.
      * @param object The map object that will be used to create the rectangular fixtures.
      */

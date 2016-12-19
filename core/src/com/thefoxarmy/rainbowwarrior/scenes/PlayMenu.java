@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
+import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.screens.Screen;
@@ -82,7 +83,7 @@ public class PlayMenu extends Scene {
      */
     private void newSave() {
         //If there's no User data, create it, and make the continue button viable.
-        if (!UserPrefs.gdxPrefs.contains("level")) {
+        if (!UserPrefs.gdxPrefs.contains("tiledMap")) {
 
             UserPrefs.setLevel(FinalGlobals.firstLevel);
             //IF there is User Data, however, create a dialog prompt asking the user if it's okay to overwrite their existing User data.
@@ -126,6 +127,6 @@ public class PlayMenu extends Scene {
      * @param level string to load the TMX.
      */
     private void loadLevel(String level) {
-        DynamicGlobals.game.setScreen(new GameScreen(DynamicGlobals.game, UserPrefs.getLevel()));
+        DynamicGlobals.game.setScreen(new GameScreen(Levels.levels.get(Levels.currentLevel)));
     }
 }
