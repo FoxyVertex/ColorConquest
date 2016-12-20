@@ -9,7 +9,7 @@ import com.thefoxarmy.rainbowwarrior.screens.Screen;
 
 public class DynamicGlobals {
     public static RainbowWarrior game;
-    public static int currentGameSave = 19;
+    public static int currentGameSave = 0;
 
     // Screen Cache:
     public static Screen menuScreen;
