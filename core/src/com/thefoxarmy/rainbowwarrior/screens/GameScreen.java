@@ -50,8 +50,7 @@ public class GameScreen extends Screen {
      * Sets up the GameScreen for being cached
      */
     public GameScreen() {
-        Levels.Level level = Levels.levels.get(UserPrefs.getLevel());
-        this.currentLevel = level;
+        this.currentLevel = Levels.levels.get(UserPrefs.getLevel());
 
         //Camera stuff
         cam = new OrthographicCamera();
@@ -71,7 +70,7 @@ public class GameScreen extends Screen {
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / FinalGlobals.PPM);
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
-        world = new World(new Vector2(0, -9.89f), true);
+        world = new World(new Vector2(0, -15), true);
         world.setContactListener(new WorldPhysicsContactListener(this));
         b2dRenderer = new Box2DDebugRenderer();
 

@@ -66,7 +66,7 @@ public class Player extends Sprite {
         body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(15 / FinalGlobals.PPM);
+        shape.setRadius(10 / FinalGlobals.PPM);
         fdef.shape = shape;
         fdef.filter.categoryBits = FinalGlobals.PLAYER_BIT;
         final Fixture fixture = body.createFixture(fdef);
