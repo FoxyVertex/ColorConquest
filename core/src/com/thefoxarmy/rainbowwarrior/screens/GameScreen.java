@@ -51,7 +51,7 @@ public class GameScreen extends Screen {
      * Sets up the GameScreen for being cached
      */
     public GameScreen() {
-        this.currentLevel = Levels.levels.get(UserPrefs.getLevel());
+        this.currentLevel = Levels.levels.get(UserPrefs.getLevel(DynamicGlobals.currentGameSave));
 
         //Camera stuff
         cam = new OrthographicCamera();
@@ -313,11 +313,11 @@ public class GameScreen extends Screen {
             // TODO: Implement CutScenes
             // For now, this will just load the next level
             currentLevel = nextLevel;
-            UserPrefs.setLevel(nextLevel.index);
+            UserPrefs.setLevel(DynamicGlobals.currentGameSave, nextLevel.index);
             this.show();
         } else {
             currentLevel = nextLevel;
-            UserPrefs.setLevel(nextLevel.index);
+            UserPrefs.setLevel(DynamicGlobals.currentGameSave, nextLevel.index);
             this.show();
         }
 

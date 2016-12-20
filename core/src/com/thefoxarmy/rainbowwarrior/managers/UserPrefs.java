@@ -15,9 +15,6 @@ public class UserPrefs {
     // Prefs
     private static boolean soundEnabled;
 
-    // Game progress
-    private static int level;
-
     /**
      * A getter for the soundEnabled variable
      * @return the value of the soundEnabled variable
@@ -47,11 +44,12 @@ public class UserPrefs {
      * A getter for the tiledMap variable
      * @return the value of the tiledMap variable
      */
-    public static int getLevel() {
+    public static int getLevel(int save) {
+        int level;
         if (gdxPrefs.contains("tiledMap"))
-            level = gdxPrefs.getInteger("tiledMap");
+            level = gdxPrefs.getInteger("tiledMap" + save);
         else{
-            gdxPrefs.putInteger("tiledMap", FinalGlobals.firstLevel);
+            gdxPrefs.putInteger("tiledMap" + save, FinalGlobals.firstLevel);
             level = FinalGlobals.firstLevel;
         }
         return level;
@@ -61,9 +59,8 @@ public class UserPrefs {
      * A setter for the tiledMap variable
      * @param level the value to set the tiledMap variable to
      */
-    public static void setLevel(int level) {
-        UserPrefs.level = level;
-        gdxPrefs.putInteger("tiledMap", level);
+    public static void setLevel(int save, int level) {
+        gdxPrefs.putInteger("tiledMap" + save, level);
         gdxPrefs.flush();
         Levels.currentLevel = level;
     }

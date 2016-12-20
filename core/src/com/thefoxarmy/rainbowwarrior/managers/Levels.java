@@ -1,5 +1,7 @@
 package com.thefoxarmy.rainbowwarrior.managers;
 
+import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class Levels {
         levels.add(level1);
         levels.add(level2);
 
-        currentLevel = UserPrefs.getLevel();
+        currentLevel = UserPrefs.getLevel(DynamicGlobals.currentGameSave);
     }
 
     public static class Level {

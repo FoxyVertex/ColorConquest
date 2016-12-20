@@ -30,18 +30,19 @@ public class PlayMenu extends Scene {
         table.center();
         table.setFillParent(true);
 
+        btnContinue = new TextButton("Continue Game", Assets.guiSkin);
+        btnContinue.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent i, float x, float y) {
+                Assets.playSound(Assets.clickSound);
+                loadLevel();
+            }
+        });
+        table.add(btnContinue).expandX();
+        table.row();
         //If user data has been stored, the contuse button is viable.
-        if (UserPrefs.gdxPrefs.contains("Level")) {
-            btnContinue = new TextButton("Continue Game", Assets.guiSkin);
-            btnContinue.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent i, float x, float y) {
-                    Assets.playSound(Assets.clickSound);
-                    loadLevel(UserPrefs.gdxPrefs.getString("Level"));
-                }
-            });
-            table.add(btnContinue).expandX();
-            table.row();
+        if (!UserPrefs.gdxPrefs.contains("tiledMap" + DynamicGlobals.currentGameSave)) {
+            btnContinue.setVisible(false);
         }
 
         TextButton btnLoad = new TextButton("Load Save", Assets.guiSkin);
@@ -83,9 +84,9 @@ public class PlayMenu extends Scene {
      */
     private void newSave() {
         //If there's no User data, create it, and make the continue button viable.
-        if (!UserPrefs.gdxPrefs.contains("tiledMap")) {
+        if (!UserPrefs.gdxPrefs.contains("tiledMap" + DynamicGlobals.currentGameSave)) {
 
-            UserPrefs.setLevel(FinalGlobals.firstLevel);
+            UserPrefs.setLevel(DynamicGlobals.currentGameSave, FinalGlobals.firstLevel);
             //IF there is User Data, however, create a dialog prompt asking the user if it's okay to overwrite their existing User data.
         } else {
             final Dialog dl = new Dialog("Overwrite Existing save?", Assets.guiSkin);
@@ -98,7 +99,7 @@ public class PlayMenu extends Scene {
                 @Override
                 public void clicked(InputEvent i, float x, float y) {
                     Assets.playSound(Assets.clickSound);
-                    UserPrefs.setLevel(FinalGlobals.firstLevel);
+                    UserPrefs.setLevel(DynamicGlobals.currentGameSave, FinalGlobals.firstLevel);
                     dl.setVisible(false);
                 }
             });
@@ -123,10 +124,9 @@ public class PlayMenu extends Scene {
     }
 
     /**
-     * Set the current screen to a new instance of a play screen
-     * @param level string to load the TMX.
+     * Set the current screen to the play screen
      */
-    private void loadLevel(String level) {
+    private void loadLevel() {
         DynamicGlobals.game.setScreen(DynamicGlobals.gameScreen);
     }
 
