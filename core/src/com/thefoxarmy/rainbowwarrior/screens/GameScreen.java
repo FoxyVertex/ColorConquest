@@ -18,6 +18,7 @@ import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
+import com.thefoxarmy.rainbowwarrior.scenes.GameReadyScreen;
 import com.thefoxarmy.rainbowwarrior.scenes.Hud;
 import com.thefoxarmy.rainbowwarrior.scenes.PauseMenu;
 import com.thefoxarmy.rainbowwarrior.sprites.Player;
@@ -37,7 +38,7 @@ public class GameScreen extends Screen {
 
     public TiledMap tiledMap;
     public Levels.Level currentLevel;
-    private Player player;
+    public Player player;
     //Camera stuff
     private OrthographicCamera cam;
     private Viewport viewport;
@@ -59,6 +60,7 @@ public class GameScreen extends Screen {
 
         DynamicGlobals.hudScene = new Hud(this);
         DynamicGlobals.pauseMenuScene = new PauseMenu(this);
+        DynamicGlobals.gameReadyScene = new GameReadyScreen(this);
         DynamicGlobals.gameScreen = this;
     }
 
@@ -87,6 +89,7 @@ public class GameScreen extends Screen {
         );
         cam.position.y = player.body.getPosition().y;
         gameState = GameState.READY;
+        DynamicGlobals.gameReadyScene.show();
     }
 
     /**
@@ -97,7 +100,7 @@ public class GameScreen extends Screen {
     private void tick(float delta) {
         switch (gameState) {
             case READY:
-                updateReady();
+                updateReady(delta);
                 break;
             case RUNNING:
                 updateRunning(delta);
@@ -117,22 +120,20 @@ public class GameScreen extends Screen {
     /**
      * This is called to update physics for the READY state
      */
-    public void updateReady() {
-        if (input.justTouched()) {
-            gameState = GameState.RUNNING;
-        }
+    private void updateReady(float delta) {
+        DynamicGlobals.gameReadyScene.tick(delta);
     }
     /**
      * This is called to show stuff for the READY state
      */
-    public void presentReady() {
-
+    private void presentReady() {
+        DynamicGlobals.gameReadyScene.stage.draw();
     }
 
     /**
      * This is called to update physics for the RUNNING state
      */
-    public void updateRunning(float delta) {
+    private void updateRunning(float delta) {
         if (input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             gameState = GameState.PAUSED;
             DynamicGlobals.pauseMenuScene.show();
@@ -157,7 +158,7 @@ public class GameScreen extends Screen {
     /**
      * This is called to show stuff for the READY state
      */
-    public void presentRunning() {
+    private void presentRunning() {
         mapRenderer.render();
         b2dRenderer.render(world, cam.combined);
         DynamicGlobals.game.batch.setProjectionMatrix(cam.combined);
@@ -171,19 +172,18 @@ public class GameScreen extends Screen {
     /**
      * This is called to update physics for the PAUSED state
      */
-    public void updatePaused() {
+    private void updatePaused() {
 
         if (input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             gameState = GameState.RUNNING;
             Gdx.input.setInputProcessor(player.input);
-            return;
         }
 
     }
     /**
      * This is called to show stuff for the PAUSED state
      */
-    public void presentPaused() {
+    private void presentPaused() {
         mapRenderer.render();
         DynamicGlobals.game.batch.setProjectionMatrix(cam.combined);
         DynamicGlobals.game.batch.begin();
@@ -197,26 +197,26 @@ public class GameScreen extends Screen {
     /**
      * This is called to update physics for the LEVEL_END state
      */
-    public void updateLevelEnd() {
+    private void updateLevelEnd() {
 
     }
     /**
      * This is called to show stuff for the LEVEL_END state
      */
-    public void presentLevelEnd() {
+    private void presentLevelEnd() {
 
     }
 
     /**
      * This is called to update physics for the SHOW state
      */
-    public void updateGameOver() {
+    private void updateGameOver() {
 
     }
     /**
      * This is called to show stuff for the SHOW state
      */
-    public void presentGameOver() {
+    private void presentGameOver() {
 
     }
 

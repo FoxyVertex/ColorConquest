@@ -12,7 +12,7 @@ import com.thefoxarmy.rainbowwarrior.sprites.Player;
  */
 public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
 
-    private float maxJumpForceLength = 0.175f;
+    private float maxJumpForceLength = 0.2f;
     private float currentJumpLength = 0;
     private float forceApplied = 55;
     private boolean isSpacePressed = false;
@@ -47,7 +47,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             isSpacePreviousPressed = true;
         } else {
             currentJumpLength = 0f;
-            canJump = player.body.getLinearVelocity().y == 0;
+            canJump = player.body.getLinearVelocity().y == 0 && !isSpacePreviousPressed;
             isSpacePreviousPressed = false;
         }
 
@@ -76,6 +76,10 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             player.body.setLinearVelocity(new Vector2(0, 0));
             player.body.setTransform(player.spawnPoint, player.body.getAngle());
         }
+
+
+
+
         if (!(currentJumpLength >= maxJumpForceLength) && currentJumpLength > 0 && canJump)
             player.body.applyLinearImpulse(new Vector2(0, forceApplied * delta), player.body.getWorldCenter(), true);
 

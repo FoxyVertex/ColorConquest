@@ -1,6 +1,8 @@
 package com.thefoxarmy.rainbowwarrior;
 
 import com.thefoxarmy.rainbowwarrior.scenes.Scene;
+import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
+import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
 import com.thefoxarmy.rainbowwarrior.screens.Screen;
 
 /**
@@ -12,8 +14,8 @@ public class DynamicGlobals {
     public static int currentGameSave = 0;
 
     // Screen Cache:
-    public static Screen menuScreen;
-    public static Screen gameScreen;
+    public static MenuScreen menuScreen;
+    public static GameScreen gameScreen;
 
     // Scene Cache:
     public static Scene titleScreenScene;
@@ -21,4 +23,5 @@ public class DynamicGlobals {
     public static Scene hudScene;
     public static Scene optionsMenuScreen;
     public static Scene playMenuScene;
+    public static Scene gameReadyScene;
 }

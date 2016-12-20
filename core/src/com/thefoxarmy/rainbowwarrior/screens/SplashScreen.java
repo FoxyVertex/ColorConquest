@@ -19,7 +19,6 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 public class SplashScreen extends Screen {
     private Texture texture;
-    private TextureRegion textureRegion;
     private Stage stage;
 
     @Override
@@ -40,7 +39,7 @@ public class SplashScreen extends Screen {
         stage = new Stage();
         texture = new Texture(Gdx.files.internal("FoxyVertex.png"));
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        textureRegion = new TextureRegion(texture);
+        TextureRegion textureRegion = new TextureRegion(texture);
         Image actorImage = new Image(textureRegion);
         actorImage.getColor().a = 0;
         actorImage.setPosition(Gdx.graphics.getWidth()/2 - (actorImage.getWidth() * 0.8f)/2, Gdx.graphics.getHeight()/2 - (actorImage.getHeight() * 0.8f)/2);
