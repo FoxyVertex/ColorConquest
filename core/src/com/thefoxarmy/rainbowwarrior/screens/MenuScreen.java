@@ -36,7 +36,7 @@ public class MenuScreen extends Screen {
 
     @Override
     public void resize(int width, int height) {
-        currentScene.stage.getViewport().update(width, height, true);
+        currentScene.resize(width, height);
     }
 
     @Override

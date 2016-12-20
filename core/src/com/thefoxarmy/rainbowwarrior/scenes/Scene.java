@@ -50,4 +50,6 @@ public abstract class Scene implements Disposable {
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     public abstract void tick(float delta);
+
+    public abstract void resize(int width, int height);
 }

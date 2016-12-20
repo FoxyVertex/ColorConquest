@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
@@ -257,6 +258,8 @@ public class GameScreen extends Screen {
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height);
+        DynamicGlobals.hudScene.resize(width, height);
+        DynamicGlobals.pauseMenuScene.resize(width, height);
     }
 
     /**
@@ -284,7 +287,7 @@ public class GameScreen extends Screen {
     }
 
     /**
-     * Discards all textures in memory
+     * Discards all assets in memory
      */
     @Override
     public void dispose() {
@@ -306,15 +309,6 @@ public class GameScreen extends Screen {
     * Update the user's preferences file and create a new playScreen based on the nextLevel property of the current TiledMap.
     */
     public void switchLevel(Levels.Level nextLevel) {
-        // This is the previous level switching code
-//        if (!currentLevel.hasCutscene) {
-//            UserPrefs.setLevel(currentLevel.nextLevel.index);
-//            DynamicGlobals.game.setScreen(new GameScreen(Levels.levels.get(UserPrefs.getLevel())));
-//            timeSinceStartLevel = 0;
-//        } else {
-//            //Play Cutscene or whatever...
-//        }
-
         if (currentLevel.hasCutscene) {
             // TODO: Implement CutScenes
             // For now, this will just load the next level

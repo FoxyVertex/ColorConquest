@@ -70,7 +70,7 @@ public class PlayMenu extends Scene {
 
     @Override
     public void tick(float delta) {
-
+        stage.act();
     }
 
     @Override
@@ -128,5 +128,10 @@ public class PlayMenu extends Scene {
      */
     private void loadLevel(String level) {
         DynamicGlobals.game.setScreen(DynamicGlobals.gameScreen);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
     }
 }

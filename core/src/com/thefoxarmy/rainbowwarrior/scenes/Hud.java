@@ -90,6 +90,11 @@ public class Hud extends Scene {
     }
 
     public void tick(float delta) {
+        stage.act();
+    }
 
+    @Override
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
     }
 }
