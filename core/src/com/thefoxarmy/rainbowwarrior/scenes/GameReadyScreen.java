@@ -2,6 +2,7 @@ package com.thefoxarmy.rainbowwarrior.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.ai.steer.behaviors.Alignment;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
@@ -21,7 +22,9 @@ public class GameReadyScreen extends Scene implements InputProcessor {
         Label pressAnyKeyToStart = new Label("Press Any Key to Start the Game", Assets.guiSkin);
         pressAnyKeyToStart.getColor().a = 0;
         pressAnyKeyToStart.setPosition(Gdx.graphics.getWidth()/2 - pressAnyKeyToStart.getWidth()/2, Gdx.graphics.getHeight()/2 - pressAnyKeyToStart.getHeight()/2);
-        SequenceAction actions = new SequenceAction(forever(sequence(fadeIn(1f), delay(1f), fadeOut(1f))));
+        SequenceAction actions = new SequenceAction(forever(sequence(fadeIn(0.2f), fadeOut(0.2f))));
+        pressAnyKeyToStart.setFontScale(1.4f);
+        pressAnyKeyToStart.setAlignment(1);
         pressAnyKeyToStart.addAction(actions);
         stage.addActor(pressAnyKeyToStart);
     }

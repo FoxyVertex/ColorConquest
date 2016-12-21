@@ -2,15 +2,17 @@ package com.thefoxarmy.rainbowwarrior.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
+import com.thefoxarmy.rainbowwarrior.managers.Assets;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 /**
@@ -20,6 +22,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 public class SplashScreen extends Screen {
     private Texture texture;
     private Stage stage;
+    private int currentImageIndex = 0;
 
     @Override
     public void render(float delta) {
@@ -37,22 +40,29 @@ public class SplashScreen extends Screen {
     @Override
     public void show() {
         stage = new Stage();
-        texture = new Texture(Gdx.files.internal("FoxyVertex.png"));
-        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        TextureRegion textureRegion = new TextureRegion(texture);
-        Image actorImage = new Image(textureRegion);
-        actorImage.getColor().a = 0;
-        actorImage.setPosition(Gdx.graphics.getWidth()/2 - (actorImage.getWidth() * 0.8f)/2, Gdx.graphics.getHeight()/2 - (actorImage.getHeight() * 0.8f)/2);
-        actorImage.setScale(0.8f);
 
-        SequenceAction actions = new SequenceAction(sequence(fadeIn(1f), delay(3.5f), fadeOut(1.5f), run(new Runnable() {
-            @Override
-            public void run() {
-                DynamicGlobals.game.setScreen(DynamicGlobals.menuScreen);
+        for (int i = 0; i < Assets.splashScreenLogos.size(); i++) {
+            if (i != Assets.splashScreenLogos.size()-1) {
+                SequenceAction actions = new SequenceAction(sequence(fadeIn(1f), delay(3.5f), fadeOut(1.5f), run(new Runnable() {
+                    @Override
+                    public void run() {
+                        Assets.splashScreenLogos.get(currentImageIndex).remove();
+                        currentImageIndex++;
+                        stage.addActor(Assets.splashScreenLogos.get(currentImageIndex));
+                    }
+                })));
+                Assets.splashScreenLogos.get(i).addAction(actions);
+            } else {
+                SequenceAction actions = new SequenceAction(sequence(fadeIn(1f), delay(3.5f), fadeOut(1.5f), run(new Runnable() {
+                    @Override
+                    public void run() {
+                        DynamicGlobals.game.setScreen(DynamicGlobals.menuScreen);
+                    }
+                })));
+                Assets.splashScreenLogos.get(i).addAction(actions);
             }
-        })));
-        actorImage.addAction(actions);
-        stage.addActor(actorImage);
+        }
+        stage.addActor(Assets.splashScreenLogos.get(currentImageIndex));
     }
 
     @Override
@@ -71,5 +81,17 @@ public class SplashScreen extends Screen {
     @Override
     public void dispose() {
         texture.dispose();
+    }
+
+    public static class SplashLogo {
+        public Image actorImage;
+        public SplashLogo(String file, float scale) {
+            Texture texture = new Texture(Gdx.files.internal(file));
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            actorImage = new Image(new TextureRegion(texture));
+            actorImage.getColor().a = 0;
+            actorImage.setPosition(Gdx.graphics.getWidth()/2 - (actorImage.getWidth() * scale)/2, Gdx.graphics.getHeight()/2 - (actorImage.getHeight() * scale)/2);
+            actorImage.setScale(scale);
+        }
     }
 }
