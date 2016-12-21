@@ -52,7 +52,7 @@ public class Player extends Sprite {
 
         currentState = State.IDLE;
 
-        this.input = new PlayerInputAdapter(this);
+        this.input = new PlayerInputAdapter();
         Gdx.input.setInputProcessor(input);
     }
 

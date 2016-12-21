@@ -79,7 +79,7 @@ public class GameScreen extends Screen {
 
         //Spawns the player at a location designated on the map
         player = new Player(this,
-                new PlayerInputAdapter(player),
+                new PlayerInputAdapter(),
                 new Vector2(
                         tiledMap.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
                         tiledMap.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
@@ -126,6 +126,12 @@ public class GameScreen extends Screen {
      * This is called to show stuff for the READY state
      */
     private void presentReady() {
+        mapRenderer.render();
+        DynamicGlobals.game.batch.setProjectionMatrix(cam.combined);
+        DynamicGlobals.game.batch.begin();
+        player.draw(DynamicGlobals.game.batch);
+        DynamicGlobals.game.batch.end();
+        DynamicGlobals.game.batch.setProjectionMatrix(DynamicGlobals.gameReadyScene.stage.getCamera().combined);
         DynamicGlobals.gameReadyScene.stage.draw();
     }
 
