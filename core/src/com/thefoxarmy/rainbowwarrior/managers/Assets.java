@@ -18,6 +18,8 @@ public class Assets {
     public static Animation playerIdleAnim;
     public static Animation playerWalkAnim;
     public static Animation playerFallAnim;
+    public static Animation playerJumpStartAnimation;
+    public static Animation playerJumpLoopAnimation;
 
     public static Skin guiSkin;
 
@@ -38,9 +40,11 @@ public class Assets {
         clickSound = manager.get("click.wav", Sound.class);
         Assets.mainAtlas = new TextureAtlas("GreyGuy.pack");
 
-        playerIdleAnim = new Animation(1 / 16f, Assets.mainAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
-        playerWalkAnim = new Animation(1 / 16f, Assets.mainAtlas.findRegions("walk"), Animation.PlayMode.LOOP);
-        playerFallAnim = new Animation(1 / 16f, Assets.mainAtlas.findRegions("fall"), Animation.PlayMode.LOOP);
+        playerIdleAnim = new Animation(1 / 60f, Assets.mainAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
+        playerWalkAnim = new Animation(1 / 15f, Assets.mainAtlas.findRegions("walk"), Animation.PlayMode.LOOP);
+        playerFallAnim = new Animation(1 / 4f, Assets.mainAtlas.findRegions("fall"), Animation.PlayMode.LOOP);
+        playerJumpStartAnimation = new Animation(1 / 4f, Assets.mainAtlas.findRegions("jumpstart"), Animation.PlayMode.NORMAL);
+        playerJumpLoopAnimation = new Animation(1 / 8f, Assets.mainAtlas.findRegions("jumploop"), Animation.PlayMode.LOOP);
 
         guiSkin = new Skin(Gdx.files.internal("skin/clean-crispy-ui.json"));
     }

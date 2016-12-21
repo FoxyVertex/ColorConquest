@@ -1,6 +1,7 @@
 package com.thefoxarmy.rainbowwarrior.sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -10,10 +11,12 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
+import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
+
+import jdk.nashorn.internal.runtime.regexp.joni.ast.BackRefNode;
 
 /**
  * This class handles all of the input, animation, and physics for the local player.
@@ -21,22 +24,20 @@ import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
 
 public class Player extends Sprite {
     public Body body;
+    public PlayerInputAdapter input;
+    public Vector2 spawnPoint;
     //FixtureDef fdef;
     private World world;
-    public PlayerInputAdapter input;
-
     private float timer;
     private State currentState;
     private State previousState;
-
-
     private boolean runningRight = false;
-    public Vector2 spawnPoint;
 
     /**
      * Sets up animation, input, and physics for the player.
-     * @param screen Used by the player to access things beyond the player class such as the world
-     * @param input Used for having multiple local users
+     *
+     * @param screen     Used by the player to access things beyond the player class such as the world
+     * @param input      Used for having multiple local users
      * @param spawnPoint Used to predefine the players spawn location for each map.
      */
 
@@ -66,7 +67,7 @@ public class Player extends Sprite {
         body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(10 / FinalGlobals.PPM);
+        shape.setRadius(13 / FinalGlobals.PPM);
         fdef.shape = shape;
         fdef.filter.categoryBits = FinalGlobals.PLAYER_BIT;
         final Fixture fixture = body.createFixture(fdef);
@@ -75,6 +76,7 @@ public class Player extends Sprite {
 
     /**
      * Links the player's sprite's regions to the body, and handles physics caluclations.
+     *
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     public void tick(float delta) {
@@ -94,6 +96,7 @@ public class Player extends Sprite {
 
     /**
      * Makes the player jump when called
+     *
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     public void jump(float delta) {
@@ -102,15 +105,17 @@ public class Player extends Sprite {
 
     /**
      * Determent the cornet state in which to the player is, based on the player's current state of motion.
+     *
      * @return the current motion state of the player.
      */
     private State getMotionAnimationState() {
-
-        if (body.getLinearVelocity().y > 0 || body.getLinearVelocity().y < 0 && previousState == State.JUMP) {
-            return State.JUMP;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+            return State.JUMP_START;
+        if (body.getLinearVelocity().y > 0 || body.getLinearVelocity().y < 0 && previousState == State.JUMP_LOOP) {
+            return State.JUMP_LOOP;
         } else if (body.getLinearVelocity().y < 0) {
             return State.FALLING;
-        } else if (body.getLinearVelocity().x != 0 && previousState != State.JUMP) {
+        } else if (body.getLinearVelocity().x != 0 && previousState != State.JUMP_LOOP) {
             return State.WALKING;
         } else {
             return State.IDLE;
@@ -120,6 +125,7 @@ public class Player extends Sprite {
 
     /**
      * Gets the current frames of the current animation and modifies the animation timer
+     *
      * @param delta a float that is the amount of time in seconds since the last frame
      * @return a TextureRegion to set the player's animation
      */
@@ -128,9 +134,12 @@ public class Player extends Sprite {
         TextureRegion region;
 
         switch (currentState) {
-            case JUMP:
-                //region = jumpAnim.getKeyFrame(timer);
-                //break;
+            case JUMP_START:
+                region = Assets.playerJumpStartAnimation.getKeyFrame(timer, false);
+                break;
+            case JUMP_LOOP:
+                region = Assets.playerJumpLoopAnimation.getKeyFrame(timer, true);
+                break;
             case WALKING:
                 region = Assets.playerWalkAnim.getKeyFrame(timer, true);
                 break;
@@ -163,7 +172,7 @@ public class Player extends Sprite {
      * A bunch of motion states the player could be in
      */
     private enum State {
-        IDLE, JUMP, WALKING, FALLING
+        IDLE, JUMP_START, JUMP_LOOP, WALKING, FALLING
     }
 
 }

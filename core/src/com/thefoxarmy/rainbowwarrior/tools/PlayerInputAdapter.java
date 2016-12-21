@@ -12,15 +12,13 @@ import com.thefoxarmy.rainbowwarrior.sprites.Player;
  */
 public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
 
-    private float maxJumpForceLength = 0.2f;
     private float currentJumpLength = 0;
-    private float forceApplied = 55;
-    private boolean isSpacePressed = false;
     private boolean isSpacePreviousPressed = false;
     private Player player;
     private boolean backKeyPrev = false;
     private boolean forwardKeyPrev = false;
     private boolean canJump = true;
+
     /**
      * Sets the classes player variable to the player
      *
@@ -37,8 +35,9 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
      */
     public void handleInput(float delta) {
 
-        isSpacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
+        boolean isSpacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 
+        float maxJumpForceLength = 0.2f;
         if (isSpacePressed) {
             currentJumpLength += delta;
 
@@ -50,7 +49,6 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             canJump = player.body.getLinearVelocity().y == 0 && !isSpacePreviousPressed;
             isSpacePreviousPressed = false;
         }
-
 
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.S))
@@ -78,8 +76,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
         }
 
 
-
-
+        float forceApplied = 55;
         if (!(currentJumpLength >= maxJumpForceLength) && currentJumpLength > 0 && canJump)
             player.body.applyLinearImpulse(new Vector2(0, forceApplied * delta), player.body.getWorldCenter(), true);
 

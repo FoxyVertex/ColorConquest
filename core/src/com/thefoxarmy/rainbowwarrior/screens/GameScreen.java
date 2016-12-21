@@ -11,7 +11,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
@@ -39,14 +38,13 @@ public class GameScreen extends Screen {
     public TiledMap tiledMap;
     public Levels.Level currentLevel;
     public Player player;
+    public float timeSinceStartLevel = 0;
     //Camera stuff
     private OrthographicCamera cam;
     private Viewport viewport;
     private TiledMapRenderer mapRenderer;
     private World world;
     private Box2DDebugRenderer b2dRenderer;
-
-    public float timeSinceStartLevel = 0;
 
     /**
      * Sets up the GameScreen for being cached
@@ -123,6 +121,7 @@ public class GameScreen extends Screen {
     private void updateReady(float delta) {
         DynamicGlobals.gameReadyScene.tick(delta);
     }
+
     /**
      * This is called to show stuff for the READY state
      */
@@ -155,6 +154,7 @@ public class GameScreen extends Screen {
         mapRenderer.setView(cam);
         DynamicGlobals.hudScene.stage.act();
     }
+
     /**
      * This is called to show stuff for the READY state
      */
@@ -180,6 +180,7 @@ public class GameScreen extends Screen {
         }
 
     }
+
     /**
      * This is called to show stuff for the PAUSED state
      */
@@ -200,6 +201,7 @@ public class GameScreen extends Screen {
     private void updateLevelEnd() {
 
     }
+
     /**
      * This is called to show stuff for the LEVEL_END state
      */
@@ -213,6 +215,7 @@ public class GameScreen extends Screen {
     private void updateGameOver() {
 
     }
+
     /**
      * This is called to show stuff for the SHOW state
      */
@@ -306,8 +309,8 @@ public class GameScreen extends Screen {
     }
 
     /**
-    * Update the user's preferences file and create a new playScreen based on the nextLevel property of the current TiledMap.
-    */
+     * Update the user's preferences file and create a new playScreen based on the nextLevel property of the current TiledMap.
+     */
     public void switchLevel(Levels.Level nextLevel) {
         if (currentLevel.hasCutscene) {
             // TODO: Implement CutScenes
