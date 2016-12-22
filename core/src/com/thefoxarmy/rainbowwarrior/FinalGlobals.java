@@ -18,4 +18,6 @@ public class FinalGlobals {
             BLOCK_BIT = 1,
             PLAYER_BIT = 2,
             END_LEVEL_BIT = 4;
+
+    public static final boolean SKIP_TO_GAME = false;
 }

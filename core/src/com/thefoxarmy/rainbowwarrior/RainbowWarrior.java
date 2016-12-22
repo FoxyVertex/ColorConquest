@@ -24,10 +24,15 @@ public class RainbowWarrior extends Game {
         Assets.load();
         UserPrefs.load();
         Levels.load();
-        new GameScreen();
-        new MenuScreen();
-        setScreen(new SplashScreen());
-
+        if (FinalGlobals.SKIP_TO_GAME) {
+            new SplashScreen();
+            new MenuScreen();
+            setScreen(new GameScreen());
+        } else {
+            new GameScreen();
+            new MenuScreen();
+            setScreen(new SplashScreen());
+        }
     }
 
     @Override

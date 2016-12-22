@@ -14,27 +14,18 @@ import com.thefoxarmy.rainbowwarrior.sprites.Player;
 public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
 
     private float currentJumpLength = 0;
-<<<<<<< HEAD
-=======
     private float forceApplied = 55;
->>>>>>> origin/master
     private boolean isSpacePreviousPressed = false;
 
     private boolean backKeyPrev = false;
     private boolean forwardKeyPrev = false;
     private boolean canJump = true;
-<<<<<<< HEAD
 
     /**
      * Sets the classes player variable to the player
-     *
-     * @param player the instance of the local player for handling input
      */
-    public PlayerInputAdapter(Player player) {
-        this.player = player;
+    public PlayerInputAdapter() {
     }
-=======
->>>>>>> origin/master
 
     /**
      * Handles all of the input
@@ -43,15 +34,9 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
      */
     public void handleInput(float delta) {
 
-<<<<<<< HEAD
-        boolean isSpacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
-
         float maxJumpForceLength = 0.2f;
-        if (isSpacePressed) {
-=======
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
->>>>>>> origin/master
             currentJumpLength += delta;
 
             if (currentJumpLength >= maxJumpForceLength) canJump = false;
@@ -88,8 +73,6 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             DynamicGlobals.gameScreen.player.body.setTransform(DynamicGlobals.gameScreen.player.spawnPoint, DynamicGlobals.gameScreen.player.body.getAngle());
         }
 
-
-        float forceApplied = 55;
         if (!(currentJumpLength >= maxJumpForceLength) && currentJumpLength > 0 && canJump)
             DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, forceApplied * delta), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
 
