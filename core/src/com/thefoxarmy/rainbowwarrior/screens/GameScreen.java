@@ -74,9 +74,7 @@ public class GameScreen extends Screen {
         world = new World(new Vector2(0, -15), true);
         world.setContactListener(new WorldPhysicsContactListener(this));
         b2dRenderer = new Box2DDebugRenderer();
-
-        new WorldPhysicsCreator(this);
-
+        new WorldPhysicsCreator(world, tiledMap);
         //Spawns the player at a location designated on the map
         player = new Player(this,
                 new PlayerInputAdapter(),

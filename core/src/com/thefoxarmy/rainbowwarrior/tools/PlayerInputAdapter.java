@@ -14,7 +14,7 @@ import com.thefoxarmy.rainbowwarrior.sprites.Player;
 public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
 
     private float currentJumpLength = 0;
-    private float forceApplied = 55;
+    public float forceApplied = 55;
     private boolean isSpacePreviousPressed = false;
 
     private boolean backKeyPrev = false;
