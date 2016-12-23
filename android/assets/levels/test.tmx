@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="60" tilewidth="16" tileheight="16" nextobjectid="121">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="60" tilewidth="16" tileheight="16" nextobjectid="125">
  <properties>
   <property name="hasCutscene" type="bool" value="false"/>
   <property name="nextLevel" value="levels/level2.tmx"/>
@@ -72,6 +72,12 @@
 </data>
  </layer>
  <layer name="Gfx" width="30" height="60">
+  <properties>
+   <property name="alha" type="float" value="1"/>
+   <property name="blue" type="float" value="0"/>
+   <property name="green" type="float" value="0"/>
+   <property name="red" type="float" value="255"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -123,7 +129,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,163,163,163,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,163,163,163,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,163,163,163,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,261,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -191,13 +197,19 @@
   <object id="110" x="352" y="384" width="48" height="16"/>
   <object id="111" x="400" y="368" width="48" height="16"/>
   <object id="112" x="432" y="352" width="16" height="16"/>
-  <object id="116" x="0" y="800" width="480" height="16"/>
-  <object id="117" x="464" y="448" width="15.3333" height="272"/>
-  <object id="118" x="0" y="544" width="18" height="256"/>
  </objectgroup>
  <objectgroup name="triggerPoints">
   <object id="119" name="p1SpawnPoint" x="80.75" y="399.75" width="16" height="16"/>
   <object id="120" name="EndPoint" x="432" y="736" width="48" height="64"/>
  </objectgroup>
- <objectgroup name="EditableBlocks"/>
+ <objectgroup name="EditableBlocks">
+  <object id="121" x="0" y="800" width="480" height="16">
+   <properties>
+    <property name="alpha" type="float" value="1"/>
+    <property name="blue" type="float" value="0"/>
+    <property name="green" type="float" value="255"/>
+    <property name="red" type="float" value="255"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

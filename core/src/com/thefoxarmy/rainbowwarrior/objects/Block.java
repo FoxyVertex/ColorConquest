@@ -1,9 +1,7 @@
 package com.thefoxarmy.rainbowwarrior.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
@@ -11,9 +9,13 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 
 /**
@@ -22,9 +24,10 @@ import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 
 public class Block {
 
-    private Fixture physicalBody;
-
     public Block(Boolean editable, Body physicalBody, MapObject object, TiledMap map) {
+
+
+
         TiledMapTileLayer.Cell coveredCell = getCell(physicalBody, map);
         MapProperties objectProps = object.getProperties();
         Color tileColor = Color.BLACK;
@@ -39,8 +42,7 @@ public class Block {
         TiledMapTile currentTile = coveredCell.getTile();
         currentTile.setTextureRegion(tintTexture(currentTile.getTextureRegion(), tileColor));
         coveredCell.setTile(currentTile);
-
-        for(Fixture fixture : physicalBody.getFixtureList()) {
+        for (Fixture fixture : physicalBody.getFixtureList()) {
             fixture.setUserData(tileColor);
         }
 
@@ -56,6 +58,7 @@ public class Block {
         Pixmap colorFill = new Pixmap(tex.getRegionWidth(), tex.getRegionHeight(), Pixmap.Format.RGB888);
         colorFill.setColor(color);
         colorFill.fill();
+
         return new TextureRegion(new Texture(colorFill));
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="56">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" nextobjectid="58">
  <properties>
   <property name="hasCutscene" type="bool" value="false"/>
   <property name="nextLevel" value="levels/test.tmx"/>
@@ -56,7 +56,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,304,0,0,0,0,0,0,0,210,0,0,0,0,
 0,0,0,0,0,0,0,0,3,3,3,3,3,0,0,0,0,0,210,210,210,0,0,0,0,0,0,210,0,0,0,0,
 0,0,0,0,0,0,0,210,210,0,0,0,210,210,0,0,0,0,210,210,210,0,0,0,0,0,210,210,0,0,0,0,
-0,0,0,0,0,0,0,210,0,0,0,0,0,210,0,0,0,0,210,210,210,0,0,0,0,210,210,210,0,0,0,0,
+0,0,0,0,0,0,0,210,0,0,0,0,0,210,0,0,0,0,210,210,210,0,0,0,0,397,397,397,0,0,0,0,
 304,304,304,304,304,3,3,210,0,0,0,0,0,210,210,210,210,210,210,210,210,210,210,210,210,210,210,210,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -87,11 +87,18 @@
  <objectgroup name="EditableBlocks">
   <object id="36" x="112" y="176" width="16" height="32"/>
   <object id="37" x="191.5" y="160" width="32" height="16"/>
-  <object id="38" x="400" y="176" width="48" height="16"/>
+  <object id="38" x="400" y="176" width="48" height="16">
+   <properties>
+    <property name="alpha" type="float" value="255"/>
+    <property name="blue" type="float" value="255"/>
+    <property name="green" type="float" value="0"/>
+    <property name="red" type="float" value="255"/>
+   </properties>
+  </object>
   <object id="39" x="416" y="160" width="32" height="16"/>
   <object id="40" x="0" y="192" width="80.3333" height="16">
    <properties>
-    <property name="alpha" type="float" value="1"/>
+    <property name="alpha" type="float" value="255"/>
     <property name="blue" type="float" value="0"/>
     <property name="green" type="float" value="0"/>
     <property name="red" type="float" value="255"/>
@@ -99,7 +106,7 @@
   </object>
   <object id="41" x="128.5" y="144" width="79.5" height="16">
    <properties>
-    <property name="alpha" type="float" value="0"/>
+    <property name="alpha" type="float" value="255"/>
     <property name="blue" type="float" value="0"/>
     <property name="green" type="float" value="255"/>
     <property name="red" type="float" value="0"/>
@@ -111,7 +118,7 @@
   <object id="45" x="288" y="144" width="48" height="48"/>
   <object id="46" x="304" y="128" width="16" height="16">
    <properties>
-    <property name="alpha" type="float" value="1"/>
+    <property name="alpha" type="float" value="255"/>
     <property name="blue" type="float" value="0"/>
     <property name="green" type="float" value="0"/>
     <property name="red" type="float" value="255"/>
@@ -119,7 +126,7 @@
   </object>
   <object id="54" x="80" y="192" width="31.6666" height="16">
    <properties>
-    <property name="alpha" type="float" value="1"/>
+    <property name="alpha" type="float" value="255"/>
     <property name="blue" type="float" value="0"/>
     <property name="green" type="float" value="255"/>
     <property name="red" type="float" value="0"/>
@@ -127,11 +134,12 @@
   </object>
   <object id="55" x="240" y="64" width="80.3333" height="16">
    <properties>
-    <property name="alpha" type="float" value="1"/>
+    <property name="alpha" type="float" value="255"/>
     <property name="blue" type="float" value="255"/>
     <property name="green" type="float" value="0"/>
     <property name="red" type="float" value="0"/>
    </properties>
   </object>
+  <object id="56" x="258.667" y="5429.33"/>
  </objectgroup>
 </map>

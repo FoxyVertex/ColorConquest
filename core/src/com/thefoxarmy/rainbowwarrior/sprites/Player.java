@@ -10,13 +10,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
-
-import jdk.nashorn.internal.runtime.regexp.joni.ast.BackRefNode;
 
 /**
  * This class handles all of the input, animation, and physics for the local player.
@@ -26,19 +25,19 @@ public class Player extends Sprite {
     public Body body;
     public PlayerInputAdapter input;
     public Vector2 spawnPoint;
+    public float jumpForce = 55;
+    public float maxJumpForce = 100;
+    public float minJumpFox = 55;
+    public float runSpeed = 0.125f;
+    public float maxRunSpeed = 0.2f;
+    public float minRunSpeed = 0.125f;
     //FixtureDef fdef;
     private World world;
     private float timer;
     private State currentState;
     private State previousState;
     private boolean runningRight = false;
-    public float jumpForce = 55;
-    public float maxJumpForce = 100;
-    public float minJumpFox = 55;
 
-    public float runSpeed = 0.125f;
-    public float maxRunSpeed = 0.2f;
-    public float minRunSpeed = 0.125f;
     /**
      * Sets up animation, input, and physics for the player.
      *
@@ -73,7 +72,7 @@ public class Player extends Sprite {
         body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(13 / FinalGlobals.PPM);
+        shape.setRadius(13.4f / FinalGlobals.PPM);
         fdef.shape = shape;
         fdef.filter.categoryBits = FinalGlobals.PLAYER_BIT;
         final Fixture fixture = body.createFixture(fdef);
@@ -116,7 +115,7 @@ public class Player extends Sprite {
      * @return the current motion state of the player.
      */
     private State getMotionAnimationState() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
             return State.JUMP_START;
         if (body.getLinearVelocity().y > 0 || body.getLinearVelocity().y < 0 && previousState == State.JUMP_LOOP) {
             return State.JUMP_LOOP;

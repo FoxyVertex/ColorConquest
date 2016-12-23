@@ -53,7 +53,7 @@ public class WorldPhysicsContactListener implements ContactListener {
                 Levels.Level nextLevel = screen.currentLevel.nextLevel;
                 screen.switchLevel(nextLevel);
                 break;
-            case FinalGlobals.PLAYER_BIT | FinalGlobals.BLOCK_BIT:
+            case FinalGlobals.PLAYER_FEET_BIT | FinalGlobals.BLOCK_BIT:
                 Fixture player, block;
                 //Determines which fixture is the player and which is the block
                 // This can be shortened to 1 line!
@@ -70,13 +70,14 @@ public class WorldPhysicsContactListener implements ContactListener {
                 switch (Utilities.findBiggestIndex(RGBColors)) {
                     case 0:
                         DynamicGlobals.gameScreen.player.runSpeed = DynamicGlobals.gameScreen.player.maxRunSpeed;
+                        break;
                     case 1:
                         DynamicGlobals.gameScreen.player.jumpForce = DynamicGlobals.gameScreen.player.maxJumpForce;
                         break;
                     case 2:
                         block.setRestitution(1f);
+                        break;
                 }
-                break;
         }
     }
     //This method is called when collision is finished It basically just resets everthing
@@ -89,7 +90,7 @@ public class WorldPhysicsContactListener implements ContactListener {
         int collisionDefinition = fixtureA.getFilterData().categoryBits | fixtureB.getFilterData().categoryBits;
         //Checks to see if a select two kinds of fixtures collide.
         switch (collisionDefinition) {
-            case FinalGlobals.PLAYER_BIT | FinalGlobals.BLOCK_BIT:
+            case FinalGlobals.PLAYER_FEET_BIT | FinalGlobals.BLOCK_BIT:
                 Fixture player, block;
                 //Determines which fixture is the player and which is the block
                 // This can be shortened to 1 line!
@@ -111,7 +112,7 @@ public class WorldPhysicsContactListener implements ContactListener {
                         DynamicGlobals.gameScreen.player.jumpForce = DynamicGlobals.gameScreen.player.minJumpFox;
                         break;
                     case 2:
-                        //block.setRestitution(0);
+                        //´´block.setRestitution(0);
                 }
 
                 break;
