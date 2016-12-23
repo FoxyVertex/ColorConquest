@@ -32,7 +32,13 @@ public class Player extends Sprite {
     private State currentState;
     private State previousState;
     private boolean runningRight = false;
+    public float jumpForce = 55;
+    public float maxJumpForce = 100;
+    public float minJumpFox = 55;
 
+    public float runSpeed = 0.125f;
+    public float maxRunSpeed = 0.2f;
+    public float minRunSpeed = 0.125f;
     /**
      * Sets up animation, input, and physics for the player.
      *
@@ -72,6 +78,7 @@ public class Player extends Sprite {
         fdef.filter.categoryBits = FinalGlobals.PLAYER_BIT;
         final Fixture fixture = body.createFixture(fdef);
         body.setLinearDamping(5f);
+        body.setUserData(this);
     }
 
     /**

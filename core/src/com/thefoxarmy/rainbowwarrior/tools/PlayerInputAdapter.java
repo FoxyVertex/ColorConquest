@@ -13,7 +13,6 @@ import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
 public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
 
     private float currentJumpLength = 0;
-    public float forceApplied = 55;
     private boolean isSpacePreviousPressed = false;
 
     private boolean backKeyPrev = false;
@@ -52,18 +51,18 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, -10f), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
 
         if (Gdx.input.isKeyPressed(Input.Keys.D) && DynamicGlobals.gameScreen.player.body.getLinearVelocity().x <= 2) {
-            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(0.125f, 0), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
+            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(DynamicGlobals.gameScreen.player.runSpeed, 0), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
             forwardKeyPrev = true;
         } else if (!Gdx.input.isKeyPressed(Input.Keys.A) && forwardKeyPrev) {
-            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(0.125f, 0), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
+            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(-DynamicGlobals.gameScreen.player.runSpeed, 0), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
             forwardKeyPrev = false;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A) && DynamicGlobals.gameScreen.player.body.getLinearVelocity().x >= -2) {
-            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(-0.125f, 0), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
+            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(-DynamicGlobals.gameScreen.player.runSpeed, 0), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
             backKeyPrev = true;
         } else if (!Gdx.input.isKeyPressed(Input.Keys.A) && backKeyPrev) {
-            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(0.125f, 0), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
+            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(-DynamicGlobals.gameScreen.player.runSpeed, 0), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
             backKeyPrev = false;
         }
         //NOTE: This is a debug feature that will likely be replaced by a debug console command in the final product
@@ -73,7 +72,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
         }
 
         if (!(currentJumpLength >= maxJumpForceLength) && currentJumpLength > 0 && canJump)
-            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, forceApplied * delta), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
+            DynamicGlobals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, DynamicGlobals.gameScreen.player.jumpForce * delta), DynamicGlobals.gameScreen.player.body.getWorldCenter(), true);
 
     }
 }

@@ -40,6 +40,10 @@ public class Block {
         currentTile.setTextureRegion(tintTexture(currentTile.getTextureRegion(), tileColor));
         coveredCell.setTile(currentTile);
 
+        for(Fixture fixture : physicalBody.getFixtureList()) {
+            fixture.setUserData(tileColor);
+        }
+
     }
 
     private TiledMapTileLayer.Cell getCell(Body body, TiledMap map) {
