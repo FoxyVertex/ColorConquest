@@ -2,24 +2,17 @@ package com.thefoxarmy.rainbowwarrior.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
+import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
-import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
 
 /**
  * Created by aidan on 11/26/2016.
- *
+ * <p>
  * This scene allows the game to have a pause menu.
  */
 
@@ -31,9 +24,10 @@ public class PauseMenu extends Scene {
 
     /**
      * This sets up the pause menu's stage and lets it be amazing
+     *
      * @param screen the screen is used to be passed to super
      */
-    public PauseMenu(final Screen screen){
+    public PauseMenu(final Screen screen) {
         super(screen);
 
         btnResume = new TextButton("Resume", Assets.guiSkin);
@@ -48,9 +42,9 @@ public class PauseMenu extends Scene {
         btnQuit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                DynamicGlobals.game.setScreen(DynamicGlobals.menuScreen);
+                Globals.game.setScreen(Globals.menuScreen);
                 Assets.playSound(Assets.clickSound);
-                Gdx.input.setInputProcessor(DynamicGlobals.menuScreen.currentScene.stage);
+                Gdx.input.setInputProcessor(Globals.menuScreen.currentScene.stage);
             }
         });
 

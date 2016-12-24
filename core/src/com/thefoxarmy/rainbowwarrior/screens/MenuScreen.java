@@ -1,8 +1,7 @@
 package com.thefoxarmy.rainbowwarrior.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
-import com.thefoxarmy.rainbowwarrior.scenes.Scene;
+import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.scenes.TitleScreen;
 
 /**
@@ -15,21 +14,21 @@ public class MenuScreen extends Screen {
      */
     public MenuScreen() {
         currentScene = new TitleScreen(this);
-        DynamicGlobals.titleScreenScene = currentScene;
+        Globals.titleScreenScene = currentScene;
         Gdx.input.setInputProcessor(currentScene.stage);
         currentScene.show();
-        DynamicGlobals.menuScreen = this;
+        Globals.menuScreen = this;
     }
 
     @Override
     public void show() {
-        currentScene = DynamicGlobals.titleScreenScene;
+        currentScene = Globals.titleScreenScene;
     }
 
     @Override
     public void render(float delta) {
         currentScene.tick(delta);
-        DynamicGlobals.game.batch.setProjectionMatrix(currentScene.stage.getCamera().combined);
+        Globals.game.batch.setProjectionMatrix(currentScene.stage.getCamera().combined);
         currentScene.stage.act();
         currentScene.stage.draw();
     }

@@ -3,10 +3,8 @@ package com.thefoxarmy.rainbowwarrior.managers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.thefoxarmy.rainbowwarrior.screens.SplashScreen;
@@ -16,7 +14,7 @@ import java.util.List;
 
 /**
  * Created by aidan on 11/26/2016.
- *
+ * <p>
  * Manages and houses all of our assets
  */
 
@@ -61,7 +59,7 @@ public class Assets {
         //splashScreenLogos.add(new SplashScreen.SplashLogo("thefoxarmy.jpg", 3f).actorImage);
     }
 
-    public static void playSound (Sound sound) {
+    public static void playSound(Sound sound) {
         if (UserPrefs.isSoundEnabled()) sound.play(1);
     }
 }

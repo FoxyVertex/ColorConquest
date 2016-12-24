@@ -1,20 +1,13 @@
 package com.thefoxarmy.rainbowwarrior.scenes;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
-import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 
 /**
  * Created by aidan on 11/26/2016.
- *
+ * <p>
  * This class represents the heads up display and is currently housing a placeholder for it.
  */
 
@@ -34,9 +27,10 @@ public class Hud extends Scene {
 
     /**
      * The constructor sets up the stage.
+     *
      * @param screen the screen is passed to super
      */
-    public Hud(final Screen screen){
+    public Hud(final Screen screen) {
         super(screen);
 
         //define our tracking variables

@@ -4,12 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
-import com.thefoxarmy.rainbowwarrior.screens.SplashScreen;
 import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
-import com.thefoxarmy.rainbowwarrior.managers.Assets;
+import com.thefoxarmy.rainbowwarrior.screens.SplashScreen;
 
 /**
  * The main game class
@@ -19,12 +19,12 @@ public class RainbowWarrior extends Game {
 
     @Override
     public void create() {
-        DynamicGlobals.game = this;
+        Globals.game = this;
         batch = new SpriteBatch();
         Assets.load();
         UserPrefs.load();
         Levels.load();
-        if (FinalGlobals.SKIP_TO_GAME) {
+        if (Finals.SKIP_TO_GAME) {
             new SplashScreen();
             new MenuScreen();
             setScreen(new GameScreen());
@@ -38,7 +38,7 @@ public class RainbowWarrior extends Game {
     @Override
     public void render() {
         Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         super.render();
     }
 

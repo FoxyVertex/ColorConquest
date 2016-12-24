@@ -12,7 +12,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.thefoxarmy.rainbowwarrior.FinalGlobals;
+import com.thefoxarmy.rainbowwarrior.Finals;
+import com.thefoxarmy.rainbowwarrior.managers.Levels;
+
+import static com.thefoxarmy.rainbowwarrior.tools.Utilities.map;
 
 /**
  * Created by seth on 12/22/2016.
@@ -25,19 +28,33 @@ public class Block {
 
         TiledMapTileLayer.Cell coveredCell = getCell(physicalBody, map);
         MapProperties objectProps = object.getProperties();
-        Color tileColor = Color.BLACK;
+        Color tileColor = null;
 
         if (objectProps.get("red", Float.class) != null) {
+            if (objectProps.get("alpha", Float.class) == null) {
+                Gdx.app.log("Error from Block class", "Something is wrong with the tile in level with index " + Levels.currentLevel + " at coords " + objectProps.get("x", float.class) + ", " + objectProps.get("y", float.class) + " and with id " + objectProps.get("ID", int.class) + ".");
+            }
             tileColor = new Color(
-                    objectProps.get("red", Float.class),
-                    objectProps.get("green", Float.class),
-                    objectProps.get("blue", Float.class),
+                    map(objectProps.get("red", Float.class), 0, 1, 0, 1),
+                    map(objectProps.get("green", Float.class), 0, 1, 0, 1),
+                    map(objectProps.get("blue", Float.class), 0, 1, 0, 1),
                     objectProps.get("alpha", Float.class)
             );
         }
-        if (coveredCell == null) Gdx.app.log("aaa", "" + objectProps.get("x", int.class));
+        if (coveredCell == null)
+            Gdx.app.log("Error from Block class", "Something is wrong with the tile in level with index " + Levels.currentLevel + " at coords " + objectProps.get("x", float.class)/16 + ", " + objectProps.get("y", float.class)/16 + " and with id " + objectProps.get("ID", int.class) + ".");
+        assert coveredCell != null;
         TiledMapTile currentTile = coveredCell.getTile();
-        currentTile.setTextureRegion(tintTexture(currentTile.getTextureRegion(), tileColor));
+        if (currentTile == null)
+            Gdx.app.log("Error from Block class", "Something is wrong with the tile in level with index " + Levels.currentLevel + " at coords " + objectProps.get("x", float.class)/16 + ", " + objectProps.get("y", float.class)/16 + " and with id " + objectProps.get("ID", int.class) + ".");
+        assert currentTile != null;
+        if (tileColor != null)
+            currentTile.setTextureRegion(tintTexture(currentTile.getTextureRegion(), tileColor));
+        else {
+            tileColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+        }
+
+
         coveredCell.setTile(currentTile);
         for (Fixture fixture : physicalBody.getFixtureList()) {
             fixture.setUserData(tileColor);
@@ -47,7 +64,7 @@ public class Block {
 
     private TiledMapTileLayer.Cell getCell(Body body, TiledMap map) {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-        return layer.getCell((int) (body.getPosition().x * FinalGlobals.PPM / 16), (int) (body.getPosition().y * FinalGlobals.PPM / 16));
+        return layer.getCell((int) (body.getPosition().x * Finals.PPM / 16), (int) (body.getPosition().y * Finals.PPM / 16));
     }
 
     private TextureRegion tintTexture(TextureRegion tex, Color color) {

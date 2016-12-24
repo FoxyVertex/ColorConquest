@@ -1,17 +1,13 @@
 package com.thefoxarmy.rainbowwarrior.scenes;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
+import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
-import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
 import com.thefoxarmy.rainbowwarrior.screens.Screen;
 
 import static com.badlogic.gdx.Gdx.input;
@@ -61,8 +57,8 @@ public class OptionsMenu extends Scene {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                ((Screen)DynamicGlobals.game.getScreen()).switchScene(DynamicGlobals.titleScreenScene);
-                DynamicGlobals.titleScreenScene.show();
+                ((Screen) Globals.game.getScreen()).switchScene(Globals.titleScreenScene);
+                Globals.titleScreenScene.show();
             }
         });
         table.add(backButton).expandX();
@@ -74,7 +70,7 @@ public class OptionsMenu extends Scene {
 
     }
 
-    public void show(){
+    public void show() {
         input.setInputProcessor(stage);
     }
 

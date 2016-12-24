@@ -6,8 +6,8 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
-import com.thefoxarmy.rainbowwarrior.FinalGlobals;
+import com.thefoxarmy.rainbowwarrior.Finals;
+import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.sprites.Player;
@@ -45,11 +45,11 @@ public class WorldPhysicsContactListener implements ContactListener {
         int collisionDefinition = fixtureA.getFilterData().categoryBits | fixtureB.getFilterData().categoryBits;
         //Checks to see if a select two kinds of fixtures collide.
         switch (collisionDefinition) {
-            case FinalGlobals.PLAYER_BIT | FinalGlobals.END_LEVEL_BIT:
+            case Finals.PLAYER_BIT | Finals.END_LEVEL_BIT:
                 Levels.Level nextLevel = screen.currentLevel.nextLevel;
                 screen.switchLevel(nextLevel);
                 break;
-            case FinalGlobals.PLAYER_BIT | FinalGlobals.BLOCK_BIT:
+            case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
                 Fixture player, block;
                 //Determines which fixture is the player and which is the block
                 // This can be shortened to 1 line!
@@ -65,10 +65,10 @@ public class WorldPhysicsContactListener implements ContactListener {
                 //Depending on the maximum color R0G1B2 apply a property to the player
                 switch (Utilities.findBiggestIndex(RGBColors)) {
                     case 0:
-                        DynamicGlobals.gameScreen.player.runSpeed = DynamicGlobals.gameScreen.player.maxRunSpeed;
+                        Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.maxRunSpeed;
                         break;
                     case 1:
-                        DynamicGlobals.gameScreen.player.jumpForce = DynamicGlobals.gameScreen.player.maxJumpForce;
+                        Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.maxJumpForce;
                         break;
                     case 2:
                         block.setRestitution(1f);
@@ -87,7 +87,7 @@ public class WorldPhysicsContactListener implements ContactListener {
         int collisionDefinition = fixtureA.getFilterData().categoryBits | fixtureB.getFilterData().categoryBits;
         //Checks to see if a select two kinds of fixtures collide.
         switch (collisionDefinition) {
-            case FinalGlobals.PLAYER_BIT | FinalGlobals.BLOCK_BIT:
+            case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
                 Fixture player, block;
                 //Determines which fixture is the player and which is the block
                 // This can be shortened to 1 line!
@@ -104,9 +104,9 @@ public class WorldPhysicsContactListener implements ContactListener {
 
                 switch (Utilities.findBiggestIndex(RGBColors)) {
                     case 0:
-                        DynamicGlobals.gameScreen.player.runSpeed = DynamicGlobals.gameScreen.player.minRunSpeed;
+                        Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.minRunSpeed;
                     case 1:
-                        DynamicGlobals.gameScreen.player.jumpForce = DynamicGlobals.gameScreen.player.minJumpFox;
+                        Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.minJumpFox;
                         break;
                     case 2:
                         //´´block.setRestitution(0);

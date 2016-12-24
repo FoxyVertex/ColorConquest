@@ -2,11 +2,11 @@ package com.thefoxarmy.rainbowwarrior.managers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.thefoxarmy.rainbowwarrior.FinalGlobals;
+import com.thefoxarmy.rainbowwarrior.Finals;
 
 /**
  * Created by aidan on 11/28/2016.
- *
+ * <p>
  * Houses user preferences and manages them.
  */
 
@@ -17,13 +17,13 @@ public class UserPrefs {
 
     /**
      * A getter for the soundEnabled variable
+     *
      * @return the value of the soundEnabled variable
      */
     public static boolean isSoundEnabled() {
         if (gdxPrefs.contains("soundEnabled")) {
             soundEnabled = gdxPrefs.getBoolean("soundEnabled");
-        }
-        else{
+        } else {
             gdxPrefs.putBoolean("soundEnabled", true);
             soundEnabled = true;
         }
@@ -32,6 +32,7 @@ public class UserPrefs {
 
     /**
      * A setter for the soundEnabled variable
+     *
      * @param soundEnabled value to set the soundEnabled boolean to
      */
     public static void setSoundEnabled(boolean soundEnabled) {
@@ -42,21 +43,23 @@ public class UserPrefs {
 
     /**
      * A getter for the tiledMap variable
+     *
      * @return the value of the tiledMap variable
      */
     public static int getLevel(int save) {
         int level;
         if (gdxPrefs.contains("tiledMap"))
             level = gdxPrefs.getInteger("tiledMap" + save);
-        else{
-            gdxPrefs.putInteger("tiledMap" + save, FinalGlobals.firstLevel);
-            level = FinalGlobals.firstLevel;
+        else {
+            gdxPrefs.putInteger("tiledMap" + save, Finals.firstLevel);
+            level = Finals.firstLevel;
         }
         return level;
     }
 
     /**
      * A setter for the tiledMap variable
+     *
      * @param level the value to set the tiledMap variable to
      */
     public static void setLevel(int save, int level) {
@@ -73,7 +76,7 @@ public class UserPrefs {
 
         if (gdxPrefs.contains("soundEnabled"))
             soundEnabled = gdxPrefs.getBoolean("soundEnabled");
-        else{
+        else {
             gdxPrefs.putBoolean("soundEnabled", true);
             soundEnabled = true;
         }

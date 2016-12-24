@@ -7,13 +7,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
+import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
  * Created by aidan on 12/20/2016.
@@ -42,7 +43,7 @@ public class SplashScreen extends Screen {
         stage = new Stage();
 
         for (int i = 0; i < Assets.splashScreenLogos.size(); i++) {
-            if (i != Assets.splashScreenLogos.size()-1) {
+            if (i != Assets.splashScreenLogos.size() - 1) {
                 SequenceAction actions = new SequenceAction(sequence(fadeIn(1f), delay(3.5f), fadeOut(1.5f), run(new Runnable() {
                     @Override
                     public void run() {
@@ -56,7 +57,7 @@ public class SplashScreen extends Screen {
                 SequenceAction actions = new SequenceAction(sequence(fadeIn(1f), delay(3.5f), fadeOut(1.5f), run(new Runnable() {
                     @Override
                     public void run() {
-                        DynamicGlobals.game.setScreen(DynamicGlobals.menuScreen);
+                        Globals.game.setScreen(Globals.menuScreen);
                     }
                 })));
                 Assets.splashScreenLogos.get(i).addAction(actions);
@@ -85,12 +86,13 @@ public class SplashScreen extends Screen {
 
     public static class SplashLogo {
         public Image actorImage;
+
         public SplashLogo(String file, float scale) {
             Texture texture = new Texture(Gdx.files.internal(file));
             texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             actorImage = new Image(new TextureRegion(texture));
             actorImage.getColor().a = 0;
-            actorImage.setPosition(Gdx.graphics.getWidth()/2 - (actorImage.getWidth() * scale)/2, Gdx.graphics.getHeight()/2 - (actorImage.getHeight() * scale)/2);
+            actorImage.setPosition(Gdx.graphics.getWidth() / 2 - (actorImage.getWidth() * scale) / 2, Gdx.graphics.getHeight() / 2 - (actorImage.getHeight() * scale) / 2);
             actorImage.setScale(scale);
         }
     }

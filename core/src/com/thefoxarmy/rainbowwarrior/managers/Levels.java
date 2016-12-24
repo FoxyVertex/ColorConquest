@@ -1,6 +1,6 @@
 package com.thefoxarmy.rainbowwarrior.managers;
 
-import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
+import com.thefoxarmy.rainbowwarrior.Globals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,28 +18,34 @@ public class Levels {
         Level level1 = new Level();
         Level level2 = new Level();
         Level level3 = new Level();
+        Level level4 = new Level();
 
-        level1.path = pathPrefix + "test.tmx";
-        level2.path = pathPrefix + "level2.tmx";
-        level3.path = pathPrefix + "lvl3.tmx";
+        level1.path = pathPrefix + "DebugLevel.tmx";
+        level2.path = pathPrefix + "test.tmx";
+        level3.path = pathPrefix + "level2.tmx";
+        level4.path = pathPrefix + "lvl3.tmx";
 
         level1.hasCutscene = false;
         level2.hasCutscene = false;
         level3.hasCutscene = false;
+        level4.hasCutscene = false;
 
         level1.nextLevel = level2;
         level2.nextLevel = level3;
-        level3.nextLevel = level1;
+        level3.nextLevel = level4;
+        level4.nextLevel = level1;
 
         level1.index = 0;
         level2.index = 1;
-        level3.index = 3;
+        level3.index = 2;
+        level4.index = 3;
 
         levels.add(level1);
         levels.add(level2);
         levels.add(level3);
+        levels.add(level4);
 
-        currentLevel = UserPrefs.getLevel(DynamicGlobals.currentGameSave);
+        currentLevel = UserPrefs.getLevel(Globals.currentGameSave);
     }
 
     public static class Level {

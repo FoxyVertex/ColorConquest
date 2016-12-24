@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.thefoxarmy.rainbowwarrior.FinalGlobals;
+import com.thefoxarmy.rainbowwarrior.Finals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
@@ -54,7 +54,7 @@ public class Player extends Sprite {
         this.world = screen.getWorld();
         def();
 
-        setBounds(0, 0, getRegionWidth() / 8.5f / FinalGlobals.PPM, getRegionHeight() / 8.5f / FinalGlobals.PPM);
+        setBounds(0, 0, getRegionWidth() / 8.5f / Finals.PPM, getRegionHeight() / 8.5f / Finals.PPM);
 
         currentState = State.IDLE;
 
@@ -67,15 +67,15 @@ public class Player extends Sprite {
      */
     private void def() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(spawnPoint.scl(1 / FinalGlobals.PPM));
+        bdef.position.set(spawnPoint.scl(1 / Finals.PPM));
         bdef.type = BodyDef.BodyType.DynamicBody;
 
         body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(13.4f / FinalGlobals.PPM);
+        shape.setRadius(13.4f / Finals.PPM);
         fdef.shape = shape;
-        fdef.filter.categoryBits = FinalGlobals.PLAYER_BIT;
+        fdef.filter.categoryBits = Finals.PLAYER_BIT;
         final Fixture fixture = body.createFixture(fdef);
         body.setLinearDamping(5f);
         body.setUserData(this);

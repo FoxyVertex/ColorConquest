@@ -2,17 +2,11 @@ package com.thefoxarmy.rainbowwarrior.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
-import com.thefoxarmy.rainbowwarrior.FinalGlobals;
+import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
-import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
-import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
-import com.thefoxarmy.rainbowwarrior.screens.MenuScreen;
 import com.thefoxarmy.rainbowwarrior.screens.Screen;
 
 /**
@@ -27,7 +21,7 @@ public class TitleScreen extends Scene {
     /**
      * This sets up the pause menu's stage and lets it be amazing
      */
-    public TitleScreen(final Screen screen){
+    public TitleScreen(final Screen screen) {
         super(screen);
 
         table = new Table();
@@ -40,11 +34,11 @@ public class TitleScreen extends Scene {
             @Override
             public void clicked(InputEvent i, float x, float y) {
                 Assets.playSound(Assets.clickSound);
-                if (DynamicGlobals.playMenuScene != null)
-                    ((Screen)DynamicGlobals.game.getScreen()).switchScene(DynamicGlobals.playMenuScene);
+                if (Globals.playMenuScene != null)
+                    ((Screen) Globals.game.getScreen()).switchScene(Globals.playMenuScene);
                 else {
-                    DynamicGlobals.playMenuScene = new PlayMenu((Screen)DynamicGlobals.game.getScreen());
-                    ((Screen)DynamicGlobals.game.getScreen()).switchScene(DynamicGlobals.playMenuScene);
+                    Globals.playMenuScene = new PlayMenu((Screen) Globals.game.getScreen());
+                    ((Screen) Globals.game.getScreen()).switchScene(Globals.playMenuScene);
                 }
             }
         });
@@ -52,15 +46,15 @@ public class TitleScreen extends Scene {
         table.row();
         TextButton btnOptions = new TextButton("Options", Assets.guiSkin, "default");
         btnOptions.setSize(200, 50);
-        btnOptions.addListener(new ClickListener(){
+        btnOptions.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
                 Assets.playSound(Assets.clickSound);
-                if (DynamicGlobals.optionsMenuScreen != null)
-                    ((Screen)DynamicGlobals.game.getScreen()).switchScene(DynamicGlobals.optionsMenuScreen);
+                if (Globals.optionsMenuScreen != null)
+                    ((Screen) Globals.game.getScreen()).switchScene(Globals.optionsMenuScreen);
                 else {
-                    DynamicGlobals.optionsMenuScreen = new OptionsMenu((Screen)DynamicGlobals.game.getScreen());
-                    ((Screen)DynamicGlobals.game.getScreen()).switchScene(DynamicGlobals.optionsMenuScreen);
+                    Globals.optionsMenuScreen = new OptionsMenu((Screen) Globals.game.getScreen());
+                    ((Screen) Globals.game.getScreen()).switchScene(Globals.optionsMenuScreen);
                 }
             }
         });
@@ -69,7 +63,6 @@ public class TitleScreen extends Scene {
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
     }
-
 
 
     @Override

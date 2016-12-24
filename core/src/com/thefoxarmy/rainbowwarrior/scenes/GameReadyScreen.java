@@ -2,14 +2,16 @@ package com.thefoxarmy.rainbowwarrior.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.ai.steer.behaviors.Alignment;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
+import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.forever;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 /**
  * Created by aidan on 12/20/2016.
@@ -21,7 +23,7 @@ public class GameReadyScreen extends Scene implements InputProcessor {
         super(screen);
         Label pressAnyKeyToStart = new Label("Press Any Key to Start the Game", Assets.guiSkin);
         pressAnyKeyToStart.getColor().a = 0;
-        pressAnyKeyToStart.setPosition(Gdx.graphics.getWidth()/2 - pressAnyKeyToStart.getWidth()/2, Gdx.graphics.getHeight()/2 - pressAnyKeyToStart.getHeight()/2);
+        pressAnyKeyToStart.setPosition(Gdx.graphics.getWidth() / 2 - pressAnyKeyToStart.getWidth() / 2, Gdx.graphics.getHeight() / 2 - pressAnyKeyToStart.getHeight() / 2);
         SequenceAction actions = new SequenceAction(forever(sequence(fadeIn(0.2f), fadeOut(0.2f))));
         pressAnyKeyToStart.setFontScale(1.4f);
         pressAnyKeyToStart.setAlignment(1);
@@ -52,7 +54,7 @@ public class GameReadyScreen extends Scene implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        Gdx.input.setInputProcessor(DynamicGlobals.gameScreen.player.input);
+        Gdx.input.setInputProcessor(Globals.gameScreen.player.input);
         GameScreen.gameState = GameScreen.GameState.RUNNING;
         return false;
     }
@@ -69,7 +71,7 @@ public class GameReadyScreen extends Scene implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Gdx.input.setInputProcessor(DynamicGlobals.gameScreen.player.input);
+        Gdx.input.setInputProcessor(Globals.gameScreen.player.input);
         GameScreen.gameState = GameScreen.GameState.RUNNING;
         return false;
     }

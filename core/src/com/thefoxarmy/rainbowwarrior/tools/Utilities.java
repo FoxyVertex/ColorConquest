@@ -30,4 +30,8 @@ public class Utilities {
         }
         return val;
     }
+
+    public static float map(float input, float origMin, float origMax, float newMin, float newMax) {
+        return (input - origMin) / (origMax - origMin) * (newMax - newMin) + newMin;
+    }
 }
