@@ -17,21 +17,27 @@ public class Levels {
     public static void load() {
         Level level1 = new Level();
         Level level2 = new Level();
+        Level level3 = new Level();
 
         level1.path = pathPrefix + "test.tmx";
         level2.path = pathPrefix + "level2.tmx";
+        level3.path = pathPrefix + "lvl3.tmx";
 
         level1.hasCutscene = false;
         level2.hasCutscene = false;
+        level3.hasCutscene = false;
 
         level1.nextLevel = level2;
-        level2.nextLevel = level1;
+        level2.nextLevel = level3;
+        level3.nextLevel = level1;
 
         level1.index = 0;
         level2.index = 1;
+        level3.index = 3;
 
         levels.add(level1);
         levels.add(level2);
+        levels.add(level3);
 
         currentLevel = UserPrefs.getLevel(DynamicGlobals.currentGameSave);
     }

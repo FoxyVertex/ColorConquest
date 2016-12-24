@@ -1,9 +1,6 @@
 package com.thefoxarmy.rainbowwarrior.tools;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -11,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.thefoxarmy.rainbowwarrior.DynamicGlobals;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
-import com.thefoxarmy.rainbowwarrior.managers.Assets;
 import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.sprites.Player;
@@ -53,7 +49,7 @@ public class WorldPhysicsContactListener implements ContactListener {
                 Levels.Level nextLevel = screen.currentLevel.nextLevel;
                 screen.switchLevel(nextLevel);
                 break;
-            case FinalGlobals.PLAYER_FEET_BIT | FinalGlobals.BLOCK_BIT:
+            case FinalGlobals.PLAYER_BIT | FinalGlobals.BLOCK_BIT:
                 Fixture player, block;
                 //Determines which fixture is the player and which is the block
                 // This can be shortened to 1 line!
@@ -80,6 +76,7 @@ public class WorldPhysicsContactListener implements ContactListener {
                 }
         }
     }
+
     //This method is called when collision is finished It basically just resets everthing
     @Override
     public void endContact(Contact contact) {
@@ -90,7 +87,7 @@ public class WorldPhysicsContactListener implements ContactListener {
         int collisionDefinition = fixtureA.getFilterData().categoryBits | fixtureB.getFilterData().categoryBits;
         //Checks to see if a select two kinds of fixtures collide.
         switch (collisionDefinition) {
-            case FinalGlobals.PLAYER_FEET_BIT | FinalGlobals.BLOCK_BIT:
+            case FinalGlobals.PLAYER_BIT | FinalGlobals.BLOCK_BIT:
                 Fixture player, block;
                 //Determines which fixture is the player and which is the block
                 // This can be shortened to 1 line!

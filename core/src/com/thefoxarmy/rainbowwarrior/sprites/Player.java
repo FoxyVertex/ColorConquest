@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
@@ -25,11 +24,13 @@ public class Player extends Sprite {
     public Body body;
     public PlayerInputAdapter input;
     public Vector2 spawnPoint;
+
     public float jumpForce = 55;
-    public float maxJumpForce = 100;
+    public float maxJumpForce = 300;
     public float minJumpFox = 55;
-    public float runSpeed = 0.125f;
-    public float maxRunSpeed = 0.2f;
+
+    public float runSpeed = 0.05f;
+    public float maxRunSpeed = 0.4f;
     public float minRunSpeed = 0.125f;
     //FixtureDef fdef;
     private World world;

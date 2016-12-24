@@ -1,5 +1,6 @@
 package com.thefoxarmy.rainbowwarrior.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,13 +10,8 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.thefoxarmy.rainbowwarrior.FinalGlobals;
 
 /**
@@ -27,10 +23,10 @@ public class Block {
     public Block(Boolean editable, Body physicalBody, MapObject object, TiledMap map) {
 
 
-
         TiledMapTileLayer.Cell coveredCell = getCell(physicalBody, map);
         MapProperties objectProps = object.getProperties();
         Color tileColor = Color.BLACK;
+
         if (objectProps.get("red", Float.class) != null) {
             tileColor = new Color(
                     objectProps.get("red", Float.class),
@@ -39,6 +35,7 @@ public class Block {
                     objectProps.get("alpha", Float.class)
             );
         }
+        if (coveredCell == null) Gdx.app.log("aaa", "" + objectProps.get("x", int.class));
         TiledMapTile currentTile = coveredCell.getTile();
         currentTile.setTextureRegion(tintTexture(currentTile.getTextureRegion(), tileColor));
         coveredCell.setTile(currentTile);

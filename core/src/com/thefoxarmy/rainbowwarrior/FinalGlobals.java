@@ -8,18 +8,13 @@ public class FinalGlobals {
             V_WIDTH = 400,
             V_HEIGHT = 225,
             PPM = 100;
-
-
-    public static String TITLE = "Rainbow Warrior";
-
-    public static int firstLevel = 0;
-
     //Collision bits made to test object collsions MUST BE A POWER OF 2
     public static final short NOTHING_BIT = 0,
             BLOCK_BIT = 1,
             PLAYER_BIT = 2,
             END_LEVEL_BIT = 4,
             PLAYER_FEET_BIT = 8;
-
     public static final boolean SKIP_TO_GAME = true;
+    public static String TITLE = "Rainbow Warrior";
+    public static int firstLevel = 0;
 }
