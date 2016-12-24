@@ -10,7 +10,7 @@ import com.thefoxarmy.rainbowwarrior.Finals;
 import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
-import com.thefoxarmy.rainbowwarrior.sprites.Player;
+import com.thefoxarmy.rainbowwarrior.entities.Player;
 
 /**
  * Created by seth on 11/26/2016.
@@ -61,19 +61,25 @@ public class WorldPhysicsContactListener implements ContactListener {
                     block = fixtureA;
                 }
                 Color blockColor = (Color) block.getUserData();
-                float RGBColors[] = {blockColor.r, blockColor.g, blockColor.b};
-                //Depending on the maximum color R0G1B2 apply a property to the player
-                switch (Utilities.findBiggestIndex(RGBColors)) {
-                    case 0:
-                        Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.maxRunSpeed;
-                        break;
-                    case 1:
-                        Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.maxJumpForce;
-                        break;
-                    case 2:
-                        block.setRestitution(1f);
-                        break;
+                if (blockColor != null) {
+                    float RGBColors[] = {blockColor.r, blockColor.g, blockColor.b};
+                    //Depending on the maximum color R0G1B2 apply a property to the player
+                    switch (Utilities.findBiggestIndex(RGBColors)) {
+                        case 0:
+                            Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.maxRunSpeed;
+                            break;
+                        case 1:
+                            Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.maxJumpForce;
+                            break;
+                        case 2:
+                            block.setRestitution(1f);
+                            break;
+                    }
+                } else {
+                    Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.minRunSpeed;
+                    Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.minJumpFox;
                 }
+                break;
         }
     }
 
@@ -99,19 +105,23 @@ public class WorldPhysicsContactListener implements ContactListener {
                     block = fixtureA;
                 }
                 Color blockColor = (Color) block.getUserData();
-                float RGBColors[] = {blockColor.r, blockColor.g, blockColor.b};
+                if (blockColor != null) {
+                    float RGBColors[] = {blockColor.r, blockColor.g, blockColor.b};
 
 
-                switch (Utilities.findBiggestIndex(RGBColors)) {
-                    case 0:
-                        Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.minRunSpeed;
-                    case 1:
-                        Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.minJumpFox;
-                        break;
-                    case 2:
-                        //´´block.setRestitution(0);
+                    switch (Utilities.findBiggestIndex(RGBColors)) {
+                        case 0:
+                            Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.minRunSpeed;
+                        case 1:
+                            Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.minJumpFox;
+                            break;
+                        case 2:
+                            //´´block.setRestitution(0);
+                    }
+                } else {
+                    Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.minRunSpeed;
+                    Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.minJumpFox;
                 }
-
                 break;
         }
 

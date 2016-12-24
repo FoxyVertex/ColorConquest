@@ -31,9 +31,8 @@ public class Block {
         Color tileColor = null;
 
         if (objectProps.get("red", Float.class) != null) {
-            if (objectProps.get("alpha", Float.class) == null) {
-                Gdx.app.log("Error from Block class", "Something is wrong with the tile in level with index " + Levels.currentLevel + " at coords " + objectProps.get("x", float.class) + ", " + objectProps.get("y", float.class) + " and with id " + objectProps.get("ID", int.class) + ".");
-            }
+            if (objectProps.get("alpha", Float.class) == null || objectProps.get("blue", Float.class) == null || objectProps.get("green", Float.class) == null)
+                Gdx.app.log("Error from Block class", "Something is wrong with the tile in level with index " + Levels.currentLevel + " at coords " + objectProps.get("x", float.class) / 16 + ", " + objectProps.get("y", float.class) / 16 + " and with id " + objectProps.get("ID", int.class) + ".");
             tileColor = new Color(
                     map(objectProps.get("red", Float.class), 0, 1, 0, 1),
                     map(objectProps.get("green", Float.class), 0, 1, 0, 1),

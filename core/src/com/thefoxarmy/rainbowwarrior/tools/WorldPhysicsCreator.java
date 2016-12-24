@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.thefoxarmy.rainbowwarrior.Finals;
-import com.thefoxarmy.rainbowwarrior.objects.Block;
+import com.thefoxarmy.rainbowwarrior.entities.Block;
 
 /**
  * This class reads object layers from the currently loaded tiled map and creates box2d fixtures for them in order to create collision for the player.
@@ -27,10 +27,10 @@ public class WorldPhysicsCreator {
         polygon = new PolygonShape();
         //For every rectangular object in the "blocks" object layer of the tile map, initialize a rectangle to create a physical fixture.
         for (MapObject object : map.getLayers().get("blocks").getObjects()) {
-            new Block(false, initializeRect(world, Finals.BLOCK_BIT, object), object, map);
+            new Block(object, Finals.BLOCK_BIT);
         }
         for (MapObject object : map.getLayers().get("EditableBlocks").getObjects()) {
-            new Block(true, initializeRect(world, Finals.BLOCK_BIT, object), object, map);
+            new Block(object, Finals.BLOCK_BIT);
         }
         //Generate fixtures for the endpoints in the triggerPoints object layer of the tiled map so that the player can collide with it to go to the next tiledMap.
         initializeRect(world, Finals.END_LEVEL_BIT, map.getLayers().get("triggerPoints").getObjects().get("EndPoint"));

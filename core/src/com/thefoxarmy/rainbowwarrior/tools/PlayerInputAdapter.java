@@ -46,6 +46,11 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             isSpacePreviousPressed = false;
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
+            Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.maxRunSpeed;
+            Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.maxJumpForce;
+        }
+
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.S))
             Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, -10f), Globals.gameScreen.player.body.getWorldCenter(), true);

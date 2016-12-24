@@ -15,12 +15,13 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.thefoxarmy.rainbowwarrior.Finals;
 import com.thefoxarmy.rainbowwarrior.Globals;
+import com.thefoxarmy.rainbowwarrior.entities.Block;
 import com.thefoxarmy.rainbowwarrior.managers.Levels;
 import com.thefoxarmy.rainbowwarrior.managers.UserPrefs;
 import com.thefoxarmy.rainbowwarrior.scenes.GameReadyScreen;
 import com.thefoxarmy.rainbowwarrior.scenes.Hud;
 import com.thefoxarmy.rainbowwarrior.scenes.PauseMenu;
-import com.thefoxarmy.rainbowwarrior.sprites.Player;
+import com.thefoxarmy.rainbowwarrior.entities.Player;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
 import com.thefoxarmy.rainbowwarrior.tools.Utilities;
 import com.thefoxarmy.rainbowwarrior.tools.WorldPhysicsContactListener;
@@ -76,8 +77,7 @@ public class GameScreen extends Screen {
         b2dRenderer = new Box2DDebugRenderer();
         new WorldPhysicsCreator(world, tiledMap);
         //Spawns the player at a location designated on the map
-        player = new Player(this,
-                new PlayerInputAdapter(),
+        player = new Player(new PlayerInputAdapter(),
                 new Vector2(
                         tiledMap.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
                         tiledMap.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
@@ -152,6 +152,7 @@ public class GameScreen extends Screen {
         cam.update();
         mapRenderer.setView(cam);
         Globals.hudScene.stage.act();
+        for (Block block : Block.blocks) block.tick(delta);
     }
 
     /**
@@ -162,10 +163,12 @@ public class GameScreen extends Screen {
         b2dRenderer.render(world, cam.combined);
         Globals.game.batch.setProjectionMatrix(cam.combined);
         Globals.game.batch.begin();
+        for (Block block : Block.blocks) block.draw(Globals.game.batch);
         player.draw(Globals.game.batch);
         Globals.game.batch.end();
         Globals.game.batch.setProjectionMatrix(Globals.hudScene.stage.getCamera().combined);
         Globals.hudScene.stage.draw();
+
     }
 
     /**

@@ -1,8 +1,7 @@
-package com.thefoxarmy.rainbowwarrior.sprites;
+package com.thefoxarmy.rainbowwarrior.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -12,15 +11,17 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.thefoxarmy.rainbowwarrior.Finals;
+import com.thefoxarmy.rainbowwarrior.Globals;
 import com.thefoxarmy.rainbowwarrior.managers.Assets;
-import com.thefoxarmy.rainbowwarrior.screens.GameScreen;
 import com.thefoxarmy.rainbowwarrior.tools.PlayerInputAdapter;
 
 /**
- * This class handles all of the input, animation, and physics for the local player.
+ * Created by aidan on 12/24/2016.
  */
 
-public class Player extends Sprite {
+public class Player extends Entity {
+
+    public int lives = 10;
     public Body body;
     public PlayerInputAdapter input;
     public Vector2 spawnPoint;
@@ -39,27 +40,19 @@ public class Player extends Sprite {
     private State previousState;
     private boolean runningRight = false;
 
-    /**
-     * Sets up animation, input, and physics for the player.
-     *
-     * @param screen     Used by the player to access things beyond the player class such as the world
-     * @param input      Used for having multiple local users
-     * @param spawnPoint Used to predefine the players spawn location for each map.
-     */
-
-    public Player(GameScreen screen, PlayerInputAdapter input, Vector2 spawnPoint) {
-        super(Assets.mainAtlas.findRegion("idle"));
+    public Player(PlayerInputAdapter input, Vector2 spawnPoint) {
+        super(new Vector2(0,0), "Player", 20f, Assets.mainAtlas.findRegion("idle"));
+        this.input = input;
 
         this.spawnPoint = spawnPoint;
-        this.world = screen.getWorld();
+        this.world = Globals.gameScreen.getWorld();
         def();
 
         setBounds(0, 0, getRegionWidth() / 8.5f / Finals.PPM, getRegionHeight() / 8.5f / Finals.PPM);
 
         currentState = State.IDLE;
 
-        this.input = new PlayerInputAdapter();
-        Gdx.input.setInputProcessor(input);
+        Gdx.input.setInputProcessor(this.input);
     }
 
     /**
@@ -81,11 +74,12 @@ public class Player extends Sprite {
         body.setUserData(this);
     }
 
-    /**
-     * Links the player's sprite's regions to the body, and handles physics caluclations.
-     *
-     * @param delta a float that is the amount of time in seconds since the last frame
-     */
+    @Override
+    public void dispose() {
+
+    }
+
+    @Override
     public void tick(float delta) {
         input.handleInput(delta);
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
@@ -94,20 +88,14 @@ public class Player extends Sprite {
         setRegion(getFrame(delta));
     }
 
-    /**
-     * Discards the player's texture from memory.
-     */
-    public void dispose() {
-        getTexture().dispose();
+    @Override
+    public void die(Entity killedBy) {
+
     }
 
-    /**
-     * Makes the player jump when called
-     *
-     * @param delta a float that is the amount of time in seconds since the last frame
-     */
-    public void jump(float delta) {
-        body.applyLinearImpulse(new Vector2(0, 7), body.getWorldCenter(), true);
+    @Override
+    public void damage(Entity damagedBy, float damageAmount) {
+
     }
 
     /**
@@ -181,5 +169,4 @@ public class Player extends Sprite {
     private enum State {
         IDLE, JUMP_START, JUMP_LOOP, WALKING, FALLING
     }
-
 }
