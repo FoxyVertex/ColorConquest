@@ -48,7 +48,7 @@ public class UserPrefs {
      */
     public static int getLevel(int save) {
         int level;
-        if (gdxPrefs.contains("tiledMap"))
+        if (gdxPrefs.contains("tiledMap" + save))
             level = gdxPrefs.getInteger("tiledMap" + save);
         else {
             gdxPrefs.putInteger("tiledMap" + save, Finals.firstLevel);
