@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "com.thefoxarmy.rainbowwarrior"
+        applicationId "com.foxyvertex.colorconquest"
         minSdkVersion 15
         targetSdkVersion 24
     }
@@ -65,7 +65,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.thefoxarmy.rainbowwarrior/com.thefoxarmy.rainbowwarrior.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.foxyvertex.colorconquest/com.foxyvertex.colorconquest.AndroidLauncher'
 }
 // sets up the Android Eclipse project, using the old Ant based build.
 eclipse {

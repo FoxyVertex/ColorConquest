@@ -4,7 +4,7 @@ sourceCompatibility = '1.7'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-	mainClassName = "com.thefoxarmy.rainbowwarrior.IOSLauncher"
+	mainClassName = "com.foxyvertex.colorconquest.IOSLauncher"
 }
 
 launchIPhoneSimulator.dependsOn build

@@ -7,8 +7,8 @@ gwt {
     minHeapSize = "1G"
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
-    modules 'com.thefoxarmy.rainbowwarrior.GdxDefinition'
-    devModules 'com.thefoxarmy.rainbowwarrior.GdxDefinitionSuperdev'
+    modules 'com.foxyvertex.colorconquest.GdxDefinition'
+    devModules 'com.foxyvertex.colorconquest.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler {
