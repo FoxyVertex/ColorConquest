@@ -14,6 +14,7 @@ public class Object {
 
     public Object add (Component component) {
         enabledComponentsArray.add(component);
+        component.me = this;
         component.create();
         component.enable();
         return this;

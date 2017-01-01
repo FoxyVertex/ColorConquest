@@ -6,6 +6,13 @@ package com.foxyvertex.colorconquest.ECS;
 
 public abstract class Component {
     public ComponentTypes typeID;
+    public Object me;
+
+    public void requireComponent(ComponentTypes typeID) {
+        if (!me.hasComponent(typeID)) {
+            me.remove(this.typeID);
+        }
+    }
 
     public void setTypeID(ComponentTypes typeID) {
         this.typeID = typeID;
