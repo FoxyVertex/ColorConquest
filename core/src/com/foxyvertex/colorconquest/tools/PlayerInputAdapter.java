@@ -5,7 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.managers.Levels;
 
 /**
  * Processes the input to move the player
@@ -33,6 +35,22 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
     public void handleInput(float delta) {
 
         float maxJumpForceLength = 0.2f;
+
+        //DEBUG JUNK
+        if (Gdx.input.isKeyPressed(Input.Keys.EQUALS))
+            Globals.gameScreen.cam.zoom += 3 / Finals.PPM;
+        if (Gdx.input.isKeyPressed(Input.Keys.MINUS))
+            Globals.gameScreen.cam.zoom -= 3 / Finals.PPM;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            Globals.gameScreen.player.body.setLinearVelocity(new Vector2(0, 0));
+            Globals.gameScreen.player.body.setTransform(Globals.gameScreen.player.spawnPoint, Globals.gameScreen.player.body.getAngle());
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            Levels.Level nextLevel = Globals.gameScreen.currentLevel.nextLevel;
+            Globals.gameScreen.switchLevel(nextLevel);
+        }
+
+
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             currentJumpLength += delta;
@@ -70,11 +88,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(-Globals.gameScreen.player.runSpeed, 0), Globals.gameScreen.player.body.getWorldCenter(), true);
             backKeyPrev = false;
         }
-        //NOTE: This is a debug feature that will likely be replaced by a debug console command in the final product
-        if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-            Globals.gameScreen.player.body.setLinearVelocity(new Vector2(0, 0));
-            Globals.gameScreen.player.body.setTransform(Globals.gameScreen.player.spawnPoint, Globals.gameScreen.player.body.getAngle());
-        }
+
 
         if (!(currentJumpLength >= maxJumpForceLength) && currentJumpLength > 0 && canJump)
             Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, Globals.gameScreen.player.jumpForce * delta), Globals.gameScreen.player.body.getWorldCenter(), true);

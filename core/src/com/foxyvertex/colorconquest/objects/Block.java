@@ -41,11 +41,11 @@ public class Block {
             );
         }
         if (coveredCell == null)
-            Gdx.app.log("Error from Block class", "Something is wrong with the tile in level with index " + Levels.currentLevel + " at coords " + objectProps.get("x", float.class)/16 + ", " + objectProps.get("y", float.class)/16 + " and with id " + objectProps.get("ID", int.class) + ".");
+            Gdx.app.log("Error from Block class", "Something is wrong with the tile in level with index " + Levels.currentLevel + " at coords " + objectProps.get("x", float.class) / 16 + ", " + objectProps.get("y", float.class) / 16 + " and with id " + objectProps.get("ID", int.class) + ".");
         assert coveredCell != null;
         TiledMapTile currentTile = coveredCell.getTile();
         if (currentTile == null)
-            Gdx.app.log("Error from Block class", "Something is wrong with the tile in level with index " + Levels.currentLevel + " at coords " + objectProps.get("x", float.class)/16 + ", " + objectProps.get("y", float.class)/16 + " and with id " + objectProps.get("ID", int.class) + ".");
+            Gdx.app.log("Error from Block class", "Something is wrong with the tile in level with index " + Levels.currentLevel + " at coords " + objectProps.get("x", float.class) / 16 + ", " + objectProps.get("y", float.class) / 16 + " and with id " + objectProps.get("ID", int.class) + ".");
         assert currentTile != null;
         if (tileColor != null)
             currentTile.setTextureRegion(tintTexture(currentTile.getTextureRegion(), tileColor));

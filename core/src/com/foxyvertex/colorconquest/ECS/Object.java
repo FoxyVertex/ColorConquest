@@ -12,7 +12,7 @@ public class Object {
     private Array<Component> enabledComponentsArray = new Array<Component>();
     private Array<Component> disabledComponentsArray = new Array<Component>();
 
-    public Object add (Component component) {
+    public Object add(Component component) {
         enabledComponentsArray.add(component);
         component.me = this;
         component.create();
@@ -20,7 +20,7 @@ public class Object {
         return this;
     }
 
-    public void removeAll () {
+    public void removeAll() {
         while (enabledComponentsArray.size > 0) {
             remove(enabledComponentsArray.get(0).typeID);
         }
@@ -29,7 +29,7 @@ public class Object {
         }
     }
 
-    public Component remove (ComponentTypes typeID) {
+    public Component remove(ComponentTypes typeID) {
         Array<Component> comps = new Array<Component>();
         comps.addAll(enabledComponentsArray);
         comps.addAll(disabledComponentsArray);
@@ -44,7 +44,7 @@ public class Object {
         return null;
     }
 
-    public Array<Component> getComponents () {
+    public Array<Component> getComponents() {
         Array<Component> comps = new Array<Component>();
         comps.addAll(enabledComponentsArray);
         comps.addAll(disabledComponentsArray);
@@ -52,7 +52,7 @@ public class Object {
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends Component> T getComponent (ComponentTypes typeID) {
+    public <T extends Component> T getComponent(ComponentTypes typeID) {
         Array<Component> comps = new Array<Component>();
         comps.addAll(enabledComponentsArray);
         comps.addAll(disabledComponentsArray);
@@ -62,7 +62,7 @@ public class Object {
         return null;
     }
 
-    public void disableComponent (ComponentTypes typeID) {
+    public void disableComponent(ComponentTypes typeID) {
         for (Component comp : enabledComponentsArray) {
             if (comp.typeID == typeID) {
                 comp.disable();
@@ -70,7 +70,7 @@ public class Object {
         }
     }
 
-    public boolean hasComponent (ComponentTypes typeID) {
+    public boolean hasComponent(ComponentTypes typeID) {
         Array<Component> comps = new Array<Component>();
         comps.addAll(enabledComponentsArray);
         comps.addAll(disabledComponentsArray);

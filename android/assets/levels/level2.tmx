@@ -30,7 +30,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,11,11,11,11,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,335,335,335,335,335,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,210,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,210,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,210,
@@ -47,6 +47,12 @@
  </objectgroup>
  <objectgroup name="blocks"/>
  <objectgroup name="EditableBlocks">
+  <properties>
+   <property name="alpha" type="float" value="0.5"/>
+   <property name="blue" type="float" value="0"/>
+   <property name="green" type="float" value="0"/>
+   <property name="red" type="float" value="255"/>
+  </properties>
   <object id="36" x="112" y="176" width="16" height="32"/>
   <object id="37" x="191.5" y="160" width="32" height="16"/>
   <object id="38" x="400" y="176" width="48" height="16">
@@ -96,7 +102,7 @@
   </object>
   <object id="55" x="240" y="64" width="80.3333" height="16">
    <properties>
-    <property name="alpha" type="float" value="255"/>
+    <property name="alpha" type="float" value="0.5"/>
     <property name="blue" type="float" value="255"/>
     <property name="green" type="float" value="0"/>
     <property name="red" type="float" value="0"/>

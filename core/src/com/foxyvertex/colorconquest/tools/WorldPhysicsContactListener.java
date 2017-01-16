@@ -8,9 +8,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.entities.Player;
 import com.foxyvertex.colorconquest.managers.Levels;
 import com.foxyvertex.colorconquest.screens.GameScreen;
-import com.foxyvertex.colorconquest.entities.Player;
 
 /**
  * Created by seth on 11/26/2016.
@@ -83,7 +83,7 @@ public class WorldPhysicsContactListener implements ContactListener {
         }
     }
 
-    //This method is called when collision is finished It basically just resets everthing
+    //This method is called when collision is finished It basically just resets everything
     @Override
     public void endContact(Contact contact) {
         //Store the fixtures from the collsion
@@ -116,7 +116,7 @@ public class WorldPhysicsContactListener implements ContactListener {
                             Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.minJumpFox;
                             break;
                         case 2:
-                            //´´block.setRestitution(0);
+                            //block.setRestitution(0);
                     }
                 } else {
                     Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.minRunSpeed;

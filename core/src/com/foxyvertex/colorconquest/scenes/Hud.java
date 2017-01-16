@@ -1,8 +1,16 @@
 package com.foxyvertex.colorconquest.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.PixmapIO;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.foxyvertex.colorconquest.Finals;
+import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.managers.Assets;
 
 /**
@@ -22,7 +30,6 @@ public class Hud extends Scene {
     private Label scoreLabel;
     private Label timeLabel;
     private Label levelLabel;
-    private Label worldLabel;
     private Label marioLabel;
 
     /**
@@ -49,7 +56,7 @@ public class Hud extends Scene {
         scoreLabel = new Label(String.format("%06d", score), Assets.guiSkin);
         timeLabel = new Label("TIME", Assets.guiSkin);
         levelLabel = new Label("1-1", Assets.guiSkin);
-        worldLabel = new Label("WORLD", Assets.guiSkin);
+        Label worldLabel = new Label("WORLD", Assets.guiSkin);
         marioLabel = new Label("MARIO", Assets.guiSkin);
 
         countdownLabel.setFontScale(1.5f);
@@ -69,9 +76,24 @@ public class Hud extends Scene {
         table.add(levelLabel).expandX();
         table.add(countdownLabel).expandX();
 
+        //Bottom of the HUD that displays color information
+
+        Pixmap colorIndicator = new Pixmap(85, 255, Pixmap.Format.RGB888);
+        colorIndicator.setColor(Color.RED);
+        colorIndicator.fillRectangle(0, colorIndicator.getHeight() - Globals.gameScreen.player.red, colorIndicator.getWidth() / 3, Globals.gameScreen.player.red);
+        colorIndicator.setColor(Color.GREEN);
+        colorIndicator.fillRectangle(colorIndicator.getWidth() / 3, colorIndicator.getHeight() - Globals.gameScreen.player.green, colorIndicator.getWidth() / 3, Globals.gameScreen.player.green);
+        colorIndicator.setColor(Color.BLUE);
+        colorIndicator.fillRectangle(colorIndicator.getWidth() / 3 * 2, colorIndicator.getHeight() - Globals.gameScreen.player.blue, colorIndicator.getWidth() / 3, Globals.gameScreen.player.blue);
+        Image colorINT = new Image(new Texture(colorIndicator));
+        Table bottomHud = new Table(Assets.guiSkin);
+        bottomHud.setFillParent(true);
+        bottomHud.setScale(Finals.PPM);
+        bottomHud.right().bottom().scaleBy(Finals.PPM);
+        bottomHud.add(colorINT).pad(10);
         //add our table to the stage
         stage.addActor(table);
-
+        stage.addActor(bottomHud);
     }
 
     @Override
@@ -91,4 +113,6 @@ public class Hud extends Scene {
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
+
+
 }

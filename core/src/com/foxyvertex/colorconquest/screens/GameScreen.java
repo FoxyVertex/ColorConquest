@@ -16,12 +16,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.entities.Block;
+import com.foxyvertex.colorconquest.entities.Player;
 import com.foxyvertex.colorconquest.managers.Levels;
 import com.foxyvertex.colorconquest.managers.UserPrefs;
 import com.foxyvertex.colorconquest.scenes.GameReadyScreen;
 import com.foxyvertex.colorconquest.scenes.Hud;
 import com.foxyvertex.colorconquest.scenes.PauseMenu;
-import com.foxyvertex.colorconquest.entities.Player;
 import com.foxyvertex.colorconquest.tools.PlayerInputAdapter;
 import com.foxyvertex.colorconquest.tools.Utilities;
 import com.foxyvertex.colorconquest.tools.WorldPhysicsContactListener;
@@ -41,7 +41,7 @@ public class GameScreen extends Screen {
     public Player player;
     public float timeSinceStartLevel = 0;
     //Camera stuff
-    private OrthographicCamera cam;
+    public OrthographicCamera cam;
     private Viewport viewport;
     private TiledMapRenderer mapRenderer;
     private World world;
@@ -57,7 +57,7 @@ public class GameScreen extends Screen {
         cam = new OrthographicCamera();
         viewport = new StretchViewport(Finals.V_WIDTH / Finals.PPM, Finals.V_HEIGHT / Finals.PPM, cam);
 
-        Globals.hudScene = new Hud(this);
+
         Globals.pauseMenuScene = new PauseMenu(this);
         Globals.gameReadyScene = new GameReadyScreen(this);
         Globals.gameScreen = this;
@@ -83,6 +83,7 @@ public class GameScreen extends Screen {
                         tiledMap.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
                 )
         );
+        Globals.hudScene = new Hud(this);
         cam.position.y = player.body.getPosition().y;
         gameState = GameState.READY;
         Globals.gameReadyScene.show();

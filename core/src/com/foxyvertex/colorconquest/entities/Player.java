@@ -25,14 +25,18 @@ public class Player extends Entity {
     public Body body;
     public PlayerInputAdapter input;
     public Vector2 spawnPoint;
-
+    //Might replace with Vector
+    public int red = 125;
+    public int green = 255;
+    public int blue = 12;
     public float jumpForce = 55;
     public float maxJumpForce = 300;
     public float minJumpFox = 55;
-
     public float runSpeed = 0.05f;
     public float maxRunSpeed = 0.4f;
     public float minRunSpeed = 0.125f;
+    //Properties
+    boolean hasGun;
     //FixtureDef fdef;
     private World world;
     private float timer;
@@ -40,8 +44,9 @@ public class Player extends Entity {
     private State previousState;
     private boolean runningRight = false;
 
+
     public Player(PlayerInputAdapter input, Vector2 spawnPoint) {
-        super(new Vector2(0,0), "Player", 20f, Assets.mainAtlas.findRegion("idle"));
+        super(new Vector2(0, 0), "Player", 20f, Assets.mainAtlas.findRegion("idle"));
         this.input = input;
 
         this.spawnPoint = spawnPoint;

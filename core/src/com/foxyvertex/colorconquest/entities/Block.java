@@ -3,13 +3,11 @@ package com.foxyvertex.colorconquest.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -24,7 +22,7 @@ import com.foxyvertex.colorconquest.managers.Levels;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.foxyvertex.colorconquest.tools.Utilities.*;
+import static com.foxyvertex.colorconquest.tools.Utilities.map;
 
 /**
  * Created by aidan on 12/24/2016.
@@ -32,8 +30,8 @@ import static com.foxyvertex.colorconquest.tools.Utilities.*;
 
 public class Block extends Entity {
 
-    private MapObject mapObject;
     public static List<Block> blocks = new ArrayList<Block>();
+    private MapObject mapObject;
     private TextureRegion theFrigginTextureRegion;
 
     public Block(MapObject object, short categoryBit) {
@@ -50,9 +48,9 @@ public class Block extends Entity {
                 throw new AssertionError();
             }
             color = new Color(
-                    map(objectProps.get("red", Float.class), 0, 1, 0, 1),
-                    map(objectProps.get("green", Float.class), 0, 1, 0, 1),
-                    map(objectProps.get("blue", Float.class), 0, 1, 0, 1),
+                    map(objectProps.get("red", Float.class), 0, 1, 0, 255),
+                    map(objectProps.get("green", Float.class), 0, 1, 0, 255),
+                    map(objectProps.get("blue", Float.class), 0, 1, 0, 255),
                     objectProps.get("alpha", Float.class)
             );
         }
@@ -81,18 +79,18 @@ public class Block extends Entity {
 
     private void tintTexture(Color color) {
 
-        Pixmap colorFill = new Pixmap((int)Math.floor(mapObject.getProperties().get("width", float.class)), (int)Math.floor(mapObject.getProperties().get("height", float.class)), Pixmap.Format.RGB888);
+        Pixmap colorFill = new Pixmap((int) Math.floor(mapObject.getProperties().get("width", float.class)), (int) Math.floor(mapObject.getProperties().get("height", float.class)), Pixmap.Format.RGB888);
         colorFill.setColor(color);
         colorFill.fill();
 
         this.setAlpha(color.a);
         this.setRegion(new TextureRegion(new Texture(colorFill)));
-        this.setBounds(this.getX()/Finals.PPM, this.getY()/Finals.PPM, colorFill.getWidth()/Finals.PPM, colorFill.getHeight()/Finals.PPM);
+        this.setBounds(this.getX() / Finals.PPM, this.getY() / Finals.PPM, colorFill.getWidth() / Finals.PPM, colorFill.getHeight() / Finals.PPM);
     }
 
     @Override
     public void tick(float delta) {
-        //this.setRegion(theFrigginTextureRegion);
+
     }
 
     @Override

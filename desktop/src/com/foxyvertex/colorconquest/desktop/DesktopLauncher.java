@@ -8,9 +8,9 @@ import com.foxyvertex.colorconquest.ColorConquest;
  * The desktop launcher class
  */
 public class DesktopLauncher {
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new ColorConquest(), config);
+    public static void main(String[] arg) {
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        new LwjglApplication(new ColorConquest(), config);
 
-	}
+    }
 }
