@@ -2,6 +2,9 @@ package com.foxyvertex.colorconquest.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -10,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.managers.Assets;
@@ -29,12 +33,15 @@ public class Player extends Entity {
     public int red = 125;
     public int green = 255;
     public int blue = 12;
+    public int score = 0;
+    //Physical Properties
     public float jumpForce = 55;
     public float maxJumpForce = 300;
     public float minJumpFox = 55;
     public float runSpeed = 0.05f;
     public float maxRunSpeed = 0.4f;
     public float minRunSpeed = 0.125f;
+    public boolean isFiring = false;
     //Properties
     boolean hasGun;
     //FixtureDef fdef;
@@ -43,7 +50,7 @@ public class Player extends Entity {
     private State currentState;
     private State previousState;
     private boolean runningRight = false;
-
+    public Array<Bullet> bullets;
 
     public Player(PlayerInputAdapter input, Vector2 spawnPoint) {
         super(new Vector2(0, 0), "Player", 20f, Assets.mainAtlas.findRegion("idle"));
@@ -57,7 +64,10 @@ public class Player extends Entity {
 
         currentState = State.IDLE;
 
+        bullets = new Array<Bullet>();
+
         Gdx.input.setInputProcessor(this.input);
+
     }
 
     /**
@@ -86,11 +96,25 @@ public class Player extends Entity {
 
     @Override
     public void tick(float delta) {
+        if (isFiring) {
+            //slow the player down
+            //runSpeed *= 0.75;
+        }
         input.handleInput(delta);
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
         setRotation((float) Math.toDegrees(body.getAngle()));
         timer += delta;
         setRegion(getFrame(delta));
+        for(Bullet b : bullets) {
+            b.tick(delta);
+        }
+    }
+
+    public void render(SpriteBatch batch) {
+        for (Bullet b : bullets) {
+            b.draw(batch);
+            Gdx.app.log("","asdf");
+        }
     }
 
     @Override
@@ -151,13 +175,14 @@ public class Player extends Entity {
         }
 
         //Flip the character to the direction they're funning
-        if ((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = false;
-        } else if ((body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = true;
-        }
+        if (!isFiring)
+            if ((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
+                region.flip(true, false);
+                runningRight = false;
+            } else if ((body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
+                region.flip(true, false);
+                runningRight = true;
+            }
 
         //if the current state is the same as the previous state increase the state timer.
         //otherwise the state has changed and we need to reset timer.
@@ -168,10 +193,15 @@ public class Player extends Entity {
         return region;
     }
 
+    public void shoot() {
+        bullets.add(new Bullet(new Vector2(getX(), getY()), 2, Color.RED));
+    }
+
     /**
      * A bunch of motion states the player could be in
      */
     private enum State {
         IDLE, JUMP_START, JUMP_LOOP, WALKING, FALLING
     }
+
 }

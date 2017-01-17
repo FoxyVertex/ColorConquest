@@ -1,5 +1,6 @@
 package com.foxyvertex.colorconquest;
 
+import com.foxyvertex.colorconquest.scenes.Hud;
 import com.foxyvertex.colorconquest.scenes.Scene;
 import com.foxyvertex.colorconquest.screens.GameScreen;
 import com.foxyvertex.colorconquest.screens.MenuScreen;
@@ -19,7 +20,7 @@ public class Globals {
     // Scene Cache:
     public static Scene titleScreenScene;
     public static Scene pauseMenuScene;
-    public static Scene hudScene;
+    public static Hud hudScene;
     public static Scene optionsMenuScreen;
     public static Scene playMenuScene;
     public static Scene gameReadyScene;

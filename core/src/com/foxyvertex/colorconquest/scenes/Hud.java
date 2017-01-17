@@ -6,9 +6,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.managers.Assets;
@@ -21,16 +25,18 @@ import com.foxyvertex.colorconquest.managers.Assets;
 
 public class Hud extends Scene {
 
+    Pixmap colorIndicatorDrawer;
+    Image colorIndicator;
+    Table bottomHud;
     //Mario score/time Tracking Variables
     private Integer worldTimer;
     private Integer score;
-
     //Scene2D widgets
-    private Label countdownLabel;
-    private Label scoreLabel;
-    private Label timeLabel;
-    private Label levelLabel;
-    private Label marioLabel;
+    private Label lblCountDown;
+    private Label lblScore;
+    private Label lblTime;
+    private Label lblLvl;
+    private Label lblPlayer;
 
     /**
      * The constructor sets up the stage.
@@ -52,45 +58,39 @@ public class Hud extends Scene {
         table.setFillParent(true);
 
         //define our labels using the String, and a Label style consisting of a font and color
-        countdownLabel = new Label(String.format("%03d", worldTimer), Assets.guiSkin);
-        scoreLabel = new Label(String.format("%06d", score), Assets.guiSkin);
-        timeLabel = new Label("TIME", Assets.guiSkin);
-        levelLabel = new Label("1-1", Assets.guiSkin);
+        lblCountDown = new Label(String.format("%03d", worldTimer), Assets.guiSkin);
+        lblScore = new Label(String.format("%06d", score), Assets.guiSkin);
+        lblTime = new Label("TIME", Assets.guiSkin);
+        lblLvl = new Label("1-1", Assets.guiSkin);
         Label worldLabel = new Label("WORLD", Assets.guiSkin);
-        marioLabel = new Label("MARIO", Assets.guiSkin);
+        lblPlayer = new Label("MARIO", Assets.guiSkin);
 
-        countdownLabel.setFontScale(1.5f);
-        scoreLabel.setFontScale(1.5f);
-        timeLabel.setFontScale(1.5f);
-        levelLabel.setFontScale(1.5f);
+        lblCountDown.setFontScale(1.5f);
+        lblScore.setFontScale(1.5f);
+        lblTime.setFontScale(1.5f);
+        lblLvl.setFontScale(1.5f);
         worldLabel.setFontScale(1.5f);
-        marioLabel.setFontScale(1.5f);
+        lblPlayer.setFontScale(1.5f);
 
         //add our labels to our table, padding the top, and giving them all equal width with expandX
-        table.add(marioLabel).expandX().padTop(10);
+        table.add(lblPlayer).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
+        table.add(lblTime).expandX().padTop(10);
         //add a second row to our table
         table.row();
-        table.add(scoreLabel).expandX();
-        table.add(levelLabel).expandX();
-        table.add(countdownLabel).expandX();
+        table.add(lblScore).expandX();
+        table.add(lblLvl).expandX();
+        table.add(lblCountDown).expandX();
 
         //Bottom of the HUD that displays color information
-
-        Pixmap colorIndicator = new Pixmap(85, 255, Pixmap.Format.RGB888);
-        colorIndicator.setColor(Color.RED);
-        colorIndicator.fillRectangle(0, colorIndicator.getHeight() - Globals.gameScreen.player.red, colorIndicator.getWidth() / 3, Globals.gameScreen.player.red);
-        colorIndicator.setColor(Color.GREEN);
-        colorIndicator.fillRectangle(colorIndicator.getWidth() / 3, colorIndicator.getHeight() - Globals.gameScreen.player.green, colorIndicator.getWidth() / 3, Globals.gameScreen.player.green);
-        colorIndicator.setColor(Color.BLUE);
-        colorIndicator.fillRectangle(colorIndicator.getWidth() / 3 * 2, colorIndicator.getHeight() - Globals.gameScreen.player.blue, colorIndicator.getWidth() / 3, Globals.gameScreen.player.blue);
-        Image colorINT = new Image(new Texture(colorIndicator));
-        Table bottomHud = new Table(Assets.guiSkin);
+        bottomHud = new Table(Assets.guiSkin);
         bottomHud.setFillParent(true);
-        bottomHud.setScale(Finals.PPM);
-        bottomHud.right().bottom().scaleBy(Finals.PPM);
-        bottomHud.add(colorINT).pad(10);
+        //Table Positioning stuff doesn't work yet -_-
+        bottomHud.row();
+        bottomHud.pad(10);
+        bottomHud.right();
+        updateHud();
+
         //add our table to the stage
         stage.addActor(table);
         stage.addActor(bottomHud);
@@ -114,5 +114,24 @@ public class Hud extends Scene {
         stage.getViewport().update(width, height, true);
     }
 
+    public void updateHud() {
+        lblScore.setText(String.format("%06d", Globals.gameScreen.player.score));
 
+        colorIndicatorDrawer = new Pixmap(85, 255, Pixmap.Format.RGB888);
+
+        colorIndicatorDrawer.setColor(Color.RED);
+        colorIndicatorDrawer.fillRectangle(0, colorIndicatorDrawer.getHeight() - Globals.gameScreen.player.red, colorIndicatorDrawer.getWidth() / 3, Globals.gameScreen.player.red);
+
+        colorIndicatorDrawer.setColor(Color.GREEN);
+        colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3, colorIndicatorDrawer.getHeight() - Globals.gameScreen.player.green, colorIndicatorDrawer.getWidth() / 3, Globals.gameScreen.player.green);
+
+        colorIndicatorDrawer.setColor(Color.BLUE);
+        colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3 * 2, colorIndicatorDrawer.getHeight() - Globals.gameScreen.player.blue, colorIndicatorDrawer.getWidth() / 3, Globals.gameScreen.player.blue);
+
+        colorIndicator = new Image(new Texture(new PixmapTextureData(colorIndicatorDrawer, Pixmap.Format.RGBA8888, false, false, true)));
+
+        bottomHud.addActor(colorIndicator);
+        bottomHud.right();
+        bottomHud.bottom();
+    }
 }

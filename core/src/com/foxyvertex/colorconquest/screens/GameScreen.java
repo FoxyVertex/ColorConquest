@@ -166,6 +166,7 @@ public class GameScreen extends Screen {
         Globals.game.batch.begin();
         for (Block block : Block.blocks) block.draw(Globals.game.batch);
         player.draw(Globals.game.batch);
+        player.render(Globals.game.batch);
         Globals.game.batch.end();
         Globals.game.batch.setProjectionMatrix(Globals.hudScene.stage.getCamera().combined);
         Globals.hudScene.stage.draw();
@@ -340,4 +341,3 @@ public class GameScreen extends Screen {
         OVER
     }
 }
-

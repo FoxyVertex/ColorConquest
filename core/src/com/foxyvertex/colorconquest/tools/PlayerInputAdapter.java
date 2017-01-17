@@ -27,6 +27,24 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
     public PlayerInputAdapter() {
     }
 
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        Globals.gameScreen.player.shoot();
+
+        return super.touchDown(screenX, screenY, pointer, button);
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return super.mouseMoved(screenX, screenY);
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return super.scrolled(amount);
+    }
+
     /**
      * Handles all of the input
      *
@@ -37,6 +55,10 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
         float maxJumpForceLength = 0.2f;
 
         //DEBUG JUNK
+        if (Gdx.input.isKeyPressed(Input.Keys.B)) {
+            Globals.gameScreen.player.blue += 1;
+            Globals.hudScene.updateHud();
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.EQUALS))
             Globals.gameScreen.cam.zoom += 3 / Finals.PPM;
         if (Gdx.input.isKeyPressed(Input.Keys.MINUS))
@@ -50,7 +72,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             Globals.gameScreen.switchLevel(nextLevel);
         }
 
-
+         Globals.gameScreen.player.isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             currentJumpLength += delta;
@@ -64,7 +86,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             isSpacePreviousPressed = false;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_RIGHT)) {
             Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.maxRunSpeed;
             Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.maxJumpForce;
         }
@@ -94,4 +116,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, Globals.gameScreen.player.jumpForce * delta), Globals.gameScreen.player.body.getWorldCenter(), true);
 
     }
+
+
+
 }

@@ -75,6 +75,8 @@ public abstract class Entity extends Sprite implements Disposable {
         this.health = maxHealth;
     }
 
+    public Entity() {}
+
     public abstract void tick(float delta);
 
     public abstract void die(Entity killedBy);
