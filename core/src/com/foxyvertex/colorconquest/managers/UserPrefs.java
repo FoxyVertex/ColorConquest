@@ -6,7 +6,6 @@ import com.foxyvertex.colorconquest.Finals;
 
 /**
  * Created by aidan on 11/28/2016.
- * <p>
  * Houses user preferences and manages them.
  */
 

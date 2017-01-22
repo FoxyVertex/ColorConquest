@@ -124,7 +124,7 @@ public class GameScreen extends Screen {
     /**
      * This is called to show stuff for the READY state
      */
-    private void presentReady() {
+    private void renderReady() {
         Globals.game.batch.setProjectionMatrix(Globals.gameReadyScene.stage.getCamera().combined);
         Globals.gameReadyScene.stage.draw();
     }
@@ -159,7 +159,7 @@ public class GameScreen extends Screen {
     /**
      * This is called to show stuff for the READY state
      */
-    private void presentRunning() {
+    private void renderRunning() {
         mapRenderer.render();
         b2dRenderer.render(world, cam.combined);
         Globals.game.batch.setProjectionMatrix(cam.combined);
@@ -188,7 +188,7 @@ public class GameScreen extends Screen {
     /**
      * This is called to show stuff for the PAUSED state
      */
-    private void presentPaused() {
+    private void renderPaused() {
         mapRenderer.render();
         Globals.game.batch.setProjectionMatrix(cam.combined);
         Globals.game.batch.begin();
@@ -209,7 +209,7 @@ public class GameScreen extends Screen {
     /**
      * This is called to show stuff for the LEVEL_END state
      */
-    private void presentLevelEnd() {
+    private void renderLevelEnd() {
 
     }
 
@@ -223,7 +223,7 @@ public class GameScreen extends Screen {
     /**
      * This is called to show stuff for the SHOW state
      */
-    private void presentGameOver() {
+    private void renderGameOver() {
 
     }
 
@@ -238,19 +238,19 @@ public class GameScreen extends Screen {
         tick(delta);
         switch (gameState) {
             case READY:
-                presentReady();
+                renderReady();
                 break;
             case RUNNING:
-                presentRunning();
+                renderRunning();
                 break;
             case PAUSED:
-                presentPaused();
+                renderPaused();
                 break;
             case LEVEL_END:
-                presentLevelEnd();
+                renderLevelEnd();
                 break;
             case OVER:
-                presentGameOver();
+                renderGameOver();
                 break;
         }
 

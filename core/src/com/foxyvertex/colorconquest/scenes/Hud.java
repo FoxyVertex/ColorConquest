@@ -83,7 +83,7 @@ public class Hud extends Scene {
         bottomHud.row();
         bottomHud.pad(10);
         bottomHud.right();
-        updateHud();
+        updateData();
 
         //add our table to the stage
         stage.addActor(table);
@@ -108,7 +108,7 @@ public class Hud extends Scene {
         stage.getViewport().update(width, height, true);
     }
 
-    public void updateHud() {
+    public void updateData() {
         lblScore.setText(String.format("%06d", Globals.gameScreen.player.score));
 
         colorIndicatorDrawer = new Pixmap(85, 255, Pixmap.Format.RGB888);

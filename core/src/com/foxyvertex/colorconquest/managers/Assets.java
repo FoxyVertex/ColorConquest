@@ -60,6 +60,7 @@ public class Assets {
 
         splashScreenLogos.add(new SplashScreen.SplashLogo("FoxyVertex.png", 0.8f).actorImage);
         splashScreenLogos.add(new SplashScreen.SplashLogo("thefoxarmy.jpg", 3f).actorImage);
+        splashScreenLogos.add(new SplashScreen.SplashLogo("badlogic.jpg", 2f).actorImage);
 
         badlogic = new Texture("badlogic.jpg");
 

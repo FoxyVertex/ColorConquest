@@ -66,7 +66,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
         //DEBUG JUNK
         if (Gdx.input.isKeyPressed(Input.Keys.B)) {
             Globals.gameScreen.player.blue += 1;
-            Globals.hudScene.updateHud();
+            Globals.hudScene.updateData();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.EQUALS))
             Globals.gameScreen.cam.zoom += 3 / Finals.PPM;
