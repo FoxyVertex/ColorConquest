@@ -16,8 +16,8 @@ import com.foxyvertex.colorconquest.Globals;
 
 public abstract class SpriteBody extends Sprite {
 
-    protected Body body;
-    protected Vector2 spawnPoint;
+    public Body body;
+    public Vector2 spawnPoint;
     protected Fixture primaryFixture;
     protected short CATIGORY_BIT = 0;
 

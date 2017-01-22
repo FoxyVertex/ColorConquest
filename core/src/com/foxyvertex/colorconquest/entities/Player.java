@@ -21,10 +21,9 @@ import com.foxyvertex.colorconquest.tools.PlayerInputAdapter;
  * Created by aidan on 12/24/2016.
  */
 
-public class Player extends Entity {
+public class Player extends SpriteBody {
 
     public int lives = 10;
-    public Body body;
     public PlayerInputAdapter input;
     public Vector2 spawnPoint;
     //Might replace with Vector
@@ -49,11 +48,11 @@ public class Player extends Entity {
     private State previousState;
     private boolean runningRight = false;
     private Array<Bullet> bullets;
-    private Fixture primaryFixture;
     private Color selectedColor = Color.RED;
 
     public Player(PlayerInputAdapter input, Vector2 spawnPoint) {
-        super(new Vector2(0, 0), "Player", 20f, Assets.mainAtlas.findRegion("idle"));
+        super(spawnPoint.scl(1/Finals.PPM));
+        setRegion(Assets.mainAtlas.findRegion("idle"));
         this.input = input;
 
         this.spawnPoint = spawnPoint;
@@ -80,24 +79,15 @@ public class Player extends Entity {
      * Defines all fixtures to create the body of the player.
      */
     private void def() {
-        BodyDef bdef = new BodyDef();
-        bdef.position.set(spawnPoint.scl(1 / Finals.PPM));
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        super.CATIGORY_BIT = Finals.PLAYER_BIT;
 
-        body = Globals.gameScreen.getWorld().createBody(bdef);
-        FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(13.4f / Finals.PPM);
-        fdef.shape = shape;
-        fdef.filter.categoryBits = Finals.PLAYER_BIT;
-        primaryFixture = body.createFixture(fdef);
+
+        super.def(shape);
+
         body.setLinearDamping(5f);
         body.setUserData(this);
-    }
-
-    @Override
-    public void dispose() {
-
     }
 
     @Override
@@ -122,15 +112,6 @@ public class Player extends Entity {
         }
     }
 
-    @Override
-    public void die(Entity killedBy) {
-
-    }
-
-    @Override
-    public void damage(Entity damagedBy, float damageAmount) {
-
-    }
 
     /**
      * Determent the cornet state in which to the player is, based on the player's current state of motion.

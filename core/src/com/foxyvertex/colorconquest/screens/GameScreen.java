@@ -300,7 +300,6 @@ public class GameScreen extends Screen {
     public void dispose() {
         world.dispose();
         b2dRenderer.dispose();
-        player.dispose();
     }
 
     /**
