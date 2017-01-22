@@ -13,8 +13,9 @@ public class Finals {
             BLOCK_BIT = 1,
             PLAYER_BIT = 2,
             END_LEVEL_BIT = 4,
-            PLAYER_FEET_BIT = 8;
+            PLAYER_FEET_BIT = 8,
+            BULLET_BIT = 16;
     public static final boolean SKIP_TO_GAME = true;
-    public static String TITLE = "Rainbow Warrior";
+    public static String TITLE = "Color Conquest";
     public static int firstLevel = 0;
 }

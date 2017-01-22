@@ -3,7 +3,6 @@ package com.foxyvertex.colorconquest.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
@@ -30,9 +28,9 @@ public class Player extends Entity {
     public PlayerInputAdapter input;
     public Vector2 spawnPoint;
     //Might replace with Vector
-    public int red = 125;
+    public int red = 255;
     public int green = 255;
-    public int blue = 12;
+    public int blue = 255;
     public int score = 0;
     //Physical Properties
     public float jumpForce = 55;
@@ -42,22 +40,23 @@ public class Player extends Entity {
     public float maxRunSpeed = 0.4f;
     public float minRunSpeed = 0.125f;
     public boolean isFiring = false;
+    public Array<Color> colors;
+    //FixtureDef fdef;
     //Properties
     boolean hasGun;
-    //FixtureDef fdef;
-    private World world;
     private float timer;
     private State currentState;
     private State previousState;
     private boolean runningRight = false;
-    public Array<Bullet> bullets;
+    private Array<Bullet> bullets;
+    private Fixture primaryFixture;
+    private Color selectedColor = Color.RED;
 
     public Player(PlayerInputAdapter input, Vector2 spawnPoint) {
         super(new Vector2(0, 0), "Player", 20f, Assets.mainAtlas.findRegion("idle"));
         this.input = input;
 
         this.spawnPoint = spawnPoint;
-        this.world = Globals.gameScreen.getWorld();
         def();
 
         setBounds(0, 0, getRegionWidth() / 8.5f / Finals.PPM, getRegionHeight() / 8.5f / Finals.PPM);
@@ -65,9 +64,16 @@ public class Player extends Entity {
         currentState = State.IDLE;
 
         bullets = new Array<Bullet>();
-
+        colors = new Array<Color>();
+        colors.add(Color.RED);
+        colors.add(Color.GREEN);
+        colors.add(Color.BLUE);
         Gdx.input.setInputProcessor(this.input);
 
+    }
+
+    public void setSelectedColor(Color selectedColor) {
+        this.selectedColor = selectedColor;
     }
 
     /**
@@ -78,13 +84,13 @@ public class Player extends Entity {
         bdef.position.set(spawnPoint.scl(1 / Finals.PPM));
         bdef.type = BodyDef.BodyType.DynamicBody;
 
-        body = world.createBody(bdef);
+        body = Globals.gameScreen.getWorld().createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(13.4f / Finals.PPM);
         fdef.shape = shape;
         fdef.filter.categoryBits = Finals.PLAYER_BIT;
-        final Fixture fixture = body.createFixture(fdef);
+        primaryFixture = body.createFixture(fdef);
         body.setLinearDamping(5f);
         body.setUserData(this);
     }
@@ -105,7 +111,7 @@ public class Player extends Entity {
         setRotation((float) Math.toDegrees(body.getAngle()));
         timer += delta;
         setRegion(getFrame(delta));
-        for(Bullet b : bullets) {
+        for (Bullet b : bullets) {
             b.tick(delta);
         }
     }
@@ -113,7 +119,6 @@ public class Player extends Entity {
     public void render(SpriteBatch batch) {
         for (Bullet b : bullets) {
             b.draw(batch);
-            Gdx.app.log("","asdf");
         }
     }
 
@@ -193,8 +198,33 @@ public class Player extends Entity {
         return region;
     }
 
-    public void shoot() {
-        bullets.add(new Bullet(new Vector2(getX(), getY()), 2, Color.RED));
+    public void shoot(Vector2 clickPoint) {
+
+        if (selectedColor == Color.RED)
+            if (red <= 0)
+                return;
+            else
+                red--;
+        else if (selectedColor == Color.GREEN)
+            if (green <= 0)
+                return;
+            else
+                green--;
+        else if (blue <= 0)
+            return;
+        else
+            blue--;
+
+
+        Globals.hudScene.updateHud();
+        if (runningRight)
+            bullets.add(new Bullet(body.getPosition().add(1 / Finals.PPM, 1 / Finals.PPM), selectedColor));
+        else
+            bullets.add(new Bullet(body.getPosition().add(-1 / Finals.PPM, -1 / Finals.PPM), selectedColor));
+    }
+
+    public boolean isRunningRight() {
+        return runningRight;
     }
 
     /**

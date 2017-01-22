@@ -1,19 +1,13 @@
 package com.foxyvertex.colorconquest.scenes;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.PixmapTextureData;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.managers.Assets;
 

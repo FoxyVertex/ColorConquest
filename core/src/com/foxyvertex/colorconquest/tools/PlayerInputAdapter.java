@@ -14,9 +14,9 @@ import com.foxyvertex.colorconquest.managers.Levels;
  */
 public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
 
+    int currentColorIndex = 0;
     private float currentJumpLength = 0;
     private boolean isSpacePreviousPressed = false;
-
     private boolean backKeyPrev = false;
     private boolean forwardKeyPrev = false;
     private boolean canJump = true;
@@ -30,7 +30,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        Globals.gameScreen.player.shoot();
+        Globals.gameScreen.player.shoot(new Vector2(screenX, screenY));
 
         return super.touchDown(screenX, screenY, pointer, button);
     }
@@ -42,6 +42,15 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
+        currentColorIndex += amount;
+        if (currentColorIndex >= Globals.gameScreen.player.colors.size)
+            currentColorIndex = 0;
+        if (currentColorIndex < 0)
+            currentColorIndex = Globals.gameScreen.player.colors.size - 1;
+        //Uncomment for lulz!!!
+        //Globals.gameScreen.player.setColor(Globals.gameScreen.player.colors.get(currentColorIndex));
+        Globals.gameScreen.player.setSelectedColor(Globals.gameScreen.player.colors.get(currentColorIndex));
+
         return super.scrolled(amount);
     }
 
@@ -72,7 +81,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             Globals.gameScreen.switchLevel(nextLevel);
         }
 
-         Globals.gameScreen.player.isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
+        Globals.gameScreen.player.isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             currentJumpLength += delta;
@@ -116,7 +125,6 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, Globals.gameScreen.player.jumpForce * delta), Globals.gameScreen.player.body.getWorldCenter(), true);
 
     }
-
 
 
 }
