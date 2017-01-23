@@ -80,7 +80,7 @@ public class Player extends SpriteBody {
         CircleShape shape = new CircleShape();
         shape.setRadius(13.4f / Finals.PPM);
 
-        super.def(shape);
+        super.def(shape, false);
 
         body.setLinearDamping(5f);
         body.setUserData(this);

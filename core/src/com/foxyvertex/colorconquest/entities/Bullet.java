@@ -32,7 +32,7 @@ public class Bullet extends SpriteBody {
         super.CATIGORY_BIT = Finals.BULLET_BIT;
         CircleShape shape = new CircleShape();
         shape.setRadius(3f / Finals.PPM);
-        super.def(shape);
+        super.def(shape, false);
         if (Globals.gameMan.player.isRunningRight())
             body.applyLinearImpulse(initialImpulse, body.getWorldCenter(), true);
         else

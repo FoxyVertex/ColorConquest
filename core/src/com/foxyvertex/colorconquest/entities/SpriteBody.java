@@ -25,10 +25,28 @@ public abstract class SpriteBody extends Sprite {
         this.spawnPoint = spawnpoint;
     }
 
-    protected void def(Shape shape) {
+    protected void def(Shape shape, boolean isStaticBody) {
         BodyDef bdef = new BodyDef();
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        if (isStaticBody)
+            bdef.type = BodyDef.BodyType.StaticBody;
+        else
+            bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.position.set(spawnPoint);
+        body = Globals.gameMan.world.createBody(bdef);
+
+        FixtureDef fdef = new FixtureDef();
+        fdef.filter.categoryBits = this.CATIGORY_BIT;
+        fdef.shape = shape;
+        primaryFixture = body.createFixture(fdef);
+    }
+
+    protected void def(Shape shape, Vector2 newSpawnPoint, boolean isStaticBody) {
+        BodyDef bdef = new BodyDef();
+        if (isStaticBody)
+            bdef.type = BodyDef.BodyType.StaticBody;
+        else
+            bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.position.set(newSpawnPoint);
         body = Globals.gameMan.world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();

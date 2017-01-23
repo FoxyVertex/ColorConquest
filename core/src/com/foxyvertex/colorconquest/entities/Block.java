@@ -28,14 +28,14 @@ import static com.foxyvertex.colorconquest.tools.Utilities.map;
  * Created by aidan on 12/24/2016.
  */
 
-public class Block extends Entity {
+public class Block extends SpriteBody {
 
     public static List<Block> blocks = new ArrayList<Block>();
     private MapObject mapObject;
     private TextureRegion theFrigginTextureRegion;
 
     public Block(MapObject object, short categoryBit) {
-        super(new Vector2(object.getProperties().get("x", float.class), object.getProperties().get("y", float.class)), -1f);
+        super(new Vector2(object.getProperties().get("x", float.class), object.getProperties().get("y", float.class)));
 
         this.mapObject = object;
 
@@ -58,23 +58,19 @@ public class Block extends Entity {
         if (color != null) {
             tintTexture(color);
             blocks.add(this);
+
         }
 
 
+
+        CATIGORY_BIT = categoryBit;
         PolygonShape polygon = new PolygonShape();
         Rectangle rect = ((RectangleMapObject) object).getRectangle();
-        BodyDef bdef = new BodyDef();
-        bdef.type = BodyDef.BodyType.StaticBody;
-        bdef.position.set((rect.getX() + rect.getWidth() / 2) / Finals.PPM, (rect.getY() + rect.getHeight() / 2) / Finals.PPM);
-        Body body = Globals.gameMan.world.createBody(bdef);
-        FixtureDef fdef = new FixtureDef();
         polygon.setAsBox((rect.getWidth() / 2) / Finals.PPM, (rect.getHeight() / 2) / Finals.PPM);
-        fdef.shape = polygon;
-        fdef.filter.categoryBits = categoryBit;
-        body.createFixture(fdef);
-        for (Fixture fixture : body.getFixtureList()) {
-            fixture.setUserData(color);
-        }
+
+        def(polygon, new Vector2((rect.getX() + rect.getWidth() / 2) / Finals.PPM, (rect.getY() + rect.getHeight() / 2) / Finals.PPM), true);
+        setPosition((rect.getX()) / Finals.PPM, (rect.getY()) / Finals.PPM);
+        primaryFixture.setUserData(color);
     }
 
     private void tintTexture(Color color) {
@@ -93,17 +89,6 @@ public class Block extends Entity {
 
     }
 
-    @Override
-    public void die(Entity killedBy) {
-
-    }
-
-    @Override
-    public void damage(Entity damagedBy, float damageAmount) {
-
-    }
-
-    @Override
     public void dispose() {
         this.getTexture().dispose();
     }
