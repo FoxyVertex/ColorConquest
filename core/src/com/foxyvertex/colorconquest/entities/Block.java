@@ -66,7 +66,7 @@ public class Block extends Entity {
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.StaticBody;
         bdef.position.set((rect.getX() + rect.getWidth() / 2) / Finals.PPM, (rect.getY() + rect.getHeight() / 2) / Finals.PPM);
-        Body body = Globals.gameScreen.getWorld().createBody(bdef);
+        Body body = Globals.gameMan.world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         polygon.setAsBox((rect.getWidth() / 2) / Finals.PPM, (rect.getHeight() / 2) / Finals.PPM);
         fdef.shape = polygon;

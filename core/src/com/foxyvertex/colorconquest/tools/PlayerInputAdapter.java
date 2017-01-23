@@ -30,7 +30,7 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        Globals.gameScreen.player.shoot(new Vector2(screenX, screenY));
+        Globals.gameMan.player.shoot(new Vector2(screenX, screenY));
 
         return super.touchDown(screenX, screenY, pointer, button);
     }
@@ -43,13 +43,13 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         currentColorIndex += amount;
-        if (currentColorIndex >= Globals.gameScreen.player.colors.size)
+        if (currentColorIndex >= Globals.gameMan.player.colors.size)
             currentColorIndex = 0;
         if (currentColorIndex < 0)
-            currentColorIndex = Globals.gameScreen.player.colors.size - 1;
+            currentColorIndex = Globals.gameMan.player.colors.size - 1;
         //Uncomment for lulz!!!
-        //Globals.gameScreen.player.setColor(Globals.gameScreen.player.colors.get(currentColorIndex));
-        Globals.gameScreen.player.setSelectedColor(Globals.gameScreen.player.colors.get(currentColorIndex));
+        //Globals.gameMan.player.setColor(Globals.gameMan.player.colors.get(currentColorIndex));
+        Globals.gameMan.player.setSelectedColor(Globals.gameMan.player.colors.get(currentColorIndex));
 
         return super.scrolled(amount);
     }
@@ -65,23 +65,23 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
 
         //DEBUG JUNK
         if (Gdx.input.isKeyPressed(Input.Keys.B)) {
-            Globals.gameScreen.player.blue += 1;
+            Globals.gameMan.player.blue += 1;
             Globals.hudScene.updateData();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.EQUALS))
-            Globals.gameScreen.cam.zoom += 3 / Finals.PPM;
+            Globals.gameMan.cam.zoom += 3 / Finals.PPM;
         if (Gdx.input.isKeyPressed(Input.Keys.MINUS))
-            Globals.gameScreen.cam.zoom -= 3 / Finals.PPM;
+            Globals.gameMan.cam.zoom -= 3 / Finals.PPM;
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-            Globals.gameScreen.player.body.setLinearVelocity(new Vector2(0, 0));
-            Globals.gameScreen.player.body.setTransform(Globals.gameScreen.player.spawnPoint, Globals.gameScreen.player.body.getAngle());
+            Globals.gameMan.player.body.setLinearVelocity(new Vector2(0, 0));
+            Globals.gameMan.player.body.setTransform(Globals.gameMan.player.spawnPoint, Globals.gameMan.player.body.getAngle());
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            Levels.Level nextLevel = Globals.gameScreen.currentLevel.nextLevel;
-            Globals.gameScreen.switchLevel(nextLevel);
+            Levels.Level nextLevel = Globals.gameMan.currentLevel.nextLevel;
+            Globals.gameMan.switchLevel(nextLevel);
         }
 
-        Globals.gameScreen.player.isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
+        Globals.gameMan.player.isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             currentJumpLength += delta;
@@ -91,38 +91,38 @@ public class PlayerInputAdapter extends InputAdapter implements InputProcessor {
             isSpacePreviousPressed = true;
         } else {
             currentJumpLength = 0f;
-            canJump = Globals.gameScreen.player.body.getLinearVelocity().y == 0 && !isSpacePreviousPressed;
+            canJump = Globals.gameMan.player.body.getLinearVelocity().y == 0 && !isSpacePreviousPressed;
             isSpacePreviousPressed = false;
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_RIGHT)) {
-            Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.maxRunSpeed;
-            Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.maxJumpForce;
+            Globals.gameMan.player.runSpeed = Globals.gameMan.player.maxRunSpeed;
+            Globals.gameMan.player.jumpForce = Globals.gameMan.player.maxJumpForce;
         }
 
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.S))
-            Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, -10f), Globals.gameScreen.player.body.getWorldCenter(), true);
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(0, -10f), Globals.gameMan.player.body.getWorldCenter(), true);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && Globals.gameScreen.player.body.getLinearVelocity().x <= 2) {
-            Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(Globals.gameScreen.player.runSpeed, 0), Globals.gameScreen.player.body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && Globals.gameMan.player.body.getLinearVelocity().x <= 2) {
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(Globals.gameMan.player.runSpeed, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             forwardKeyPrev = true;
         } else if (!Gdx.input.isKeyPressed(Input.Keys.A) && forwardKeyPrev) {
-            Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(-Globals.gameScreen.player.runSpeed, 0), Globals.gameScreen.player.body.getWorldCenter(), true);
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             forwardKeyPrev = false;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && Globals.gameScreen.player.body.getLinearVelocity().x >= -2) {
-            Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(-Globals.gameScreen.player.runSpeed, 0), Globals.gameScreen.player.body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && Globals.gameMan.player.body.getLinearVelocity().x >= -2) {
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             backKeyPrev = true;
         } else if (!Gdx.input.isKeyPressed(Input.Keys.A) && backKeyPrev) {
-            Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(-Globals.gameScreen.player.runSpeed, 0), Globals.gameScreen.player.body.getWorldCenter(), true);
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             backKeyPrev = false;
         }
 
 
         if (!(currentJumpLength >= maxJumpForceLength) && currentJumpLength > 0 && canJump)
-            Globals.gameScreen.player.body.applyLinearImpulse(new Vector2(0, Globals.gameScreen.player.jumpForce * delta), Globals.gameScreen.player.body.getWorldCenter(), true);
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(0, Globals.gameMan.player.jumpForce * delta), Globals.gameMan.player.body.getWorldCenter(), true);
 
     }
 

@@ -1,0 +1,46 @@
+package com.foxyvertex.colorconquest.game;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.screens.GameScreen;
+
+import static com.badlogic.gdx.Gdx.input;
+
+/**
+ * Created by aidan on 1/23/17.
+ */
+
+public class Paused extends GameState {
+
+    @Override
+    public void update(float delta) {
+        if (input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Globals.gameMan.switchState(GameManager.GameState.RUNNING);
+            Gdx.input.setInputProcessor(Globals.gameMan.player.input);
+        }
+    }
+
+    @Override
+    public void render() {
+        Globals.gameMan.mapRenderer.render();
+        Globals.game.batch.setProjectionMatrix(Globals.gameMan.cam.combined);
+        Globals.game.batch.begin();
+        Globals.gameMan.player.draw(Globals.game.batch);
+        Globals.game.batch.end();
+        Globals.game.batch.setProjectionMatrix(Globals.pauseMenuScene.stage.getCamera().combined);
+        Globals.pauseMenuScene.stage.act();
+        Globals.pauseMenuScene.stage.draw();
+    }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void stop() {
+
+    }
+
+}

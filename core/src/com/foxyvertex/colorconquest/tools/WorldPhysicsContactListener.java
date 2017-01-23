@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.entities.Player;
+import com.foxyvertex.colorconquest.game.GameManager;
 import com.foxyvertex.colorconquest.managers.Levels;
-import com.foxyvertex.colorconquest.screens.GameScreen;
 
 /**
  * Created by seth on 11/26/2016.
@@ -20,15 +20,15 @@ import com.foxyvertex.colorconquest.screens.GameScreen;
 
 public class WorldPhysicsContactListener implements ContactListener {
 
-    private GameScreen screen;
+    private GameManager gameManager;
 
     /**
      * Instantiates an instance of a worldContactlistener for the world to use.
      *
-     * @param screen Used in order to access other objects within the current tiledMap loaded.
+     * @param gameManager Used in order to access other objects within the current tiledMap loaded.
      */
-    public WorldPhysicsContactListener(GameScreen screen) {
-        this.screen = screen;
+    public WorldPhysicsContactListener(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
 
     /**
@@ -46,8 +46,8 @@ public class WorldPhysicsContactListener implements ContactListener {
         //Checks to see if a select two kinds of fixtures collide.
         switch (collisionDefinition) {
             case Finals.PLAYER_BIT | Finals.END_LEVEL_BIT:
-                Levels.Level nextLevel = screen.currentLevel.nextLevel;
-                screen.switchLevel(nextLevel);
+                Levels.Level nextLevel = Globals.gameMan.currentLevel.nextLevel;
+                Globals.gameMan.switchLevel(nextLevel);
                 break;
             case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
                 Fixture player, block;
@@ -66,18 +66,18 @@ public class WorldPhysicsContactListener implements ContactListener {
                     //Depending on the maximum color R0G1B2 apply a property to the player
                     switch (Utilities.findBiggestIndex(RGBColors)) {
                         case 0:
-                            Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.maxRunSpeed;
+                            Globals.gameMan.player.runSpeed = Globals.gameMan.player.maxRunSpeed;
                             break;
                         case 1:
-                            Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.maxJumpForce;
+                            Globals.gameMan.player.jumpForce = Globals.gameMan.player.maxJumpForce;
                             break;
                         case 2:
                             block.setRestitution(1f);
                             break;
                     }
                 } else {
-                    Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.minRunSpeed;
-                    Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.minJumpFox;
+                    Globals.gameMan.player.runSpeed = Globals.gameMan.player.minRunSpeed;
+                    Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpFox;
                 }
                 break;
         }
@@ -111,16 +111,16 @@ public class WorldPhysicsContactListener implements ContactListener {
 
                     switch (Utilities.findBiggestIndex(RGBColors)) {
                         case 0:
-                            Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.minRunSpeed;
+                            Globals.gameMan.player.runSpeed = Globals.gameMan.player.minRunSpeed;
                         case 1:
-                            Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.minJumpFox;
+                            Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpFox;
                             break;
                         case 2:
                             //block.setRestitution(0);
                     }
                 } else {
-                    Globals.gameScreen.player.runSpeed = Globals.gameScreen.player.minRunSpeed;
-                    Globals.gameScreen.player.jumpForce = Globals.gameScreen.player.minJumpFox;
+                    Globals.gameMan.player.runSpeed = Globals.gameMan.player.minRunSpeed;
+                    Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpFox;
                 }
                 break;
         }

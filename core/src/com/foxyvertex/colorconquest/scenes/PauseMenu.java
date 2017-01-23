@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.game.GameManager;
 import com.foxyvertex.colorconquest.managers.Assets;
 import com.foxyvertex.colorconquest.screens.GameScreen;
 
@@ -35,7 +36,7 @@ public class PauseMenu extends Scene {
         btnResume.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                GameScreen.gameState = GameScreen.GameState.RUNNING;
+                Globals.gameMan.switchState(GameManager.GameState.RUNNING);
                 Assets.playSound(Assets.clickSound);
             }
         });

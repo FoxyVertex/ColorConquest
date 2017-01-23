@@ -1,10 +1,12 @@
 package com.foxyvertex.colorconquest.scenes;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.game.GameManager;
 import com.foxyvertex.colorconquest.managers.Assets;
 import com.foxyvertex.colorconquest.screens.GameScreen;
 
@@ -54,8 +56,8 @@ public class GameReadyScreen extends Scene implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        Gdx.input.setInputProcessor(Globals.gameScreen.player.input);
-        GameScreen.gameState = GameScreen.GameState.RUNNING;
+        Gdx.input.setInputProcessor(Globals.gameMan.player.input);
+        Globals.gameMan.switchState(GameManager.GameState.RUNNING);
         return false;
     }
 
@@ -71,8 +73,8 @@ public class GameReadyScreen extends Scene implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Gdx.input.setInputProcessor(Globals.gameScreen.player.input);
-        GameScreen.gameState = GameScreen.GameState.RUNNING;
+        Gdx.input.setInputProcessor(Globals.gameMan.player.input);
+        Globals.gameMan.switchState(GameManager.GameState.RUNNING);
         return false;
     }
 

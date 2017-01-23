@@ -83,7 +83,6 @@ public class Hud extends Scene {
         bottomHud.row();
         bottomHud.pad(10);
         bottomHud.right();
-        updateData();
 
         //add our table to the stage
         stage.addActor(table);
@@ -109,18 +108,18 @@ public class Hud extends Scene {
     }
 
     public void updateData() {
-        lblScore.setText(String.format("%06d", Globals.gameScreen.player.score));
+        lblScore.setText(String.format("%06d", Globals.gameMan.player.score));
 
         colorIndicatorDrawer = new Pixmap(85, 255, Pixmap.Format.RGB888);
 
         colorIndicatorDrawer.setColor(Color.RED);
-        colorIndicatorDrawer.fillRectangle(0, colorIndicatorDrawer.getHeight() - Globals.gameScreen.player.red, colorIndicatorDrawer.getWidth() / 3, Globals.gameScreen.player.red);
+        colorIndicatorDrawer.fillRectangle(0, colorIndicatorDrawer.getHeight() - Globals.gameMan.player.red, colorIndicatorDrawer.getWidth() / 3, Globals.gameMan.player.red);
 
         colorIndicatorDrawer.setColor(Color.GREEN);
-        colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3, colorIndicatorDrawer.getHeight() - Globals.gameScreen.player.green, colorIndicatorDrawer.getWidth() / 3, Globals.gameScreen.player.green);
+        colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3, colorIndicatorDrawer.getHeight() - Globals.gameMan.player.green, colorIndicatorDrawer.getWidth() / 3, Globals.gameMan.player.green);
 
         colorIndicatorDrawer.setColor(Color.BLUE);
-        colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3 * 2, colorIndicatorDrawer.getHeight() - Globals.gameScreen.player.blue, colorIndicatorDrawer.getWidth() / 3, Globals.gameScreen.player.blue);
+        colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3 * 2, colorIndicatorDrawer.getHeight() - Globals.gameMan.player.blue, colorIndicatorDrawer.getWidth() / 3, Globals.gameMan.player.blue);
 
         colorIndicator = new Image(new Texture(new PixmapTextureData(colorIndicatorDrawer, Pixmap.Format.RGBA8888, false, false, true)));
 

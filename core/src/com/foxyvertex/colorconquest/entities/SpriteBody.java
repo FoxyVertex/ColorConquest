@@ -29,7 +29,7 @@ public abstract class SpriteBody extends Sprite {
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.position.set(spawnPoint);
-        body = Globals.gameScreen.getWorld().createBody(bdef);
+        body = Globals.gameMan.world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         fdef.filter.categoryBits = this.CATIGORY_BIT;
