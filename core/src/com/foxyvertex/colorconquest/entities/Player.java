@@ -2,6 +2,7 @@ package com.foxyvertex.colorconquest.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,8 +11,9 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.input.PlayerInput;
 import com.foxyvertex.colorconquest.managers.Assets;
-import com.foxyvertex.colorconquest.tools.PlayerInputAdapter;
+import com.foxyvertex.colorconquest.input.DesktopController;
 
 /**
  * Created by aidan on 12/24/2016.
@@ -20,7 +22,8 @@ import com.foxyvertex.colorconquest.tools.PlayerInputAdapter;
 public class Player extends SpriteBody {
 
     public int lives = 10;
-    public PlayerInputAdapter input;
+    public PlayerInput input;
+    public InputProcessor inputProcessor;
     public Vector2 spawnPoint;
     //Might replace with Vector
     public int red = 255;
@@ -46,10 +49,10 @@ public class Player extends SpriteBody {
     private Array<Bullet> bullets;
     private Color selectedColor = Color.RED;
 
-    public Player(PlayerInputAdapter input, Vector2 spawnPoint) {
+    public Player(Vector2 spawnPoint) {
         super(spawnPoint.scl(1/Finals.PPM));
         setRegion(Assets.mainAtlas.findRegion("idle"));
-        this.input = input;
+
 
         this.spawnPoint = spawnPoint;
         def();
@@ -63,7 +66,7 @@ public class Player extends SpriteBody {
         colors.add(Color.RED);
         colors.add(Color.GREEN);
         colors.add(Color.BLUE);
-        Gdx.input.setInputProcessor(this.input);
+        input = new PlayerInput();
 
     }
 

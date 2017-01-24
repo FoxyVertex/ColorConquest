@@ -17,8 +17,11 @@ public class Paused extends GameState {
     public void update(float delta) {
         if (input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Globals.gameMan.switchState(GameManager.GameState.RUNNING);
-            Gdx.input.setInputProcessor(Globals.gameMan.player.input);
-        }
+            if (Globals.isMobileApp) {
+                Gdx.input.setInputProcessor(Globals.gameMan.player.input.mobileMobileController.stage);
+            } else {
+                Gdx.input.setInputProcessor(Globals.gameMan.player.input.desktopController);
+            }        }
     }
 
     @Override

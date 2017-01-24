@@ -2,10 +2,12 @@ package com.foxyvertex.colorconquest.game;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.entities.Block;
 import com.foxyvertex.colorconquest.screens.GameScreen;
+import com.foxyvertex.colorconquest.tools.Drawable;
 import com.foxyvertex.colorconquest.tools.Utilities;
 
 import static com.badlogic.gdx.Gdx.input;
@@ -15,6 +17,8 @@ import static com.badlogic.gdx.Gdx.input;
  */
 
 public class Running extends GameState {
+
+    public Array<Drawable> drawables = new Array<Drawable>();
 
     @Override
     public void update(float delta) {
@@ -52,6 +56,9 @@ public class Running extends GameState {
         Globals.game.batch.end();
         Globals.game.batch.setProjectionMatrix(Globals.hudScene.stage.getCamera().combined);
         Globals.hudScene.stage.draw();
+        for (Drawable drawable : drawables) {
+            drawable.draw();
+        }
     }
 
     @Override

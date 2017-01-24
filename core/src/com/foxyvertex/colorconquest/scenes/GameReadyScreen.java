@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.game.GameManager;
+import com.foxyvertex.colorconquest.input.DesktopController;
+import com.foxyvertex.colorconquest.input.MobileController;
 import com.foxyvertex.colorconquest.managers.Assets;
 import com.foxyvertex.colorconquest.screens.GameScreen;
 
@@ -56,7 +58,11 @@ public class GameReadyScreen extends Scene implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        Gdx.input.setInputProcessor(Globals.gameMan.player.input);
+        if (Globals.isMobileApp) {
+            Gdx.input.setInputProcessor(Globals.gameMan.player.input.mobileMobileController.stage);
+        } else {
+            Gdx.input.setInputProcessor(Globals.gameMan.player.input.desktopController);
+        }
         Globals.gameMan.switchState(GameManager.GameState.RUNNING);
         return false;
     }
@@ -73,7 +79,11 @@ public class GameReadyScreen extends Scene implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Gdx.input.setInputProcessor(Globals.gameMan.player.input);
+        if (Globals.isMobileApp) {
+            Gdx.input.setInputProcessor(Globals.gameMan.player.input.mobileMobileController.stage);
+        } else {
+            Gdx.input.setInputProcessor(Globals.gameMan.player.input.desktopController);
+        }
         Globals.gameMan.switchState(GameManager.GameState.RUNNING);
         return false;
     }

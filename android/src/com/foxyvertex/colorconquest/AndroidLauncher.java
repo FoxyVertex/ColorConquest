@@ -9,7 +9,11 @@ public class AndroidLauncher extends AndroidApplication {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Globals.isMobileApp = true;
+
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+        config.useGyroscope = true;
         initialize(new ColorConquest(), config);
     }
 }

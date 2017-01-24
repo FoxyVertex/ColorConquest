@@ -11,6 +11,8 @@ import com.foxyvertex.colorconquest.screens.MenuScreen;
  */
 
 public class Globals {
+    public static boolean isMobileApp = false;
+
     public static ColorConquest game;
     public static int currentGameSave = 45;
 

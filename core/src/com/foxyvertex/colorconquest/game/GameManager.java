@@ -15,7 +15,7 @@ import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.entities.Player;
 import com.foxyvertex.colorconquest.managers.Levels;
 import com.foxyvertex.colorconquest.managers.UserPrefs;
-import com.foxyvertex.colorconquest.tools.PlayerInputAdapter;
+import com.foxyvertex.colorconquest.input.DesktopController;
 import com.foxyvertex.colorconquest.tools.WorldPhysicsContactListener;
 import com.foxyvertex.colorconquest.tools.WorldPhysicsCreator;
 
@@ -38,11 +38,11 @@ public class GameManager {
     public World world;
     public Box2DDebugRenderer b2dRenderer;
 
-    Ready ready;
-    Running running;
-    Paused paused;
-    LevelEnd levelEnd;
-    GameEnd gameEnd;
+    public Ready ready;
+    public Running running;
+    public Paused paused;
+    public LevelEnd levelEnd;
+    public GameEnd gameEnd;
 
     public GameManager() {
         currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
@@ -70,7 +70,7 @@ public class GameManager {
         b2dRenderer = new Box2DDebugRenderer();
         new WorldPhysicsCreator(world, tiledMap);
         //Spawns the player at a location designated on the map
-        player = new Player(new PlayerInputAdapter(),
+        player = new Player(
                 new Vector2(
                         tiledMap.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("x", Float.class),
                         tiledMap.getLayers().get("triggerPoints").getObjects().get("p1SpawnPoint").getProperties().get("y", Float.class)
@@ -79,6 +79,7 @@ public class GameManager {
         cam.position.y = player.body.getPosition().y;
 
         switchState(GameState.READY);
+        Globals.hudScene.updateData();
     }
 
     public void tick(float delta) {
