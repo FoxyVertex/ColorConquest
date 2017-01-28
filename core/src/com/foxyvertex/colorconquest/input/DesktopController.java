@@ -47,10 +47,7 @@ public class DesktopController extends InputAdapter implements InputProcessor {
             inputManager.currentColorIndex = 0;
         if (inputManager.currentColorIndex < 0)
             inputManager.currentColorIndex = Globals.gameMan.player.colors.size - 1;
-        //Uncomment for lulz!!!
-        Globals.gameMan.player.setColor(Globals.gameMan.player.colors.get(inputManager.currentColorIndex));
-        Globals.gameMan.player.setSelectedColor(Globals.gameMan.player.colors.get(inputManager.currentColorIndex));
-
+        Globals.hudScene.updateData();
         return super.scrolled(amount);
     }
 

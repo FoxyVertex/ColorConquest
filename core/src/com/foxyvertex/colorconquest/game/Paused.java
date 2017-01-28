@@ -3,7 +3,6 @@ package com.foxyvertex.colorconquest.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.foxyvertex.colorconquest.Globals;
-import com.foxyvertex.colorconquest.screens.GameScreen;
 
 import static com.badlogic.gdx.Gdx.input;
 
@@ -18,7 +17,7 @@ public class Paused extends GameState {
         if (input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Globals.gameMan.switchState(GameManager.GameState.RUNNING);
             if (Globals.isMobileApp) {
-                Gdx.input.setInputProcessor(Globals.gameMan.player.input.mobileMobileController.stage);
+                Gdx.input.setInputProcessor(Globals.gameMan.player.input.mobileController.stage);
             } else {
                 Gdx.input.setInputProcessor(Globals.gameMan.player.input.desktopController);
             }        }

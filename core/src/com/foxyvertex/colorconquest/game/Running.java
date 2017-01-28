@@ -1,5 +1,6 @@
 package com.foxyvertex.colorconquest.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.utils.Array;

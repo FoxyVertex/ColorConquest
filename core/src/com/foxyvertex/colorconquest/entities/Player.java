@@ -91,6 +91,7 @@ public class Player extends SpriteBody {
 
     @Override
     public void tick(float delta) {
+        //Gdx.input.setInputProcessor(input);
         if (isFiring) {
             //slow the player down
             //runSpeed *= 0.75;
@@ -144,19 +145,19 @@ public class Player extends SpriteBody {
 
         switch (currentState) {
             case JUMP_START:
-                region = Assets.playerJumpStartAnimation.getKeyFrame(timer, false);
+                region = (TextureRegion) Assets.playerJumpStartAnimation.getKeyFrame(timer, false);
                 break;
             case JUMP_LOOP:
-                region = Assets.playerJumpLoopAnimation.getKeyFrame(timer, true);
+                region = (TextureRegion) Assets.playerJumpLoopAnimation.getKeyFrame(timer, true);
                 break;
             case WALKING:
-                region = Assets.playerWalkAnim.getKeyFrame(timer, true);
+                region = (TextureRegion) Assets.playerWalkAnim.getKeyFrame(timer, true);
                 break;
             case FALLING:
-                region = Assets.playerFallAnim.getKeyFrame(timer, true);
+                region = (TextureRegion) Assets.playerFallAnim.getKeyFrame(timer, true);
                 break;
             default:
-                region = Assets.playerIdleAnim.getKeyFrame(timer, true);
+                region = (TextureRegion) Assets.playerIdleAnim.getKeyFrame(timer, true);
         }
 
         //Flip the character to the direction they're funning

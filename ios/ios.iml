@@ -28,19 +28,17 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="core" exported="" />
-    <orderEntry type="library" exported="" name="robovm-rt-2.2.0" level="project" />
-    <orderEntry type="library" exported="" name="robovm-cocoatouch-2.2.0" level="project" />
-    <orderEntry type="library" exported="" name="gdx-backend-robovm-1.9.4" level="project" />
-    <orderEntry type="library" exported="" name="gdx-platform-1.9.4-natives-ios" level="project" />
-    <orderEntry type="library" exported="" name="gdx-box2d-platform-1.9.4-natives-ios" level="project" />
-    <orderEntry type="library" exported="" name="gdx-freetype-platform-1.9.4-natives-ios" level="project" />
+    <orderEntry type="library" exported="" name="gdx-backend-robovm-1.9.5" level="project" />
+    <orderEntry type="library" exported="" name="gdx-platform-1.9.5-natives-ios" level="project" />
+    <orderEntry type="library" exported="" name="gdx-box2d-platform-1.9.5-natives-ios" level="project" />
+    <orderEntry type="library" exported="" name="gdx-freetype-platform-1.9.5-natives-ios" level="project" />
     <orderEntry type="library" exported="" name="gdx-facebook-ios-1.2.2" level="project" />
     <orderEntry type="library" exported="" name="gdx-dialogs-ios-1.1.0" level="project" />
-    <orderEntry type="library" exported="" name="gdx-1.9.4" level="project" />
-    <orderEntry type="library" exported="" name="gdx-box2d-1.9.4" level="project" />
-    <orderEntry type="library" exported="" name="gdx-controllers-1.9.4" level="project" />
+    <orderEntry type="library" exported="" name="gdx-1.9.5" level="project" />
+    <orderEntry type="library" exported="" name="gdx-box2d-1.9.5" level="project" />
+    <orderEntry type="library" exported="" name="gdx-controllers-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="gdx-ai-1.8.0" level="project" />
-    <orderEntry type="library" exported="" name="gdx-freetype-1.9.4" level="project" />
+    <orderEntry type="library" exported="" name="gdx-freetype-1.9.5" level="project" />
     <orderEntry type="library" exported="" name="ashley-1.7.0" level="project" />
     <orderEntry type="library" exported="" name="box2dlights-1.4" level="project" />
     <orderEntry type="library" exported="" name="overlap2d-runtime-libgdx-0.1.0" level="project" />
@@ -49,7 +47,6 @@
     <orderEntry type="library" exported="" name="gdx-facebook-core-1.2.2" level="project" />
     <orderEntry type="library" exported="" name="gdx-dialogs-core-1.1.0" level="project" />
     <orderEntry type="library" exported="" name="gdx-kiwi-1.8.1.9.4" level="project" />
-    <orderEntry type="library" exported="" name="robovm-objc-2.2.0" level="project" />
     <orderEntry type="library" exported="" name="robopods-facebook-ios-1.14.0" level="project" />
     <orderEntry type="library" exported="" name="robovm-objc-1.14.0" level="project" />
     <orderEntry type="library" exported="" name="robopods-facebook-ios-core-1.14.0" level="project" />
@@ -57,6 +54,9 @@
     <orderEntry type="library" exported="" name="robopods-facebook-ios-messenger-1.14.0" level="project" />
     <orderEntry type="library" exported="" name="robopods-facebook-ios-share-1.14.0" level="project" />
     <orderEntry type="library" exported="" name="robopods-bolts-ios-1.14.0" level="project" />
+    <orderEntry type="library" exported="" name="robovm-cocoatouch-2.3.0" level="project" />
+    <orderEntry type="library" exported="" name="robovm-objc-2.3.0" level="project" />
+    <orderEntry type="library" exported="" name="robovm-rt-2.3.0" level="project" />
     <orderEntry type="library" exported="" name="robovm-rt-1.14.0" level="project" />
     <orderEntry type="library" exported="" name="robovm-rt-common-1.14.0" level="project" />
     <orderEntry type="library" exported="" name="robovm-cocoatouch-1.14.0" level="project" />

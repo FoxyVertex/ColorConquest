@@ -83,6 +83,9 @@ public class GameManager {
     }
 
     public void tick(float delta) {
+        if (gameState == ready) {
+            Globals.gameReadyScene.show();
+        }
         gameState.update(delta);
 
         gameState.render();

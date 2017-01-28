@@ -23,6 +23,7 @@ public class Ready extends GameState {
     @Override
     public void start() {
         Globals.gameReadyScene.show();
+        Gdx.app.log("hfg", "dfg");
     }
 
     @Override

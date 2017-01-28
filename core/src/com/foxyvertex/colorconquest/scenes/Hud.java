@@ -20,7 +20,7 @@ import com.foxyvertex.colorconquest.managers.Assets;
 public class Hud extends Scene {
 
     Pixmap colorIndicatorDrawer;
-    Image colorIndicator;
+    public Image colorIndicator;
     Table bottomHud;
     //Mario score/time Tracking Variables
     private Integer worldTimer;
@@ -120,6 +120,22 @@ public class Hud extends Scene {
 
         colorIndicatorDrawer.setColor(Color.BLUE);
         colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3 * 2, colorIndicatorDrawer.getHeight() - Globals.gameMan.player.blue, colorIndicatorDrawer.getWidth() / 3, Globals.gameMan.player.blue);
+
+        colorIndicatorDrawer.setColor(Color.WHITE);
+        int xLoc = 0;
+        switch(Globals.gameMan.player.input.currentColorIndex) {
+            case(0):
+                xLoc = 0;
+                break;
+            case(1):
+                xLoc = colorIndicatorDrawer.getWidth() / 3;
+                break;
+            case(2):
+                xLoc = colorIndicatorDrawer.getWidth() / 3 * 2;
+                break;
+        }
+
+        colorIndicatorDrawer.fillRectangle(xLoc, colorIndicatorDrawer.getHeight()-10, colorIndicatorDrawer.getWidth() / 3, 5);
 
         colorIndicator = new Image(new Texture(new PixmapTextureData(colorIndicatorDrawer, Pixmap.Format.RGBA8888, false, false, true)));
 

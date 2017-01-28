@@ -2,6 +2,7 @@ package com.foxyvertex.colorconquest.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.math.Vector2;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
@@ -11,14 +12,14 @@ import com.foxyvertex.colorconquest.managers.Levels;
  * Created by aidan on 1/23/17.
  */
 
-public class PlayerInput {
+public class PlayerInput extends InputMultiplexer {
 
     public DesktopController desktopController;
-    public MobileController mobileMobileController;
+    public MobileController mobileController;
 
     boolean jumpPressed, forwardPressed, backwardPressed, downPressed, debugSuperAbilityPressed, debugSpawnpointPressed, debugZoomInPressed, debugZoomOutPressed, debugNextLevelPressed;
     boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev;
-    int currentColorIndex = 0;
+    public int currentColorIndex = 0;
     private float currentJumpLength = 0;
     private boolean canJump = true;
 
@@ -26,19 +27,24 @@ public class PlayerInput {
 
 
     public PlayerInput() {
+        super();
+        Gdx.input.setInputProcessor(this);
         if (Globals.isMobileApp) {
-            mobileMobileController = new MobileController(this);
-            Gdx.input.setInputProcessor(mobileMobileController.stage);
-            Globals.gameMan.running.drawables.add(mobileMobileController);
+            mobileController = new MobileController(this);
+            addProcessor(mobileController.stage);
+            addProcessor(mobileController);
+            Globals.gameMan.running.drawables.add(mobileController);
         } else {
             desktopController = new DesktopController(this);
-            Gdx.input.setInputProcessor(desktopController);
+            addProcessor(desktopController);
         }
     }
 
     public void handleInput(float delta) {
-        if (Globals.isMobileApp && Gdx.input.getInputProcessor() != mobileMobileController.stage) {
-            Gdx.input.setInputProcessor(mobileMobileController.stage);
+        //Gdx.app.log("asdf", "" + Gdx.input.getInputProcessor().getClass());
+        Gdx.input.setInputProcessor(this);
+        if (Globals.isMobileApp && Gdx.input.getInputProcessor() != mobileController) {
+            Gdx.input.setInputProcessor(mobileController.stage);
         } else if (Gdx.input.getInputProcessor() != desktopController) {
             Gdx.input.setInputProcessor(desktopController);
         }
@@ -46,7 +52,7 @@ public class PlayerInput {
         if (!Globals.isMobileApp) {
             desktopController.handleInput(delta);
         } else {
-            mobileMobileController.handleInput();
+            mobileController.handleInput();
         }
 
         float maxJumpForceLength = 0.2f;
@@ -111,6 +117,9 @@ public class PlayerInput {
 
         if (!(currentJumpLength >= maxJumpForceLength) && currentJumpLength > 0 && canJump)
             Globals.gameMan.player.body.applyLinearImpulse(new Vector2(0, Globals.gameMan.player.jumpForce * delta), Globals.gameMan.player.body.getWorldCenter(), true);
+
+        Globals.gameMan.player.setColor(Globals.gameMan.player.colors.get(currentColorIndex));
+        Globals.gameMan.player.setSelectedColor(Globals.gameMan.player.colors.get(currentColorIndex));
     }
 
 }
