@@ -3,10 +3,13 @@ package com.foxyvertex.colorconquest.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.managers.Levels;
+import com.foxyvertex.colorconquest.tools.Utilities;
 
 /**
  * Created by aidan on 1/23/17.
@@ -22,6 +25,9 @@ public class PlayerInput extends InputMultiplexer {
     public int currentColorIndex = 0;
     private float currentJumpLength = 0;
     private boolean canJump = true;
+    private int iForRainbowEasterEgg = 0;
+
+    private Vector3 rainBowCurrentColor = new Vector3();
 
     public float speedMultiplier = 1f;
 
@@ -41,7 +47,6 @@ public class PlayerInput extends InputMultiplexer {
     }
 
     public void handleInput(float delta) {
-        //Gdx.app.log("asdf", "" + Gdx.input.getInputProcessor().getClass());
         Gdx.input.setInputProcessor(this);
         if (Globals.isMobileApp && Gdx.input.getInputProcessor() != mobileController) {
             Gdx.input.setInputProcessor(mobileController.stage);
@@ -118,7 +123,15 @@ public class PlayerInput extends InputMultiplexer {
         if (!(currentJumpLength >= maxJumpForceLength) && currentJumpLength > 0 && canJump)
             Globals.gameMan.player.body.applyLinearImpulse(new Vector2(0, Globals.gameMan.player.jumpForce * delta), Globals.gameMan.player.body.getWorldCenter(), true);
 
-        Globals.gameMan.player.setColor(Globals.gameMan.player.colors.get(currentColorIndex));
+//        float frequency = 0.3f;
+//
+//
+//        rainBowCurrentColor.x = (float) Math.sin(frequency*iForRainbowEasterEgg + 0) * 127 + 128;
+//        rainBowCurrentColor.y = (float) Math.sin(frequency*iForRainbowEasterEgg + 2) * 127 + 128;
+//        rainBowCurrentColor.z = (float) Math.sin(frequency*iForRainbowEasterEgg + 4) * 127 + 128;
+//        ++iForRainbowEasterEgg;
+//
+//        Globals.gameMan.player.setColor(new Color(Utilities.map(rainBowCurrentColor.x, 0, 255, 0, 1), Utilities.map(rainBowCurrentColor.y, 0, 255, 0, 1), Utilities.map(rainBowCurrentColor.z, 0, 255, 0, 1), 1));
         Globals.gameMan.player.setSelectedColor(Globals.gameMan.player.colors.get(currentColorIndex));
     }
 

@@ -2,6 +2,7 @@ package com.foxyvertex.colorconquest.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.GL20;
 import com.foxyvertex.colorconquest.Globals;
 
 import static com.badlogic.gdx.Gdx.input;
@@ -32,12 +33,13 @@ public class Paused extends GameState {
         Globals.game.batch.end();
         Globals.game.batch.setProjectionMatrix(Globals.pauseMenuScene.stage.getCamera().combined);
         Globals.pauseMenuScene.stage.act();
+        Globals.hudScene.stage.draw();
         Globals.pauseMenuScene.stage.draw();
     }
 
     @Override
     public void start() {
-
+        Gdx.input.setInputProcessor(Globals.pauseMenuScene.stage);
     }
 
     @Override
