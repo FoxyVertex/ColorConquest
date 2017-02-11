@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.entities.Block;
 import com.foxyvertex.colorconquest.entities.Player;
 import com.foxyvertex.colorconquest.managers.Levels;
 import com.foxyvertex.colorconquest.managers.UserPrefs;
@@ -56,6 +57,7 @@ public class GameManager {
     }
 
     public void setup() {
+        Block.blocks.clear();
         ready = new Ready();
         running = new Running();
         paused = new Paused();
@@ -82,6 +84,7 @@ public class GameManager {
 
         switchState(GameState.READY);
         Globals.hudScene.updateData();
+
     }
 
     public void tick(float delta) {
