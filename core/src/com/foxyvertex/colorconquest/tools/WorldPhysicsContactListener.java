@@ -106,22 +106,29 @@ public class WorldPhysicsContactListener implements ContactListener {
                     bullet = (Bullet) fixtureA.getUserData();
                 }
                 //Determine which color the bullet is (Because Java sucks (Because there is no pass by reference))
-                float RGBColors[] = {attackedBlock.color.r, attackedBlock.color.g, attackedBlock.color.b};
+                float RGBColors[] = {bullet.color.r, bullet.color.g, bullet.color.b};
                 switch (Utilities.findBiggestIndex(RGBColors)) {
                     case 0:
-                        attackedBlock.color.r += Utilities.map(10, 0, 1, 0, 255);
+                        attackedBlock.color.r = Utilities.clamp(attackedBlock.color.r + Utilities.map(10, 0, 255, 0, 1), 0, 1);
                         attackedBlock.tintTexture();
                         break;
                     case 1:
-                        attackedBlock.color.g += Utilities.map(10, 0, 1, 0, 255);
+                        attackedBlock.color.g = Utilities.clamp(attackedBlock.color.g + Utilities.map(10, 0, 255, 0, 1), 0, 1);
                         attackedBlock.tintTexture();
                         break;
                     case 2:
-                        attackedBlock.color.b += Utilities.map(10, 0, 1, 0, 255);
+                        attackedBlock.color.b = Utilities.clamp(attackedBlock.color.b + Utilities.map(10, 0, 255, 0, 1), 0, 1);
                         attackedBlock.tintTexture();
                         break;
                 }
-                attackedBlock.color.a += Utilities.map(5, 0, 1, 0, 255);
+                attackedBlock.color.a = Utilities.clamp(attackedBlock.color.a + Utilities.map(5, 0, 100, 0, 1), 0, 1);
+
+                if (attackedBlock.color.r == 1 && attackedBlock.color.g == 1 && attackedBlock.color.b == 1 && attackedBlock.color.a == 1 || attackedBlock.rainbow) {
+                    attackedBlock.rainbow = true;
+                } else {
+                    attackedBlock.rainbow = false;
+                }
+
                 //attackedBlock.setColor(attackedBlock.color);
 
                 bullet.body.applyLinearImpulse(new Vector2(0, 5), bullet.body.getWorldCenter(), false);

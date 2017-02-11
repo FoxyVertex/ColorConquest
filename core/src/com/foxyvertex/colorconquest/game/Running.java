@@ -1,6 +1,5 @@
 package com.foxyvertex.colorconquest.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -12,6 +11,8 @@ import com.foxyvertex.colorconquest.tools.Drawable;
 import com.foxyvertex.colorconquest.tools.Utilities;
 import com.foxyvertex.colorconquest.tools.WorldPhysicsContactListener;
 
+import java.lang.reflect.Method;
+
 import static com.badlogic.gdx.Gdx.input;
 
 /**
@@ -21,6 +22,7 @@ import static com.badlogic.gdx.Gdx.input;
 public class Running extends GameState {
 
     public Array<Drawable> drawables = new Array<Drawable>();
+    public Array<Method> anonymousMethods = new Array<Method>();
     public boolean hasWorldStepped = false;
 
     @Override

@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.managers.Levels;
+import com.foxyvertex.colorconquest.tools.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,9 @@ public class Block extends SpriteBody {
     public Color color;
     Vector2 spawnPoint;
     private MapObject mapObject;
+    public boolean rainbow = false;
+    private int iForRainbow = 0;
+    private Color rainbowColor;
 
     public Block(MapObject object) {
         super(new Vector2(object.getProperties().get("x", float.class), object.getProperties().get("y", float.class)));
@@ -78,7 +82,17 @@ public class Block extends SpriteBody {
 
     @Override
     public void tick(float delta) {
+        if (rainbow) {
+            if (rainbowColor == null) rainbowColor = new Color();
+            float frequency = 0.3f;
+            rainbowColor.r = Utilities.map((float) Math.sin(frequency*iForRainbow + 0) * 127 + 128, 0, 255, 0, 1);
+            rainbowColor.g = Utilities.map((float) Math.sin(frequency*iForRainbow + 2) * 127 + 128, 0, 255, 0, 1);
+            rainbowColor.b = Utilities.map((float) Math.sin(frequency*iForRainbow + 4) * 127 + 128, 0, 255, 0, 1);
+            rainbowColor.a = 1.0f;
+            iForRainbow++;
 
+            setColor(rainbowColor);
+        }
     }
 
     public void dispose() {

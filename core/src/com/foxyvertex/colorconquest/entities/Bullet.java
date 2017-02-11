@@ -22,7 +22,7 @@ public class Bullet extends SpriteBody {
     private Vector2 initialImpulse = new Vector2(4, 2);
     private float initialRadius = 2f;
     public float radius = initialRadius;
-    private Color color;
+    public Color color;
 
     Bullet(Vector2 spawnPoint, Color color) {
         super(spawnPoint);
