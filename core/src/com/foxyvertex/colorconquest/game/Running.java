@@ -3,13 +3,14 @@ package com.foxyvertex.colorconquest.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.entities.Block;
-import com.foxyvertex.colorconquest.screens.GameScreen;
 import com.foxyvertex.colorconquest.tools.Drawable;
 import com.foxyvertex.colorconquest.tools.Utilities;
+import com.foxyvertex.colorconquest.tools.WorldPhysicsContactListener;
 
 import static com.badlogic.gdx.Gdx.input;
 
@@ -20,6 +21,7 @@ import static com.badlogic.gdx.Gdx.input;
 public class Running extends GameState {
 
     public Array<Drawable> drawables = new Array<Drawable>();
+    public boolean hasWorldStepped = false;
 
     @Override
     public void update(float delta) {
@@ -29,7 +31,16 @@ public class Running extends GameState {
         }
 
         Globals.gameMan.timeSinceStartLevel += delta;
-        Globals.gameMan.world.step(1 / 60f, 6, 2);
+        hasWorldStepped = false;
+        Globals.gameMan.world.step(1 / 60f, 8, 3);
+        hasWorldStepped = true;
+        //Destroy every body waiting around to be destroyed
+
+        for (Body body : WorldPhysicsContactListener.deadBodies) {
+            Globals.gameMan.world.destroyBody(body);
+            WorldPhysicsContactListener.deadBodies.removeValue(body, false);
+        }
+
         Globals.gameMan.cam.position.x = Globals.gameMan.player.body.getPosition().x;
         Globals.gameMan.cam.position.y = Globals.gameMan.player.body.getPosition().y;
         MapProperties levelProps = Globals.gameMan.tiledMap.getProperties();
@@ -51,9 +62,9 @@ public class Running extends GameState {
         Globals.gameMan.b2dRenderer.render(Globals.gameMan.world, Globals.gameMan.cam.combined);
         Globals.game.batch.setProjectionMatrix(Globals.gameMan.cam.combined);
         Globals.game.batch.begin();
-        for (Block block : Block.blocks) block.draw(Globals.game.batch);
         Globals.gameMan.player.draw(Globals.game.batch);
         Globals.gameMan.player.render(Globals.game.batch);
+        for (Block block : Block.blocks) block.draw(Globals.game.batch);
         Globals.game.batch.end();
         Globals.game.batch.setProjectionMatrix(Globals.hudScene.stage.getCamera().combined);
         Globals.hudScene.stage.draw();
@@ -69,6 +80,11 @@ public class Running extends GameState {
 
     @Override
     public void stop() {
+
+    }
+
+    @Override
+    public void dispose() {
 
     }
 

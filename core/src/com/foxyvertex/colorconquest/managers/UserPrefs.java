@@ -80,4 +80,8 @@ public class UserPrefs {
             soundEnabled = true;
         }
     }
+
+    public static void dispose() {
+
+    }
 }

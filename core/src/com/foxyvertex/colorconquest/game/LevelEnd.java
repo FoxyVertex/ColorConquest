@@ -26,4 +26,9 @@ public class LevelEnd extends GameState {
 
     }
 
+    @Override
+    public void dispose() {
+
+    }
+
 }

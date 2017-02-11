@@ -19,18 +19,16 @@ public class PlayerInput extends InputMultiplexer {
 
     public DesktopController desktopController;
     public MobileController mobileController;
-
+    public int currentColorIndex = 0;
+    public float speedMultiplier = 1f;
     boolean jumpPressed, forwardPressed, backwardPressed, downPressed, debugSuperAbilityPressed, debugSpawnpointPressed, debugZoomInPressed, debugZoomOutPressed, debugNextLevelPressed;
     boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev;
-    public int currentColorIndex = 0;
     private float currentJumpLength = 0;
     private boolean canJump = true;
     private int iForRainbowEasterEgg = 0;
-
     private Vector3 rainBowCurrentColor = new Vector3();
 
-    public float speedMultiplier = 1f;
-
+    private float fireTimer = 0;
 
     public PlayerInput() {
         super();
@@ -103,19 +101,19 @@ public class PlayerInput extends InputMultiplexer {
         if (downPressed)
             Globals.gameMan.player.body.applyLinearImpulse(new Vector2(0, -10f), Globals.gameMan.player.body.getWorldCenter(), true);
 
-        if (forwardPressed && Globals.gameMan.player.body.getLinearVelocity().x <= 2*speedMultiplier) {
-            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(Globals.gameMan.player.runSpeed*speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
+        if (forwardPressed && Globals.gameMan.player.body.getLinearVelocity().x <= 2 * speedMultiplier) {
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(Globals.gameMan.player.runSpeed * speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             forwardPressedPrev = true;
         } else if (!backwardPressed && forwardPressedPrev) {
-            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed*speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed * speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             forwardPressedPrev = false;
         }
 
-        if (backwardPressed && Globals.gameMan.player.body.getLinearVelocity().x >= -2*speedMultiplier) {
-            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed*speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
+        if (backwardPressed && Globals.gameMan.player.body.getLinearVelocity().x >= -2 * speedMultiplier) {
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed * speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             backwardPressedPrev = true;
         } else if (!Gdx.input.isKeyPressed(Input.Keys.A) && backwardPressedPrev) {
-            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed*speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
+            Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed * speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             backwardPressedPrev = false;
         }
 
@@ -123,16 +121,22 @@ public class PlayerInput extends InputMultiplexer {
         if (!(currentJumpLength >= maxJumpForceLength) && currentJumpLength > 0 && canJump)
             Globals.gameMan.player.body.applyLinearImpulse(new Vector2(0, Globals.gameMan.player.jumpForce * delta), Globals.gameMan.player.body.getWorldCenter(), true);
 
-//        float frequency = 0.3f;
-//
-//
-//        rainBowCurrentColor.x = (float) Math.sin(frequency*iForRainbowEasterEgg + 0) * 127 + 128;
-//        rainBowCurrentColor.y = (float) Math.sin(frequency*iForRainbowEasterEgg + 2) * 127 + 128;
-//        rainBowCurrentColor.z = (float) Math.sin(frequency*iForRainbowEasterEgg + 4) * 127 + 128;
-//        ++iForRainbowEasterEgg;
-//
-//        Globals.gameMan.player.setColor(new Color(Utilities.map(rainBowCurrentColor.x, 0, 255, 0, 1), Utilities.map(rainBowCurrentColor.y, 0, 255, 0, 1), Utilities.map(rainBowCurrentColor.z, 0, 255, 0, 1), 1));
+        float frequency = 0.3f;
+
+        rainBowCurrentColor.x = (float) Math.sin(frequency * iForRainbowEasterEgg + 0) * 127 + 128;
+        rainBowCurrentColor.y = (float) Math.sin(frequency * iForRainbowEasterEgg + 2) * 127 + 128;
+        rainBowCurrentColor.z = (float) Math.sin(frequency * iForRainbowEasterEgg + 4) * 127 + 128;
+        ++iForRainbowEasterEgg;
+
+        Globals.gameMan.player.setColor(new Color(Utilities.map(rainBowCurrentColor.x, 0, 255, 0, 1), Utilities.map(rainBowCurrentColor.y, 0, 255, 0, 1), Utilities.map(rainBowCurrentColor.z, 0, 255, 0, 1), 1));
         Globals.gameMan.player.setSelectedColor(Globals.gameMan.player.colors.get(currentColorIndex));
+
+        fireTimer += delta;
+        if (Gdx.input.isTouched() && fireTimer >= Globals.gameMan.player.fireSpeed) {
+            Globals.gameMan.player.shoot(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+            fireTimer = 0;
+        }
+
     }
 
 }

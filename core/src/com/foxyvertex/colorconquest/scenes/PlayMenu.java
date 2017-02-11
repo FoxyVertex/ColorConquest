@@ -74,7 +74,7 @@ public class PlayMenu extends Scene {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 
     /**

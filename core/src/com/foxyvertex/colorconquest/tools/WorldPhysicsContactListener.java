@@ -1,12 +1,14 @@
 package com.foxyvertex.colorconquest.tools;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.entities.Block;
@@ -23,6 +25,7 @@ import com.foxyvertex.colorconquest.managers.Levels;
 
 public class WorldPhysicsContactListener implements ContactListener {
 
+    public static Array<Body> deadBodies;
     private GameManager gameManager;
 
     /**
@@ -32,6 +35,7 @@ public class WorldPhysicsContactListener implements ContactListener {
      */
     public WorldPhysicsContactListener(GameManager gameManager) {
         this.gameManager = gameManager;
+        deadBodies = new Array<Body>();
     }
 
     /**
@@ -41,6 +45,7 @@ public class WorldPhysicsContactListener implements ContactListener {
      */
     @Override
     public void beginContact(Contact contact) {
+
         //Store the fixtures from the collsion
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
@@ -49,10 +54,12 @@ public class WorldPhysicsContactListener implements ContactListener {
         //Checks to see if a select two kinds of fixtures collide.
         switch (collisionDefinition) {
             case Finals.PLAYER_BIT | Finals.END_LEVEL_BIT:
+
                 Levels.Level nextLevel = Globals.gameMan.currentLevel.nextLevel;
                 Globals.gameMan.switchLevel(nextLevel);
                 break;
             case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
+
                 Fixture player, collidingBlock;
                 //Determines which fixture is the player and which is the block
                 // This can be shortened to 1 line!
@@ -81,16 +88,17 @@ public class WorldPhysicsContactListener implements ContactListener {
                     }
                 } else {
                     Globals.gameMan.player.runSpeed = Globals.gameMan.player.minRunSpeed;
-                    Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpFox;
+                    Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpForce;
                 }
                 break;
 
             case Finals.BLOCK_BIT | Finals.BULLET_BIT:
+
                 Block attackedBlock;
                 Bullet bullet;
 
                 //initialize the objects to their proper collision fixtures
-                if(fixtureA.getUserData() instanceof Block) {
+                if (fixtureA.getUserData() instanceof Block) {
                     attackedBlock = (Block) fixtureA.getUserData();
                     bullet = (Bullet) fixtureB.getUserData();
                 } else {
@@ -101,18 +109,37 @@ public class WorldPhysicsContactListener implements ContactListener {
                 float RGBColors[] = {attackedBlock.color.r, attackedBlock.color.g, attackedBlock.color.b};
                 switch (Utilities.findBiggestIndex(RGBColors)) {
                     case 0:
-                        attackedBlock.color.r += 2 / 255;
+                        attackedBlock.color.r += Utilities.map(10, 0, 1, 0, 255);
+                        attackedBlock.tintTexture();
                         break;
                     case 1:
-                        attackedBlock.color.g += 2 / 255;
+                        attackedBlock.color.g += Utilities.map(10, 0, 1, 0, 255);
+                        attackedBlock.tintTexture();
                         break;
                     case 2:
-                        attackedBlock.color.b += 2 / 255;
+                        attackedBlock.color.b += Utilities.map(10, 0, 1, 0, 255);
+                        attackedBlock.tintTexture();
                         break;
                 }
-                attackedBlock.tintTexture(attackedBlock.color);
-//                Globals.gameMan.world.destroyBody(bullet.body);
+                attackedBlock.color.a += Utilities.map(5, 0, 1, 0, 255);
+                //attackedBlock.setColor(attackedBlock.color);
+
+                bullet.body.applyLinearImpulse(new Vector2(0, 5), bullet.body.getWorldCenter(), false);
+
+                bullet.setToDestroy = true;
                 break;
+
+            case Finals.BULLET_BIT:
+                Bullet bullet1, bullet2;
+                if (fixtureA.getShape().getRadius() > fixtureB.getShape().getRadius()) {
+                    fixtureA.getShape().setRadius(fixtureA.getShape().getRadius() + fixtureB.getShape().getRadius());
+                    ((Bullet) fixtureA.getUserData()).reDraw();
+                    deadBodies.add(fixtureB.getBody());
+                } else {
+                    fixtureB.getShape().setRadius(fixtureA.getShape().getRadius() + fixtureB.getShape().getRadius());
+                    ((Bullet) fixtureB.getUserData()).reDraw();
+                    deadBodies.add(fixtureA.getBody());
+                }
         }
     }
 
@@ -146,14 +173,14 @@ public class WorldPhysicsContactListener implements ContactListener {
                         case 0:
                             Globals.gameMan.player.runSpeed = Globals.gameMan.player.minRunSpeed;
                         case 1:
-                            Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpFox;
+                            Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpForce;
                             break;
                         case 2:
                             //block.setRestitution(0);
                     }
                 } else {
                     Globals.gameMan.player.runSpeed = Globals.gameMan.player.minRunSpeed;
-                    Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpFox;
+                    Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpForce;
                 }
                 break;
         }

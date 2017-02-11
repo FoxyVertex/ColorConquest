@@ -3,6 +3,7 @@ package com.foxyvertex.colorconquest.managers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,22 +22,19 @@ import java.util.List;
 
 public class Assets {
 
-    public static Animation playerIdleAnim;
-    public static Animation playerWalkAnim;
-    public static Animation playerFallAnim;
-    public static Animation playerJumpStartAnimation;
-    public static Animation playerJumpLoopAnimation;
+    public static Animation<TextureAtlas.AtlasRegion> playerIdleAnim;
+    public static Animation<TextureAtlas.AtlasRegion> playerWalkAnim;
+    public static Animation<TextureAtlas.AtlasRegion> playerFallAnim;
+    public static Animation<TextureAtlas.AtlasRegion> playerJumpStartAnimation;
+    public static Animation<TextureAtlas.AtlasRegion> playerJumpLoopAnimation;
 
     public static Skin guiSkin;
-
-    public static AssetManager manager;
     public static TextureAtlas mainAtlas;
-
     public static Sound clickSound;
-
     public static List<Image> splashScreenLogos = new ArrayList<Image>();
-
     public static Texture badlogic;
+    public static Texture blankPixel;
+    private static AssetManager manager;
 
     /**
      * Called on game start. Loads all assets into easily accessible variables.
@@ -50,11 +48,11 @@ public class Assets {
         clickSound = manager.get("click.wav", Sound.class);
         Assets.mainAtlas = new TextureAtlas("GreyGuy.pack");
 
-        playerIdleAnim = new Animation(1 / 12f, Assets.mainAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
-        playerWalkAnim = new Animation(1 / 15f, Assets.mainAtlas.findRegions("walk"), Animation.PlayMode.LOOP);
-        playerFallAnim = new Animation(1 / 4f, Assets.mainAtlas.findRegions("fall"), Animation.PlayMode.LOOP);
-        playerJumpStartAnimation = new Animation(1 / 4f, Assets.mainAtlas.findRegions("jumpstart"), Animation.PlayMode.NORMAL);
-        playerJumpLoopAnimation = new Animation(1 / 8f, Assets.mainAtlas.findRegions("jumploop"), Animation.PlayMode.LOOP);
+        playerIdleAnim = new Animation<TextureAtlas.AtlasRegion>(1 / 12f, Assets.mainAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
+        playerWalkAnim = new Animation<TextureAtlas.AtlasRegion>(1 / 15f, Assets.mainAtlas.findRegions("walk"), Animation.PlayMode.LOOP);
+        playerFallAnim = new Animation<TextureAtlas.AtlasRegion>(1 / 4f, Assets.mainAtlas.findRegions("fall"), Animation.PlayMode.LOOP);
+        playerJumpStartAnimation = new Animation<TextureAtlas.AtlasRegion>(1 / 4f, Assets.mainAtlas.findRegions("jumpstart"), Animation.PlayMode.NORMAL);
+        playerJumpLoopAnimation = new Animation<TextureAtlas.AtlasRegion>(1 / 8f, Assets.mainAtlas.findRegions("jumploop"), Animation.PlayMode.LOOP);
 
         guiSkin = new Skin(Gdx.files.internal("skin/clean-crispy-ui.json"));
 
@@ -63,10 +61,16 @@ public class Assets {
         splashScreenLogos.add(new SplashScreen.SplashLogo("badlogic.jpg", 2f).actorImage);
 
         badlogic = new Texture("badlogic.jpg");
-
+        blankPixel = new Texture(new Pixmap(1, 1, Pixmap.Format.RGBA8888));
     }
 
     public static void playSound(Sound sound) {
         if (UserPrefs.isSoundEnabled()) sound.play(1);
+    }
+
+    public static void dispose() {
+        manager.dispose();
+        mainAtlas.dispose();
+        guiSkin.dispose();
     }
 }

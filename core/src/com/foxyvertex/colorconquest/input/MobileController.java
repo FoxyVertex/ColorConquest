@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -22,29 +21,26 @@ import com.foxyvertex.colorconquest.tools.Drawable;
  * Created by aidan on 1/23/17.
  */
 public class MobileController implements Drawable, InputProcessor {
-    private PlayerInput inputManager;
-
-    Viewport viewport;
     public Stage stage;
+    Viewport viewport;
     OrthographicCamera cam;
-
     boolean superToggle = false;
     boolean upTouched, leftTouched, rightTouched;
-
     Image upImg;
     Image downImg;
     Image leftImg;
     Image rightImg;
     Image superImg;
+    private PlayerInput inputManager;
 
-    public MobileController(final PlayerInput inputManager){
+    public MobileController(final PlayerInput inputManager) {
         this.inputManager = inputManager;
         cam = new OrthographicCamera();
         viewport = new FitViewport(800, 480, cam);
         stage = new Stage(viewport, Globals.game.batch);
 
-        stage.addListener(new InputListener(){
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+        stage.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (!event.isHandled()) {
                     Image colorInic = Globals.hudScene.colorIndicator;
                     if (x > colorInic.getImageX() && x < colorInic.getImageX() + colorInic.getWidth() && y > colorInic.getImageY() && y < colorInic.getImageY() + colorInic.getHeight()) {
@@ -62,7 +58,8 @@ public class MobileController implements Drawable, InputProcessor {
                 }
                 return false;
             }
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (!event.isHandled()) {
 
                 }
@@ -123,7 +120,7 @@ public class MobileController implements Drawable, InputProcessor {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                
+
                 return true;
             }
 
@@ -139,9 +136,9 @@ public class MobileController implements Drawable, InputProcessor {
         Table bottomRightTable = new Table();
 
         bottomLeftTable.left();
-        bottomLeftTable.setSize(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
-        bottomRightTable.setSize(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
-        bottomMiddleTable.setSize(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
+        bottomLeftTable.setSize(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
+        bottomRightTable.setSize(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
+        bottomMiddleTable.setSize(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);
 
         bottomLeftTable.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight()).padRight(5);
         bottomLeftTable.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight()).padLeft(5);
@@ -153,7 +150,7 @@ public class MobileController implements Drawable, InputProcessor {
         bottomRightTable.add(upImg).size(upImg.getWidth(), upImg.getHeight()).padTop(5);
         bottomRightTable.padRight(-100f);
 
-        outsideTable.pad(5,Gdx.graphics.getWidth()/2,140,5);
+        outsideTable.pad(5, Gdx.graphics.getWidth() / 2, 140, 5);
         outsideTable.add(bottomLeftTable);
         outsideTable.add(bottomMiddleTable).size(400, 50);
         outsideTable.add(bottomRightTable);
@@ -162,12 +159,12 @@ public class MobileController implements Drawable, InputProcessor {
 
     }
 
-    public void draw(){
+    public void draw() {
         stage.act();
         stage.draw();
     }
 
-    public void resize(int width, int height){
+    public void resize(int width, int height) {
         viewport.update(width, height);
     }
 

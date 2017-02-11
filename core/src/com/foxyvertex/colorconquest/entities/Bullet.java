@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
@@ -15,24 +16,30 @@ import com.foxyvertex.colorconquest.Globals;
 
 public class Bullet extends SpriteBody {
 
+    public Vector2 spawnPoint;
+    public float destructionTime = 2f;
+    Pixmap tex;
     private Vector2 initialImpulse = new Vector2(4, 2);
+    private float initialRadius = 2f;
+    public float radius = initialRadius;
+    private Color color;
 
     Bullet(Vector2 spawnPoint, Color color) {
         super(spawnPoint);
+        this.spawnPoint = spawnPoint;
+        this.color = color;
         def();
-        Pixmap tex = new Pixmap((int) (bodySize().x * Finals.PPM), (int) (bodySize().y * Finals.PPM), Pixmap.Format.RGBA8888);
-        tex.setColor(color);
-        tex.fillCircle(tex.getWidth() / 2, tex.getHeight() / 2, (int) (bodySize().x * Finals.PPM) / 2);
-
-        setRegion(new Texture(tex));
-
+        reDraw();
+        super.destructionTime = this.destructionTime;
     }
 
-    private void def() {
+    public void def() {
         super.CATIGORY_BIT = Finals.BULLET_BIT;
+        super.bodyType = BodyDef.BodyType.DynamicBody;
+
         CircleShape shape = new CircleShape();
-        shape.setRadius(3f / Finals.PPM);
-        super.def(shape, false);
+        shape.setRadius(radius / Finals.PPM);
+        super.def(shape);
 
         primaryFixture.setUserData(this);
 
@@ -45,6 +52,19 @@ public class Bullet extends SpriteBody {
     @Override
     public void tick(float delta) {
         super.tick(delta);
+
     }
 
+    public void reDraw() {
+        tex = new Pixmap((int) (bodySize().x * Finals.PPM), (int) (bodySize().y * Finals.PPM), Pixmap.Format.RGBA8888);
+        tex.setColor(color);
+        tex.fillCircle(tex.getWidth() / 2, tex.getHeight() / 2, (int) (bodySize().x * Finals.PPM) / 2);
+
+        setRegion(new Texture(tex));
+    }
+
+    public void dispose() {
+        this.dispose();
+        tex.dispose();
+    }
 }

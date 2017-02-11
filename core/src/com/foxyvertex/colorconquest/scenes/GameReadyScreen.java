@@ -50,7 +50,7 @@ public class GameReadyScreen extends Scene implements InputProcessor {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 
     @Override

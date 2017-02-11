@@ -15,7 +15,6 @@ import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.entities.Player;
 import com.foxyvertex.colorconquest.managers.Levels;
 import com.foxyvertex.colorconquest.managers.UserPrefs;
-import com.foxyvertex.colorconquest.input.DesktopController;
 import com.foxyvertex.colorconquest.tools.WorldPhysicsContactListener;
 import com.foxyvertex.colorconquest.tools.WorldPhysicsCreator;
 
@@ -44,6 +43,8 @@ public class GameManager {
     public LevelEnd levelEnd;
     public GameEnd gameEnd;
 
+    public WorldPhysicsContactListener contactListener;
+
     public GameManager() {
         currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
 
@@ -66,7 +67,8 @@ public class GameManager {
 
         cam.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         world = new World(new Vector2(0, -15), true);
-        world.setContactListener(new WorldPhysicsContactListener(this));
+        contactListener = new WorldPhysicsContactListener(this);
+        world.setContactListener(contactListener);
         b2dRenderer = new Box2DDebugRenderer();
         new WorldPhysicsCreator(world, tiledMap);
         //Spawns the player at a location designated on the map
@@ -100,6 +102,8 @@ public class GameManager {
     public void dispose() {
         world.dispose();
         b2dRenderer.dispose();
+        tiledMap.dispose();
+
     }
 
     /**

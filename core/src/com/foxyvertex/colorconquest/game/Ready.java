@@ -1,6 +1,5 @@
 package com.foxyvertex.colorconquest.game;
 
-import com.badlogic.gdx.Gdx;
 import com.foxyvertex.colorconquest.Globals;
 
 /**
@@ -27,6 +26,11 @@ public class Ready extends GameState {
 
     @Override
     public void stop() {
+
+    }
+
+    @Override
+    public void dispose() {
 
     }
 

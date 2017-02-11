@@ -57,7 +57,7 @@
   <object id="37" x="191.5" y="160" width="32" height="16"/>
   <object id="38" x="400" y="176" width="48" height="16">
    <properties>
-    <property name="alpha" type="float" value="255"/>
+    <property name="alpha" type="float" value="1"/>
     <property name="blue" type="float" value="255"/>
     <property name="green" type="float" value="0"/>
     <property name="red" type="float" value="255"/>
@@ -66,7 +66,7 @@
   <object id="39" x="416" y="160" width="32" height="16"/>
   <object id="40" x="0" y="192" width="80.3333" height="16">
    <properties>
-    <property name="alpha" type="float" value="255"/>
+    <property name="alpha" type="float" value="1"/>
     <property name="blue" type="float" value="0"/>
     <property name="green" type="float" value="0"/>
     <property name="red" type="float" value="255"/>
@@ -74,7 +74,7 @@
   </object>
   <object id="41" x="128.5" y="144" width="79.5" height="16">
    <properties>
-    <property name="alpha" type="float" value="255"/>
+    <property name="alpha" type="float" value="1"/>
     <property name="blue" type="float" value="135"/>
     <property name="green" type="float" value="96"/>
     <property name="red" type="float" value="135"/>
@@ -86,7 +86,7 @@
   <object id="45" x="288" y="144" width="48" height="48"/>
   <object id="46" x="304" y="128" width="16" height="16">
    <properties>
-    <property name="alpha" type="float" value="255"/>
+    <property name="alpha" type="float" value="1"/>
     <property name="blue" type="float" value="0"/>
     <property name="green" type="float" value="0"/>
     <property name="red" type="float" value="255"/>
@@ -94,7 +94,7 @@
   </object>
   <object id="54" x="80" y="192" width="31.6666" height="16">
    <properties>
-    <property name="alpha" type="float" value="255"/>
+    <property name="alpha" type="float" value="1"/>
     <property name="blue" type="float" value="0"/>
     <property name="green" type="float" value="255"/>
     <property name="red" type="float" value="0"/>
@@ -105,7 +105,7 @@
     <property name="alpha" type="float" value="0.5"/>
     <property name="blue" type="float" value="255"/>
     <property name="green" type="float" value="0"/>
-    <property name="red" type="float" value="0"/>
+    <property name="red" type="float" value="127"/>
    </properties>
   </object>
  </objectgroup>

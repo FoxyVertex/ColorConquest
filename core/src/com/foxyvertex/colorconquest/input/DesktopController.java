@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
-import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
-import com.foxyvertex.colorconquest.managers.Levels;
 
 /**
  * Processes the input to move the player
@@ -30,7 +27,6 @@ public class DesktopController extends InputAdapter implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        Globals.gameMan.player.shoot(new Vector2(screenX, screenY));
 
         return super.touchDown(screenX, screenY, pointer, button);
     }

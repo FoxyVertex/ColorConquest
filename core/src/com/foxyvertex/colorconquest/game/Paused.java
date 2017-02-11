@@ -2,7 +2,6 @@ package com.foxyvertex.colorconquest.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
 import com.foxyvertex.colorconquest.Globals;
 
 import static com.badlogic.gdx.Gdx.input;
@@ -21,7 +20,8 @@ public class Paused extends GameState {
                 Gdx.input.setInputProcessor(Globals.gameMan.player.input.mobileController.stage);
             } else {
                 Gdx.input.setInputProcessor(Globals.gameMan.player.input.desktopController);
-            }        }
+            }
+        }
     }
 
     @Override
@@ -44,6 +44,11 @@ public class Paused extends GameState {
 
     @Override
     public void stop() {
+
+    }
+
+    @Override
+    public void dispose() {
 
     }
 

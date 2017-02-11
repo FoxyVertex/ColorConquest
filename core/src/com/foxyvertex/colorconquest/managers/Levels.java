@@ -48,6 +48,7 @@ public class Levels {
         currentLevel = UserPrefs.getLevel(Globals.currentGameSave);
     }
 
+
     public static class Level {
         public String path;
         public Level nextLevel;

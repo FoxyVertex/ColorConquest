@@ -21,7 +21,6 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
  */
 
 public class SplashScreen extends Screen {
-    private Texture texture;
     private Stage stage;
     private int currentImageIndex = 0;
 
@@ -81,7 +80,7 @@ public class SplashScreen extends Screen {
 
     @Override
     public void dispose() {
-        texture.dispose();
+        stage.dispose();
     }
 
     public static class SplashLogo {

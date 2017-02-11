@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.input.PlayerInput;
 import com.foxyvertex.colorconquest.managers.Assets;
-import com.foxyvertex.colorconquest.input.DesktopController;
 
 /**
  * Created by aidan on 12/24/2016.
@@ -30,13 +30,14 @@ public class Player extends SpriteBody {
     public int green = 255;
     public int blue = 255;
     public int score = 0;
+    public float fireSpeed = 0.1f;
     //Physical Properties
-    public float jumpForce = 55;
     public float maxJumpForce = 300;
-    public float minJumpFox = 55;
-    public float runSpeed = 0.05f;
+    public float minJumpForce = 55;
+    public float jumpForce = minJumpForce;
     public float maxRunSpeed = 0.4f;
-    public float minRunSpeed = 0.125f;
+    public float minRunSpeed = 0.2f;
+    public float runSpeed = minRunSpeed;
     public boolean isFiring = false;
     public Array<Color> colors;
     //FixtureDef fdef;
@@ -50,7 +51,7 @@ public class Player extends SpriteBody {
     private Color selectedColor = Color.RED;
 
     public Player(Vector2 spawnPoint) {
-        super(spawnPoint.scl(1/Finals.PPM));
+        super(spawnPoint.scl(1 / Finals.PPM));
         setRegion(Assets.mainAtlas.findRegion("idle"));
 
 
@@ -79,11 +80,12 @@ public class Player extends SpriteBody {
      */
     private void def() {
         super.CATIGORY_BIT = Finals.PLAYER_BIT;
+        super.bodyType = BodyDef.BodyType.DynamicBody;
 
         CircleShape shape = new CircleShape();
         shape.setRadius(13.4f / Finals.PPM);
 
-        super.def(shape, false);
+        super.def(shape);
 
         body.setLinearDamping(5f);
         body.setUserData(this);
@@ -145,19 +147,19 @@ public class Player extends SpriteBody {
 
         switch (currentState) {
             case JUMP_START:
-                region = (TextureRegion) Assets.playerJumpStartAnimation.getKeyFrame(timer, false);
+                region = Assets.playerJumpStartAnimation.getKeyFrame(timer, false);
                 break;
             case JUMP_LOOP:
-                region = (TextureRegion) Assets.playerJumpLoopAnimation.getKeyFrame(timer, true);
+                region = Assets.playerJumpLoopAnimation.getKeyFrame(timer, true);
                 break;
             case WALKING:
-                region = (TextureRegion) Assets.playerWalkAnim.getKeyFrame(timer, true);
+                region = Assets.playerWalkAnim.getKeyFrame(timer, true);
                 break;
             case FALLING:
-                region = (TextureRegion) Assets.playerFallAnim.getKeyFrame(timer, true);
+                region = Assets.playerFallAnim.getKeyFrame(timer, true);
                 break;
             default:
-                region = (TextureRegion) Assets.playerIdleAnim.getKeyFrame(timer, true);
+                region = Assets.playerIdleAnim.getKeyFrame(timer, true);
         }
 
         //Flip the character to the direction they're funning
@@ -206,6 +208,13 @@ public class Player extends SpriteBody {
 
     public boolean isRunningRight() {
         return runningRight;
+    }
+
+    public void dispose() {
+        super.dispose();
+        for (Bullet b : bullets)
+            b.dispose();
+        getTexture().dispose();
     }
 
     /**

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.game.GameManager;
 import com.foxyvertex.colorconquest.managers.Assets;
-import com.foxyvertex.colorconquest.screens.GameScreen;
 
 /**
  * Created by aidan on 11/26/2016.
@@ -25,10 +23,10 @@ import com.foxyvertex.colorconquest.screens.GameScreen;
 
 public class PauseMenu extends Scene {
 
+    Table table;
     //Scene2D widgets
     private TextButton btnResume;
     private TextButton btnQuit;
-    Table table;
 
     /**
      * This sets up the pause menu's stage and lets it be amazing
@@ -63,13 +61,13 @@ public class PauseMenu extends Scene {
         table.row();
         table.add(btnQuit).expandX().padTop(10);
 
-        Pixmap background = new Pixmap((int)stage.getWidth(), (int)stage.getHeight(), Pixmap.Format.RGBA8888);
+        Pixmap background = new Pixmap((int) stage.getWidth(), (int) stage.getHeight(), Pixmap.Format.RGBA8888);
 
         background.setColor(new Color(0f, 0f, 0f, 0.5f));
         background.fill();
 
         final Texture image = new Texture(background);
-        Drawable backgroundD = new Drawable(){
+        Drawable backgroundD = new Drawable() {
 
             @Override
             public void draw(Batch batch, float x, float y, float width, float height) {

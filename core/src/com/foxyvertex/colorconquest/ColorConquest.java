@@ -44,8 +44,10 @@ public class ColorConquest extends Game {
 
     @Override
     public void dispose() {
-        batch.dispose();
         super.dispose();
+        batch.dispose();
+        Assets.dispose();
+        UserPrefs.dispose();
 
     }
 }

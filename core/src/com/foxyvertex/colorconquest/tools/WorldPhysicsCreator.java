@@ -27,10 +27,10 @@ public class WorldPhysicsCreator {
         polygon = new PolygonShape();
         //For every rectangular object in the "blocks" object layer of the tile map, initialize a rectangle to create a physical fixture.
         for (MapObject object : map.getLayers().get("blocks").getObjects()) {
-            new Block(object, Finals.BLOCK_BIT);
+            new Block(object);
         }
         for (MapObject object : map.getLayers().get("EditableBlocks").getObjects()) {
-            new Block(object, Finals.BLOCK_BIT);
+            new Block(object);
         }
         //Generate fixtures for the endpoints in the triggerPoints object layer of the tiled map so that the player can collide with it to go to the next tiledMap.
         initializeRect(world, Finals.END_LEVEL_BIT, map.getLayers().get("triggerPoints").getObjects().get("EndPoint"));

@@ -14,4 +14,6 @@ public abstract class GameState {
 
     public abstract void stop();
 
+    public abstract void dispose();
+
 }
