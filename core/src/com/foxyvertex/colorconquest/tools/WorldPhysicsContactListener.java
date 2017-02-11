@@ -1,5 +1,6 @@
 package com.foxyvertex.colorconquest.tools;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -8,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.entities.Block;
+import com.foxyvertex.colorconquest.entities.Bullet;
 import com.foxyvertex.colorconquest.entities.Player;
 import com.foxyvertex.colorconquest.game.GameManager;
 import com.foxyvertex.colorconquest.managers.Levels;
@@ -50,17 +53,18 @@ public class WorldPhysicsContactListener implements ContactListener {
                 Globals.gameMan.switchLevel(nextLevel);
                 break;
             case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
-                Fixture player, block;
+                Fixture player, collidingBlock;
                 //Determines which fixture is the player and which is the block
                 // This can be shortened to 1 line!
                 if (fixtureA.getUserData() instanceof Player) {
                     player = fixtureA;
-                    block = fixtureB;
+                    collidingBlock = fixtureB;
                 } else {
                     player = fixtureB;
-                    block = fixtureA;
+                    collidingBlock = fixtureA;
                 }
-                Color blockColor = (Color) block.getUserData();
+
+                Color blockColor = ((Block) collidingBlock.getUserData()).color;
                 if (blockColor != null) {
                     float RGBColors[] = {blockColor.r, blockColor.g, blockColor.b};
                     //Depending on the maximum color R0G1B2 apply a property to the player
@@ -72,13 +76,42 @@ public class WorldPhysicsContactListener implements ContactListener {
                             Globals.gameMan.player.jumpForce = Globals.gameMan.player.maxJumpForce;
                             break;
                         case 2:
-                            block.setRestitution(1f);
+                            collidingBlock.setRestitution(1f);
                             break;
                     }
                 } else {
                     Globals.gameMan.player.runSpeed = Globals.gameMan.player.minRunSpeed;
                     Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpFox;
                 }
+                break;
+
+            case Finals.BLOCK_BIT | Finals.BULLET_BIT:
+                Block attackedBlock;
+                Bullet bullet;
+
+                //initialize the objects to their proper collision fixtures
+                if(fixtureA.getUserData() instanceof Block) {
+                    attackedBlock = (Block) fixtureA.getUserData();
+                    bullet = (Bullet) fixtureB.getUserData();
+                } else {
+                    attackedBlock = (Block) fixtureB.getUserData();
+                    bullet = (Bullet) fixtureA.getUserData();
+                }
+                //Determine which color the bullet is (Because Java sucks (Because there is no pass by reference))
+                float RGBColors[] = {attackedBlock.color.r, attackedBlock.color.g, attackedBlock.color.b};
+                switch (Utilities.findBiggestIndex(RGBColors)) {
+                    case 0:
+                        attackedBlock.color.r += 2 / 255;
+                        break;
+                    case 1:
+                        attackedBlock.color.g += 2 / 255;
+                        break;
+                    case 2:
+                        attackedBlock.color.b += 2 / 255;
+                        break;
+                }
+                attackedBlock.tintTexture(attackedBlock.color);
+//                Globals.gameMan.world.destroyBody(bullet.body);
                 break;
         }
     }
@@ -94,17 +127,17 @@ public class WorldPhysicsContactListener implements ContactListener {
         //Checks to see if a select two kinds of fixtures collide.
         switch (collisionDefinition) {
             case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
-                Fixture player, block;
+                Fixture player, collidingBlock;
                 //Determines which fixture is the player and which is the block
                 // This can be shortened to 1 line!
                 if (fixtureA.getUserData() instanceof Player) {
                     player = fixtureA;
-                    block = fixtureB;
+                    collidingBlock = fixtureB;
                 } else {
                     player = fixtureB;
-                    block = fixtureA;
+                    collidingBlock = fixtureA;
                 }
-                Color blockColor = (Color) block.getUserData();
+                Color blockColor = ((Block) collidingBlock.getUserData()).color;
                 if (blockColor != null) {
                     float RGBColors[] = {blockColor.r, blockColor.g, blockColor.b};
 

@@ -33,6 +33,7 @@ public class Block extends SpriteBody {
     public static List<Block> blocks = new ArrayList<Block>();
     private MapObject mapObject;
     private TextureRegion theFrigginTextureRegion;
+    public Color color;
 
     public Block(MapObject object, short categoryBit) {
         super(new Vector2(object.getProperties().get("x", float.class), object.getProperties().get("y", float.class)));
@@ -40,7 +41,7 @@ public class Block extends SpriteBody {
         this.mapObject = object;
 
         MapProperties objectProps = mapObject.getProperties();
-        Color color = null;
+        Color color = new Color(0,0,0,0);
 
         if (objectProps.get("red", Float.class) != null) {
             if (objectProps.get("alpha", Float.class) == null || objectProps.get("blue", Float.class) == null || objectProps.get("green", Float.class) == null) {
@@ -53,13 +54,14 @@ public class Block extends SpriteBody {
                     map(objectProps.get("blue", Float.class), 0, 1, 0, 255),
                     objectProps.get("alpha", Float.class)
             );
-        }
 
-        if (color != null) {
-            tintTexture(color);
+        }
+        this.color = color;
+
+
+            tintTexture(this.color);
             blocks.add(this);
 
-        }
 
 
 
@@ -70,10 +72,10 @@ public class Block extends SpriteBody {
 
         def(polygon, new Vector2((rect.getX() + rect.getWidth() / 2) / Finals.PPM, (rect.getY() + rect.getHeight() / 2) / Finals.PPM), true);
         setPosition((rect.getX()) / Finals.PPM, (rect.getY()) / Finals.PPM);
-        primaryFixture.setUserData(color);
+        primaryFixture.setUserData(this);
     }
 
-    private void tintTexture(Color color) {
+    public void tintTexture(Color color) {
 
         Pixmap colorFill = new Pixmap((int) Math.floor(mapObject.getProperties().get("width", float.class)), (int) Math.floor(mapObject.getProperties().get("height", float.class)), Pixmap.Format.RGB888);
         colorFill.setColor(color);

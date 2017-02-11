@@ -33,6 +33,9 @@ public class Bullet extends SpriteBody {
         CircleShape shape = new CircleShape();
         shape.setRadius(3f / Finals.PPM);
         super.def(shape, false);
+
+        primaryFixture.setUserData(this);
+
         if (Globals.gameMan.player.isRunningRight())
             body.applyLinearImpulse(initialImpulse, body.getWorldCenter(), true);
         else
