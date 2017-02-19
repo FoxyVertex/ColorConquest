@@ -9,7 +9,7 @@ import com.strongjoshua.console.CommandExecutor;
 
 public class ConsoleCommandExecutor extends CommandExecutor {
     public static void resetLevel() {
-        Globals.game.resetLevel();
+        Globals.gameScreen.resetLevel();
         Globals.game.console.log("Resetting...");
     }
 }

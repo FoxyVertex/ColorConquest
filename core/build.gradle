@@ -1,11 +1,25 @@
-apply plugin: "java"
-
-sourceCompatibility = 1.6
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
 
-sourceSets.main.java.srcDirs = [ "src/" ]
-
-
-eclipse.project {
-    name = appName + "-core"
+dependencies {
+  compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+  compile "com.badlogicgames.box2dlights:box2dlights:$box2dlightsVersion"
+  compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+  compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+  compile "com.github.tommyettinger:regexodus:$regExodusVersion"
+  compile "com.strongjoshua:libgdx-inGameConsole:$inGameConsoleVersion"
+  compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:$utilsBox2dVersion"
+  compile "net.dermetfan.libgdx-utils:libgdx-utils:$utilsVersion"
+  compile "com.kotcrab.vis:vis-ui:$visUiVersion"
+  compile "de.tomgrill.gdxdialogs:gdx-dialogs-core:$dialogsVersion"
+  compile "com.kotcrab.vis:vis-runtime:$visRuntimeVersion"
+  compile "net.onedaybeard.artemis:artemis-odb:$artemisOdbVersion"
+  compile "com.github.czyzby:gdx-websocket-serialization:$websocketSerializationVersion"
+  compile "com.github.czyzby:gdx-websocket:$websocketVersion"
+  compile "com.bladecoder.ink:blade-ink:$bladeInkVersion"
+  compile "com.github.ykrasik:jaci-libgdx-cli-java:$jaciVersion"
+  compile "com.github.czyzby:gdx-kiwi:$kiwiVersion"
 }
+        

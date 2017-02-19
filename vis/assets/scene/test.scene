@@ -46,7 +46,7 @@
     {
       "components": [
         {
-          "x": 2.1688,
+          "x": 2.1482,
           "y": 2.975,
           "scaleX": 3.0,
           "scaleY": 3.0,
@@ -100,22 +100,22 @@
         {
           "vertices": [
             {
-              "x": 2.1687992,
+              "x": 2.148199,
               "y": 2.9749992,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 2.6488025,
+              "x": 2.6282024,
               "y": 2.9749992,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 2.6488025,
+              "x": 2.6282024,
               "y": 3.4550025,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 2.1687992,
+              "x": 2.148199,
               "y": 3.4550025,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
@@ -123,19 +123,19 @@
           "faces": [
             [
               {
-                "x": 2.1687992,
+                "x": 2.148199,
                 "y": 3.4550025
               },
               {
-                "x": 2.1687992,
+                "x": 2.148199,
                 "y": 2.9749992
               },
               {
-                "x": 2.6488025,
+                "x": 2.6282024,
                 "y": 2.9749992
               },
               {
-                "x": 2.6488025,
+                "x": 2.6282024,
                 "y": 3.4550025
               }
             ]
@@ -163,6 +163,17 @@
         {
           "id": "player",
           "@class": "VisID"
+        },
+        {
+          "variables": [
+            {
+              "key": "collisionCat",
+              "value": "player",
+              "@class-key": "String",
+              "@class-value": "String"
+            }
+          ],
+          "@class": "Variables"
         }
       ],
       "@class": "EntityScheme"
@@ -366,8 +377,8 @@
     {
       "components": [
         {
-          "x": 0.0018485785,
-          "y": 0.048107684,
+          "x": -0.0045,
+          "y": -9.2835724E-4,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
@@ -416,43 +427,43 @@
         {
           "vertices": [
             {
-              "x": 0.0018486977,
-              "y": 0.048107624,
+              "x": -0.0044998806,
+              "y": -9.2841685E-4,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 3.531849,
-              "y": 0.048107624,
+              "x": 3.5255003,
+              "y": -9.2841685E-4,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 3.531849,
-              "y": 1.4781077,
+              "x": 3.5255003,
+              "y": 1.4290714,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 0.0018486977,
-              "y": 1.4781077,
+              "x": -0.0044998806,
+              "y": 1.4290714,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 0.0018486977,
-                "y": 1.4781077
+                "x": -0.0044998806,
+                "y": 1.4290714
               },
               {
-                "x": 0.0018486977,
-                "y": 0.048107624
+                "x": -0.0044998806,
+                "y": -9.2841685E-4
               },
               {
-                "x": 3.531849,
-                "y": 0.048107624
+                "x": 3.5255003,
+                "y": -9.2841685E-4
               },
               {
-                "x": 3.531849,
-                "y": 1.4781077
+                "x": 3.5255003,
+                "y": 1.4290714
               }
             ]
           ],
@@ -477,10 +488,14 @@
           "@class": "PhysicsProperties"
         },
         {
+          "id": "environment",
+          "@class": "VisID"
+        },
+        {
           "variables": [
             {
-              "key": "CollisionCat",
-              "value": "",
+              "key": "collisionCat",
+              "value": "environment",
               "@class-key": "String",
               "@class-value": "String"
             }
@@ -493,8 +508,8 @@
     {
       "components": [
         {
-          "x": 3.5309086,
-          "y": 0.045602366,
+          "x": 3.5243,
+          "y": 0.0024,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
@@ -543,43 +558,43 @@
         {
           "vertices": [
             {
-              "x": 3.5309076,
-              "y": 0.045602307,
+              "x": 3.5242991,
+              "y": 0.0023999405,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 7.060911,
-              "y": 0.045602307,
+              "x": 7.054302,
+              "y": 0.0023999405,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 7.060911,
-              "y": 1.4756025,
+              "x": 7.054302,
+              "y": 1.4323999,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 3.5309076,
-              "y": 1.4756025,
+              "x": 3.5242991,
+              "y": 1.4323999,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 3.5309076,
-                "y": 1.4756025
+                "x": 3.5242991,
+                "y": 1.4323999
               },
               {
-                "x": 3.5309076,
-                "y": 0.045602307
+                "x": 3.5242991,
+                "y": 0.0023999405
               },
               {
-                "x": 7.060911,
-                "y": 0.045602307
+                "x": 7.054302,
+                "y": 0.0023999405
               },
               {
-                "x": 7.060911,
-                "y": 1.4756025
+                "x": 7.054302,
+                "y": 1.4323999
               }
             ]
           ],
@@ -604,13 +619,145 @@
           "@class": "PhysicsProperties"
         },
         {
+          "id": "environment",
           "@class": "VisID"
         },
         {
           "variables": [
             {
-              "key": "CollisionCat",
+              "key": "collisionCat",
               "value": "environment",
+              "@class-key": "String",
+              "@class-value": "String"
+            }
+          ],
+          "@class": "Variables"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 6.5678,
+          "y": 1.4451,
+          "scaleX": 3.0,
+          "scaleY": 3.0,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 0.0,
+          "originY": 0.0,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/spruceBricks.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 0.16,
+          "height": 0.16,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 1,
+          "@class": "Layer"
+        },
+        {
+          "uuid": "7e1932be-1a44-414f-8bdd-1e1c49071d82",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "vertices": [
+            {
+              "x": 6.5678,
+              "y": 1.4451,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 7.0478,
+              "y": 1.4451,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 7.0478,
+              "y": 1.9251,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 6.5678,
+              "y": 1.9251,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            }
+          ],
+          "faces": [
+            [
+              {
+                "x": 6.5678,
+                "y": 1.9251
+              },
+              {
+                "x": 6.5678,
+                "y": 1.4451
+              },
+              {
+                "x": 7.0478,
+                "y": 1.4451
+              },
+              {
+                "x": 7.0478,
+                "y": 1.9251
+              }
+            ]
+          ],
+          "@class": "VisPolygon"
+        },
+        {
+          "bodyType": "StaticBody",
+          "friction": 1.0,
+          "density": 1.0,
+          "restitution": 0.0,
+          "sensor": false,
+          "gravityScale": 1.0,
+          "linearDamping": 0.0,
+          "angularDamping": 0.0,
+          "bullet": false,
+          "fixedRotation": false,
+          "active": true,
+          "sleepingAllowed": true,
+          "adjustOrigin": true,
+          "maskBits": -1,
+          "categoryBits": 1,
+          "@class": "PhysicsProperties"
+        },
+        {
+          "id": "endLevel",
+          "@class": "VisID"
+        },
+        {
+          "variables": [
+            {
+              "key": "collisionCat",
+              "value": "endLevel",
               "@class-key": "String",
               "@class-value": "String"
             }

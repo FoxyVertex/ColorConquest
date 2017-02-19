@@ -1,10 +1,9 @@
-sourceSets.main.java.srcDirs = [ "src/" ]
+apply plugin: 'robovm'
 
-sourceCompatibility = '1.7'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-	mainClassName = "com.foxyvertex.colorconquest.IOSLauncher"
+	mainClassName = "com.foxyvertex.colorconquest.ios.IOSLauncher"
 }
 
 launchIPhoneSimulator.dependsOn build
@@ -12,11 +11,19 @@ launchIPadSimulator.dependsOn build
 launchIOSDevice.dependsOn build
 createIPA.dependsOn build
 
-robovm {
-	archs = "thumbv7:arm64"
+eclipse.project {
+  name = appName + "-ios"
+  natures 'org.robovm.eclipse.RoboVMNature'
 }
 
-eclipse.project {
-    name = appName + "-ios"
-    natures 'org.robovm.eclipse.RoboVMNature'
+dependencies {
+  compile project(':core')
+  compile "com.mobidevelop.robovm:robovm-rt:$robovmVersion"
+  compile "com.mobidevelop.robovm:robovm-cocoatouch:$robovmVersion"
+  compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+  compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+  compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-ios"
+  compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
+  compile "de.tomgrill.gdxdialogs:gdx-dialogs-ios:$dialogsVersion"
+  compile "com.github.czyzby:gdx-websocket-common:$websocketVersion"
 }

@@ -59,7 +59,7 @@ public class MobileController implements Drawable, InputProcessor {
             }
         });
 
-        upImg = new Image(new Texture("ui/up.png"));
+        upImg = new Image(new Texture("gfx/UI/up.png"));
         upImg.setSize(60, 60);
         upImg.addListener(new InputListener() {
 
@@ -75,7 +75,7 @@ public class MobileController implements Drawable, InputProcessor {
             }
         });
 
-        rightImg = new Image(new Texture("ui/right.png"));
+        rightImg = new Image(new Texture("gfx/UI/right.png"));
         rightImg.setSize(60, 60);
         rightImg.addListener(new InputListener() {
 
@@ -91,7 +91,7 @@ public class MobileController implements Drawable, InputProcessor {
             }
         });
 
-        leftImg = new Image(new Texture("ui/left.png"));
+        leftImg = new Image(new Texture("gfx/UI/left.png"));
         leftImg.setSize(60, 60);
         leftImg.addListener(new InputListener() {
 
@@ -107,7 +107,7 @@ public class MobileController implements Drawable, InputProcessor {
             }
         });
 
-        superImg = new Image(new Texture("ui/dot.png"));
+        superImg = new Image(new Texture("gfx/UI/dot.png"));
         superImg.setSize(60, 60);
         superImg.addListener(new InputListener() {
 

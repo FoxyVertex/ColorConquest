@@ -6,42 +6,70 @@ filter: Nearest,Nearest
 repeat: none
 bmpfont/font
   rotate: false
-  xy: 1118, 509
+  xy: 1118, 573
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+gfx/UI/dot
+  rotate: false
+  xy: 604, 235
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+gfx/UI/left
+  rotate: false
+  xy: 2, 2
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+gfx/UI/right
+  rotate: false
+  xy: 357, 147
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+gfx/UI/up
+  rotate: false
+  xy: 1118, 491
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
 gfx/dirt
   rotate: false
-  xy: 604, 253
+  xy: 604, 317
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 gfx/grass
   rotate: false
-  xy: 2, 165
+  xy: 2, 229
   size: 600, 600
   orig: 600, 600
   offset: 0, 0
   index: -1
 gfx/platform
   rotate: false
-  xy: 2, 20
+  xy: 2, 84
   size: 353, 143
   orig: 353, 143
   offset: 0, 0
   index: -1
 gfx/spruceBricks
   rotate: false
-  xy: 604, 235
+  xy: 1376, 813
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 gfx/wood
   rotate: false
-  xy: 2, 2
+  xy: 686, 299
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

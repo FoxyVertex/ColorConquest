@@ -7,7 +7,7 @@
   <iosInfoPList>Info.plist.xml</iosInfoPList>
   <resources>
     <resource>
-      <directory>../android/assets</directory>
+      <directory>../assets</directory>
       <includes>
         <include>**</include>
       </includes>
@@ -33,7 +33,7 @@
     <pattern>org.apache.harmony.security.provider.crypto.CryptoProvider</pattern>
   </forceLinkClasses>
   <libs>
-      <lib>z</lib>   
+      <lib>z</lib>
   </libs>
   <frameworks>
     <framework>UIKit</framework>

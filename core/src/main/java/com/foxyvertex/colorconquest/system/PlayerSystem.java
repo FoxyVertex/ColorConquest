@@ -190,7 +190,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
         if (Globals.isMobile) {
             mobileController = new MobileController(this);
-            Globals.game.drawables.add(mobileController);
+            Globals.gameScreen.drawables.add(mobileController);
             Gdx.input.setInputProcessor(mobileController);
         } else {
             desktopController = new DesktopController(this);

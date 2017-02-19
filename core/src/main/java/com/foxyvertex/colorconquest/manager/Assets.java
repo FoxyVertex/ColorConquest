@@ -12,7 +12,7 @@ public class Assets {
     public static Skin guiSkin;
 
     public static void load() {
-        guiSkin = new Skin(Gdx.files.internal("skin/clean-crispy-ui.json"));
+        guiSkin = new Skin(Gdx.files.internal("gfx/UI/skin/clean-crispy-ui.json"));
     }
 
 }

@@ -48,15 +48,15 @@ public class SetupCategoryBitsSystem extends EntitySystem implements AfterSceneI
         }
         Filter filter = new Filter();
         String collisionCat = entity.getComponent(Variables.class).get("collisionCat");
-        if (collisionCat == "player") {
+        if (collisionCat.equals("player")) {
             filter.categoryBits = Finals.PLAYER_BIT;
-        } else if (collisionCat == "environment") {
+        } else if (collisionCat.equals("environment")) {
             filter.categoryBits = Finals.BLOCK_BIT;
-        } else if (collisionCat == "endLevel") {
+        } else if (collisionCat.equals("endLevel")) {
             filter.categoryBits = Finals.END_LEVEL_BIT;
-        } else if (collisionCat == "playerFeet") {
+        } else if (collisionCat.equals("playerFeet")) {
             filter.categoryBits = Finals.PLAYER_FEET_BIT;
-        } else if (collisionCat == "bullet") {
+        } else if (collisionCat.equals("bullet")) {
             filter.categoryBits = Finals.BULLET_BIT;
         }
         entity.getComponent(PhysicsBody.class).body.getFixtureList().get(0).setFilterData(filter);
