@@ -1,7 +1,6 @@
 package com.foxyvertex.colorconquest.stages;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.manager.Assets;
+import com.foxyvertex.colorconquest.system.PlayerSystem;
 
 /**
  * Created by aidan on 11/26/2016.
@@ -29,24 +29,22 @@ public class PauseMenu extends UIStage {
 
     /**
      * This sets up the pause menu's stage and lets it be amazing
-     *
-     * @param screen the screen is used to be passed to super
      */
-    public PauseMenu(final Screen screen) {
-        super(screen);
+    public PauseMenu() {
+        super();
 
         btnResume = new TextButton("Resume", Assets.guiSkin);
         btnQuit = new TextButton("Quit", Assets.guiSkin);
         btnResume.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                // TODO: 2/18/2017 unpause
+                Globals.gameScreen.scene.getEntityEngine().getSystem(PlayerSystem.class).isGamePaused = false;
             }
         });
         btnQuit.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                // TODO: 2/18/2017 Go back to title screen
+                Globals.game.setScreen(Globals.titleMenu);
             }
         });
 

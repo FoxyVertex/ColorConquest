@@ -57,7 +57,7 @@ public class SplashScreen implements Screen {
                 SequenceAction actions = new SequenceAction(sequence(fadeIn(1f), delay(3.5f), fadeOut(1.5f), run(new Runnable() {
                     @Override
                     public void run() {
-                        Globals.game.setScreen(Globals.gameScreen);
+                        Globals.game.setScreen(Globals.titleMenu);
                     }
                 })));
                 Assets.splashScreenLogos.get(i).addAction(actions);

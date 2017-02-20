@@ -46,8 +46,7 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
         switch (collisionDefinition) {
             case Finals.PLAYER_BIT | Finals.END_LEVEL_BIT:
                 Gdx.app.log("Contact Listener", "Player collided with the end level trigger");
-                Globals.gameScreen.resetLevel();
-                // TODO: 2/16/2017 implement player-on-endLevel collision
+                Globals.gameScreen.nextLevel();
                 break;
             case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
                 Entity player;

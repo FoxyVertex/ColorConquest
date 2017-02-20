@@ -26,7 +26,7 @@ public class DesktopController extends InputAdapter implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
+        
 
         return super.touchDown(screenX, screenY, pointer, button);
     }
@@ -43,7 +43,7 @@ public class DesktopController extends InputAdapter implements InputProcessor {
             inputManager.currentColorIndex = 0;
         if (inputManager.currentColorIndex < 0)
             inputManager.currentColorIndex = inputManager.playerComp.colors.size - 1;
-        // TODO: 2/18/2017 Update the color meter
+        inputManager.updateHud();
         return super.scrolled(amount);
     }
 
@@ -53,6 +53,7 @@ public class DesktopController extends InputAdapter implements InputProcessor {
      * @param delta a float that is the amount of time in seconds since the last frame
      */
     public void handleInput(float delta) {
+        inputManager.isGamePaused = Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE);
         inputManager.backwardPressed = Gdx.input.isKeyPressed(Input.Keys.A);
         inputManager.forwardPressed = Gdx.input.isKeyPressed(Input.Keys.D);
         inputManager.jumpPressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);

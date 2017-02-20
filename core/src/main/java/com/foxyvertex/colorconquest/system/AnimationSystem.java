@@ -61,7 +61,7 @@ public class AnimationSystem extends BaseSystem implements AfterSceneInit {
 
     public void changeAnimState(Entity entity, String name, boolean flipX, boolean flipY, boolean loop) {
         Animation animComp = entity.getComponent(Animation.class);
-        if (animComp.currentAnimation != name) {
+        if (!animComp.currentAnimation.equals(name)) {
             animComp.currentAnimation = name;
             animComp.timer = 0f;
             animComp.loop = loop;

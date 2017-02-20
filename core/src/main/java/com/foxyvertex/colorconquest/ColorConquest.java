@@ -12,6 +12,7 @@ import com.foxyvertex.colorconquest.screen.GameScreen;
 import com.foxyvertex.colorconquest.screen.SplashScreen;
 import com.foxyvertex.colorconquest.screen.TitleMenu;
 import com.foxyvertex.colorconquest.tools.ConsoleCommandExecutor;
+import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
 import com.strongjoshua.console.Console;
 import com.strongjoshua.console.GUIConsole;
 
@@ -23,6 +24,8 @@ public class ColorConquest extends Game {
 
 	@Override
 	public void create () {
+        Globals.systemsToDisableOnPause.add(PhysicsSystem.class);
+
 		Globals.game = this;
         UserPrefs.load();
         Levels.load();

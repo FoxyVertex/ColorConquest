@@ -5,8 +5,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Logger;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.manager.Levels;
+import com.foxyvertex.colorconquest.manager.UserPrefs;
+import com.foxyvertex.colorconquest.stages.PauseMenu;
 import com.foxyvertex.colorconquest.system.AnimationSystem;
 import com.foxyvertex.colorconquest.system.CameraSystem;
+import com.foxyvertex.colorconquest.system.HudSystem;
 import com.foxyvertex.colorconquest.system.PlayerSystem;
 import com.foxyvertex.colorconquest.system.SetupCategoryBitsSystem;
 import com.foxyvertex.colorconquest.system.WorldPhysicsContactListener;
@@ -23,35 +27,29 @@ public class GameScreen implements Screen {
 
     VisAssetManager manager;
 
-    String scenePath;
-    Scene scene;
+    Levels.Level currentLevel;
+    public Scene scene;
 
     public Array<Drawable> drawables = new Array<>();
 
     public GameScreen() {
         super();
+        manager = new VisAssetManager(Globals.game.batch);
+        manager.getLogger().setLevel(Logger.ERROR);
         Globals.gameScreen = this;
+        Globals.pauseMenuStage = new PauseMenu();
     }
 
     @Override
     public void show() {
-        scenePath = "scene/test.scene";
-        manager = new VisAssetManager(Globals.game.batch);
-        manager.getLogger().setLevel(Logger.ERROR);
-        SceneLoader.SceneParameter parameter = new SceneLoader.SceneParameter();
-        parameter.config.addSystem(PlayerSystem.class);
-        parameter.config.addSystem(AnimationSystem.class);
-        parameter.config.addSystem(CameraSystem.class);
-        parameter.config.addSystem(WorldPhysicsContactListener.class);
-        parameter.config.addSystem(Box2dDebugRenderSystem.class);
-        parameter.config.addSystem(SetupCategoryBitsSystem.class);
-        scene = manager.loadSceneNow(scenePath, parameter);
+        currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
+        initLevel();
     }
 
     @Override
     public void render(float delta) {
-
         scene.render();
+        if (scene.getEntityEngine().getSystem(PlayerSystem.class).isGamePaused) Globals.pauseMenuStage.stage.draw();
         for (Drawable toDraw : drawables) {
             toDraw.draw(Globals.game.batch, 0, 0, 0, 0);
         }
@@ -82,10 +80,7 @@ public class GameScreen implements Screen {
         manager.dispose();
     }
 
-    public void resetLevel() {
-        //manager.dispose();
-        manager = new VisAssetManager(Globals.game.batch);
-        manager.getLogger().setLevel(Logger.ERROR);
+    public void initLevel() {
         SceneLoader.SceneParameter parameter = new SceneLoader.SceneParameter();
         parameter.config.addSystem(PlayerSystem.class);
         parameter.config.addSystem(AnimationSystem.class);
@@ -93,6 +88,17 @@ public class GameScreen implements Screen {
         parameter.config.addSystem(WorldPhysicsContactListener.class);
         parameter.config.addSystem(Box2dDebugRenderSystem.class);
         parameter.config.addSystem(SetupCategoryBitsSystem.class);
-        scene = manager.loadSceneNow(scenePath, parameter);
+        parameter.config.addSystem(HudSystem.class);
+        scene = manager.loadSceneNow(currentLevel.path, parameter);
+    }
+
+    public void resetLevel() {
+        initLevel();
+    }
+
+    public void nextLevel() {
+        UserPrefs.setLevel(Globals.currentGameSave, currentLevel.nextLevel.index);
+        currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
+        initLevel();
     }
 }

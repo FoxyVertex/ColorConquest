@@ -1,6 +1,6 @@
 {
   "versionCode": 2,
-  "path": "scene/test.scene",
+  "path": "scene/test2.scene",
   "width": 16.0,
   "height": 9.0,
   "pixelsPerUnit": 100.0,
@@ -778,7 +778,7 @@
     {
       "components": [
         {
-          "x": 14.1613,
+          "x": 14.2043,
           "y": 0.0374,
           "scaleX": 0.5,
           "scaleY": 0.5,

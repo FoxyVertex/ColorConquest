@@ -1,75 +1,124 @@
 
 cache.png
-size: 2048,1024
+size: 4096,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 bmpfont/font
   rotate: false
-  xy: 1118, 573
+  xy: 2, 2
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 gfx/UI/dot
   rotate: false
-  xy: 604, 235
+  xy: 1206, 411
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 gfx/UI/left
   rotate: false
-  xy: 2, 2
+  xy: 3168, 667
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 gfx/UI/right
   rotate: false
-  xy: 357, 147
+  xy: 3426, 925
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 gfx/UI/up
   rotate: false
-  xy: 1118, 491
+  xy: 260, 178
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 gfx/dirt
   rotate: false
-  xy: 604, 317
+  xy: 1206, 493
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 gfx/grass
   rotate: false
-  xy: 2, 229
+  xy: 604, 405
   size: 600, 600
   orig: 600, 600
   offset: 0, 0
   index: -1
+gfx/hud/bg
+  rotate: false
+  xy: 1720, 495
+  size: 360, 510
+  orig: 360, 510
+  offset: 0, 0
+  index: -1
+gfx/hud/blue
+  rotate: false
+  xy: 2082, 495
+  size: 360, 510
+  orig: 360, 510
+  offset: 0, 0
+  index: -1
+gfx/hud/green
+  rotate: false
+  xy: 2444, 495
+  size: 360, 510
+  orig: 360, 510
+  offset: 0, 0
+  index: -1
+gfx/hud/red
+  rotate: false
+  xy: 2806, 495
+  size: 360, 510
+  orig: 360, 510
+  offset: 0, 0
+  index: -1
 gfx/platform
   rotate: false
-  xy: 2, 84
+  xy: 2, 260
   size: 353, 143
   orig: 353, 143
   offset: 0, 0
   index: -1
+gfx/splash/FoxyVertex
+  rotate: false
+  xy: 2, 405
+  size: 600, 600
+  orig: 600, 600
+  offset: 0, 0
+  index: -1
+gfx/splash/badlogic
+  rotate: false
+  xy: 3168, 749
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+gfx/splash/thefoxarmy
+  rotate: false
+  xy: 357, 307
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
 gfx/spruceBricks
   rotate: false
-  xy: 1376, 813
+  xy: 357, 289
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 gfx/wood
   rotate: false
-  xy: 686, 299
+  xy: 455, 387
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

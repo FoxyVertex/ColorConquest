@@ -12,4 +12,9 @@ public class ConsoleCommandExecutor extends CommandExecutor {
         Globals.gameScreen.resetLevel();
         Globals.game.console.log("Resetting...");
     }
+
+    public static void nextLevel() {
+        Globals.gameScreen.nextLevel();
+        Globals.game.console.log("Skipping...");
+    }
 }

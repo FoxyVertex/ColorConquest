@@ -778,8 +778,8 @@
     {
       "components": [
         {
-          "x": 14.1613,
-          "y": 0.0374,
+          "x": 14.161301,
+          "y": 0.037399292,
           "scaleX": 0.5,
           "scaleY": 0.5,
           "rotation": 0.0,
@@ -826,7 +826,6 @@
           "@class": "Renderable"
         },
         {
-          "id": "colorMeter",
           "@class": "VisID"
         }
       ],

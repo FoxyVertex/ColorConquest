@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.manager.Assets;
 
 /**
@@ -30,7 +31,7 @@ public class TitleScreen extends UIStage {
         btnPlay.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                // TODO: 2/18/2017 Show play menu
+                Globals.titleMenu.switchScene(Globals.playMenuStage);
             }
         });
         table.add(btnPlay);
@@ -40,7 +41,7 @@ public class TitleScreen extends UIStage {
         btnOptions.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                // TODO: 2/18/2017 Show options menu
+                Globals.titleMenu.switchScene(Globals.optionsMenuStage);
             }
         });
         table.add(btnOptions);
@@ -60,7 +61,6 @@ public class TitleScreen extends UIStage {
      */
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        stage.act();
     }
 
     public void tick(float delta) {

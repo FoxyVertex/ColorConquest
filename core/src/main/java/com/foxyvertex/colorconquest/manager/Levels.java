@@ -12,7 +12,7 @@ import java.util.List;
 public class Levels {
     public static List<Level> levels = new ArrayList<Level>();
     public static int currentLevel = 0;
-    public static String pathPrefix = "levels/";
+    public static String pathPrefix = "scene/";
 
     public static void load() {
         Level level1 = new Level();
@@ -20,10 +20,10 @@ public class Levels {
         Level level3 = new Level();
         Level level4 = new Level();
 
-        level1.path = pathPrefix + "DebugLevel.tmx";
-        level2.path = pathPrefix + "test.tmx";
-        level3.path = pathPrefix + "level2.tmx";
-        level4.path = pathPrefix + "lvl3.tmx";
+        level1.path = pathPrefix + "test.scene";
+        level2.path = pathPrefix + "test2.scene";
+        level3.path = pathPrefix + "test3.scene";
+        level4.path = pathPrefix + "test4.scene";
 
         level1.hasCutscene = false;
         level2.hasCutscene = false;

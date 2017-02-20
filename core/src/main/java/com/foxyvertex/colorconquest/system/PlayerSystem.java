@@ -5,20 +5,35 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Animation;
+import com.foxyvertex.colorconquest.component.Bullet;
 import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.input.DesktopController;
 import com.foxyvertex.colorconquest.input.MobileController;
+import com.kotcrab.vis.runtime.component.Layer;
+import com.kotcrab.vis.runtime.component.Origin;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
+import com.kotcrab.vis.runtime.component.Renderable;
+import com.kotcrab.vis.runtime.component.Tint;
 import com.kotcrab.vis.runtime.component.Transform;
+import com.kotcrab.vis.runtime.component.Variables;
 import com.kotcrab.vis.runtime.component.VisSprite;
 import com.kotcrab.vis.runtime.system.CameraManager;
 import com.kotcrab.vis.runtime.system.VisIDManager;
+import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
 import com.kotcrab.vis.runtime.util.AfterSceneInit;
 
 /**
@@ -31,7 +46,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     ComponentMapper<Transform> transformCm;
     ComponentMapper<PhysicsBody> bodyCm;
 
-    //GameManager gameManager;
     CameraManager cameraManager;
 
     public int currentColorIndex = 0;
@@ -62,98 +76,104 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     MobileController mobileController;
     DesktopController desktopController;
 
+    public boolean isGamePaused = false;
 
     @Override
     protected void processSystem() {
-        if (Globals.isMobile) {
-            mobileController.handleInput();
-        } else {
-            desktopController.handleInput(getWorld().getDelta());
-        }
+        if (!isGamePaused) {
+            if (Globals.isMobile) {
+                mobileController.handleInput();
+            } else {
+                desktopController.handleInput(getWorld().getDelta());
+            }
 
-        if (!animationStarted) {
-            world.getSystem(AnimationSystem.class).addEntity(player);
-            animationStarted = true;
-        }
-        
-        float maxJumpForceLength = 0.2f;
-        
-        //DEBUG JUNK
-        if (Gdx.input.isKeyPressed(Input.Keys.B)) {
-            player.getComponent(Player.class).blue += 1;
-        }
-        if (debugZoomInPressed)
-            cameraManager.getCamera().zoom += 1 * getWorld().getDelta();
-        if (debugZoomOutPressed)
-            cameraManager.getCamera().zoom -= 1 * getWorld().getDelta();
+            if (!animationStarted) {
+                world.getSystem(AnimationSystem.class).addEntity(player);
+                animationStarted = true;
+            }
+
+            float maxJumpForceLength = 0.2f;
+
+            //DEBUG JUNK
+            if (Gdx.input.isKeyPressed(Input.Keys.B)) {
+                player.getComponent(Player.class).blue += 1;
+            }
+            if (debugZoomInPressed)
+                cameraManager.getCamera().zoom += 1 * getWorld().getDelta();
+            if (debugZoomOutPressed)
+                cameraManager.getCamera().zoom -= 1 * getWorld().getDelta();
 
             player.getComponent(Player.class).isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
 
 
-        inAir = !(body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001);
-        if (jumpPressed && (!jumpReleased || !inAir)) {
-            currentJumpLength += world.getDelta();
+            inAir = !(body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001);
+            if (jumpPressed && (!jumpReleased || !inAir)) {
+                currentJumpLength += world.getDelta();
 
-            if (currentJumpLength >= maxJumpForceLength) canJump = false;
-            if (!inAir && currentJumpLength < maxJumpForceLength) canJump = true;
+                if (currentJumpLength >= maxJumpForceLength) canJump = false;
+                if (!inAir && currentJumpLength < maxJumpForceLength) canJump = true;
 
-            jumpPressedPrev = true;
-        } else {
-            if (jumpPressedPrev) jumpReleased = true;
+                jumpPressedPrev = true;
+            } else {
+                if (jumpPressedPrev) jumpReleased = true;
 
-            currentJumpLength = 0f;
-            canJump = (body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001) && !jumpPressedPrev;
-            jumpPressedPrev = false;
-        }
-
-        if (downPressed)
-            body.applyLinearImpulse(new Vector2(0, -10f), body.getWorldCenter(), true);
-
-        if (forwardPressed && body.getLinearVelocity().x <= 2 * speedMultiplier) {
-            body.applyLinearImpulse(new Vector2(player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
-            forwardPressedPrev = true;
-            world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", false, false, true);
-            facingDIRECTION = FacingDIRECTION.RIGHT;
-        } else if (!backwardPressed && forwardPressedPrev) {
-            body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
-            forwardPressedPrev = false;
-        }
-
-        if (backwardPressed && body.getLinearVelocity().x >= -2 * speedMultiplier) {
-            body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
-            backwardPressedPrev = true;
-            world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", true, false, true);
-            facingDIRECTION = FacingDIRECTION.LEFT;
-        } else if (!backwardPressed && backwardPressedPrev) {
-            body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
-            backwardPressedPrev = false;
-        }
-
-        if (!(backwardPressed || forwardPressed || downPressed || jumpPressed)) {
-
-            switch (facingDIRECTION) {
-                case RIGHT:
-                    shouldFlipX = false;
-                    break;
-                case LEFT:
-                    shouldFlipX = true;
-                    break;
-                case UP:
-                    shouldFlipY = true;
-                    break;
-                case DOWN:
-                    shouldFlipY = false;
-                    break;
+                currentJumpLength = 0f;
+                canJump = (body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001) && !jumpPressedPrev;
+                jumpPressedPrev = false;
             }
-            world.getSystem(AnimationSystem.class).changeAnimState(player, "idle", shouldFlipX, shouldFlipY, true);
-            shouldFlipX = false;
-            shouldFlipY = false;
-        }
 
-        if (currentJumpLength > 0 && canJump) {
-            body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()),  body.getWorldCenter(), true);
-            inAir = true;
-            world.getSystem(AnimationSystem.class).changeAnimState(player, "jumploop", true, false, false);
+            if (downPressed)
+                body.applyLinearImpulse(new Vector2(0, -10f), body.getWorldCenter(), true);
+
+            if (forwardPressed && body.getLinearVelocity().x <= 2 * speedMultiplier) {
+                body.applyLinearImpulse(new Vector2(player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                forwardPressedPrev = true;
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", false, false, true);
+                facingDIRECTION = FacingDIRECTION.RIGHT;
+            } else if (!backwardPressed && forwardPressedPrev) {
+                body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                forwardPressedPrev = false;
+            }
+
+            if (backwardPressed && body.getLinearVelocity().x >= -2 * speedMultiplier) {
+                body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                backwardPressedPrev = true;
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", true, false, true);
+                facingDIRECTION = FacingDIRECTION.LEFT;
+            } else if (!backwardPressed && backwardPressedPrev) {
+                body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                backwardPressedPrev = false;
+            }
+
+            if (!(backwardPressed || forwardPressed || downPressed || jumpPressed)) {
+
+                switch (facingDIRECTION) {
+                    case RIGHT:
+                        shouldFlipX = false;
+                        break;
+                    case LEFT:
+                        shouldFlipX = true;
+                        break;
+                    case UP:
+                        shouldFlipY = true;
+                        break;
+                    case DOWN:
+                        shouldFlipY = false;
+                        break;
+                }
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "idle", shouldFlipX, shouldFlipY, true);
+                shouldFlipX = false;
+                shouldFlipY = false;
+            }
+
+            if (currentJumpLength > 0 && canJump) {
+                body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()), body.getWorldCenter(), true);
+                inAir = true;
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "jumploop", true, false, false);
+            }
+        } else {
+            Gdx.input.setInputProcessor(Globals.pauseMenuStage.stage);
+            Globals.pauseMenuStage.stage.act();
         }
     }
 
@@ -162,6 +182,10 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         player = idManager.get("player");
         player.edit().add(new Player());
         playerComp = player.getComponent(Player.class);
+        playerComp.colors = new Array<>();
+        playerComp.colors.add(Color.RED);
+        playerComp.colors.add(Color.GREEN);
+        playerComp.colors.add(Color.BLUE);
 
         Animation animComp = new Animation();
         animComp.path = "gfx/GreyGuy.pack";
@@ -198,7 +222,56 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         }
     }
 
-    public void shoot(Vector2 vector2) {
-        // TODO: 2/18/2017 implement shooting
+    public void shoot(Vector2 clickPoint) {
+        if (playerComp.selectedColor == Color.RED)
+            if (playerComp.red <= 0)
+                return;
+            else
+                playerComp.red--;
+        else if (playerComp.selectedColor == Color.GREEN)
+            if (playerComp.green <= 0)
+                return;
+            else
+                playerComp.green--;
+        else if (playerComp.blue <= 0)
+            return;
+        else
+            playerComp.blue--;
+
+        Bullet bulletComp = new Bullet();
+        BodyDef bdef = new BodyDef();
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.position.set(transform.getX(), transform.getY());
+        Body body = getWorld().getSystem(PhysicsSystem.class).getPhysicsWorld().createBody(bdef);
+        FixtureDef fdef = new FixtureDef();
+        fdef.filter.categoryBits = Finals.BULLET_BIT;
+        fdef.shape = new CircleShape();
+        fdef.shape.setRadius(2/100);
+        body.createFixture(fdef);
+        PhysicsBody physicsBodyComp = new PhysicsBody(body);
+
+        Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
+        pixmap.setColor(playerComp.selectedColor);
+        pixmap.fillCircle(50, 50, 50);
+        TextureRegion textureRegion = new TextureRegion(new Texture(pixmap));
+        VisSprite visSpriteComp = new VisSprite(textureRegion);
+
+        Variables variables = new Variables();
+        variables.put("collisionCat", "bullet");
+
+        world.createEntity().edit()
+                .add(new Renderable(0))
+                .add(new Layer(Globals.gameScreen.scene.getLayerDataByName("Foreground").id))
+                .add(visSpriteComp)
+                .add(new Transform())
+                .add(new Tint())
+                .add(new Origin())
+                .add(physicsBodyComp)
+                .add(bulletComp)
+                .add(variables);
+    }
+
+    public void updateHud() {
+        getWorld().getSystem(HudSystem.class).updateColorMeter();
     }
 }

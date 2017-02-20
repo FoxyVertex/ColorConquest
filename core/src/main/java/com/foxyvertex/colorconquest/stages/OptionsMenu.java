@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.manager.Assets;
 import com.foxyvertex.colorconquest.manager.UserPrefs;
 
@@ -50,7 +51,7 @@ public class OptionsMenu extends UIStage {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
-                // TODO: 2/18/2017 go back to previous menu
+                Globals.titleMenu.switchScene(Globals.titleScreenStage);
             }
         });
         table.add(backButton).expandX();

@@ -3,6 +3,7 @@ package com.foxyvertex.colorconquest.component;
 import com.artemis.Component;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
+import com.kotcrab.vis.runtime.util.autotable.ATProperty;
 
 import java.util.HashMap;
 
@@ -12,7 +13,9 @@ import java.util.HashMap;
 
 public class Animation extends Component {
     public enum AnimType {ATLAS, SPRITER, SPINE}
+    @ATProperty(fieldName="Animation Type")
     public AnimType animationType;
+
     public String path;
     public String currentAnimation;
     public Array<String> animationNames = new Array<>();

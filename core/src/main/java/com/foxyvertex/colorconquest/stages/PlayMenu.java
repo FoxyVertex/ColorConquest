@@ -5,7 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.manager.Assets;
+import com.foxyvertex.colorconquest.manager.UserPrefs;
 
 /**
  * Created by aidan on 11/29/2016.
@@ -71,14 +73,15 @@ public class PlayMenu extends UIStage {
      * Called to create a new save and prompt if override is desirable
      */
     private void newSave() {
-        // TODO: 2/18/2017 create a new save
+        UserPrefs.setLevel(++Globals.currentGameSave, 0);
+        Globals.game.setScreen(Globals.gameScreen);
     }
 
     /**
      * Set the current screen to the play screen
      */
     private void loadLevel() {
-        // TODO: 2/18/2017 load a level
+        Globals.game.setScreen(Globals.gameScreen);
     }
 
     @Override
