@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 import com.foxyvertex.colorconquest.system.PlayerSystem;
 
 /**
@@ -26,7 +27,7 @@ public class DesktopController extends InputAdapter implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        
+        inputManager.shoot(new Vector2(screenX, screenY));
 
         return super.touchDown(screenX, screenY, pointer, button);
     }

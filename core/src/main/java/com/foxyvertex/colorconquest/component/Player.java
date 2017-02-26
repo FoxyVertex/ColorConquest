@@ -22,7 +22,7 @@ public class Player extends Component {
     public float runSpeed = minRunSpeed;
     public boolean isFiring = false;
 
-    public Color selectedColor = Color.BLACK;
+    public Color selectedColor = Color.RED;
     public Array<Color> colors;
 
     public int red = 255;

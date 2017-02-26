@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
@@ -25,6 +26,7 @@ import com.foxyvertex.colorconquest.input.DesktopController;
 import com.foxyvertex.colorconquest.input.MobileController;
 import com.kotcrab.vis.runtime.component.Layer;
 import com.kotcrab.vis.runtime.component.Origin;
+import com.kotcrab.vis.runtime.component.OriginalRotation;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
 import com.kotcrab.vis.runtime.component.Renderable;
 import com.kotcrab.vis.runtime.component.Tint;
@@ -90,6 +92,18 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             if (!animationStarted) {
                 world.getSystem(AnimationSystem.class).addEntity(player);
                 animationStarted = true;
+            }
+
+            switch (currentColorIndex) {
+                case 0:
+                    playerComp.selectedColor = Color.RED;
+                    break;
+                case 1:
+                    playerComp.selectedColor = Color.GREEN;
+                    break;
+                case 2:
+                    playerComp.selectedColor = Color.BLUE;
+                    break;
             }
 
             float maxJumpForceLength = 0.2f;
@@ -233,42 +247,67 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 return;
             else
                 playerComp.green--;
-        else if (playerComp.blue <= 0)
-            return;
+        else if (playerComp.selectedColor == Color.BLUE)
+            if (playerComp.blue <= 0)
+                return;
+            else
+                playerComp.blue--;
         else
-            playerComp.blue--;
+            return;
+        updateHud();
 
         Bullet bulletComp = new Bullet();
-        BodyDef bdef = new BodyDef();
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        bdef.position.set(transform.getX(), transform.getY());
-        Body body = getWorld().getSystem(PhysicsSystem.class).getPhysicsWorld().createBody(bdef);
-        FixtureDef fdef = new FixtureDef();
-        fdef.filter.categoryBits = Finals.BULLET_BIT;
-        fdef.shape = new CircleShape();
-        fdef.shape.setRadius(2/100);
-        body.createFixture(fdef);
-        PhysicsBody physicsBodyComp = new PhysicsBody(body);
-
-        Pixmap pixmap = new Pixmap(100, 100, Pixmap.Format.RGBA8888);
-        pixmap.setColor(playerComp.selectedColor);
-        pixmap.fillCircle(50, 50, 50);
-        TextureRegion textureRegion = new TextureRegion(new Texture(pixmap));
-        VisSprite visSpriteComp = new VisSprite(textureRegion);
-
+        Transform transformComp = new Transform(body.getPosition().x+5, body.getPosition().y);
         Variables variables = new Variables();
         variables.put("collisionCat", "bullet");
 
-        world.createEntity().edit()
+        Entity thisBullet = world.createEntity().edit()
                 .add(new Renderable(0))
                 .add(new Layer(Globals.gameScreen.scene.getLayerDataByName("Foreground").id))
-                .add(visSpriteComp)
-                .add(new Transform())
+                .add(transformComp)
                 .add(new Tint())
-                .add(new Origin())
-                .add(physicsBodyComp)
+                .add(new Origin(0,0))
                 .add(bulletComp)
-                .add(variables);
+                .add(variables)
+                .getEntity();
+
+        Vector2 worldPos = new Vector2(transformComp.getX(), transformComp.getY());
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(worldPos);
+
+        Body body = getWorld().getSystem(PhysicsSystem.class).getPhysicsWorld().createBody(bodyDef);
+        body.setType(BodyDef.BodyType.DynamicBody);
+        body.setUserData(thisBullet);
+
+        body.setGravityScale(1f);
+        body.setBullet(true);
+        body.setFixedRotation(true);
+        body.setSleepingAllowed(false);
+        CircleShape shape = new CircleShape();
+        shape.setRadius(0.1f);
+
+        FixtureDef fd = new FixtureDef();
+        fd.shape = shape;
+        body.createFixture(fd);
+        shape.dispose();
+
+        Vector2 vect = new Vector2(0, 0);
+        for (Fixture f : body.getFixtureList()) {
+            vect = new Vector2(shape.getRadius() * 2, shape.getRadius() * 2);
+        }
+
+        Pixmap pixmap = new Pixmap((int) (vect.x * 100), (int) (vect.y * 100), Pixmap.Format.RGBA8888);
+        pixmap.setColor(playerComp.selectedColor);
+        pixmap.fillCircle(pixmap.getWidth() / 2, pixmap.getHeight() / 2, (int) (vect.x * 100) / 2);
+        TextureRegion textureRegion = new TextureRegion(new Texture(pixmap));
+        VisSprite visSpriteComp = new VisSprite(textureRegion);
+        visSpriteComp.setSize(0.3f, 0.3f);
+
+        thisBullet.edit()
+                .add(new PhysicsBody(body))
+                .add(new OriginalRotation(transform.getRotation()))
+                .add(visSpriteComp);
     }
 
     public void updateHud() {
