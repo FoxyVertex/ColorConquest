@@ -42,14 +42,10 @@ public class CameraSystem extends BaseSystem implements AfterSceneInit {
 
         playerTrans = transformCm.get(player);
 
-        minX = transformCm.get(idManager.get("minimumX")).getX()/100;
-        minX += cameraManager.getCamera().viewportWidth / 2;
-        maxX = transformCm.get(idManager.get("maximumX")).getX()/100;
-        maxX -= cameraManager.getCamera().viewportWidth / 2;
-        minY = transformCm.get(idManager.get("minimumY")).getY()/100;
-        minY += cameraManager.getCamera().viewportHeight / 2;
-        maxY = transformCm.get(idManager.get("maximumY")).getY()/100;
-        maxY -= cameraManager.getCamera().viewportHeight / 2;
+        minX = transformCm.get(idManager.get("minimumX")).getX() + ((cameraManager.getCamera().viewportWidth / 2));
+        maxX = transformCm.get(idManager.get("maximumX")).getX() - ((cameraManager.getCamera().viewportWidth / 2));
+        minY = transformCm.get(idManager.get("minimumY")).getY() + ((cameraManager.getCamera().viewportHeight / 2));
+        maxY = transformCm.get(idManager.get("maximumY")).getY() - ((cameraManager.getCamera().viewportHeight / 2));
 
         tmpVect = new Vector2(cameraManager.getCamera().position.x, cameraManager.getCamera().position.y);
     }

@@ -19,7 +19,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
-import com.foxyvertex.colorconquest.component.Animation;
 import com.foxyvertex.colorconquest.component.Bullet;
 import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.input.DesktopController;
@@ -61,7 +60,8 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
     boolean animationStarted = false;
 
-    float forceScale = 0.001f;
+    float forceScale = 0.01f;
+    private Vector2 initialBulletImpulse = new Vector2(4, 2);
 
     Entity player;
     public Player playerComp;
@@ -87,11 +87,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 mobileController.handleInput();
             } else {
                 desktopController.handleInput(getWorld().getDelta());
-            }
-
-            if (!animationStarted) {
-                world.getSystem(AnimationSystem.class).addEntity(player);
-                animationStarted = true;
             }
 
             switch (currentColorIndex) {
@@ -140,20 +135,20 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 body.applyLinearImpulse(new Vector2(0, -10f), body.getWorldCenter(), true);
 
             if (forwardPressed && body.getLinearVelocity().x <= 2 * speedMultiplier) {
+                sprite.setFlip(false, false);
                 body.applyLinearImpulse(new Vector2(player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 forwardPressedPrev = true;
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", false, false, true);
-                facingDIRECTION = FacingDIRECTION.RIGHT;
+                //player.getComponent(VisSpriteAnimation.class).setAnimationName("walk");
             } else if (!backwardPressed && forwardPressedPrev) {
                 body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 forwardPressedPrev = false;
             }
 
             if (backwardPressed && body.getLinearVelocity().x >= -2 * speedMultiplier) {
+                sprite.setFlip(true, false);
                 body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 backwardPressedPrev = true;
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", true, false, true);
-                facingDIRECTION = FacingDIRECTION.LEFT;
+
             } else if (!backwardPressed && backwardPressedPrev) {
                 body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 backwardPressedPrev = false;
@@ -169,13 +164,13 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                         shouldFlipX = true;
                         break;
                     case UP:
-                        shouldFlipY = true;
+                        shouldFlipY = false;
                         break;
                     case DOWN:
                         shouldFlipY = false;
                         break;
                 }
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "idle", shouldFlipX, shouldFlipY, true);
+                //sprite.setFlip(shouldFlipX, shouldFlipY);
                 shouldFlipX = false;
                 shouldFlipY = false;
             }
@@ -183,7 +178,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             if (currentJumpLength > 0 && canJump) {
                 body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()), body.getWorldCenter(), true);
                 inAir = true;
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "jumploop", true, false, false);
             }
         } else {
             Gdx.input.setInputProcessor(Globals.pauseMenuStage.stage);
@@ -201,30 +195,13 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         playerComp.colors.add(Color.GREEN);
         playerComp.colors.add(Color.BLUE);
 
-        Animation animComp = new Animation();
-        animComp.path = "gfx/GreyGuy.pack";
-        animComp.currentAnimation = "idle";
-        animComp.animationType = Animation.AnimType.ATLAS;
-        animComp.loop = true;
-        animComp.animationNames.add("idle");
-        animComp.animationFrameCounts.put("idle", 1f / 12f);
-        animComp.animationNames.add("walk");
-        animComp.animationFrameCounts.put("walk", 1f / 15f);
-        animComp.animationNames.add("fall");
-        animComp.animationFrameCounts.put("fall", 1f / 4f);
-        animComp.animationNames.add("jumpstart");
-        animComp.animationFrameCounts.put("jumpstart", 1f / 4f);
-        animComp.animationNames.add("jumploop");
-        animComp.animationFrameCounts.put("jumploop", 1f / 8f);
-        player.edit().add(animComp);
-
         sprite = spriteCm.get(player);
         transform = transformCm.get(player);
         body = bodyCm.get(player).body;
         Filter filter = new Filter();
         filter.categoryBits = Finals.PLAYER_BIT;
         body.getFixtureList().get(0).setFilterData(filter);
-        body.setLinearDamping(5f);
+        //body.setLinearDamping(5f);
 
         if (Globals.isMobile) {
             mobileController = new MobileController(this);
@@ -257,7 +234,8 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         updateHud();
 
         Bullet bulletComp = new Bullet();
-        Transform transformComp = new Transform(body.getPosition().x+5, body.getPosition().y);
+        bulletComp.color = playerComp.selectedColor;
+        Transform transformComp = new Transform(body.getPosition().x+0.8f, body.getPosition().y+1f);
         Variables variables = new Variables();
         variables.put("collisionCat", "bullet");
 
@@ -266,7 +244,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 .add(new Layer(Globals.gameScreen.scene.getLayerDataByName("Foreground").id))
                 .add(transformComp)
                 .add(new Tint())
-                .add(new Origin(0,0))
                 .add(bulletComp)
                 .add(variables)
                 .getEntity();
@@ -287,6 +264,8 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         CircleShape shape = new CircleShape();
         shape.setRadius(0.1f);
 
+        body.applyLinearImpulse(initialBulletImpulse.scl((facingDIRECTION == FacingDIRECTION.LEFT ? -1f : 1f), 1f), body.getWorldCenter(), true);
+
         FixtureDef fd = new FixtureDef();
         fd.shape = shape;
         body.createFixture(fd);
@@ -298,16 +277,21 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         }
 
         Pixmap pixmap = new Pixmap((int) (vect.x * 100), (int) (vect.y * 100), Pixmap.Format.RGBA8888);
-        pixmap.setColor(playerComp.selectedColor);
+        pixmap.setColor((playerComp.selectedColor == Color.BLACK || playerComp.selectedColor == null) ? Color.RED : playerComp.selectedColor);
         pixmap.fillCircle(pixmap.getWidth() / 2, pixmap.getHeight() / 2, (int) (vect.x * 100) / 2);
         TextureRegion textureRegion = new TextureRegion(new Texture(pixmap));
         VisSprite visSpriteComp = new VisSprite(textureRegion);
-        visSpriteComp.setSize(0.3f, 0.3f);
+        visSpriteComp.setSize(0.2f, 0.2f);
+
+        Origin origin = new Origin();
+        origin.setOrigin(0, 0);
+        origin.setDirty(true);
 
         thisBullet.edit()
                 .add(new PhysicsBody(body))
                 .add(new OriginalRotation(transform.getRotation()))
-                .add(visSpriteComp);
+                .add(visSpriteComp)
+                .add(origin);
     }
 
     public void updateHud() {

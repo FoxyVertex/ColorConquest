@@ -3,6 +3,9 @@
   font: {
     file: font-export.fnt
   }
+  default-font: {
+    file: font-export.fnt
+  }
 }
   com.badlogic.gdx.graphics.Color: {
   color: {

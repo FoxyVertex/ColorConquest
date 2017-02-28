@@ -8,7 +8,6 @@ import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.manager.Levels;
 import com.foxyvertex.colorconquest.manager.UserPrefs;
 import com.foxyvertex.colorconquest.stages.PauseMenu;
-import com.foxyvertex.colorconquest.system.AnimationSystem;
 import com.foxyvertex.colorconquest.system.CameraSystem;
 import com.foxyvertex.colorconquest.system.HudSystem;
 import com.foxyvertex.colorconquest.system.PlayerSystem;
@@ -83,7 +82,6 @@ public class GameScreen implements Screen {
     public void initLevel() {
         SceneLoader.SceneParameter parameter = new SceneLoader.SceneParameter();
         parameter.config.addSystem(PlayerSystem.class);
-        parameter.config.addSystem(AnimationSystem.class);
         parameter.config.addSystem(CameraSystem.class);
         parameter.config.addSystem(WorldPhysicsContactListener.class);
         parameter.config.addSystem(Box2dDebugRenderSystem.class);

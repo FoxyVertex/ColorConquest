@@ -60,8 +60,14 @@ public class ColorConquest extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
-
+        super.dispose();
 		console.dispose();
+	}
+
+	public static void log(String message) {
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        Gdx.app.log(stackTraceElements[1].getClassName(), message);
+        Globals.game.console.log(stackTraceElements[1].getClassName() + ": " + message);
 	}
 
 
