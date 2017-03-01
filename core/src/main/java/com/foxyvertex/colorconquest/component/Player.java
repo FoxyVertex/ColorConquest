@@ -11,9 +11,9 @@ import com.kotcrab.vis.runtime.util.autotable.ATProperty;
 
 public class Player extends Component {
     @ATProperty(fieldName="Max Jump Force")
-    public float maxJumpForce = 300;
+    public float maxJumpForce = 300f;
     @ATProperty(fieldName="Min Jump Force")
-    public float minJumpForce = 55;
+    public float minJumpForce = 55f;
     public float jumpForce = minJumpForce;
     @ATProperty(fieldName="Max Run Speed")
     public float maxRunSpeed = 300f;

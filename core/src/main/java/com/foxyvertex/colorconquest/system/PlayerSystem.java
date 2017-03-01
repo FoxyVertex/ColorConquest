@@ -63,7 +63,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     float forceScale = 0.01f;
     private Vector2 initialBulletImpulse = new Vector2(4, 2);
 
-    Entity player;
+    public Entity player;
     public Player playerComp;
     VisSprite sprite;
     Transform transform;
@@ -114,6 +114,8 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
             player.getComponent(Player.class).isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
 
+//            Gdx.app.log("r", "" + playerComp.runSpeed);
+//            Gdx.app.log("j", "" + playerComp.jumpForce);
 
             inAir = !(body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001);
             if (jumpPressed && (!jumpReleased || !inAir)) {
@@ -136,21 +138,21 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
             if (forwardPressed && body.getLinearVelocity().x <= 2 * speedMultiplier) {
                 sprite.setFlip(false, false);
-                body.applyLinearImpulse(new Vector2(player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 forwardPressedPrev = true;
                 //player.getComponent(VisSpriteAnimation.class).setAnimationName("walk");
             } else if (!backwardPressed && forwardPressedPrev) {
-                body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 forwardPressedPrev = false;
             }
 
             if (backwardPressed && body.getLinearVelocity().x >= -2 * speedMultiplier) {
                 sprite.setFlip(true, false);
-                body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 backwardPressedPrev = true;
 
             } else if (!backwardPressed && backwardPressedPrev) {
-                body.applyLinearImpulse(new Vector2(-player.getComponent(Player.class).runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 backwardPressedPrev = false;
             }
 
@@ -194,6 +196,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         playerComp.colors.add(Color.RED);
         playerComp.colors.add(Color.GREEN);
         playerComp.colors.add(Color.BLUE);
+        player.getComponent(Variables.class).put("collisionCat", "player");
 
         sprite = spriteCm.get(player);
         transform = transformCm.get(player);
@@ -263,6 +266,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         body.setSleepingAllowed(false);
         CircleShape shape = new CircleShape();
         shape.setRadius(0.1f);
+        shape.setPosition(new Vector2(0.1f, 0.1f));
 
         body.applyLinearImpulse(initialBulletImpulse.scl((facingDIRECTION == FacingDIRECTION.LEFT ? -1f : 1f), 1f), body.getWorldCenter(), true);
 

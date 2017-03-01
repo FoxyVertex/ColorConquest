@@ -16,7 +16,10 @@ public class Finals {
             PLAYER_FEET_BIT = 8,
             BULLET_BIT = 16,
             EVERYTHING_BIT = BLOCK_BIT | PLAYER_BIT | END_LEVEL_BIT | PLAYER_FEET_BIT | BULLET_BIT;
-    public static final boolean SKIP_TO_GAME = true;
     public static String TITLE = "Color Conquest";
     public static int firstLevel = 0;
+
+    //DEBUG FEATURES
+    public static final boolean SKIP_TO_GAME = true;
+    public static final boolean ENABLE_BOX2D_DEBUG_RENDERER = true;
 }
