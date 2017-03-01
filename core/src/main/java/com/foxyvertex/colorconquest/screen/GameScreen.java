@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Logger;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
-import com.foxyvertex.colorconquest.SetColorComponentSystem;
+import com.foxyvertex.colorconquest.system.SetColorComponentSystem;
 import com.foxyvertex.colorconquest.manager.Levels;
 import com.foxyvertex.colorconquest.manager.UserPrefs;
 import com.foxyvertex.colorconquest.stages.PauseMenu;

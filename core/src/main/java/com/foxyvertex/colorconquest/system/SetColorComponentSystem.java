@@ -1,10 +1,12 @@
-package com.foxyvertex.colorconquest;
+package com.foxyvertex.colorconquest.system;
 
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.utils.IntBag;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.foxyvertex.colorconquest.component.ColorComponent;
 import com.kotcrab.vis.runtime.component.Tint;
 import com.kotcrab.vis.runtime.component.Variables;
@@ -40,7 +42,7 @@ public class SetColorComponentSystem extends BaseEntitySystem implements AfterSc
             Entity e = getWorld().getEntity(entities.get(i));
             if (variablesCm.get(e) != null) {
                 if (variablesCm.get(e).get("color") == null) {
-                    e.edit().add(new ColorComponent(tintCm.get(e).getTint()));
+                    e.edit().add(new ColorComponent(new Color(tintCm.get(e).getTint())));
                 }
             }
         }

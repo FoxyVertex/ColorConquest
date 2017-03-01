@@ -1,2 +1,1 @@
-include ':foxyvertexcustomcomponents'
 include 'desktop', 'server', 'core', 'android', 'ios'

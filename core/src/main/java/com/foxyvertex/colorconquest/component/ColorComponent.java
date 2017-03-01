@@ -8,9 +8,13 @@ import com.badlogic.gdx.graphics.Color;
  */
 
 public class ColorComponent extends Component {
-    public Color color;
+    public float r;
+    public float g;
+    public float b;
 
     public ColorComponent(Color c) {
-        color = c;
+        r = c.r;
+        g = c.g;
+        b = c.b;
     }
 }

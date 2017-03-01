@@ -3,6 +3,7 @@ package com.foxyvertex.colorconquest.system;
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
+import com.badlogic.gdx.graphics.Color;
 import com.foxyvertex.colorconquest.component.ColorComponent;
 import com.kotcrab.vis.runtime.component.Tint;
 
@@ -22,7 +23,9 @@ public class ColorTintSystem extends EntitySystem {
     @Override
     protected void processSystem() {
         for (Entity e : getEntities()) {
-            if (e.getComponent(ColorComponent.class) != null) if (e.getComponent(ColorComponent.class).color != null) e.getComponent(Tint.class).setTint(e.getComponent(ColorComponent.class).color);
+            if (e.getComponent(ColorComponent.class) != null) {
+                e.getComponent(Tint.class).setTint(new Color(e.getComponent(ColorComponent.class).r, e.getComponent(ColorComponent.class).g, e.getComponent(ColorComponent.class).b, 1f));
+            }
         }
     }
 }

@@ -20,6 +20,7 @@ import com.foxyvertex.colorconquest.component.ColorComponent;
 import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
+import com.kotcrab.vis.runtime.component.Tint;
 import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
 import com.kotcrab.vis.runtime.util.AfterSceneInit;
 
@@ -61,7 +62,7 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                     player1F = fixtureA;
                     block1 = (Entity) fixtureB.getUserData();
                     block1F = fixtureB;
-                } else if (fixtureA.getFilterData().categoryBits == Finals.PLAYER_BIT) {
+                } else if (fixtureB.getFilterData().categoryBits == Finals.PLAYER_BIT) {
                     player1 = (Entity) fixtureB.getUserData();
                     player1F = fixtureB;
                     block1 = (Entity) fixtureA.getUserData();
@@ -73,7 +74,7 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                     block1F = fixtureB;
                 }
                 Color blockColor = null;
-                if (block1.getComponent(ColorComponent.class) != null) blockColor = block1.getComponent(ColorComponent.class).color;
+                if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(Tint.class).getTint().r, block1.getComponent(Tint.class).getTint().g, block1.getComponent(Tint.class).getTint().b, 1f);
                 Player playerComp = getWorld().getSystem(PlayerSystem.class).player.getComponent(Player.class);
                 if (blockColor != null) {
                     if (blockColor.r == 1 && blockColor.g == 1 && blockColor.b == 1) {
@@ -112,8 +113,12 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                 if (block2.getComponent(ColorComponent.class) == null) break;
                 if (bullet2.getComponent(Bullet.class) == null) break;
                 if (bullet2.getComponent(Bullet.class).color == null) break;
-                block2.getComponent(ColorComponent.class).color = bullet2.getComponent(Bullet.class).color;
-                if (block2.getComponent(ColorComponent.class) != null) block2.getComponent(ColorComponent.class).color = bullet2.getComponent(Bullet.class).color;
+                block2.getComponent(ColorComponent.class).r = bullet2.getComponent(Bullet.class).color.r;block2.getComponent(ColorComponent.class).g = bullet2.getComponent(Bullet.class).color.g;block2.getComponent(ColorComponent.class).b = bullet2.getComponent(Bullet.class).color.b;
+                if (block2.getComponent(ColorComponent.class) != null) {
+                    block2.getComponent(ColorComponent.class).r = bullet2.getComponent(Bullet.class).color.r;
+                    block2.getComponent(ColorComponent.class).g = bullet2.getComponent(Bullet.class).color.g;
+                    block2.getComponent(ColorComponent.class).b = bullet2.getComponent(Bullet.class).color.b;
+                }
 
                 break;
 
@@ -153,7 +158,8 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                     block1 = (Entity) fixtureB.getUserData();
                     block1F = fixtureB;
                 }
-                Color blockColor = (block1.getComponent(ColorComponent.class) != null ? block1.getComponent(ColorComponent.class).color : null);
+                Color blockColor = null;
+                if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(ColorComponent.class).r, block1.getComponent(ColorComponent.class).g, block1.getComponent(ColorComponent.class).b, 1f);
                 Player playerComp = getWorld().getSystem(PlayerSystem.class).player.getComponent(Player.class);
                 if (blockColor != null && playerComp != null) {
                     float RGBColors[] = {blockColor.r, blockColor.g, blockColor.b};
