@@ -43,12 +43,12 @@
       "name": "Hud",
       "id": 3,
       "locked": true,
-      "visible": true,
+      "visible": false,
       "cordsSystem": "SCREEN",
       "@class": "EditorLayer"
     }
   ],
-  "activeLayerId": 0,
+  "activeLayerId": 1,
   "groupIds": [],
   "schemes": [
     {
@@ -250,23 +250,23 @@
     {
       "components": [
         {
-          "x": -0.0045,
-          "y": -9.2835724E-4,
+          "x": 0.0,
+          "y": 0.0,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
           "@class": "Transform"
         },
         {
-          "originX": 1.765,
-          "originY": 0.715,
+          "originX": 0.0,
+          "originY": 0.0,
           "@class": "Origin"
         },
         {
           "tint": {
             "r": 1.0,
-            "g": 1.0,
-            "b": 1.0,
+            "g": 0.0,
+            "b": 0.015686275,
             "a": 1.0
           },
           "@class": "Tint"
@@ -304,43 +304,43 @@
         {
           "vertices": [
             {
-              "x": -0.0044998806,
-              "y": -9.2841685E-4,
+              "x": -2.9802322E-8,
+              "y": 1.4901161E-8,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 3.5255003,
-              "y": -9.2841685E-4,
+              "x": 10.582881,
+              "y": 0.011165917,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 3.5255003,
-              "y": 1.4290714,
+              "x": 10.582881,
+              "y": 1.419978,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": -0.0044998806,
-              "y": 1.4290714,
+              "x": -2.9802322E-8,
+              "y": 1.4300001,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": -0.0044998806,
-                "y": 1.4290714
+                "x": -2.9802322E-8,
+                "y": 1.4300001
               },
               {
-                "x": -0.0044998806,
-                "y": -9.2841685E-4
+                "x": -2.9802322E-8,
+                "y": 1.4901161E-8
               },
               {
-                "x": 3.5255003,
-                "y": -9.2841685E-4
+                "x": 10.582881,
+                "y": 0.011165917
               },
               {
-                "x": 3.5255003,
-                "y": 1.4290714
+                "x": 10.582881,
+                "y": 1.419978
               }
             ]
           ],
@@ -381,23 +381,23 @@
     {
       "components": [
         {
-          "x": 3.521417,
-          "y": -0.0033662724,
+          "x": 3.531184,
+          "y": 0.0,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
           "@class": "Transform"
         },
         {
-          "originX": 1.765,
-          "originY": 0.715,
+          "originX": 0.0,
+          "originY": 0.0,
           "@class": "Origin"
         },
         {
           "tint": {
             "r": 1.0,
-            "g": 1.0,
-            "b": 1.0,
+            "g": 0.0,
+            "b": 0.015686275,
             "a": 1.0
           },
           "@class": "Tint"
@@ -431,69 +431,6 @@
         {
           "id": "environment",
           "@class": "VisID"
-        },
-        {
-          "vertices": [
-            {
-              "x": 3.521416,
-              "y": -0.0033663101,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            },
-            {
-              "x": 7.0514193,
-              "y": -0.0033663101,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            },
-            {
-              "x": 7.0514193,
-              "y": 1.4266336,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            },
-            {
-              "x": 3.521416,
-              "y": 1.4266336,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            }
-          ],
-          "faces": [
-            [
-              {
-                "x": 3.521416,
-                "y": 1.4266336
-              },
-              {
-                "x": 3.521416,
-                "y": -0.0033663101
-              },
-              {
-                "x": 7.0514193,
-                "y": -0.0033663101
-              },
-              {
-                "x": 7.0514193,
-                "y": 1.4266336
-              }
-            ]
-          ],
-          "@class": "VisPolygon"
-        },
-        {
-          "bodyType": "StaticBody",
-          "friction": 1.0,
-          "density": 1.0,
-          "restitution": 0.0,
-          "sensor": false,
-          "gravityScale": 1.0,
-          "linearDamping": 0.0,
-          "angularDamping": 0.0,
-          "bullet": false,
-          "fixedRotation": false,
-          "active": true,
-          "sleepingAllowed": true,
-          "adjustOrigin": true,
-          "maskBits": -1,
-          "categoryBits": 1,
-          "@class": "PhysicsProperties"
         },
         {
           "variables": [
@@ -679,6 +616,9 @@
           "@class": "ProtoVisSprite"
         },
         {
+          "@class": "Invisible"
+        },
+        {
           "layerId": 3,
           "@class": "Layer"
         },
@@ -700,7 +640,7 @@
     {
       "components": [
         {
-          "x": 1.2107,
+          "x": 1.2285028,
           "y": 1.6547,
           "scaleX": 0.5,
           "scaleY": 0.5,
@@ -755,22 +695,22 @@
         {
           "vertices": [
             {
-              "x": 1.2107,
+              "x": 1.2285028,
               "y": 1.6547,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.9057,
+              "x": 1.9235027,
               "y": 1.6547,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.9057,
+              "x": 1.9235027,
               "y": 2.9297,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.2107,
+              "x": 1.2285028,
               "y": 2.9297,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
@@ -778,19 +718,19 @@
           "faces": [
             [
               {
-                "x": 1.2107,
+                "x": 1.2285028,
                 "y": 2.9297
               },
               {
-                "x": 1.2107,
+                "x": 1.2285028,
                 "y": 1.6547
               },
               {
-                "x": 1.9057,
+                "x": 1.9235027,
                 "y": 1.6547
               },
               {
-                "x": 1.9057,
+                "x": 1.9235027,
                 "y": 2.9297
               }
             ]
@@ -832,23 +772,23 @@
     {
       "components": [
         {
-          "x": 10.582436,
-          "y": -0.00442335,
+          "x": 10.586671,
+          "y": -0.0034408271,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
           "@class": "Transform"
         },
         {
-          "originX": 1.765,
-          "originY": 0.715,
+          "originX": 0.0,
+          "originY": 0.0,
           "@class": "Origin"
         },
         {
           "tint": {
-            "r": 1.0,
+            "r": 0.0,
             "g": 1.0,
-            "b": 1.0,
+            "b": 0.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -886,43 +826,43 @@
         {
           "vertices": [
             {
-              "x": 10.582435,
-              "y": -0.0044234097,
+              "x": 10.58667,
+              "y": -0.0034408867,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 14.112438,
-              "y": -0.0044234097,
+              "x": 14.116673,
+              "y": -0.0034408867,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 14.112438,
-              "y": 1.4255766,
+              "x": 14.116673,
+              "y": 1.4265591,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 10.582435,
-              "y": 1.4255766,
+              "x": 10.58667,
+              "y": 1.4265591,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 10.582435,
-                "y": 1.4255766
+                "x": 10.58667,
+                "y": 1.4265591
               },
               {
-                "x": 10.582435,
-                "y": -0.0044234097
+                "x": 10.58667,
+                "y": -0.0034408867
               },
               {
-                "x": 14.112438,
-                "y": -0.0044234097
+                "x": 14.116673,
+                "y": -0.0034408867
               },
               {
-                "x": 14.112438,
-                "y": 1.4255766
+                "x": 14.116673,
+                "y": 1.4265591
               }
             ]
           ],
@@ -963,23 +903,23 @@
     {
       "components": [
         {
-          "x": 7.0516353,
-          "y": -0.0041743517,
+          "x": 7.0589275,
+          "y": -0.003440857,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
           "@class": "Transform"
         },
         {
-          "originX": 1.765,
-          "originY": 0.715,
+          "originX": 0.0,
+          "originY": 0.0,
           "@class": "Origin"
         },
         {
           "tint": {
             "r": 1.0,
-            "g": 1.0,
-            "b": 1.0,
+            "g": 0.0,
+            "b": 0.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -1013,69 +953,6 @@
         {
           "id": "environment",
           "@class": "VisID"
-        },
-        {
-          "vertices": [
-            {
-              "x": 7.0516353,
-              "y": -0.0041744113,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            },
-            {
-              "x": 10.581636,
-              "y": -0.0041744113,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            },
-            {
-              "x": 10.581636,
-              "y": 1.4258255,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            },
-            {
-              "x": 7.0516353,
-              "y": 1.4258255,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            }
-          ],
-          "faces": [
-            [
-              {
-                "x": 7.0516353,
-                "y": 1.4258255
-              },
-              {
-                "x": 7.0516353,
-                "y": -0.0041744113
-              },
-              {
-                "x": 10.581636,
-                "y": -0.0041744113
-              },
-              {
-                "x": 10.581636,
-                "y": 1.4258255
-              }
-            ]
-          ],
-          "@class": "VisPolygon"
-        },
-        {
-          "bodyType": "StaticBody",
-          "friction": 1.0,
-          "density": 1.0,
-          "restitution": 0.0,
-          "sensor": false,
-          "gravityScale": 1.0,
-          "linearDamping": 0.0,
-          "angularDamping": 0.0,
-          "bullet": false,
-          "fixedRotation": false,
-          "active": true,
-          "sleepingAllowed": true,
-          "adjustOrigin": true,
-          "maskBits": -1,
-          "categoryBits": 1,
-          "@class": "PhysicsProperties"
         },
         {
           "variables": [
@@ -1487,8 +1364,8 @@
     {
       "components": [
         {
-          "x": 14.114293,
-          "y": -0.0037403107,
+          "x": 14.114294,
+          "y": -8.649826E-4,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
@@ -1541,43 +1418,43 @@
         {
           "vertices": [
             {
-              "x": 14.114294,
-              "y": -0.0037403703,
+              "x": 14.114295,
+              "y": -8.650422E-4,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 17.644295,
-              "y": -0.0037403703,
+              "x": 17.644299,
+              "y": -8.650422E-4,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 17.644295,
-              "y": 1.4262595,
+              "x": 17.644299,
+              "y": 1.4291348,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 14.114294,
-              "y": 1.4262595,
+              "x": 14.114295,
+              "y": 1.4291348,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 14.114294,
-                "y": 1.4262595
+                "x": 14.114295,
+                "y": 1.4291348
               },
               {
-                "x": 14.114294,
-                "y": -0.0037403703
+                "x": 14.114295,
+                "y": -8.650422E-4
               },
               {
-                "x": 17.644295,
-                "y": -0.0037403703
+                "x": 17.644299,
+                "y": -8.650422E-4
               },
               {
-                "x": 17.644295,
-                "y": 1.4262595
+                "x": 17.644299,
+                "y": 1.4291348
               }
             ]
           ],
@@ -2891,7 +2768,7 @@
       "components": [
         {
           "x": 6.2417727,
-          "y": 0.8531923,
+          "y": 0.85606754,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
@@ -3156,7 +3033,7 @@
       "components": [
         {
           "x": 12.446385,
-          "y": 1.1810775,
+          "y": 1.1839527,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,

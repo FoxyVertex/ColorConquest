@@ -11,10 +11,11 @@ public class Finals {
     //Collision bits made to test object collsions -- MUST BE A POWER OF 2
     public static final short NOTHING_BIT = 0,
             BLOCK_BIT = 1,
-            PLAYER_BIT = 2,
-            END_LEVEL_BIT = 4,
-            PLAYER_FEET_BIT = 8,
-            BULLET_BIT = 16,
+            COLOR_BIT = 1,
+            PLAYER_BIT = 4,
+            END_LEVEL_BIT = 8,
+            PLAYER_FEET_BIT = 16,
+            BULLET_BIT = 32,
             EVERYTHING_BIT = BLOCK_BIT | PLAYER_BIT | END_LEVEL_BIT | PLAYER_FEET_BIT | BULLET_BIT;
     public static String TITLE = "Color Conquest";
     public static int firstLevel = 0;

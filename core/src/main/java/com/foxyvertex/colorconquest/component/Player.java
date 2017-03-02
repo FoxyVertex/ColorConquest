@@ -16,7 +16,7 @@ public class Player extends Component {
     public float minJumpForce = 55f;
     public float jumpForce = minJumpForce;
     @ATProperty(fieldName="Max Run Speed")
-    public float maxRunSpeed = 300f;
+    public float maxRunSpeed = 800f;
     @ATProperty(fieldName="Min Run Speed")
     public float minRunSpeed = 55f;
     public float runSpeed = minRunSpeed;

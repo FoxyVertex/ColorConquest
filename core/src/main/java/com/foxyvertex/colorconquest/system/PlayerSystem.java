@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.component.Animation;
 import com.foxyvertex.colorconquest.component.Bullet;
 import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.input.DesktopController;
@@ -69,7 +70,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     Transform transform;
     Body body;
 
-    enum FacingDIRECTION {UP, DOWN, LEFT, RIGHT}
+    enum FacingDIRECTION {LEFT, RIGHT}
     FacingDIRECTION facingDIRECTION = FacingDIRECTION.RIGHT;
 
     boolean shouldFlipX = false;
@@ -87,6 +88,11 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 mobileController.handleInput();
             } else {
                 desktopController.handleInput(getWorld().getDelta());
+            }
+
+            if (!animationStarted) {
+                world.getSystem(AnimationSystem.class).addEntity(player);
+                animationStarted = true;
             }
 
             switch (currentColorIndex) {
@@ -140,23 +146,31 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 sprite.setFlip(false, false);
                 body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 forwardPressedPrev = true;
-                //player.getComponent(VisSpriteAnimation.class).setAnimationName("walk");
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", false, false, true);
+                facingDIRECTION = FacingDIRECTION.RIGHT;
             } else if (!backwardPressed && forwardPressedPrev) {
-                body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                //body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 forwardPressedPrev = false;
             }
 
             if (backwardPressed && body.getLinearVelocity().x >= -2 * speedMultiplier) {
                 sprite.setFlip(true, false);
                 body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", true, false, true);
+                facingDIRECTION = FacingDIRECTION.LEFT;
                 backwardPressedPrev = true;
 
             } else if (!backwardPressed && backwardPressedPrev) {
-                body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                //body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 backwardPressedPrev = false;
             }
 
-            if (!(backwardPressed || forwardPressed || downPressed || jumpPressed)) {
+            if (body.getLinearVelocity().y < -0.0001) {
+                Gdx.app.log("", "" + (body.getLinearVelocity().y < -0.0001));
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "fall", shouldFlipX, false, true);
+            }
+
+            if (!backwardPressed && !forwardPressed && downPressed && jumpPressed && (body.getLinearVelocity().y >= -0.0001) && (body.getLinearVelocity().y <= 0.0001f)) {
 
                 switch (facingDIRECTION) {
                     case RIGHT:
@@ -165,20 +179,15 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                     case LEFT:
                         shouldFlipX = true;
                         break;
-                    case UP:
-                        shouldFlipY = false;
-                        break;
-                    case DOWN:
-                        shouldFlipY = false;
-                        break;
                 }
-                //sprite.setFlip(shouldFlipX, shouldFlipY);
-                shouldFlipX = false;
-                shouldFlipY = false;
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "idle", shouldFlipX, shouldFlipY, true);
             }
+
+
 
             if (currentJumpLength > 0 && canJump) {
                 body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()), body.getWorldCenter(), true);
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "jumploop", shouldFlipX, false, false);
                 inAir = true;
             }
         } else {
@@ -197,6 +206,23 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         playerComp.colors.add(Color.GREEN);
         playerComp.colors.add(Color.BLUE);
         player.getComponent(Variables.class).put("collisionCat", "player");
+
+        Animation animComp = new Animation();
+        animComp.path = "gfx/GreyGuy.atlas";
+        animComp.currentAnimation = "idle";
+        animComp.animationType = Animation.AnimType.ATLAS;
+        animComp.loop = true;
+        animComp.animationNames.add("idle");
+        animComp.animationFrameCounts.put("idle", 1f / 12f);
+        animComp.animationNames.add("walk");
+        animComp.animationFrameCounts.put("walk", 1f / 15f);
+        animComp.animationNames.add("fall");
+        animComp.animationFrameCounts.put("fall", 1f / 4f);
+        animComp.animationNames.add("jumpstart");
+        animComp.animationFrameCounts.put("jumpstart", 1f / 4f);
+        animComp.animationNames.add("jumploop");
+        animComp.animationFrameCounts.put("jumploop", 1f / 8f);
+        player.edit().add(animComp);
 
         sprite = spriteCm.get(player);
         transform = transformCm.get(player);

@@ -4,7 +4,6 @@ import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -18,7 +17,6 @@ import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Bullet;
 import com.foxyvertex.colorconquest.component.ColorComponent;
 import com.foxyvertex.colorconquest.component.Player;
-import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
 import com.kotcrab.vis.runtime.component.Tint;
 import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
@@ -54,7 +52,6 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                 Globals.gameScreen.nextLevel();
                 break;
             case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
-                Gdx.app.log("b", "b");
                 Entity player1, block1;
                 Fixture player1F, block1F;
                 if (fixtureA.getFilterData().categoryBits == Finals.PLAYER_BIT) {
@@ -74,22 +71,18 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                     block1F = fixtureB;
                 }
                 Color blockColor = null;
-                if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(Tint.class).getTint().r, block1.getComponent(Tint.class).getTint().g, block1.getComponent(Tint.class).getTint().b, 1f);
+                if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(ColorComponent.class).r, block1.getComponent(ColorComponent.class).g, block1.getComponent(ColorComponent.class).b, 1f);
                 Player playerComp = getWorld().getSystem(PlayerSystem.class).player.getComponent(Player.class);
                 if (blockColor != null) {
                     if (blockColor.r == 1 && blockColor.g == 1 && blockColor.b == 1) {
                         playerComp.runSpeed = playerComp.minRunSpeed;
                         playerComp.jumpForce = playerComp.minJumpForce;
-                        Gdx.app.log("","white");
                     } else if (blockColor.r == 1 && blockColor.g == 0 && blockColor.b == 0) {
                         playerComp.runSpeed = playerComp.maxRunSpeed;
-                        Gdx.app.log("","red");
                     } else if (blockColor.r == 0 && blockColor.g == 1 && blockColor.b == 0) {
                         playerComp.jumpForce = playerComp.maxJumpForce;
-                        Gdx.app.log("","green");
                     } else if (blockColor.r == 0 && blockColor.g == 0 && blockColor.b == 1) {
                         block1F.setRestitution(0.5f);
-                        Gdx.app.log("","blue");
                     }
                 } else {
                     playerComp.runSpeed = playerComp.minRunSpeed;
@@ -115,11 +108,10 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                 if (bullet2.getComponent(Bullet.class).color == null) break;
                 block2.getComponent(ColorComponent.class).r = bullet2.getComponent(Bullet.class).color.r;block2.getComponent(ColorComponent.class).g = bullet2.getComponent(Bullet.class).color.g;block2.getComponent(ColorComponent.class).b = bullet2.getComponent(Bullet.class).color.b;
                 if (block2.getComponent(ColorComponent.class) != null) {
-                    block2.getComponent(ColorComponent.class).r = bullet2.getComponent(Bullet.class).color.r;
+                    block2.getComponent(ColorComponent.class).r = bullet2.getComponent(Bullet.class).color.r - 0.6f;
                     block2.getComponent(ColorComponent.class).g = bullet2.getComponent(Bullet.class).color.g;
                     block2.getComponent(ColorComponent.class).b = bullet2.getComponent(Bullet.class).color.b;
                 }
-
                 break;
 
             case Finals.BULLET_BIT:
@@ -139,7 +131,6 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
             case Finals.PLAYER_BIT | Finals.END_LEVEL_BIT:
                 break;
             case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
-                Gdx.app.log("e", "e");
                 Entity player1, block1;
                 Fixture player1F, block1F;
                 if (fixtureA.getFilterData().categoryBits == Finals.PLAYER_BIT) {
@@ -147,7 +138,7 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                     player1F = fixtureA;
                     block1 = (Entity) fixtureB.getUserData();
                     block1F = fixtureB;
-                } else if (fixtureA.getFilterData().categoryBits == Finals.PLAYER_BIT) {
+                } else if (fixtureB.getFilterData().categoryBits == Finals.PLAYER_BIT) {
                     player1 = (Entity) fixtureB.getUserData();
                     player1F = fixtureB;
                     block1 = (Entity) fixtureA.getUserData();
@@ -159,27 +150,21 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                     block1F = fixtureB;
                 }
                 Color blockColor = null;
-                if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(ColorComponent.class).r, block1.getComponent(ColorComponent.class).g, block1.getComponent(ColorComponent.class).b, 1f);
+                if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(Tint.class).getTint().r, block1.getComponent(Tint.class).getTint().g, block1.getComponent(Tint.class).getTint().b, 1f);
                 Player playerComp = getWorld().getSystem(PlayerSystem.class).player.getComponent(Player.class);
-                if (blockColor != null && playerComp != null) {
-                    float RGBColors[] = {blockColor.r, blockColor.g, blockColor.b};
-                    //Depending on the maximum color R0G1B2 apply a property to the player
+                if (blockColor != null) {
+                    if (blockColor.r == 1 && blockColor.g == 1 && blockColor.b == 1) {
 
-                    switch (Utilities.findBiggestIndex(RGBColors)) {
-                        case -1:
-                            playerComp.runSpeed = playerComp.minRunSpeed;
-                            playerComp.jumpForce = playerComp.minJumpForce;
-                            break;
-                        case 0:
-                            playerComp.runSpeed = playerComp.minRunSpeed;
-                            break;
-                        case 1:
-                            playerComp.jumpForce = playerComp.minJumpForce;
-                            break;
-                        case 2:
-                            block1F.setRestitution(1f);
-                            break;
+                    } else if (blockColor.r == 1 && blockColor.g == 0 && blockColor.b == 0) {
+                        playerComp.runSpeed = playerComp.minRunSpeed;
+                    } else if (blockColor.r == 0 && blockColor.g == 1 && blockColor.b == 0) {
+                        playerComp.jumpForce = playerComp.minJumpForce;
+                    } else if (blockColor.r == 0 && blockColor.g == 0 && blockColor.b == 1) {
+                        block1F.setRestitution(0.5f);
                     }
+                } else {
+                    playerComp.runSpeed = playerComp.minRunSpeed;
+                    playerComp.jumpForce = playerComp.minJumpForce;
                 }
                 break;
 

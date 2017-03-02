@@ -5,7 +5,6 @@ import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.utils.IntBag;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.foxyvertex.colorconquest.component.ColorComponent;
 import com.kotcrab.vis.runtime.component.Tint;
