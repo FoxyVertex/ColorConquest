@@ -433,6 +433,69 @@
           "@class": "VisID"
         },
         {
+          "vertices": [
+            {
+              "x": 3.531184,
+              "y": 0.0,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 7.061184,
+              "y": 0.0,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 7.061184,
+              "y": 1.43,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 3.531184,
+              "y": 1.43,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            }
+          ],
+          "faces": [
+            [
+              {
+                "x": 3.531184,
+                "y": 1.43
+              },
+              {
+                "x": 3.531184,
+                "y": 0.0
+              },
+              {
+                "x": 7.061184,
+                "y": 0.0
+              },
+              {
+                "x": 7.061184,
+                "y": 1.43
+              }
+            ]
+          ],
+          "@class": "VisPolygon"
+        },
+        {
+          "bodyType": "StaticBody",
+          "friction": 1.0,
+          "density": 1.0,
+          "restitution": 0.0,
+          "sensor": false,
+          "gravityScale": 1.0,
+          "linearDamping": 0.0,
+          "angularDamping": 0.0,
+          "bullet": false,
+          "fixedRotation": false,
+          "active": true,
+          "sleepingAllowed": true,
+          "adjustOrigin": true,
+          "maskBits": -1,
+          "categoryBits": 1,
+          "@class": "PhysicsProperties"
+        },
+        {
           "variables": [
             {
               "key": "collisionCat",
@@ -953,6 +1016,69 @@
         {
           "id": "environment",
           "@class": "VisID"
+        },
+        {
+          "vertices": [
+            {
+              "x": 7.0589275,
+              "y": -0.003440857,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 10.588927,
+              "y": -0.003440857,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 10.588927,
+              "y": 1.4265591,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 7.0589275,
+              "y": 1.4265591,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            }
+          ],
+          "faces": [
+            [
+              {
+                "x": 7.0589275,
+                "y": 1.4265591
+              },
+              {
+                "x": 7.0589275,
+                "y": -0.003440857
+              },
+              {
+                "x": 10.588927,
+                "y": -0.003440857
+              },
+              {
+                "x": 10.588927,
+                "y": 1.4265591
+              }
+            ]
+          ],
+          "@class": "VisPolygon"
+        },
+        {
+          "bodyType": "StaticBody",
+          "friction": 1.0,
+          "density": 1.0,
+          "restitution": 0.0,
+          "sensor": false,
+          "gravityScale": 1.0,
+          "linearDamping": 0.0,
+          "angularDamping": 0.0,
+          "bullet": false,
+          "fixedRotation": false,
+          "active": true,
+          "sleepingAllowed": true,
+          "adjustOrigin": true,
+          "maskBits": -1,
+          "categoryBits": 1,
+          "@class": "PhysicsProperties"
         },
         {
           "variables": [

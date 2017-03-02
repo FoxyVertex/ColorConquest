@@ -166,11 +166,10 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             }
 
             if (body.getLinearVelocity().y < -0.0001) {
-                Gdx.app.log("", "" + (body.getLinearVelocity().y < -0.0001));
                 world.getSystem(AnimationSystem.class).changeAnimState(player, "fall", shouldFlipX, false, true);
             }
 
-            if (!backwardPressed && !forwardPressed && downPressed && jumpPressed && (body.getLinearVelocity().y >= -0.0001) && (body.getLinearVelocity().y <= 0.0001f)) {
+            if (!backwardPressed && !forwardPressed && !downPressed && !jumpPressed && (body.getLinearVelocity().y >= -0.001) && (body.getLinearVelocity().y <= 0.001f)) {
 
                 switch (facingDIRECTION) {
                     case RIGHT:
@@ -187,7 +186,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
             if (currentJumpLength > 0 && canJump) {
                 body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()), body.getWorldCenter(), true);
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "jumploop", shouldFlipX, false, false);
+                world.getSystem(AnimationSystem.class).changeAnimState(player, "jumpstart", shouldFlipX, false, false);
                 inAir = true;
             }
         } else {
