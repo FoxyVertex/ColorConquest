@@ -14,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Filter;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
@@ -53,33 +52,36 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     public int currentColorIndex = 0;
     public float speedMultiplier = 1f;
     public boolean jumpPressed, forwardPressed, backwardPressed, downPressed, debugSuperAbilityPressed, debugSpawnpointPressed, debugZoomInPressed, debugZoomOutPressed, debugNextLevelPressed;
-    public boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev;
+    private boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev;
     private float currentJumpLength = 0;
     private boolean canJump = true;
-    boolean inAir = false;
-    boolean jumpReleased = false;
+    private boolean inAir = false;
+    private boolean jumpReleased = false;
 
-    boolean animationStarted = false;
+    private boolean animationStarted = false;
 
-    float forceScale = 0.01f;
+    private float forceScale = 0.01f;
     private Vector2 initialBulletImpulse = new Vector2(4, 2);
+    private Vector2 iInitialBulletImpulse = new Vector2(-4, 2);
 
     public Entity player;
     public Player playerComp;
-    VisSprite sprite;
-    Transform transform;
-    Body body;
+    private VisSprite sprite;
+    private Transform transform;
+    private Body body;
 
-    enum FacingDIRECTION {LEFT, RIGHT}
-    FacingDIRECTION facingDIRECTION = FacingDIRECTION.RIGHT;
+    private enum FacingDIRECTION {LEFT, RIGHT}
+    private FacingDIRECTION facingDIRECTION = FacingDIRECTION.RIGHT;
 
-    boolean shouldFlipX = false;
-    boolean shouldFlipY = false;
+    private boolean shouldFlipX = false;
+    private boolean shouldFlipY = false;
 
-    MobileController mobileController;
-    DesktopController desktopController;
+    private MobileController mobileController;
+    private DesktopController desktopController;
 
     public boolean isGamePaused = false;
+
+    private TextureRegion bulletTextureRegion;
 
     @Override
     protected void processSystem() {
@@ -239,6 +241,11 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             desktopController = new DesktopController(this);
             Gdx.input.setInputProcessor(desktopController);
         }
+
+        Pixmap pixmap = new Pixmap(20, 20, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fillCircle(pixmap.getWidth() / 2, pixmap.getHeight() / 2, 20 / 2);
+        bulletTextureRegion = new TextureRegion(new Texture(pixmap));
     }
 
     public void shoot(Vector2 clickPoint) {
@@ -263,7 +270,19 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
         Bullet bulletComp = new Bullet();
         bulletComp.color = playerComp.selectedColor;
-        Transform transformComp = new Transform(body.getPosition().x+0.8f, body.getPosition().y+1f);
+
+        float bulletStartXValue;
+        Vector2 impulse;
+
+        if (facingDIRECTION == FacingDIRECTION.LEFT) {
+            bulletStartXValue = -0.2f;
+            impulse = iInitialBulletImpulse;
+        } else {
+            bulletStartXValue = 0.75f;
+            impulse = initialBulletImpulse;
+        }
+
+        Transform transformComp = new Transform(body.getPosition().x+bulletStartXValue, body.getPosition().y+1f);
         Variables variables = new Variables();
         variables.put("collisionCat", "bullet");
 
@@ -271,7 +290,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 .add(new Renderable(0))
                 .add(new Layer(Globals.gameScreen.scene.getLayerDataByName("Foreground").id))
                 .add(transformComp)
-                .add(new Tint())
+                .add(new Tint(bulletComp.color))
                 .add(bulletComp)
                 .add(variables)
                 .getEntity();
@@ -293,23 +312,15 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         shape.setRadius(0.1f);
         shape.setPosition(new Vector2(0.1f, 0.1f));
 
-        body.applyLinearImpulse(initialBulletImpulse.scl((facingDIRECTION == FacingDIRECTION.LEFT ? -1f : 1f), 1f), body.getWorldCenter(), true);
+        body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
 
         FixtureDef fd = new FixtureDef();
         fd.shape = shape;
         body.createFixture(fd);
         shape.dispose();
 
-        Vector2 vect = new Vector2(0, 0);
-        for (Fixture f : body.getFixtureList()) {
-            vect = new Vector2(shape.getRadius() * 2, shape.getRadius() * 2);
-        }
 
-        Pixmap pixmap = new Pixmap((int) (vect.x * 100), (int) (vect.y * 100), Pixmap.Format.RGBA8888);
-        pixmap.setColor((playerComp.selectedColor == Color.BLACK || playerComp.selectedColor == null) ? Color.RED : playerComp.selectedColor);
-        pixmap.fillCircle(pixmap.getWidth() / 2, pixmap.getHeight() / 2, (int) (vect.x * 100) / 2);
-        TextureRegion textureRegion = new TextureRegion(new Texture(pixmap));
-        VisSprite visSpriteComp = new VisSprite(textureRegion);
+        VisSprite visSpriteComp = new VisSprite(bulletTextureRegion);
         visSpriteComp.setSize(0.2f, 0.2f);
 
         Origin origin = new Origin();

@@ -40,8 +40,13 @@ public class SetColorComponentSystem extends BaseEntitySystem implements AfterSc
         for (int i = 0; i < entities.size(); i++) {
             Entity e = getWorld().getEntity(entities.get(i));
             if (variablesCm.get(e) != null) {
+                Color tint = tintCm.get(e).getTint();
                 if (variablesCm.get(e).get("color") == null) {
-                    e.edit().add(new ColorComponent(new Color(tintCm.get(e).getTint())));
+                    if (tint.r != 1 && tint.g != 1 && tint.b != 1) {
+                        e.edit().add(new ColorComponent(new Color(tintCm.get(e).getTint())));
+                    } else {
+                        e.edit().add(new ColorComponent(new Color(Color.BLACK)));
+                    }
                 }
             }
         }

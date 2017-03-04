@@ -17,6 +17,8 @@ import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Bullet;
 import com.foxyvertex.colorconquest.component.ColorComponent;
 import com.foxyvertex.colorconquest.component.Player;
+import com.foxyvertex.colorconquest.component.ToDestroy;
+import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
 import com.kotcrab.vis.runtime.component.Tint;
 import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
@@ -108,10 +110,13 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                 if (bullet2.getComponent(Bullet.class).color == null) break;
                 block2.getComponent(ColorComponent.class).r = bullet2.getComponent(Bullet.class).color.r;block2.getComponent(ColorComponent.class).g = bullet2.getComponent(Bullet.class).color.g;block2.getComponent(ColorComponent.class).b = bullet2.getComponent(Bullet.class).color.b;
                 if (block2.getComponent(ColorComponent.class) != null) {
-                    block2.getComponent(ColorComponent.class).r = bullet2.getComponent(Bullet.class).color.r - 0.6f;
-                    block2.getComponent(ColorComponent.class).g = bullet2.getComponent(Bullet.class).color.g;
-                    block2.getComponent(ColorComponent.class).b = bullet2.getComponent(Bullet.class).color.b;
+                    ColorComponent cc1 = block2.getComponent(ColorComponent.class);
+                    Color bc = bullet2.getComponent(Bullet.class).color;
+                    cc1.r = Utilities.clamp(Utilities.map(bc.r, 0, 1, 0, 0.1f)+cc1.r, 0f, 1f);
+                    cc1.g = Utilities.clamp(Utilities.map(bc.g, 0, 1, 0, 0.1f)+cc1.g, 0f, 1f);
+                    cc1.b = Utilities.clamp(Utilities.map(bc.b, 0, 1, 0, 0.1f)+cc1.b, 0f, 1f);
                 }
+                bullet2.edit().add(new ToDestroy(200));
                 break;
 
             case Finals.BULLET_BIT:

@@ -17,6 +17,7 @@ import com.foxyvertex.colorconquest.system.PlayerSystem;
 import com.foxyvertex.colorconquest.system.SetBox2DUserDataSystem;
 import com.foxyvertex.colorconquest.system.SetColorComponentSystem;
 import com.foxyvertex.colorconquest.system.SetupCategoryBitsSystem;
+import com.foxyvertex.colorconquest.system.ToDestroySystem;
 import com.foxyvertex.colorconquest.system.WorldPhysicsContactListener;
 import com.kotcrab.vis.runtime.scene.Scene;
 import com.kotcrab.vis.runtime.scene.SceneLoader;
@@ -96,6 +97,7 @@ public class GameScreen implements Screen {
         parameter.config.addSystem(SetColorComponentSystem.class);
         parameter.config.addSystem(ColorTintSystem.class);
         parameter.config.addSystem(HudSystem.class);
+        parameter.config.addSystem(ToDestroySystem.class);
         scene = manager.loadSceneNow(currentLevel.path, parameter);
     }
 

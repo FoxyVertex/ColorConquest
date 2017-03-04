@@ -8,7 +8,7 @@ buildscript {
   dependencies {
     classpath "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
     classpath "com.kotcrab.vis:vis-usl:$uslVersion"
-    classpath 'com.android.tools.build:gradle:2.2.3'
+    classpath 'com.android.tools.build:gradle:2.3.0'
     classpath "com.mobidevelop.robovm:robovm-gradle-plugin:$robovmVersion"
   }
 }
