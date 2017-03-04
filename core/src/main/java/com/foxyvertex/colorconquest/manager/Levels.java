@@ -21,9 +21,9 @@ public class Levels {
         Level level4 = new Level();
 
         level1.path = pathPrefix + "test.scene";
-        level2.path = pathPrefix + "test2.scene";
-        level3.path = pathPrefix + "test3.scene";
-        level4.path = pathPrefix + "test4.scene";
+        level2.path = pathPrefix + "test.scene";
+        level3.path = pathPrefix + "test.scene";
+        level4.path = pathPrefix + "test.scene";
 
         level1.hasCutscene = false;
         level2.hasCutscene = false;
