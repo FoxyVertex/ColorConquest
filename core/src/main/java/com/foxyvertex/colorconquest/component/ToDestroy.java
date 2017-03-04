@@ -1,0 +1,17 @@
+package com.foxyvertex.colorconquest.component;
+
+import com.artemis.Component;
+
+/**
+ * Created by aidan on 3/4/2017.
+ */
+
+public class ToDestroy extends Component {
+    public float initialTime;
+    public float currentTimer;
+
+    public ToDestroy(float initialTime) {
+        this.initialTime = initialTime;
+        this.currentTimer = initialTime;
+    }
+}
