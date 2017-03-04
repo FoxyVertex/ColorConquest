@@ -7,11 +7,9 @@ import com.artemis.Component;
  */
 
 public class ToDestroy extends Component {
-    public float initialTime;
     public float currentTimer;
 
     public ToDestroy(float initialTime) {
-        this.initialTime = initialTime;
         this.currentTimer = initialTime;
     }
 }

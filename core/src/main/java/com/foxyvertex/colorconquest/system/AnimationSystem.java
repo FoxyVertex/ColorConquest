@@ -2,6 +2,7 @@ package com.foxyvertex.colorconquest.system;
 
 import com.artemis.BaseSystem;
 import com.artemis.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -24,6 +25,12 @@ public class AnimationSystem extends BaseSystem implements AfterSceneInit {
     protected void processSystem() {
         for (Entity entity : animatables) {
             entity.getComponent(Animation.class).timer += world.getDelta();
+            try {
+                Gdx.app.log("" + entity.getId(), "" + (entity.getComponent(Animation.class) == null) + "       " + (entity.getComponent(Animation.class).animations == null) + "      " + (entity.getComponent(Animation.class).currentAnimation == null) + "     " + (entity.getComponent(Animation.class).onEnd == null));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             if (entity.getComponent(Animation.class).timer >= entity.getComponent(Animation.class).animations.get(entity.getComponent(Animation.class).currentAnimation).getAnimationDuration() && entity.getComponent(Animation.class).onEnd != null && !entity.getComponent(Animation.class).onEnd.equals("")) {
                 changeAnimState(entity, entity.getComponent(Animation.class).onEnd, true);
                 entity.getComponent(Animation.class).timer = 0f;

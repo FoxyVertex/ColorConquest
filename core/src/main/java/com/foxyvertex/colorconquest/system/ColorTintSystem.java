@@ -25,10 +25,7 @@ public class ColorTintSystem extends EntitySystem {
         for (Entity e : getEntities()) {
             if (e.getComponent(ColorComponent.class) != null) {
                 ColorComponent cc = e.getComponent(ColorComponent.class);
-                if (cc.r == 0 && cc.g == 0 && cc.b == 0) {
-                    e.getComponent(Tint.class).setTint(new Color(Color.WHITE));
-                } else {
-                    // Subtract one from g and b each time red is shot
+                if (!(cc.r == 0 && cc.g == 0 && cc.b == 0)) {
                     e.getComponent(Tint.class).setTint(new Color(e.getComponent(ColorComponent.class).r, e.getComponent(ColorComponent.class).g, e.getComponent(ColorComponent.class).b, 1f));
                 }
             }

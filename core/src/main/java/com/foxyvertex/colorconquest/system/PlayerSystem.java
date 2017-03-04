@@ -290,7 +290,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 .add(new Renderable(0))
                 .add(new Layer(Globals.gameScreen.scene.getLayerDataByName("Foreground").id))
                 .add(transformComp)
-                .add(new Tint(bulletComp.color))
+                .add(new Tint(playerComp.selectedColor))
                 .add(bulletComp)
                 .add(variables)
                 .getEntity();
