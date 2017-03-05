@@ -37,6 +37,8 @@ public class GameScreen implements Screen {
 
     public Array<Drawable> drawables = new Array<>();
 
+    boolean isStopped = false;
+
     public GameScreen() {
         super();
         manager = new VisAssetManager(Globals.game.batch);
@@ -47,16 +49,21 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
-        initLevel();
+        if (!isStopped) {
+            currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
+            initLevel();
+        }
     }
 
     @Override
     public void render(float delta) {
-        scene.render();
-        if (scene.getEntityEngine().getSystem(PlayerSystem.class).isGamePaused) Globals.pauseMenuStage.stage.draw();
-        for (Drawable toDraw : drawables) {
-            toDraw.draw(Globals.game.batch, 0, 0, 0, 0);
+        if (!isStopped) {
+            scene.render();
+            if (scene.getEntityEngine().getSystem(PlayerSystem.class).isGamePaused)
+                Globals.pauseMenuStage.stage.draw();
+            for (Drawable toDraw : drawables) {
+                toDraw.draw(Globals.game.batch, 0, 0, 0, 0);
+            }
         }
     }
 
@@ -87,7 +94,6 @@ public class GameScreen implements Screen {
 
     public void initLevel() {
         SceneLoader.SceneParameter parameter = new SceneLoader.SceneParameter();
-        parameter.config.addSystem(AnimationSystem.class);
         parameter.config.addSystem(PlayerSystem.class);
         parameter.config.addSystem(CameraSystem.class);
         parameter.config.addSystem(WorldPhysicsContactListener.class);
@@ -98,17 +104,19 @@ public class GameScreen implements Screen {
         parameter.config.addSystem(ColorTintSystem.class);
         parameter.config.addSystem(HudSystem.class);
         parameter.config.addSystem(ToDestroySystem.class);
+        parameter.config.addSystem(AnimationSystem.class);
         scene = manager.loadSceneNow(currentLevel.path, parameter);
     }
 
     public void resetLevel() {
-        scene.dispose();
-        initLevel();
+        new GameScreen();
     }
 
     public void nextLevel() {
-        UserPrefs.setLevel(Globals.currentGameSave, currentLevel.nextLevel.index);
+        UserPrefs.setLevel(Globals.currentGameSave, 0);
         currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
-        initLevel();
+        new GameScreen();
+        isStopped = true;
+        Globals.game.setScreen(Globals.gameScreen);
     }
 }

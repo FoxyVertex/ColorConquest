@@ -2,6 +2,7 @@ package com.foxyvertex.colorconquest.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.stages.OptionsMenu;
 import com.foxyvertex.colorconquest.stages.PlayMenu;
@@ -28,7 +29,7 @@ public class TitleMenu implements Screen {
 
     @Override
     public void show() {
-
+        Gdx.app.log(Finals.ANSI_CYAN + "Title Screen" + Finals.ANSI_RESET, "Started.");
     }
 
     @Override

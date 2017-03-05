@@ -3,6 +3,7 @@ package com.foxyvertex.colorconquest.manager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.screen.SplashScreen;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class Assets {
         guiSkin = new Skin(Gdx.files.internal("gfx/UI/skin/clean-crispy-ui.json"));
 
         splashScreenLogos.add(new SplashScreen.SplashLogo("gfx/splash/FoxyVertex.png", 0.8f).actorImage);
+        Gdx.app.log(Finals.ANSI_CYAN + "Assets" + Finals.ANSI_RESET, "Loaded the gui skin and splash screen logos.");
     }
 
 }

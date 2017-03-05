@@ -24,8 +24,13 @@ public class ColorConquest extends Game {
 
 	@Override
 	public void create () {
-        Globals.systemsToDisableOnPause.add(PhysicsSystem.class);
+        System.out.println(Finals.ANSI_RED +   "########################################");
+        System.out.println(Finals.ANSI_GREEN + "#                                      #");
+        System.out.println(Finals.ANSI_BLUE +  "#            Color Conquest            #");
+        System.out.println(Finals.ANSI_GREEN + "#                                      #");
+        System.out.println(Finals.ANSI_RED +   "########################################" + Finals.ANSI_RESET);
 
+        Globals.systemsToDisableOnPause.add(PhysicsSystem.class);
 		Globals.game = this;
         UserPrefs.load();
         Levels.load();
@@ -37,6 +42,7 @@ public class ColorConquest extends Game {
         if (Finals.SKIP_TO_GAME) {
             new SplashScreen();
             new TitleMenu();
+			Gdx.app.log(Finals.ANSI_CYAN + "Game" + Finals.ANSI_RESET, "Skipping the splash and menu.");
             setScreen(new GameScreen());
         } else {
             new GameScreen();
@@ -64,11 +70,9 @@ public class ColorConquest extends Game {
 		console.dispose();
 	}
 
-	public static void log(String message) {
+	public static void debugLog(String message) {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         Gdx.app.log(stackTraceElements[1].getClassName(), message);
         Globals.game.console.log(stackTraceElements[1].getClassName() + ": " + message);
 	}
-
-
 }

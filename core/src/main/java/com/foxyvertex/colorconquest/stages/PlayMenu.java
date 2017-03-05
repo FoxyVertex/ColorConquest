@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.manager.Assets;
 import com.foxyvertex.colorconquest.manager.UserPrefs;
@@ -82,6 +83,7 @@ public class PlayMenu extends UIStage {
      */
     private void loadLevel() {
         Globals.game.setScreen(Globals.gameScreen);
+        Gdx.app.log(Finals.ANSI_CYAN + "Title Screen" + Finals.ANSI_RESET, "Starting game...");
     }
 
     @Override

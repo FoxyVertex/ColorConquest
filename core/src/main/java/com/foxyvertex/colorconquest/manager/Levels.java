@@ -1,5 +1,7 @@
 package com.foxyvertex.colorconquest.manager;
 
+import com.badlogic.gdx.Gdx;
+import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 
 import java.util.ArrayList;
@@ -46,6 +48,8 @@ public class Levels {
         levels.add(level4);
 
         currentLevel = UserPrefs.getLevel(Globals.currentGameSave);
+
+        Gdx.app.log(Finals.ANSI_CYAN + "Level Manager" + Finals.ANSI_RESET, "Setup the level management system.");
     }
 
 

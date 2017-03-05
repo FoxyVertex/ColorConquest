@@ -5,7 +5,6 @@ import com.artemis.BaseEntitySystem;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.utils.IntBag;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.foxyvertex.colorconquest.component.ColorComponent;
 import com.kotcrab.vis.runtime.component.Tint;
@@ -43,13 +42,7 @@ public class SetColorComponentSystem extends BaseEntitySystem implements AfterSc
             if (variablesCm.get(e) != null) {
                 Color tint = tintCm.get(e).getTint();
                 if (variablesCm.get(e).get("color") == null) {
-
-                    if (!(tint.r == 1f && tint.g == 1f && tint.b == 1f)) {
-                        e.edit().add(new ColorComponent(new Color(tintCm.get(e).getTint())));
-                    } else {
-                        e.edit().add(new ColorComponent(new Color(Color.BLACK)));
-                        Gdx.app.log("", "");
-                    }
+                    e.edit().add(new ColorComponent(new Color(tintCm.get(e).getTint())));
                 }
             }
         }

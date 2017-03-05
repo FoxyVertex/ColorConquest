@@ -19,16 +19,10 @@ public class AnimationSystem extends BaseSystem implements AfterSceneInit {
 
     Array<Entity> animatables = new Array<Entity>();
     TextureRegion textureRegionTMP;
-    Animation animationCompTMP;
     @Override
     protected void processSystem() {
         for (Entity entity : animatables) {
             entity.getComponent(Animation.class).timer += world.getDelta();
-//            try {
-//                Gdx.app.log("" + entity.getId(), "" + (entity.getComponent(Animation.class) == null) + "       " + (entity.getComponent(Animation.class).animations == null) + "      " + (entity.getComponent(Animation.class).currentAnimation == null) + "     " + (entity.getComponent(Animation.class).onEnd == null));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
 
             if (entity.getComponent(Animation.class).timer >= entity.getComponent(Animation.class).animations.get(entity.getComponent(Animation.class).currentAnimation).getAnimationDuration() && entity.getComponent(Animation.class).onEnd != null && !entity.getComponent(Animation.class).onEnd.equals("")) {
                 changeAnimState(entity, entity.getComponent(Animation.class).onEnd, true);
@@ -38,7 +32,6 @@ public class AnimationSystem extends BaseSystem implements AfterSceneInit {
                 entity.getComponent(Animation.class).timer = 0f;
             }
             textureRegionTMP = entity.getComponent(Animation.class).animations.get(entity.getComponent(Animation.class).currentAnimation).getKeyFrame(entity.getComponent(Animation.class).timer, entity.getComponent(Animation.class).loop);
-            //textureRegionTMP.flip(entity.getComponent(Animation.class).flipX, entity.getComponent(Animation.class).flipY);
 
             if (entity.getComponent(Animation.class).flipX != textureRegionTMP.isFlipX()) {
                 textureRegionTMP.flip(true, false);

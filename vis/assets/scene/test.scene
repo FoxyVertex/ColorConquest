@@ -700,8 +700,8 @@
     {
       "components": [
         {
-          "x": 2.3955,
-          "y": 4.7724,
+          "x": 1.8653,
+          "y": 2.1216,
           "scaleX": 0.5,
           "scaleY": 0.5,
           "rotation": 0.0,
@@ -755,43 +755,43 @@
         {
           "vertices": [
             {
-              "x": 2.4184365,
-              "y": 4.794277,
+              "x": 1.8882366,
+              "y": 2.1434772,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 3.0811338,
-              "y": 4.7937994,
+              "x": 2.5509338,
+              "y": 2.1429994,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 3.098381,
-              "y": 6.0312805,
+              "x": 2.568181,
+              "y": 3.38048,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 2.4171193,
-              "y": 6.0312805,
+              "x": 1.8869194,
+              "y": 3.38048,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 2.4171193,
-                "y": 6.0312805
+                "x": 1.8869194,
+                "y": 3.38048
               },
               {
-                "x": 2.4184365,
-                "y": 4.794277
+                "x": 1.8882366,
+                "y": 2.1434772
               },
               {
-                "x": 3.0811338,
-                "y": 4.7937994
+                "x": 2.5509338,
+                "y": 2.1429994
               },
               {
-                "x": 3.098381,
-                "y": 6.0312805
+                "x": 2.568181,
+                "y": 3.38048
               }
             ]
           ],
@@ -801,13 +801,13 @@
           "bodyType": "DynamicBody",
           "friction": 1.0,
           "density": 1.0,
-          "restitution": 1.0,
+          "restitution": 0.0,
           "sensor": false,
           "gravityScale": 1.0,
           "linearDamping": 0.0,
           "angularDamping": 0.0,
           "bullet": false,
-          "fixedRotation": false,
+          "fixedRotation": true,
           "active": true,
           "sleepingAllowed": true,
           "adjustOrigin": true,

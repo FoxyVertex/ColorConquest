@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.manager.Assets;
 
@@ -40,6 +41,7 @@ public class SplashScreen implements Screen {
 
     @Override
     public void show() {
+        Gdx.app.log(Finals.ANSI_CYAN + "Splash Screen" + Finals.ANSI_RESET, "Setting up each splash logo.");
         stage = new Stage();
 
         for (int i = 0; i < Assets.splashScreenLogos.size(); i++) {
@@ -58,6 +60,7 @@ public class SplashScreen implements Screen {
                     @Override
                     public void run() {
                         Globals.game.setScreen(Globals.titleMenu);
+                        Gdx.app.log(Finals.ANSI_CYAN + "Splash Screen" + Finals.ANSI_RESET, "Switching to the title screen.");
                     }
                 })));
                 Assets.splashScreenLogos.get(i).addAction(actions);

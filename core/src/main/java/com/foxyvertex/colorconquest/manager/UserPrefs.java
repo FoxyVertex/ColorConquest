@@ -79,5 +79,6 @@ public class UserPrefs {
             gdxPrefs.putBoolean("soundEnabled", true);
             soundEnabled = true;
         }
+        Gdx.app.log(Finals.ANSI_CYAN + "UserPrefs" + Finals.ANSI_RESET, "Loaded all user data into memory.");
     }
 }
