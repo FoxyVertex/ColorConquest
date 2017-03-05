@@ -48,7 +48,7 @@
       "@class": "EditorLayer"
     }
   ],
-  "activeLayerId": 3,
+  "activeLayerId": 1,
   "groupIds": [],
   "schemes": [
     {
@@ -700,8 +700,8 @@
     {
       "components": [
         {
-          "x": 1.2285028,
-          "y": 1.6547,
+          "x": 2.3955,
+          "y": 4.7724,
           "scaleX": 0.5,
           "scaleY": 0.5,
           "rotation": 0.0,
@@ -755,43 +755,43 @@
         {
           "vertices": [
             {
-              "x": 1.2514393,
-              "y": 1.6765771,
+              "x": 2.4184365,
+              "y": 4.794277,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.9141366,
-              "y": 1.6760993,
+              "x": 3.0811338,
+              "y": 4.7937994,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.9313838,
-              "y": 2.913581,
+              "x": 3.098381,
+              "y": 6.0312805,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.2501221,
-              "y": 2.913581,
+              "x": 2.4171193,
+              "y": 6.0312805,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 1.2501221,
-                "y": 2.913581
+                "x": 2.4171193,
+                "y": 6.0312805
               },
               {
-                "x": 1.2514393,
-                "y": 1.6765771
+                "x": 2.4184365,
+                "y": 4.794277
               },
               {
-                "x": 1.9141366,
-                "y": 1.6760993
+                "x": 3.0811338,
+                "y": 4.7937994
               },
               {
-                "x": 1.9313838,
-                "y": 2.913581
+                "x": 3.098381,
+                "y": 6.0312805
               }
             ]
           ],
@@ -801,13 +801,13 @@
           "bodyType": "DynamicBody",
           "friction": 1.0,
           "density": 1.0,
-          "restitution": 0.0,
+          "restitution": 1.0,
           "sensor": false,
           "gravityScale": 1.0,
           "linearDamping": 0.0,
           "angularDamping": 0.0,
           "bullet": false,
-          "fixedRotation": true,
+          "fixedRotation": false,
           "active": true,
           "sleepingAllowed": true,
           "adjustOrigin": true,

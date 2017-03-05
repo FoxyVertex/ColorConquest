@@ -43,12 +43,12 @@
       "name": "Hud",
       "id": 3,
       "locked": true,
-      "visible": false,
+      "visible": true,
       "cordsSystem": "SCREEN",
       "@class": "EditorLayer"
     }
   ],
-  "activeLayerId": 1,
+  "activeLayerId": 3,
   "groupIds": [],
   "schemes": [
     {
@@ -677,9 +677,6 @@
           "width": 3.6,
           "height": 5.1,
           "@class": "ProtoVisSprite"
-        },
-        {
-          "@class": "Invisible"
         },
         {
           "layerId": 3,
@@ -1555,12 +1552,12 @@
             },
             {
               "x": 17.644299,
-              "y": 1.4291348,
+              "y": 1.4291347,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
               "x": 14.114295,
-              "y": 1.4291348,
+              "y": 1.4291347,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
@@ -1568,7 +1565,7 @@
             [
               {
                 "x": 14.114295,
-                "y": 1.4291348
+                "y": 1.4291347
               },
               {
                 "x": 14.114295,
@@ -1580,7 +1577,7 @@
               },
               {
                 "x": 17.644299,
-                "y": 1.4291348
+                "y": 1.4291347
               }
             ]
           ],
@@ -1659,6 +1656,10 @@
         {
           "layerId": 0,
           "@class": "Layer"
+        },
+        {
+          "groupIds": [],
+          "@class": "VisGroup"
         },
         {
           "uuid": "fd607f0c-0f4c-4563-b415-c5a6758cdc56",
