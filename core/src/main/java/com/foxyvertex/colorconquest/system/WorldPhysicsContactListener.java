@@ -108,15 +108,22 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
                 if (block2.getComponent(ColorComponent.class) == null) break;
                 if (bullet2.getComponent(Bullet.class) == null) break;
                 if (bullet2.getComponent(Bullet.class).color == null) break;
-                block2.getComponent(ColorComponent.class).r = bullet2.getComponent(Bullet.class).color.r;block2.getComponent(ColorComponent.class).g = bullet2.getComponent(Bullet.class).color.g;block2.getComponent(ColorComponent.class).b = bullet2.getComponent(Bullet.class).color.b;
                 if (block2.getComponent(ColorComponent.class) != null) {
                     ColorComponent cc1 = block2.getComponent(ColorComponent.class);
                     Color bc = bullet2.getComponent(Bullet.class).color;
-                    cc1.r = Utilities.clamp(Utilities.map(bc.r, 0, 1, 0, 0.1f)+cc1.r, 0f, 1f);
-                    cc1.g = Utilities.clamp(Utilities.map(bc.g, 0, 1, 0, 0.1f)+cc1.g, 0f, 1f);
-                    cc1.b = Utilities.clamp(Utilities.map(bc.b, 0, 1, 0, 0.1f)+cc1.b, 0f, 1f);
+                    if (bc.r == 1 && bc.g == 1 && bc.b == 1) {
+                        cc1.r =+ Utilities.map(10, 0, 255, 0, 1);
+                        cc1.g =+ Utilities.map(10, 0, 255, 0, 1);
+                        cc1.b =+ Utilities.map(10, 0, 255, 0, 1);
+                    } else if (bc.r == 1 && bc.g == 0 && bc.b == 0) {
+                        cc1.r = Utilities.clamp(cc1.r + Utilities.map(10, 0, 255, 0, 1), 0, 1);
+                    } else if (bc.r == 0 && bc.g == 1 && bc.b == 0) {
+                        cc1.g = Utilities.clamp(cc1.g + Utilities.map(10, 0, 255, 0, 1), 0, 1);
+                    } else if (bc.r == 0 && bc.g == 0 && bc.b == 1) {
+                        cc1.b = Utilities.clamp(cc1.b + Utilities.map(10, 0, 255, 0, 1), 0, 1);
+                    }
                 }
-                bullet2.edit().add(new ToDestroy(200));
+                bullet2.edit().add(new ToDestroy(100));
                 break;
 
             case Finals.BULLET_BIT:

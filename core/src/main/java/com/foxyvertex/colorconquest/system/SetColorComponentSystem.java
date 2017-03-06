@@ -42,7 +42,7 @@ public class SetColorComponentSystem extends BaseEntitySystem implements AfterSc
             if (variablesCm.get(e) != null) {
                 Color tint = tintCm.get(e).getTint();
                 if (variablesCm.get(e).get("color") == null) {
-                    e.edit().add(new ColorComponent(new Color(tintCm.get(e).getTint())));
+                    e.edit().add(new ColorComponent(tint));
                 }
             }
         }

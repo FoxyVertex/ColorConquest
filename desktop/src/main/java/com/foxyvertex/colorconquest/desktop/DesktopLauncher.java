@@ -1,5 +1,6 @@
 package com.foxyvertex.colorconquest.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.foxyvertex.colorconquest.ColorConquest;
@@ -17,8 +18,9 @@ public class DesktopLauncher {
     private static LwjglApplicationConfiguration getDefaultConfiguration() {
         LwjglApplicationConfiguration configuration = new LwjglApplicationConfiguration();
         configuration.title = "Color Conquest";
-        configuration.width = 1920;
-        configuration.height = 1080;
+//        configuration.width = 1920;
+//        configuration.height = 1080;
+        configuration.addIcon("gfx/splash/thefoxarmy.jpg", Files.FileType.Internal);
         return configuration;
     }
 }

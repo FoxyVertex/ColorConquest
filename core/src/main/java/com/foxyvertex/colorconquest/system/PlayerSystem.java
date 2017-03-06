@@ -111,19 +111,15 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
             float maxJumpForceLength = 0.2f;
 
-            //DEBUG JUNK
             if (Gdx.input.isKeyPressed(Input.Keys.B)) {
                 player.getComponent(Player.class).blue += 1;
             }
             if (debugZoomInPressed)
-                cameraManager.getCamera().zoom += 1 * getWorld().getDelta();
+                cameraManager.getCamera().zoom += 1.3f * getWorld().getDelta();
             if (debugZoomOutPressed)
-                cameraManager.getCamera().zoom -= 1 * getWorld().getDelta();
+                cameraManager.getCamera().zoom -= 1.3f * getWorld().getDelta();
 
             player.getComponent(Player.class).isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
-
-//            Gdx.app.log("r", "" + playerComp.runSpeed);
-//            Gdx.app.log("j", "" + playerComp.jumpForce);
 
             inAir = !(body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001);
             if (jumpPressed && (!jumpReleased || !inAir)) {
@@ -145,7 +141,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 body.applyLinearImpulse(new Vector2(0, -10f), body.getWorldCenter(), true);
 
             if (forwardPressed && body.getLinearVelocity().x <= 2 * speedMultiplier) {
-                sprite.setFlip(false, false);
                 body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 forwardPressedPrev = true;
                 world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", false, false, true);
@@ -156,7 +151,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             }
 
             if (backwardPressed && body.getLinearVelocity().x >= -2 * speedMultiplier) {
-                sprite.setFlip(true, false);
                 body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", true, false, true);
                 facingDIRECTION = FacingDIRECTION.LEFT;
@@ -166,21 +160,20 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 //body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 backwardPressedPrev = false;
             }
-
-            if (body.getLinearVelocity().y < -0.0001) {
+            if (body.getLinearVelocity().y < -0.01) {
                 world.getSystem(AnimationSystem.class).changeAnimState(player, "fall", shouldFlipX, false, true);
             }
 
-            if (!backwardPressed && !forwardPressed && !downPressed && !jumpPressed && (body.getLinearVelocity().y >= -0.001) && (body.getLinearVelocity().y <= 0.001f)) {
+            switch (facingDIRECTION) {
+                case RIGHT:
+                    shouldFlipX = false;
+                    break;
+                case LEFT:
+                    shouldFlipX = true;
+                    break;
+            }
 
-                switch (facingDIRECTION) {
-                    case RIGHT:
-                        shouldFlipX = false;
-                        break;
-                    case LEFT:
-                        shouldFlipX = true;
-                        break;
-                }
+            if (!backwardPressed && !forwardPressed && !downPressed && !jumpPressed && (body.getLinearVelocity().y >= -0.001) && (body.getLinearVelocity().y <= 0.001f)) {
                 world.getSystem(AnimationSystem.class).changeAnimState(player, "idle", shouldFlipX, shouldFlipY, true);
             }
 
@@ -294,6 +287,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 .add(bulletComp)
                 .add(variables)
                 .getEntity();
+
 
         Vector2 worldPos = new Vector2(transformComp.getX(), transformComp.getY());
 
