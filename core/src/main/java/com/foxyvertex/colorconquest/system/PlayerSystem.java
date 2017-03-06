@@ -121,19 +121,36 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
             player.getComponent(Player.class).isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
 
-            inAir = !(body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001);
-            if (jumpPressed && (!jumpReleased || !inAir)) {
+//            inAir = !(body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001);
+//            if (jumpPressed && (!jumpReleased || !inAir)) {
+//                currentJumpLength += world.getDelta();
+//
+//                if (currentJumpLength >= maxJumpForceLength) canJump = false;
+//                if (!inAir && currentJumpLength < maxJumpForceLength) canJump = true;
+//
+//                jumpPressedPrev = true;
+//            } else {
+//                if (jumpPressedPrev) jumpReleased = true;
+//
+//                currentJumpLength = 0f;
+//                canJump = (body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001) && !jumpPressedPrev;
+//                jumpPressedPrev = false;
+//            }
+
+            if (jumpPressed && !jumpReleased) {
                 currentJumpLength += world.getDelta();
 
                 if (currentJumpLength >= maxJumpForceLength) canJump = false;
-                if (!inAir && currentJumpLength < maxJumpForceLength) canJump = true;
+                if (currentJumpLength < maxJumpForceLength) canJump = true;
 
                 jumpPressedPrev = true;
+            } else if (body.getLinearVelocity().y <= 0.0001 && body.getLinearVelocity().y >= -0.0001) {
+                jumpReleased = false;
             } else {
-                if (jumpPressedPrev) jumpReleased = true;
-
-                currentJumpLength = 0f;
-                canJump = (body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001) && !jumpPressedPrev;
+                if (jumpPressedPrev && !jumpPressed) {
+                    jumpReleased = true;
+                    currentJumpLength = 0f;
+                }
                 jumpPressedPrev = false;
             }
 
@@ -179,7 +196,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
 
 
-            if (currentJumpLength > 0 && canJump) {
+            if (currentJumpLength > 0 && canJump && !jumpReleased) {
                 body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()), body.getWorldCenter(), true);
                 world.getSystem(AnimationSystem.class).changeAnimState(player, "jumpstart", shouldFlipX, false, false);
                 inAir = true;
