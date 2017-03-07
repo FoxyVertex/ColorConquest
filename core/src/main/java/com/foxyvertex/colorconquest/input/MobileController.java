@@ -24,20 +24,18 @@ import com.foxyvertex.colorconquest.system.PlayerSystem;
  */
 public class MobileController implements Drawable, InputProcessor {
     public Stage stage;
-    Viewport viewport;
-    OrthographicCamera cam;
-    boolean superToggle = false;
-    boolean upTouched, leftTouched, rightTouched;
-    Image upImg;
-    Image downImg;
-    Image leftImg;
-    Image rightImg;
-    Image superImg;
+    private Viewport viewport;
+    private boolean firingModeToggle = false;
+    private boolean upTouched, leftTouched, rightTouched;
+    private Image upImg;
+    private Image leftImg;
+    private Image rightImg;
+    private Image superImg;
     private PlayerSystem inputManager;
 
     public MobileController(final PlayerSystem inputManager) {
         this.inputManager = inputManager;
-        cam = new OrthographicCamera();
+        OrthographicCamera cam = new OrthographicCamera();
         viewport = new FitViewport(800, 480, cam);
         stage = new Stage(viewport, Globals.game.batch);
 
@@ -119,7 +117,7 @@ public class MobileController implements Drawable, InputProcessor {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                superToggle = !superToggle;
+                firingModeToggle = !firingModeToggle;
             }
         });
 
@@ -157,7 +155,7 @@ public class MobileController implements Drawable, InputProcessor {
     }
 
     public void handleInput() {
-        inputManager.debugSuperAbilityPressed = superToggle || Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
+        inputManager.firingModePressed = firingModeToggle || Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
 
         inputManager.backwardPressed = Gdx.input.isKeyPressed(Input.Keys.A) || leftTouched;
         inputManager.forwardPressed = Gdx.input.isKeyPressed(Input.Keys.D) || rightTouched;

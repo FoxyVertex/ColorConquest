@@ -14,12 +14,8 @@ public class DesktopController extends InputAdapter implements InputProcessor {
 
     private PlayerSystem inputManager;
 
-    private boolean isSpacePreviousPressed = false;
-    private boolean backKeyPrev = false;
-    private boolean forwardKeyPrev = false;
-
     /**
-     * Sets the classes player variable to the player
+     * Sets the class's input manager variable to the PlayerSystem
      */
     public DesktopController(PlayerSystem inputManager) {
         this.inputManager = inputManager;
@@ -65,6 +61,7 @@ public class DesktopController extends InputAdapter implements InputProcessor {
         inputManager.debugSpawnpointPressed = Gdx.input.isKeyPressed(Input.Keys.F);
         inputManager.debugSuperAbilityPressed = Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT);
         inputManager.debugZoomInPressed = Gdx.input.isKeyPressed(Input.Keys.EQUALS);
+        inputManager.firingModePressed = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
     }
 
 

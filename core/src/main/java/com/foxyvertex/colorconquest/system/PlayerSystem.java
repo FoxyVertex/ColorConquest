@@ -51,8 +51,8 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
     public int currentColorIndex = 0;
     public float speedMultiplier = 1f;
-    public boolean jumpPressed, forwardPressed, backwardPressed, downPressed, debugSuperAbilityPressed, debugSpawnpointPressed, debugZoomInPressed, debugZoomOutPressed, debugNextLevelPressed;
-    private boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev;
+    public boolean jumpPressed, forwardPressed, backwardPressed, downPressed, debugSuperAbilityPressed, debugSpawnpointPressed, debugZoomInPressed, debugZoomOutPressed, debugNextLevelPressed, firingModePressed;
+    private boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev, firingModePressedPrev;
     private float currentJumpLength = 0;
     private boolean canJump = true;
     private boolean inAir = false;
@@ -114,28 +114,33 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             if (Gdx.input.isKeyPressed(Input.Keys.B)) {
                 player.getComponent(Player.class).blue += 1;
             }
+            if (debugNextLevelPressed) {
+                Globals.gameScreen.nextLevel();
+            }
+            if (debugSuperAbilityPressed) {
+                playerComp.runSpeed = playerComp.maxRunSpeed;
+                playerComp.jumpForce = playerComp.maxJumpForce;
+                debugSuperAbilityPressedPrev = true;
+            } else if (debugSuperAbilityPressedPrev) {
+                playerComp.runSpeed = playerComp.minRunSpeed;
+                playerComp.jumpForce = playerComp.minJumpForce;
+                debugSuperAbilityPressedPrev = false;
+            }
+
             if (debugZoomInPressed)
                 cameraManager.getCamera().zoom += 1.3f * getWorld().getDelta();
             if (debugZoomOutPressed)
                 cameraManager.getCamera().zoom -= 1.3f * getWorld().getDelta();
 
-            player.getComponent(Player.class).isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
+            if (firingModePressed) {
+                // Firing Mode pressed logic
+                firingModePressedPrev = true;
+            } else if (firingModePressedPrev) {
+                // Firing Mode unpressed logic
+                firingModePressedPrev = false;
+            }
 
-//            inAir = !(body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001);
-//            if (jumpPressed && (!jumpReleased || !inAir)) {
-//                currentJumpLength += world.getDelta();
-//
-//                if (currentJumpLength >= maxJumpForceLength) canJump = false;
-//                if (!inAir && currentJumpLength < maxJumpForceLength) canJump = true;
-//
-//                jumpPressedPrev = true;
-//            } else {
-//                if (jumpPressedPrev) jumpReleased = true;
-//
-//                currentJumpLength = 0f;
-//                canJump = (body.getLinearVelocity().y <= 0.0001 || body.getLinearVelocity().y >= -0.0001) && !jumpPressedPrev;
-//                jumpPressedPrev = false;
-//            }
+            player.getComponent(Player.class).isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
 
             if (jumpPressed && !jumpReleased) {
                 currentJumpLength += world.getDelta();
