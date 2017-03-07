@@ -16,6 +16,7 @@ import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Bullet;
 import com.foxyvertex.colorconquest.component.ColorComponent;
+import com.foxyvertex.colorconquest.component.Health;
 import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.component.ToDestroy;
 import com.foxyvertex.colorconquest.tools.Utilities;
@@ -30,7 +31,7 @@ import com.kotcrab.vis.runtime.util.AfterSceneInit;
  * This class handles all collisions between any two box2d fixtures within the world
  */
 
-public class WorldPhysicsContactListener extends EntitySystem implements ContactListener, AfterSceneInit {
+public class CollisionSystem extends EntitySystem implements ContactListener, AfterSceneInit {
     ComponentMapper<PhysicsBody> physicsBodyCm;
     public static Array<Body> deadBodies = new Array<Body>();
 
@@ -38,7 +39,7 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
      * Creates an entity system that uses the specified aspect as a matcher
      * against entities.
      */
-    public WorldPhysicsContactListener() {
+    public CollisionSystem() {
         super(Aspect.all(PhysicsBody.class));
     }
 
@@ -128,6 +129,29 @@ public class WorldPhysicsContactListener extends EntitySystem implements Contact
 
             case Finals.BULLET_BIT:
                 // TODO: 2/16/2017 implement bullet-on-bullet collision
+                break;
+            case Finals.PLAYER_BIT | Finals.ZOMBIE_BIT:
+                Entity player4, zombie4;
+                Fixture player4F, block4F;
+                if (fixtureA.getFilterData().categoryBits == Finals.PLAYER_BIT) {
+                    player4 = (Entity) fixtureA.getUserData();
+                    player4F = fixtureA;
+                    zombie4 = (Entity) fixtureB.getUserData();
+                    block4F = fixtureB;
+                } else if (fixtureB.getFilterData().categoryBits == Finals.PLAYER_BIT) {
+                    player4 = (Entity) fixtureB.getUserData();
+                    player4F = fixtureB;
+                    zombie4 = (Entity) fixtureA.getUserData();
+                    block4F = fixtureA;
+                } else {
+                    player4 = (Entity) fixtureA.getUserData();
+                    player4F = fixtureA;
+                    zombie4 = (Entity) fixtureB.getUserData();
+                    block4F = fixtureB;
+                }
+
+                zombie4.getComponent(Health.class).deathCallback.run(zombie4);
+                getWorld().getSystem(AnimationSystem.class).changeAnimState(zombie4, "hit", false, false, true);
                 break;
         }
     }

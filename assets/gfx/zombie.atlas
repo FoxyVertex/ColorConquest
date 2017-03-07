@@ -1,0 +1,32 @@
+zombie.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hit
+  rotate: false
+  xy: 0, 0
+  size: 806, 1005
+  orig: 858, 1016
+  offset: 8, 0
+  index: 1
+hit
+  rotate: false
+  xy: 0, 1007
+  size: 844, 952
+  orig: 858, 1016
+  offset: 8, 0
+  index: 2
+idle
+  rotate: false
+  xy: 0, 1961
+  size: 806, 900
+  orig: 827, 905
+  offset: 11, 0
+  index: 1
+idle
+  rotate: false
+  xy: 0, 2863
+  size: 806, 880
+  orig: 827, 905
+  offset: 11, 0
+  index: 2

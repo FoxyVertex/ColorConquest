@@ -68,7 +68,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     public Player playerComp;
     private VisSprite sprite;
     private Transform transform;
-    private Body body;
+    public Body body;
 
     private enum FacingDIRECTION {LEFT, RIGHT}
     private FacingDIRECTION facingDIRECTION = FacingDIRECTION.RIGHT;

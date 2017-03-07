@@ -48,7 +48,7 @@
       "@class": "EditorLayer"
     }
   ],
-  "activeLayerId": 0,
+  "activeLayerId": 1,
   "groupIds": [],
   "schemes": [
     {
@@ -700,8 +700,8 @@
     {
       "components": [
         {
-          "x": 1.8653,
-          "y": 2.1216,
+          "x": 1.1111821,
+          "y": 1.5388713,
           "scaleX": 0.5,
           "scaleY": 0.5,
           "rotation": 0.0,
@@ -755,43 +755,43 @@
         {
           "vertices": [
             {
-              "x": 1.8882366,
-              "y": 2.1434772,
+              "x": 1.1341187,
+              "y": 1.5607486,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 2.5509338,
-              "y": 2.1429994,
+              "x": 1.7968159,
+              "y": 1.5602708,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 2.568181,
-              "y": 3.38048,
+              "x": 1.8140631,
+              "y": 2.7977514,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.8869194,
-              "y": 3.38048,
+              "x": 1.1328014,
+              "y": 2.7977514,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 1.8869194,
-                "y": 3.38048
+                "x": 1.1328014,
+                "y": 2.7977514
               },
               {
-                "x": 1.8882366,
-                "y": 2.1434772
+                "x": 1.1341187,
+                "y": 1.5607486
               },
               {
-                "x": 2.5509338,
-                "y": 2.1429994
+                "x": 1.7968159,
+                "y": 1.5602708
               },
               {
-                "x": 2.568181,
-                "y": 3.38048
+                "x": 1.8140631,
+                "y": 2.7977514
               }
             ]
           ],
@@ -1290,12 +1290,12 @@
             },
             {
               "x": 24.7004,
-              "y": 1.43,
+              "y": 1.4300001,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
               "x": 21.1704,
-              "y": 1.43,
+              "y": 1.4300001,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
@@ -1303,7 +1303,7 @@
             [
               {
                 "x": 21.1704,
-                "y": 1.43
+                "y": 1.4300001
               },
               {
                 "x": 21.1704,
@@ -1315,7 +1315,7 @@
               },
               {
                 "x": 24.7004,
-                "y": 1.43
+                "y": 1.4300001
               }
             ]
           ],
@@ -1552,12 +1552,12 @@
             },
             {
               "x": 17.6443,
-              "y": 1.43,
+              "y": 1.4300001,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
               "x": 14.1143,
-              "y": 1.43,
+              "y": 1.4300001,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
@@ -1565,7 +1565,7 @@
             [
               {
                 "x": 14.1143,
-                "y": 1.43
+                "y": 1.4300001
               },
               {
                 "x": 14.1143,
@@ -1577,7 +1577,7 @@
               },
               {
                 "x": 17.6443,
-                "y": 1.43
+                "y": 1.4300001
               }
             ]
           ],
@@ -1678,8 +1678,8 @@
     {
       "components": [
         {
-          "x": 14.922461,
-          "y": -4.552226,
+          "x": 14.9225,
+          "y": -4.5522,
           "scaleX": 16.0,
           "scaleY": 16.0,
           "rotation": 0.0,
@@ -1727,6 +1727,269 @@
         },
         {
           "@class": "VisID"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 14.2751,
+          "y": 1.3726,
+          "scaleX": 0.08,
+          "scaleY": 0.08,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 0.0,
+          "originY": 0.0,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/zombie.atlas",
+            "regionName": "idle",
+            "@class": "AtlasRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 10.24,
+          "height": 10.24,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 1,
+          "@class": "Layer"
+        },
+        {
+          "uuid": "8bab2e61-c629-428f-8857-8e28aa79ad58",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "id": "zombie",
+          "@class": "VisID"
+        },
+        {
+          "vertices": [
+            {
+              "x": 14.276283,
+              "y": 1.4672532,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 15.093244,
+              "y": 1.4672532,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 15.094299,
+              "y": 2.1917996,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 14.2751,
+              "y": 2.1917996,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            }
+          ],
+          "faces": [
+            [
+              {
+                "x": 14.2751,
+                "y": 2.1917996
+              },
+              {
+                "x": 14.276283,
+                "y": 1.4672532
+              },
+              {
+                "x": 15.093244,
+                "y": 1.4672532
+              },
+              {
+                "x": 15.094299,
+                "y": 2.1917996
+              }
+            ]
+          ],
+          "@class": "VisPolygon"
+        },
+        {
+          "bodyType": "DynamicBody",
+          "friction": 1.0,
+          "density": 1.0,
+          "restitution": 0.0,
+          "sensor": false,
+          "gravityScale": 1.0,
+          "linearDamping": 0.0,
+          "angularDamping": 0.0,
+          "bullet": false,
+          "fixedRotation": true,
+          "active": true,
+          "sleepingAllowed": true,
+          "adjustOrigin": true,
+          "maskBits": -1,
+          "categoryBits": 1,
+          "@class": "PhysicsProperties"
+        },
+        {
+          "variables": [
+            {
+              "key": "collisionCat",
+              "value": "zombie",
+              "@class-key": "String",
+              "@class-value": "String"
+            }
+          ],
+          "@class": "Variables"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 13.5918,
+          "y": 1.5846,
+          "scaleX": 0.08,
+          "scaleY": 0.08,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 0.0,
+          "originY": 0.0,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "regionName": "idle",
+            "relativePath": "gfx/zombie.atlas",
+            "@class": "AtlasRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 8.06,
+          "height": 9.0,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 1,
+          "@class": "Layer"
+        },
+        {
+          "uuid": "d2cea932-7dcb-41f0-bad1-9454c675c0db",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "@class": "VisID"
+        },
+        {
+          "vertices": [
+            {
+              "x": 13.5918,
+              "y": 1.5846,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 14.2366,
+              "y": 1.5846,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 14.2366,
+              "y": 2.3046,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 13.5918,
+              "y": 2.3046,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            }
+          ],
+          "faces": [
+            [
+              {
+                "x": 13.5918,
+                "y": 2.3046
+              },
+              {
+                "x": 13.5918,
+                "y": 1.5846
+              },
+              {
+                "x": 14.2366,
+                "y": 1.5846
+              },
+              {
+                "x": 14.2366,
+                "y": 2.3046
+              }
+            ]
+          ],
+          "@class": "VisPolygon"
+        },
+        {
+          "bodyType": "DynamicBody",
+          "friction": 1.0,
+          "density": 1.0,
+          "restitution": 0.0,
+          "sensor": false,
+          "gravityScale": 1.0,
+          "linearDamping": 0.0,
+          "angularDamping": 0.0,
+          "bullet": false,
+          "fixedRotation": true,
+          "active": true,
+          "sleepingAllowed": true,
+          "adjustOrigin": true,
+          "maskBits": -1,
+          "categoryBits": 1,
+          "@class": "PhysicsProperties"
+        },
+        {
+          "variables": [
+            {
+              "key": "collisionCat",
+              "value": "zombie",
+              "@class-key": "String",
+              "@class-value": "String"
+            }
+          ],
+          "@class": "Variables"
         }
       ],
       "@class": "EntityScheme"

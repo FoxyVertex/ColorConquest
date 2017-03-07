@@ -16,9 +16,10 @@ import com.foxyvertex.colorconquest.system.HudSystem;
 import com.foxyvertex.colorconquest.system.PlayerSystem;
 import com.foxyvertex.colorconquest.system.SetBox2DUserDataSystem;
 import com.foxyvertex.colorconquest.system.SetColorComponentSystem;
-import com.foxyvertex.colorconquest.system.SetupCategoryBitsSystem;
+import com.foxyvertex.colorconquest.system.SetupEntityComponentsSystem;
 import com.foxyvertex.colorconquest.system.ToDestroySystem;
-import com.foxyvertex.colorconquest.system.WorldPhysicsContactListener;
+import com.foxyvertex.colorconquest.system.CollisionSystem;
+import com.foxyvertex.colorconquest.system.ZombieSystem;
 import com.kotcrab.vis.runtime.scene.Scene;
 import com.kotcrab.vis.runtime.scene.SceneLoader;
 import com.kotcrab.vis.runtime.scene.VisAssetManager;
@@ -96,15 +97,16 @@ public class GameScreen implements Screen {
         SceneLoader.SceneParameter parameter = new SceneLoader.SceneParameter();
         parameter.config.addSystem(PlayerSystem.class);
         parameter.config.addSystem(CameraSystem.class);
-        parameter.config.addSystem(WorldPhysicsContactListener.class);
+        parameter.config.addSystem(CollisionSystem.class);
         if (Finals.ENABLE_BOX2D_DEBUG_RENDERER) parameter.config.addSystem(Box2dDebugRenderSystem.class);
-        parameter.config.addSystem(SetupCategoryBitsSystem.class);
+        parameter.config.addSystem(SetupEntityComponentsSystem.class);
         parameter.config.addSystem(SetBox2DUserDataSystem.class);
         parameter.config.addSystem(SetColorComponentSystem.class);
         parameter.config.addSystem(ColorTintSystem.class);
         parameter.config.addSystem(HudSystem.class);
         parameter.config.addSystem(ToDestroySystem.class);
         parameter.config.addSystem(AnimationSystem.class);
+        parameter.config.addSystem(ZombieSystem.class);
         scene = manager.loadSceneNow(currentLevel.path, parameter);
     }
 

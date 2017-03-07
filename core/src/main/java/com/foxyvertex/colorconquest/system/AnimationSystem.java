@@ -22,6 +22,13 @@ public class AnimationSystem extends BaseSystem implements AfterSceneInit {
     @Override
     protected void processSystem() {
         for (Entity entity : animatables) {
+            if (entity == null) {
+                animatables.removeValue(entity, true);
+                continue;
+            } else if (entity.getComponent(Animation.class) == null) {
+                animatables.removeValue(entity, true);
+                continue;
+            }
             entity.getComponent(Animation.class).timer += world.getDelta();
 
             if (entity.getComponent(Animation.class).timer >= entity.getComponent(Animation.class).animations.get(entity.getComponent(Animation.class).currentAnimation).getAnimationDuration() && entity.getComponent(Animation.class).onEnd != null && !entity.getComponent(Animation.class).onEnd.equals("")) {
