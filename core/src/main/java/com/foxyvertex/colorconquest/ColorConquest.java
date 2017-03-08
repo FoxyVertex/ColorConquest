@@ -1,5 +1,6 @@
 package com.foxyvertex.colorconquest;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -12,6 +13,7 @@ import com.foxyvertex.colorconquest.screen.GameScreen;
 import com.foxyvertex.colorconquest.screen.SplashScreen;
 import com.foxyvertex.colorconquest.screen.TitleMenu;
 import com.foxyvertex.colorconquest.tools.ConsoleCommandExecutor;
+import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
 import com.strongjoshua.console.Console;
 import com.strongjoshua.console.GUIConsole;
@@ -24,11 +26,13 @@ public class ColorConquest extends Game {
 
 	@Override
 	public void create () {
-        System.out.println(Finals.ANSI_RED +   "########################################");
-        System.out.println(Finals.ANSI_GREEN + "#                                      #");
-        System.out.println(Finals.ANSI_BLUE +  "#            Color Conquest            #");
-        System.out.println(Finals.ANSI_GREEN + "#                                      #");
-        System.out.println(Finals.ANSI_RED +   "########################################" + Finals.ANSI_RESET);
+        System.out.println(Finals.ANSI_RED   + "########################################" + Finals.ANSI_RESET);
+        System.out.println(Finals.ANSI_GREEN + "#                                      #" + Finals.ANSI_RESET);
+        System.out.println(Finals.ANSI_BLUE  + "#            Color Conquest            #" + Finals.ANSI_RESET);
+        System.out.println(Finals.ANSI_GREEN + "#                                      #" + Finals.ANSI_RESET);
+        System.out.println(Finals.ANSI_RED   + "########################################" + Finals.ANSI_RESET);
+
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
         Globals.systemsToDisableOnPause.add(PhysicsSystem.class);
 		Globals.game = this;
@@ -38,6 +42,7 @@ public class ColorConquest extends Game {
 		console = new GUIConsole(Assets.guiSkin);
 		console.setCommandExecutor(new ConsoleCommandExecutor());
 		console.setKeyID(Input.Keys.GRAVE);
+
 		batch = new SpriteBatch();
         if (Finals.SKIP_TO_GAME) {
             new SplashScreen();

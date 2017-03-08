@@ -700,8 +700,8 @@
     {
       "components": [
         {
-          "x": 1.1111821,
-          "y": 1.5388713,
+          "x": 1.6539,
+          "y": 1.8783,
           "scaleX": 0.5,
           "scaleY": 0.5,
           "rotation": 0.0,
@@ -724,7 +724,7 @@
         {
           "asset": {
             "regionName": "idle",
-            "relativePath": "gfx/GreyGuy.atlas",
+            "relativePath": "gfx/animations/GreyGuy/GreyGuy.atlas",
             "@class": "AtlasRegionAsset"
           },
           "@class": "AssetReference"
@@ -733,7 +733,7 @@
           "flipX": false,
           "flipY": false,
           "width": 1.39,
-          "height": 2.55,
+          "height": 2.57,
           "@class": "ProtoVisSprite"
         },
         {
@@ -741,7 +741,7 @@
           "@class": "Layer"
         },
         {
-          "uuid": "a028261f-456f-480f-9737-2d42cab1d69b",
+          "uuid": "d88914e3-1d9e-46f1-8118-149c21a1d915",
           "@class": "VisUUID"
         },
         {
@@ -755,43 +755,43 @@
         {
           "vertices": [
             {
-              "x": 1.1341187,
-              "y": 1.5607486,
+              "x": 1.6539,
+              "y": 1.8783,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.7968159,
-              "y": 1.5602708,
+              "x": 2.3489003,
+              "y": 1.8783,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.8140631,
-              "y": 2.7977514,
+              "x": 2.3489003,
+              "y": 3.1633,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.1328014,
-              "y": 2.7977514,
+              "x": 1.6539,
+              "y": 3.1633,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 1.1328014,
-                "y": 2.7977514
+                "x": 1.6539,
+                "y": 3.1633
               },
               {
-                "x": 1.1341187,
-                "y": 1.5607486
+                "x": 1.6539,
+                "y": 1.8783
               },
               {
-                "x": 1.7968159,
-                "y": 1.5602708
+                "x": 2.3489003,
+                "y": 1.8783
               },
               {
-                "x": 1.8140631,
-                "y": 2.7977514
+                "x": 2.3489003,
+                "y": 3.1633
               }
             ]
           ],
@@ -820,6 +820,12 @@
             {
               "key": "collisionCat",
               "value": "player",
+              "@class-key": "String",
+              "@class-value": "String"
+            },
+            {
+              "key": "animation",
+              "value": "gfx/animations/GreyGuy/GreyGuy.animation",
               "@class-key": "String",
               "@class-value": "String"
             }
@@ -1734,10 +1740,10 @@
     {
       "components": [
         {
-          "x": 14.2751,
-          "y": 1.3726,
-          "scaleX": 0.08,
-          "scaleY": 0.08,
+          "x": 13.180201,
+          "y": 1.7636,
+          "scaleX": 0.125,
+          "scaleY": 0.125,
           "rotation": 0.0,
           "@class": "Transform"
         },
@@ -1757,8 +1763,8 @@
         },
         {
           "asset": {
-            "relativePath": "gfx/zombie.atlas",
             "regionName": "idle",
+            "relativePath": "gfx/animations/Zombie/zombie.atlas",
             "@class": "AtlasRegionAsset"
           },
           "@class": "AssetReference"
@@ -1766,8 +1772,8 @@
         {
           "flipX": false,
           "flipY": false,
-          "width": 10.24,
-          "height": 10.24,
+          "width": 8.06,
+          "height": 9.0,
           "@class": "ProtoVisSprite"
         },
         {
@@ -1775,7 +1781,7 @@
           "@class": "Layer"
         },
         {
-          "uuid": "8bab2e61-c629-428f-8857-8e28aa79ad58",
+          "uuid": "2721e8d9-c503-4d98-9914-c95698e76153",
           "@class": "VisUUID"
         },
         {
@@ -1783,49 +1789,48 @@
           "@class": "Renderable"
         },
         {
-          "id": "zombie",
           "@class": "VisID"
         },
         {
           "vertices": [
             {
-              "x": 14.276283,
-              "y": 1.4672532,
+              "x": 13.180201,
+              "y": 1.7636,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 15.093244,
-              "y": 1.4672532,
+              "x": 14.1877,
+              "y": 1.7636,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 15.094299,
-              "y": 2.1917996,
+              "x": 14.1877,
+              "y": 2.8885999,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 14.2751,
-              "y": 2.1917996,
+              "x": 13.180201,
+              "y": 2.8885999,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 14.2751,
-                "y": 2.1917996
+                "x": 13.180201,
+                "y": 2.8885999
               },
               {
-                "x": 14.276283,
-                "y": 1.4672532
+                "x": 13.180201,
+                "y": 1.7636
               },
               {
-                "x": 15.093244,
-                "y": 1.4672532
+                "x": 14.1877,
+                "y": 1.7636
               },
               {
-                "x": 15.094299,
-                "y": 2.1917996
+                "x": 14.1877,
+                "y": 2.8885999
               }
             ]
           ],
@@ -1856,135 +1861,10 @@
               "value": "zombie",
               "@class-key": "String",
               "@class-value": "String"
-            }
-          ],
-          "@class": "Variables"
-        }
-      ],
-      "@class": "EntityScheme"
-    },
-    {
-      "components": [
-        {
-          "x": 13.5918,
-          "y": 1.5846,
-          "scaleX": 0.08,
-          "scaleY": 0.08,
-          "rotation": 0.0,
-          "@class": "Transform"
-        },
-        {
-          "originX": 0.0,
-          "originY": 0.0,
-          "@class": "Origin"
-        },
-        {
-          "tint": {
-            "r": 1.0,
-            "g": 1.0,
-            "b": 1.0,
-            "a": 1.0
-          },
-          "@class": "Tint"
-        },
-        {
-          "asset": {
-            "regionName": "idle",
-            "relativePath": "gfx/zombie.atlas",
-            "@class": "AtlasRegionAsset"
-          },
-          "@class": "AssetReference"
-        },
-        {
-          "flipX": false,
-          "flipY": false,
-          "width": 8.06,
-          "height": 9.0,
-          "@class": "ProtoVisSprite"
-        },
-        {
-          "layerId": 1,
-          "@class": "Layer"
-        },
-        {
-          "uuid": "d2cea932-7dcb-41f0-bad1-9454c675c0db",
-          "@class": "VisUUID"
-        },
-        {
-          "zIndex": 0,
-          "@class": "Renderable"
-        },
-        {
-          "@class": "VisID"
-        },
-        {
-          "vertices": [
-            {
-              "x": 13.5918,
-              "y": 1.5846,
-              "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 14.2366,
-              "y": 1.5846,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            },
-            {
-              "x": 14.2366,
-              "y": 2.3046,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            },
-            {
-              "x": 13.5918,
-              "y": 2.3046,
-              "@class": "com.badlogic.gdx.math.Vector2"
-            }
-          ],
-          "faces": [
-            [
-              {
-                "x": 13.5918,
-                "y": 2.3046
-              },
-              {
-                "x": 13.5918,
-                "y": 1.5846
-              },
-              {
-                "x": 14.2366,
-                "y": 1.5846
-              },
-              {
-                "x": 14.2366,
-                "y": 2.3046
-              }
-            ]
-          ],
-          "@class": "VisPolygon"
-        },
-        {
-          "bodyType": "DynamicBody",
-          "friction": 1.0,
-          "density": 1.0,
-          "restitution": 0.0,
-          "sensor": false,
-          "gravityScale": 1.0,
-          "linearDamping": 0.0,
-          "angularDamping": 0.0,
-          "bullet": false,
-          "fixedRotation": true,
-          "active": true,
-          "sleepingAllowed": true,
-          "adjustOrigin": true,
-          "maskBits": -1,
-          "categoryBits": 1,
-          "@class": "PhysicsProperties"
-        },
-        {
-          "variables": [
-            {
-              "key": "collisionCat",
-              "value": "zombie",
+              "key": "animation",
+              "value": "gfx/animations/Zombie/zombie.animation",
               "@class-key": "String",
               "@class-value": "String"
             }

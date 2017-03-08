@@ -700,16 +700,16 @@
     {
       "components": [
         {
-          "x": 1.1111821,
-          "y": 1.5388713,
+          "x": 1.2199,
+          "y": 1.0104,
           "scaleX": 0.5,
           "scaleY": 0.5,
           "rotation": 0.0,
           "@class": "Transform"
         },
         {
-          "originX": 0.0,
-          "originY": 0.0,
+          "originX": 0.695,
+          "originY": 1.285,
           "@class": "Origin"
         },
         {
@@ -724,7 +724,7 @@
         {
           "asset": {
             "regionName": "idle",
-            "relativePath": "gfx/GreyGuy.atlas",
+            "relativePath": "gfx/animations/GreyGuy/GreyGuy.atlas",
             "@class": "AtlasRegionAsset"
           },
           "@class": "AssetReference"
@@ -733,7 +733,7 @@
           "flipX": false,
           "flipY": false,
           "width": 1.39,
-          "height": 2.55,
+          "height": 2.57,
           "@class": "ProtoVisSprite"
         },
         {
@@ -741,7 +741,7 @@
           "@class": "Layer"
         },
         {
-          "uuid": "a028261f-456f-480f-9737-2d42cab1d69b",
+          "uuid": "d88914e3-1d9e-46f1-8118-149c21a1d915",
           "@class": "VisUUID"
         },
         {
@@ -755,43 +755,43 @@
         {
           "vertices": [
             {
-              "x": 1.1341187,
-              "y": 1.5607486,
+              "x": 1.5674001,
+              "y": 1.6529002,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.7968159,
-              "y": 1.5602708,
+              "x": 2.2624002,
+              "y": 1.6529002,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.8140631,
-              "y": 2.7977514,
+              "x": 2.2624002,
+              "y": 2.9379,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.1328014,
-              "y": 2.7977514,
+              "x": 1.5674001,
+              "y": 2.9379,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 1.1328014,
-                "y": 2.7977514
+                "x": 1.5674001,
+                "y": 2.9379
               },
               {
-                "x": 1.1341187,
-                "y": 1.5607486
+                "x": 1.5674001,
+                "y": 1.6529002
               },
               {
-                "x": 1.7968159,
-                "y": 1.5602708
+                "x": 2.2624002,
+                "y": 1.6529002
               },
               {
-                "x": 1.8140631,
-                "y": 2.7977514
+                "x": 2.2624002,
+                "y": 2.9379
               }
             ]
           ],
@@ -1757,8 +1757,9 @@
         },
         {
           "asset": {
-            "relativePath": "gfx/zombie/zombie2.png",
-            "@class": "TextureRegionAsset"
+            "regionName": "idle",
+            "relativePath": "gfx/animations/Zombie/zombie.atlas",
+            "@class": "AtlasRegionAsset"
           },
           "@class": "AssetReference"
         },
@@ -1865,10 +1866,10 @@
     {
       "components": [
         {
-          "x": 13.3731,
-          "y": 1.5822,
-          "scaleX": 0.08,
-          "scaleY": 0.08,
+          "x": 14.2311,
+          "y": 1.7853,
+          "scaleX": 0.125,
+          "scaleY": 0.125,
           "rotation": 0.0,
           "@class": "Transform"
         },
@@ -1889,7 +1890,7 @@
         {
           "asset": {
             "regionName": "idle",
-            "relativePath": "gfx/zombie.atlas",
+            "relativePath": "gfx/animations/Zombie/zombie.atlas",
             "@class": "AtlasRegionAsset"
           },
           "@class": "AssetReference"
@@ -1906,7 +1907,7 @@
           "@class": "Layer"
         },
         {
-          "uuid": "a1f5f873-3c9f-43c7-9909-2f1efcef9619",
+          "uuid": "2721e8d9-c503-4d98-9914-c95698e76153",
           "@class": "VisUUID"
         },
         {
@@ -1919,43 +1920,43 @@
         {
           "vertices": [
             {
-              "x": 13.3731,
-              "y": 1.5822,
+              "x": 14.2311,
+              "y": 1.7853,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 14.0179,
-              "y": 1.5822,
+              "x": 15.2386,
+              "y": 1.7853,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 14.0179,
-              "y": 2.3022,
+              "x": 15.2386,
+              "y": 2.9103,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 13.3731,
-              "y": 2.3022,
+              "x": 14.2311,
+              "y": 2.9103,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 13.3731,
-                "y": 2.3022
+                "x": 14.2311,
+                "y": 2.9103
               },
               {
-                "x": 13.3731,
-                "y": 1.5822
+                "x": 14.2311,
+                "y": 1.7853
               },
               {
-                "x": 14.0179,
-                "y": 1.5822
+                "x": 15.2386,
+                "y": 1.7853
               },
               {
-                "x": 14.0179,
-                "y": 2.3022
+                "x": 15.2386,
+                "y": 2.9103
               }
             ]
           ],

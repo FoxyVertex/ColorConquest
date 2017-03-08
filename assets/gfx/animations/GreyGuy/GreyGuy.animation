@@ -1,0 +1,31 @@
+{
+    "class": "animatedObject",
+    "path": "gfx/animations/GreyGuy/GreyGuy.atlas",
+    "animations": [
+        {
+            "class": "animationObject",
+            "name": "idle",
+            "frameCount": 12
+        },
+        {
+            "class": "animationObject",
+            "name": "walk",
+            "frameCount": 15
+        },
+        {
+            "class": "animationObject",
+            "name": "fall",
+            "frameCount": 4
+        },
+        {
+            "class": "animationObject",
+            "name": "jumpstart",
+            "frameCount": 4
+        },
+        {
+            "class": "animationObject",
+            "name": "jumploop",
+            "frameCount": 12
+        }
+    ]
+}

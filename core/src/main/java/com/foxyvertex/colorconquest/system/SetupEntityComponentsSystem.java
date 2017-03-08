@@ -11,6 +11,7 @@ import com.foxyvertex.colorconquest.component.ToDestroy;
 import com.foxyvertex.colorconquest.component.Zombie;
 import com.foxyvertex.colorconquest.exception.NoCategoryBitFoundOnPhysicsEntityException;
 import com.foxyvertex.colorconquest.tools.DeathRunnable;
+import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
 import com.kotcrab.vis.runtime.component.Variables;
 import com.kotcrab.vis.runtime.util.AfterSceneInit;
@@ -72,19 +73,15 @@ public class SetupEntityComponentsSystem extends EntitySystem implements AfterSc
                     e.edit().add(new ToDestroy(1000));
                 }
             }, 20f));
-            if (entity.getComponent(Animation.class) == null) {
-                Animation newAnimComp = new Animation();
-                newAnimComp.path = "gfx/zombie.atlas";
-                newAnimComp.animationType = Animation.AnimType.ATLAS;
-                newAnimComp.loop = true;
-                newAnimComp.animationNames.add("idle");
-                newAnimComp.animationFrameCounts.put("idle", 1f / 2f);
-                newAnimComp.animationNames.add("hit");
-                newAnimComp.animationFrameCounts.put("hit", 1f / 2f);
-                newAnimComp.currentAnimation = "idle";
-                entity.edit().add(newAnimComp);
-                getWorld().getSystem(AnimationSystem.class).addEntity(entity);
-            }
+//            if (entity.getComponent(Animation.class) == null) {
+//                entity.edit().add(Utilities.parseAnimationFile("gfx/animations/Zombie/zombie.animation"));
+//                getWorld().getSystem(AnimationSystem.class).addEntity(entity);
+//            }
+        }
+        if (entity.getComponent(Variables.class).get("animation") != null && entity.getComponent(Animation.class) == null) {
+            String animationPath = entity.getComponent(Variables.class).get("animation");
+            entity.edit().add(Utilities.parseAnimationFile(animationPath));
+            getWorld().getSystem(AnimationSystem.class).addEntity(entity);
         }
         entity.getComponent(PhysicsBody.class).body.getFixtureList().get(0).setFilterData(filter);
     }

@@ -23,6 +23,7 @@ import com.foxyvertex.colorconquest.component.Bullet;
 import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.input.DesktopController;
 import com.foxyvertex.colorconquest.input.MobileController;
+import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.Layer;
 import com.kotcrab.vis.runtime.component.Origin;
 import com.kotcrab.vis.runtime.component.OriginalRotation;
@@ -83,6 +84,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
     private TextureRegion bulletTextureRegion;
 
+
     @Override
     protected void processSystem() {
         if (!isGamePaused) {
@@ -90,11 +92,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 mobileController.handleInput();
             } else {
                 desktopController.handleInput(getWorld().getDelta());
-            }
-
-            if (!animationStarted) {
-                world.getSystem(AnimationSystem.class).addEntity(player);
-                animationStarted = true;
             }
 
             switch (currentColorIndex) {
@@ -165,25 +162,23 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             if (forwardPressed && body.getLinearVelocity().x <= 2 * speedMultiplier) {
                 body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 forwardPressedPrev = true;
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", false, false, true);
+                if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", false, false, true);
                 facingDIRECTION = FacingDIRECTION.RIGHT;
             } else if (!backwardPressed && forwardPressedPrev) {
-                //body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 forwardPressedPrev = false;
             }
 
             if (backwardPressed && body.getLinearVelocity().x >= -2 * speedMultiplier) {
                 body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", true, false, true);
+                if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", true, false, true);
                 facingDIRECTION = FacingDIRECTION.LEFT;
                 backwardPressedPrev = true;
 
             } else if (!backwardPressed && backwardPressedPrev) {
-                //body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
                 backwardPressedPrev = false;
             }
             if (body.getLinearVelocity().y < -0.01) {
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "fall", shouldFlipX, false, true);
+                if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "fall", shouldFlipX, false, true);
             }
 
             switch (facingDIRECTION) {
@@ -196,14 +191,14 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             }
 
             if (!backwardPressed && !forwardPressed && !downPressed && !jumpPressed && (body.getLinearVelocity().y >= -0.001) && (body.getLinearVelocity().y <= 0.001f)) {
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "idle", shouldFlipX, shouldFlipY, true);
+                if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "idle", shouldFlipX, shouldFlipY, true);
             }
 
 
 
             if (currentJumpLength > 0 && canJump && !jumpReleased) {
                 body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()), body.getWorldCenter(), true);
-                world.getSystem(AnimationSystem.class).changeAnimState(player, "jumpstart", shouldFlipX, false, false);
+                if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "jumpstart", shouldFlipX, false, false);
                 inAir = true;
             }
         } else {
@@ -211,6 +206,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             Globals.pauseMenuStage.stage.act();
         }
     }
+
 
     @Override
     public void afterSceneInit() {
@@ -223,22 +219,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         playerComp.colors.add(Color.BLUE);
         player.getComponent(Variables.class).put("collisionCat", "player");
 
-        Animation animComp = new Animation();
-        animComp.path = "gfx/GreyGuy.atlas";
-        animComp.currentAnimation = "idle";
-        animComp.animationType = Animation.AnimType.ATLAS;
-        animComp.loop = true;
-        animComp.animationNames.add("idle");
-        animComp.animationFrameCounts.put("idle", 1f / 12f);
-        animComp.animationNames.add("walk");
-        animComp.animationFrameCounts.put("walk", 1f / 15f);
-        animComp.animationNames.add("fall");
-        animComp.animationFrameCounts.put("fall", 1f / 4f);
-        animComp.animationNames.add("jumpstart");
-        animComp.animationFrameCounts.put("jumpstart", 1f / 4f);
-        animComp.animationNames.add("jumploop");
-        animComp.animationFrameCounts.put("jumploop", 1f / 8f);
-        player.edit().add(animComp);
 
         sprite = spriteCm.get(player);
         transform = transformCm.get(player);
@@ -246,7 +226,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         Filter filter = new Filter();
         filter.categoryBits = Finals.PLAYER_BIT;
         body.getFixtureList().get(0).setFilterData(filter);
-        //body.setLinearDamping(5f);
 
         if (Globals.isMobile) {
             mobileController = new MobileController(this);

@@ -33,9 +33,9 @@ public class ZombieSystem extends EntitySystem implements AfterSceneInit{
             float distanceBetweenThem = position1.dst(position2);
             if (distanceBetweenThem < 5) {
                 if (position1.x > position2.x)
-                    e.getComponent(PhysicsBody.class).body.applyLinearImpulse(new Vector2(-55f * 0.0025f, 0), e.getComponent(PhysicsBody.class).body.getWorldCenter(), true);
+                    e.getComponent(PhysicsBody.class).body.applyLinearImpulse(new Vector2(-55f * 0.0065f, 0), e.getComponent(PhysicsBody.class).body.getWorldCenter(), true);
                 else if (position2.x > position1.x)
-                    e.getComponent(PhysicsBody.class).body.applyLinearImpulse(new Vector2(55f * 0.0025f, 0), e.getComponent(PhysicsBody.class).body.getWorldCenter(), true);
+                    e.getComponent(PhysicsBody.class).body.applyLinearImpulse(new Vector2(55f * 0.0065f, 0), e.getComponent(PhysicsBody.class).body.getWorldCenter(), true);
             }
         }
     }
