@@ -41,7 +41,9 @@ import com.kotcrab.vis.runtime.util.AfterSceneInit;
 /**
  * Created by aidan on 2/12/2017.
  */
-
+/**
+ * The PlayerSystem manages all of the input and movement for the player.
+ */
 public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     VisIDManager idManager;
     ComponentMapper<VisSprite> spriteCm;
@@ -84,7 +86,9 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
     private TextureRegion bulletTextureRegion;
 
-
+    /**
+     * processSystem is called every frame at a max of 60 times per second. It handles all input and movement logic.
+     */
     @Override
     protected void processSystem() {
         if (!isGamePaused) {
@@ -207,12 +211,18 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         }
     }
 
-
+    /**
+     * afterSceneInit is called before the processSystem methods of all of the systems to allow for initiation of the system.
+     */
     @Override
     public void afterSceneInit() {
+        // Get the player entity from the scene
         player = idManager.get("player");
+        // Add the Player component to the player entity
         player.edit().add(new Player());
         playerComp = player.getComponent(Player.class);
+
+        // Configure the Player component
         playerComp.colors = new Array<>();
         playerComp.colors.add(Color.RED);
         playerComp.colors.add(Color.GREEN);
@@ -220,13 +230,17 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         player.getComponent(Variables.class).put("collisionCat", "player");
 
 
+        // Get the sprite, transform, and body components of the player and put them in class variables
         sprite = spriteCm.get(player);
         transform = transformCm.get(player);
         body = bodyCm.get(player).body;
+
+        // Set the player's category bit (might be redundant, not sure atm)
         Filter filter = new Filter();
         filter.categoryBits = Finals.PLAYER_BIT;
         body.getFixtureList().get(0).setFilterData(filter);
 
+        // Setup the input delegates
         if (Globals.isMobile) {
             mobileController = new MobileController(this);
             Globals.gameScreen.drawables.add(mobileController);
@@ -236,13 +250,19 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             Gdx.input.setInputProcessor(desktopController);
         }
 
+        // Create the bullets' texture
         Pixmap pixmap = new Pixmap(20, 20, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
         pixmap.fillCircle(pixmap.getWidth() / 2, pixmap.getHeight() / 2, 20 / 2);
         bulletTextureRegion = new TextureRegion(new Texture(pixmap));
     }
 
+    /**
+     * Fire a color bullet when the input delegate tells me to.
+     * @param clickPoint used in firing mode for more acurate firing
+     */
     public void shoot(Vector2 clickPoint) {
+        // Subtract the correct amount of color from the player's stash
         if (playerComp.selectedColor == Color.RED)
             if (playerComp.red <= 0)
                 return;
@@ -260,14 +280,18 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 playerComp.blue--;
         else
             return;
+
+        // Update the color meter
         updateHud();
 
+        // Create the bullet component
         Bullet bulletComp = new Bullet();
         bulletComp.color = playerComp.selectedColor;
 
         float bulletStartXValue;
         Vector2 impulse;
 
+        // Determine the bullet's start-position's x value and velocity
         if (facingDIRECTION == FacingDIRECTION.LEFT) {
             bulletStartXValue = -0.2f;
             impulse = iInitialBulletImpulse;
@@ -276,10 +300,14 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             impulse = initialBulletImpulse;
         }
 
+        // Create the transform component
         Transform transformComp = new Transform(body.getPosition().x+bulletStartXValue, body.getPosition().y+1f);
+
+        // Set the collisionCat variable for the SetupEntityComponentsSystem to set the category bit
         Variables variables = new Variables();
         variables.put("collisionCat", "bullet");
 
+        // Create the bullet
         Entity thisBullet = world.createEntity().edit()
                 .add(new Renderable(0))
                 .add(new Layer(Globals.gameScreen.scene.getLayerDataByName("Foreground").id))
@@ -289,16 +317,19 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 .add(variables)
                 .getEntity();
 
-
+        // Create a vector from the transform component
         Vector2 worldPos = new Vector2(transformComp.getX(), transformComp.getY());
 
+        // Create a body definition and set it's position
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(worldPos);
 
+        // Create the body from the body definition
         Body body = getWorld().getSystem(PhysicsSystem.class).getPhysicsWorld().createBody(bodyDef);
         body.setType(BodyDef.BodyType.DynamicBody);
         body.setUserData(thisBullet);
 
+        // Configure the body's physics properties
         body.setGravityScale(1f);
         body.setBullet(true);
         body.setFixedRotation(true);
@@ -307,21 +338,25 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         shape.setRadius(0.1f);
         shape.setPosition(new Vector2(0.1f, 0.1f));
 
+        // Apply the initial velocity of the bullet
         body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
 
+        // Create the body's fixture and hitbox
         FixtureDef fd = new FixtureDef();
         fd.shape = shape;
         body.createFixture(fd);
         shape.dispose();
 
-
+        // Create the sprite component
         VisSprite visSpriteComp = new VisSprite(bulletTextureRegion);
         visSpriteComp.setSize(0.2f, 0.2f);
 
+        // Create the origin component
         Origin origin = new Origin();
         origin.setOrigin(0, 0);
         origin.setDirty(true);
 
+        // Add the sprite, body, and fixed rotation to the bullet
         thisBullet.edit()
                 .add(new PhysicsBody(body))
                 .add(new OriginalRotation(transform.getRotation()))
@@ -329,6 +364,9 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 .add(origin);
     }
 
+    /**
+     * Tells the HudSystem to update the hud
+     */
     public void updateHud() {
         getWorld().getSystem(HudSystem.class).updateColorMeter();
     }
