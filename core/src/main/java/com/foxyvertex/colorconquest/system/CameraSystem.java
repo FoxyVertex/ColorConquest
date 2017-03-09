@@ -15,6 +15,9 @@ import com.kotcrab.vis.runtime.util.AfterSceneInit;
  * Created by aidan on 2/13/2017.
  */
 
+/**
+ * The CameraSystem controls camera movement
+ */
 public class CameraSystem extends BaseSystem implements AfterSceneInit {
     CameraManager cameraManager;
     VisIDManager idManager;
@@ -29,6 +32,9 @@ public class CameraSystem extends BaseSystem implements AfterSceneInit {
 
     Vector2 tmpVect;
 
+    /**
+     * processSystem is called every frame at a max of 60 times per second. It manages the movement of the camera.
+     */
     @Override
     protected void processSystem() {
         tmpVect.x = Utilities.clamp(playerTrans.getX(), minX, maxX);
@@ -36,6 +42,9 @@ public class CameraSystem extends BaseSystem implements AfterSceneInit {
         cameraManager.getCamera().position.set(new Vector3(tmpVect.x, tmpVect.y, cameraManager.getCamera().position.z));
     }
 
+    /**
+     * afterSceneInit is called before the processSystem methods of all of the systems to allow for initiation of the system.
+     */
     @Override
     public void afterSceneInit() {
         player = idManager.get("player");

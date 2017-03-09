@@ -11,6 +11,9 @@ import com.kotcrab.vis.runtime.component.Tint;
  * Created by aidan on 2/28/2017.
  */
 
+/**
+ * The ColorTintSystem sets the environment entities' tints based on their ColorComponent
+ */
 public class ColorTintSystem extends EntitySystem {
     /**
      * Creates an entity system that uses the specified aspect as a matcher

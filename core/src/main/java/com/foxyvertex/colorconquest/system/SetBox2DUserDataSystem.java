@@ -13,9 +13,10 @@ import com.kotcrab.vis.runtime.util.AfterSceneInit;
  * Created by aidan on 2/28/2017.
  */
 
-public class SetBox2DUserDataSystem extends BaseEntitySystem implements AfterSceneInit {
-    VisIDManager idManager;
-
+/**
+ * SetBox2DUserDataSystem sets the user data of each box2d body to it's corresponding artemis entity
+ */
+public class SetBox2DUserDataSystem extends BaseEntitySystem {
     /**
      * Creates an entity system that uses the specified aspect as a matcher
      * against entities.
@@ -24,11 +25,18 @@ public class SetBox2DUserDataSystem extends BaseEntitySystem implements AfterSce
         super(Aspect.all(PhysicsBody.class));
     }
 
+    /**
+     * processSystem is called every frame at a max of 60 times per second. It manages the movement of the zombies.
+     */
     @Override
     protected void processSystem() {
 
     }
 
+    /**
+     * inserted gets called every time an entity is created that has a body
+     * @param entities
+     */
     @Override
     public void inserted(IntBag entities) {
         for (int i = 0; i < entities.size(); i++) {
@@ -37,10 +45,5 @@ public class SetBox2DUserDataSystem extends BaseEntitySystem implements AfterSce
                 f.setUserData(getWorld().getEntity(entities.get(i)));
             }
         }
-    }
-
-    @Override
-    public void afterSceneInit() {
-
     }
 }

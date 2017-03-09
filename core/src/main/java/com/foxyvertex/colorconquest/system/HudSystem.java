@@ -17,6 +17,9 @@ import com.kotcrab.vis.runtime.util.AfterSceneInit;
  * Created by aidan on 2/19/2017.
  */
 
+/**
+ * The HudSystem manages the HUD
+ */
 public class HudSystem extends EntitySystem implements AfterSceneInit {
 
     VisIDManager idManager;
@@ -35,6 +38,9 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
 
     }
 
+    /**
+     * afterSceneInit is called before the processSystem methods of all of the systems to allow for initiation of the system.
+     */
     @Override
     public void afterSceneInit() {
         player = idManager.get("player");
@@ -42,6 +48,9 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
         updateColorMeter();
     }
 
+    /**
+     * updateColorMeter gets called when the color meter's data get changed
+     */
     public void updateColorMeter() {
         colorIndicatorDrawer = new Pixmap(85, 255, Pixmap.Format.RGB888);
 
