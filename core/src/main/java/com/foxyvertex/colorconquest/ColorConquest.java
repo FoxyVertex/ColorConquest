@@ -18,12 +18,15 @@ import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
 import com.strongjoshua.console.Console;
 import com.strongjoshua.console.GUIConsole;
 
+/**
+ * ColorConquest is a game all about color
+ */
 public class ColorConquest extends Game {
 	public SpriteBatch batch;
 
-
 	public Console console;
 
+    /** Called when the game is first created. */
 	@Override
 	public void create () {
         System.out.println(Finals.ANSI_RED   + "########################################" + Finals.ANSI_RESET);
@@ -56,6 +59,9 @@ public class ColorConquest extends Game {
         }
 	}
 
+    /**
+     * The render method is called every frame and delegates the task of rendering to Vis
+     */
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -63,11 +69,19 @@ public class ColorConquest extends Game {
 		console.draw();
 	}
 
+    /**
+     * called when the window gets resized
+     * @param width new width
+     * @param height new height
+     */
 	@Override
 	public void resize (int width, int height) {
-
+        super.resize(width, height);
 	}
 
+    /**
+     * Called to clean up the game
+     */
 	@Override
 	public void dispose () {
 		batch.dispose();
@@ -75,6 +89,10 @@ public class ColorConquest extends Game {
 		console.dispose();
 	}
 
+    /**
+     * A simple debug log method meant for more simplistic debuging
+     * @param message
+     */
 	public static void debugLog(String message) {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         Gdx.app.log(stackTraceElements[1].getClassName(), message);

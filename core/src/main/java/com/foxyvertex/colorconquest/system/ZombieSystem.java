@@ -1,22 +1,19 @@
 package com.foxyvertex.colorconquest.system;
 
 import com.artemis.Aspect;
-import com.artemis.BaseEntitySystem;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
-import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.component.Zombie;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
-import com.kotcrab.vis.runtime.util.AfterSceneInit;
 
 /**
  * Created by aidan on 3/6/17.
  */
 
-public class ZombieSystem extends EntitySystem implements AfterSceneInit{
+public class ZombieSystem extends EntitySystem {
     /**
      * Creates an entity system that uses the specified aspect as a matcher
      * against entities.
@@ -25,6 +22,9 @@ public class ZombieSystem extends EntitySystem implements AfterSceneInit{
         super(Aspect.all(Zombie.class));
     }
 
+    /**
+     * processSystem is called every frame at a max of 60 times per second. It manages the movement of the zombies.
+     */
     @Override
     protected void processSystem() {
         for (Entity e : getEntities()) {
@@ -40,12 +40,11 @@ public class ZombieSystem extends EntitySystem implements AfterSceneInit{
         }
     }
 
+    /**
+     * Called when a new zombie is created
+     * @param e the new zombie
+     */
     public void inserted(Entity e) {
         Gdx.app.log(Finals.ANSI_CYAN + "Zombie System" + Finals.ANSI_RESET, "New zombie created.");
-    }
-
-    @Override
-    public void afterSceneInit() {
-
     }
 }

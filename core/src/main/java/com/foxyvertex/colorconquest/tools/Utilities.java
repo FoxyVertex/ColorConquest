@@ -70,6 +70,7 @@ public class Utilities {
             animation.animationFrameCounts.put(animatedObject.animations[i].name, 1f / animatedObject.animations[i].frameCount);
         }
         animation.currentAnimation = animatedObject.animations[0].name;
+        animation.animationType = Animation.AnimType.ATLAS;
 
         return animation;
     }

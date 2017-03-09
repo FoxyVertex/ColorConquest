@@ -16,7 +16,10 @@ import com.kotcrab.vis.runtime.util.AfterSceneInit;
  * Created by aidan on 2/28/2017.
  */
 
-public class SetColorComponentSystem extends BaseEntitySystem implements AfterSceneInit {
+/**
+ * SetColorComponentSystem sets the ColorComponent of all the entities who need it
+ */
+public class SetColorComponentSystem extends BaseEntitySystem {
     VisIDManager idManager;
 
     ComponentMapper<Variables> variablesCm;
@@ -30,11 +33,18 @@ public class SetColorComponentSystem extends BaseEntitySystem implements AfterSc
         super(Aspect.all(Variables.class, Tint.class).exclude(ColorComponent.class));
     }
 
+    /**
+     * processSystem is called every frame at a max of 60 times per second. It manages the movement of the zombies.
+     */
     @Override
     protected void processSystem() {
 
     }
 
+    /**
+     * inserted is called every time an entity is added to the scene
+     * @param entities
+     */
     @Override
     public void inserted(IntBag entities) {
         for (int i = 0; i < entities.size(); i++) {
@@ -46,11 +56,6 @@ public class SetColorComponentSystem extends BaseEntitySystem implements AfterSc
                 }
             }
         }
-
-    }
-
-    @Override
-    public void afterSceneInit() {
 
     }
 }

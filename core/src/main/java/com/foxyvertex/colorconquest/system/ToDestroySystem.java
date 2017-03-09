@@ -11,6 +11,9 @@ import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
  * Created by aidan on 3/4/2017.
  */
 
+/**
+ * ToDestroySystem handles all of the entities with the ToDestroy component and destroys them at the appropriate time
+ */
 public class ToDestroySystem extends EntitySystem {
     /**
      * Creates an entity system that uses the specified aspect as a matcher
@@ -20,6 +23,9 @@ public class ToDestroySystem extends EntitySystem {
         super(Aspect.all(ToDestroy.class));
     }
 
+    /**
+     * processSystem is called every frame at a max of 60 times per second. It manages the obliteration of entities.
+     */
     @Override
     protected void processSystem() {
         for (Entity e : getEntities()) {

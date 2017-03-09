@@ -14,13 +14,15 @@ import com.foxyvertex.colorconquest.tools.DeathRunnable;
 import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
 import com.kotcrab.vis.runtime.component.Variables;
-import com.kotcrab.vis.runtime.util.AfterSceneInit;
 
 /**
  * Created by aidan on 2/16/2017.
  */
 
-public class SetupEntityComponentsSystem extends EntitySystem implements AfterSceneInit {
+/**
+ * SetupEntityComponentsSystem sets up entities created in the editor and in code based on their Variables component
+ */
+public class SetupEntityComponentsSystem extends EntitySystem {
     /**
      * Creates an entity system that uses the specified aspect as a matcher
      * against entities.
@@ -29,6 +31,9 @@ public class SetupEntityComponentsSystem extends EntitySystem implements AfterSc
         super(Aspect.all(PhysicsBody.class));
     }
 
+    /**
+     * processSystem is called every frame at a max of 60 times per second. It handles the stuff and things. #AwesomeJavaDoc
+     */
     @Override
     protected void processSystem() {
         for (Entity entity : getEntities()) {
@@ -40,11 +45,11 @@ public class SetupEntityComponentsSystem extends EntitySystem implements AfterSc
         }
     }
 
-    @Override
-    public void afterSceneInit() {
-
-    }
-
+    /**
+     * Configures the entity based on Variables component
+     * @param entity
+     * @throws NoCategoryBitFoundOnPhysicsEntityException
+     */
     private void createCategoryBit(Entity entity) throws NoCategoryBitFoundOnPhysicsEntityException {
         if (entity.getComponent(Variables.class) == null) {
             throw new NoCategoryBitFoundOnPhysicsEntityException(entity);
@@ -73,10 +78,6 @@ public class SetupEntityComponentsSystem extends EntitySystem implements AfterSc
                     e.edit().add(new ToDestroy(1000));
                 }
             }, 20f));
-//            if (entity.getComponent(Animation.class) == null) {
-//                entity.edit().add(Utilities.parseAnimationFile("gfx/animations/Zombie/zombie.animation"));
-//                getWorld().getSystem(AnimationSystem.class).addEntity(entity);
-//            }
         }
         if (entity.getComponent(Variables.class).get("animation") != null && entity.getComponent(Animation.class) == null) {
             String animationPath = entity.getComponent(Variables.class).get("animation");
