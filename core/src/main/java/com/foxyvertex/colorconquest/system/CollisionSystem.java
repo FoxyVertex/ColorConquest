@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
+import com.foxyvertex.colorconquest.ColorEffects;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Bullet;
@@ -78,18 +79,14 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                 Player playerComp = getWorld().getSystem(PlayerSystem.class).player.getComponent(Player.class);
                 if (blockColor != null) {
                     if (blockColor.r == 1 && blockColor.g == 1 && blockColor.b == 1) {
-                        playerComp.runSpeed = playerComp.minRunSpeed;
-                        playerComp.jumpForce = playerComp.minJumpForce;
+                        ColorEffects.WHITE.go(player1, block1);
                     } else if (blockColor.r == 1 && blockColor.g == 0 && blockColor.b == 0) {
-                        playerComp.runSpeed = playerComp.maxRunSpeed;
+                        ColorEffects.RED.go(player1, block1);
                     } else if (blockColor.r == 0 && blockColor.g == 1 && blockColor.b == 0) {
-                        playerComp.jumpForce = playerComp.maxJumpForce;
+                        ColorEffects.GREEN.go(player1, block1);
                     } else if (blockColor.r == 0 && blockColor.g == 0 && blockColor.b == 1) {
-                        block1F.setRestitution(0.5f);
+                        ColorEffects.BLUE.go(player1, block1);
                     }
-                } else {
-                    playerComp.runSpeed = playerComp.minRunSpeed;
-                    playerComp.jumpForce = playerComp.minJumpForce;
                 }
                 break;
 
@@ -186,21 +183,18 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                     block1F = fixtureB;
                 }
                 Color blockColor = null;
-                if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(Tint.class).getTint().r, block1.getComponent(Tint.class).getTint().g, block1.getComponent(Tint.class).getTint().b, 1f);
+                if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(ColorComponent.class).r, block1.getComponent(ColorComponent.class).g, block1.getComponent(ColorComponent.class).b, 1f);
                 Player playerComp = getWorld().getSystem(PlayerSystem.class).player.getComponent(Player.class);
                 if (blockColor != null) {
                     if (blockColor.r == 1 && blockColor.g == 1 && blockColor.b == 1) {
-
+                        ColorEffects.WHITE.og(player1, block1);
                     } else if (blockColor.r == 1 && blockColor.g == 0 && blockColor.b == 0) {
-                        playerComp.runSpeed = playerComp.minRunSpeed;
+                        ColorEffects.RED.og(player1, block1);
                     } else if (blockColor.r == 0 && blockColor.g == 1 && blockColor.b == 0) {
-                        playerComp.jumpForce = playerComp.minJumpForce;
+                        ColorEffects.GREEN.og(player1, block1);
                     } else if (blockColor.r == 0 && blockColor.g == 0 && blockColor.b == 1) {
-                        block1F.setRestitution(0.5f);
+                        ColorEffects.BLUE.og(player1, block1);
                     }
-                } else {
-                    playerComp.runSpeed = playerComp.minRunSpeed;
-                    playerComp.jumpForce = playerComp.minJumpForce;
                 }
                 break;
 

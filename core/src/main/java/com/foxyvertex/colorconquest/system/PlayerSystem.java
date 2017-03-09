@@ -58,10 +58,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     private boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev, firingModePressedPrev;
     private float currentJumpLength = 0;
     private boolean canJump = true;
-    private boolean inAir = false;
     private boolean jumpReleased = false;
-
-    private boolean animationStarted = false;
 
     private float forceScale = 0.01f;
     private Vector2 initialBulletImpulse = new Vector2(4, 2);
@@ -92,6 +89,10 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     @Override
     protected void processSystem() {
         if (!isGamePaused) {
+            float desiredXVel = 0f;
+            float xVel = body.getLinearVelocity().x;
+            float yVel = body.getLinearVelocity().y;
+
             if (Globals.isMobile) {
                 mobileController.handleInput();
             } else {
@@ -118,13 +119,13 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             if (debugNextLevelPressed) {
                 Globals.gameScreen.nextLevel();
             }
-            if (debugSuperAbilityPressed) {
-                playerComp.runSpeed = playerComp.maxRunSpeed;
-                playerComp.jumpForce = playerComp.maxJumpForce;
+            if (debugSuperAbilityPressed && !debugSuperAbilityPressedPrev) {
+                playerComp.runSpeed *= 2;
+                playerComp.jumpForce *= 2;
                 debugSuperAbilityPressedPrev = true;
-            } else if (debugSuperAbilityPressedPrev) {
-                playerComp.runSpeed = playerComp.minRunSpeed;
-                playerComp.jumpForce = playerComp.minJumpForce;
+            } else if (debugSuperAbilityPressedPrev && !debugSuperAbilityPressed) {
+                playerComp.runSpeed /= 2;
+                playerComp.jumpForce /= 2;
                 debugSuperAbilityPressedPrev = false;
             }
 
@@ -164,7 +165,8 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 body.applyLinearImpulse(new Vector2(0, -10f), body.getWorldCenter(), true);
 
             if (forwardPressed && body.getLinearVelocity().x <= 2 * speedMultiplier) {
-                body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                //body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                desiredXVel = playerComp.runSpeed;
                 forwardPressedPrev = true;
                 if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", false, false, true);
                 facingDIRECTION = FacingDIRECTION.RIGHT;
@@ -173,7 +175,8 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             }
 
             if (backwardPressed && body.getLinearVelocity().x >= -2 * speedMultiplier) {
-                body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                //body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+                desiredXVel = -playerComp.runSpeed;
                 if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", true, false, true);
                 facingDIRECTION = FacingDIRECTION.LEFT;
                 backwardPressedPrev = true;
@@ -203,8 +206,11 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             if (currentJumpLength > 0 && canJump && !jumpReleased) {
                 body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()), body.getWorldCenter(), true);
                 if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "jumpstart", shouldFlipX, false, false);
-                inAir = true;
             }
+
+            float velChange = desiredXVel - xVel;
+            float impulse = body.getMass() * velChange;
+            body.applyForce(impulse, 0, body.getWorldCenter().x, body.getWorldCenter().y, true);
         } else {
             Gdx.input.setInputProcessor(Globals.pauseMenuStage.stage);
             Globals.pauseMenuStage.stage.act();

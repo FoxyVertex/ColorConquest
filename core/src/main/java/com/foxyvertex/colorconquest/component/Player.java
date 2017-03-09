@@ -10,16 +10,10 @@ import com.kotcrab.vis.runtime.util.autotable.ATProperty;
  */
 
 public class Player extends Component {
-    @ATProperty(fieldName="Max Jump Force")
-    public float maxJumpForce = 300f;
-    @ATProperty(fieldName="Min Jump Force")
-    public float minJumpForce = 55f;
-    public float jumpForce = minJumpForce;
-    @ATProperty(fieldName="Max Run Speed")
-    public float maxRunSpeed = 800f;
-    @ATProperty(fieldName="Min Run Speed")
-    public float minRunSpeed = 55f;
-    public float runSpeed = minRunSpeed;
+    public float normalJumpForce = 44f;
+    public float jumpForce = normalJumpForce;
+    public float normalRunSpeed = 66f;
+    public float runSpeed = normalRunSpeed;
     public boolean isFiring = false;
 
     public Color selectedColor = Color.RED;
@@ -29,13 +23,4 @@ public class Player extends Component {
     public int green = 255;
     public int blue = 255;
     public int score = 0;
-
-    public Player(float maxJumpForce, float minJumpForce, float maxRunSpeed, float minRunSpeed) {
-        this.maxJumpForce = maxJumpForce;
-        this.minJumpForce = minJumpForce;
-        this.maxRunSpeed = maxRunSpeed;
-        this.minRunSpeed = minRunSpeed;
-    }
-
-    public Player(){}
 }

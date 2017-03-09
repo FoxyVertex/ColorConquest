@@ -42,6 +42,7 @@ public class ColorConquest extends Game {
         UserPrefs.load();
         Levels.load();
         Assets.load();
+        ColorEffects.load();
 		console = new GUIConsole(Assets.guiSkin);
 		console.setCommandExecutor(new ConsoleCommandExecutor());
 		console.setKeyID(Input.Keys.GRAVE);
