@@ -41,7 +41,7 @@
     {
       "name": "Points",
       "id": 2,
-      "locked": true,
+      "locked": false,
       "visible": true,
       "cordsSystem": "SCREEN",
       "@class": "EditorLayer"
@@ -55,14 +55,14 @@
       "@class": "EditorLayer"
     }
   ],
-  "activeLayerId": 1,
+  "activeLayerId": 2,
   "groupIds": [],
   "schemes": [
     {
       "components": [
         {
           "x": 0.0,
-          "y": 4.5,
+          "y": 4.4588,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
@@ -103,6 +103,80 @@
             }
           ],
           "@class": "ExporterDropsComponent"
+        },
+        {
+          "vertices": [
+            {
+              "x": -0.20858133,
+              "y": 0.32927522,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 0.011000037,
+              "y": 0.042131245,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": -0.05656004,
+              "y": 11.392657,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": -0.1916902,
+              "y": 10.294766,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            }
+          ],
+          "faces": [
+            [
+              {
+                "x": -0.1916902,
+                "y": 10.294766
+              },
+              {
+                "x": -0.20858133,
+                "y": 0.32927522
+              },
+              {
+                "x": 0.011000037,
+                "y": 0.042131245
+              },
+              {
+                "x": -0.05656004,
+                "y": 11.392657
+              }
+            ]
+          ],
+          "@class": "VisPolygon"
+        },
+        {
+          "bodyType": "StaticBody",
+          "friction": 1.0,
+          "density": 1.0,
+          "restitution": 0.0,
+          "sensor": false,
+          "gravityScale": 1.0,
+          "linearDamping": 0.0,
+          "angularDamping": 0.0,
+          "bullet": false,
+          "fixedRotation": false,
+          "active": true,
+          "sleepingAllowed": true,
+          "adjustOrigin": true,
+          "maskBits": -1,
+          "categoryBits": 1,
+          "@class": "PhysicsProperties"
+        },
+        {
+          "variables": [
+            {
+              "key": "collisionCat",
+              "value": "levelBounds",
+              "@class-key": "String",
+              "@class-value": "String"
+            }
+          ],
+          "@class": "Variables"
         }
       ],
       "@class": "EntityScheme"
@@ -152,6 +226,80 @@
             }
           ],
           "@class": "ExporterDropsComponent"
+        },
+        {
+          "vertices": [
+            {
+              "x": 28.287495,
+              "y": -0.02137804,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 28.390306,
+              "y": -0.07278204,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 28.368093,
+              "y": 11.787057,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 28.287495,
+              "y": 11.801628,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            }
+          ],
+          "faces": [
+            [
+              {
+                "x": 28.287495,
+                "y": 11.801628
+              },
+              {
+                "x": 28.287495,
+                "y": -0.02137804
+              },
+              {
+                "x": 28.390306,
+                "y": -0.07278204
+              },
+              {
+                "x": 28.368093,
+                "y": 11.787057
+              }
+            ]
+          ],
+          "@class": "VisPolygon"
+        },
+        {
+          "bodyType": "StaticBody",
+          "friction": 1.0,
+          "density": 1.0,
+          "restitution": 0.0,
+          "sensor": false,
+          "gravityScale": 1.0,
+          "linearDamping": 0.0,
+          "angularDamping": 0.0,
+          "bullet": false,
+          "fixedRotation": false,
+          "active": true,
+          "sleepingAllowed": true,
+          "adjustOrigin": true,
+          "maskBits": -1,
+          "categoryBits": 1,
+          "@class": "PhysicsProperties"
+        },
+        {
+          "variables": [
+            {
+              "key": "collisionCat",
+              "value": "levelBounds",
+              "@class-key": "String",
+              "@class-value": "String"
+            }
+          ],
+          "@class": "Variables"
         }
       ],
       "@class": "EntityScheme"
@@ -201,6 +349,80 @@
             }
           ],
           "@class": "ExporterDropsComponent"
+        },
+        {
+          "vertices": [
+            {
+              "x": 0.32349968,
+              "y": 10.824948,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 27.927643,
+              "y": 10.876353,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": 28.647306,
+              "y": 10.310906,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            },
+            {
+              "x": -0.24195004,
+              "y": 10.310906,
+              "@class": "com.badlogic.gdx.math.Vector2"
+            }
+          ],
+          "faces": [
+            [
+              {
+                "x": 0.32349968,
+                "y": 10.824948
+              },
+              {
+                "x": -0.24195004,
+                "y": 10.310906
+              },
+              {
+                "x": 28.647306,
+                "y": 10.310906
+              },
+              {
+                "x": 27.927643,
+                "y": 10.876353
+              }
+            ]
+          ],
+          "@class": "VisPolygon"
+        },
+        {
+          "bodyType": "StaticBody",
+          "friction": 1.0,
+          "density": 1.0,
+          "restitution": 0.0,
+          "sensor": false,
+          "gravityScale": 1.0,
+          "linearDamping": 0.0,
+          "angularDamping": 0.0,
+          "bullet": false,
+          "fixedRotation": false,
+          "active": true,
+          "sleepingAllowed": true,
+          "adjustOrigin": true,
+          "maskBits": -1,
+          "categoryBits": 1,
+          "@class": "PhysicsProperties"
+        },
+        {
+          "variables": [
+            {
+              "key": "collisionCat",
+              "value": "levelBounds",
+              "@class-key": "String",
+              "@class-value": "String"
+            }
+          ],
+          "@class": "Variables"
         }
       ],
       "@class": "EntityScheme"
@@ -272,8 +494,8 @@
         {
           "tint": {
             "r": 1.0,
-            "g": 1.0,
-            "b": 1.0,
+            "g": 0.0,
+            "b": 0.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -409,8 +631,8 @@
         {
           "tint": {
             "r": 1.0,
-            "g": 1.0,
-            "b": 1.0,
+            "g": 0.0,
+            "b": 0.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -877,9 +1099,9 @@
         },
         {
           "tint": {
-            "r": 1.0,
+            "r": 0.0,
             "g": 1.0,
-            "b": 1.0,
+            "b": 0.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -1000,8 +1222,8 @@
     {
       "components": [
         {
-          "x": 7.0805,
-          "y": 0.0,
+          "x": 7.07384,
+          "y": -0.006660223,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,
@@ -1015,8 +1237,8 @@
         {
           "tint": {
             "r": 1.0,
-            "g": 1.0,
-            "b": 1.0,
+            "g": 0.0,
+            "b": 0.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -1054,43 +1276,43 @@
         {
           "vertices": [
             {
-              "x": 7.0805,
-              "y": 0.0,
+              "x": 7.07384,
+              "y": -0.006660223,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 10.6105,
-              "y": 0.0,
+              "x": 10.60384,
+              "y": -0.006660223,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 10.6105,
-              "y": 1.4300001,
+              "x": 10.60384,
+              "y": 1.4233398,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 7.0805,
-              "y": 1.4300001,
+              "x": 7.07384,
+              "y": 1.4233398,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 7.0805,
-                "y": 1.4300001
+                "x": 7.07384,
+                "y": 1.4233398
               },
               {
-                "x": 7.0805,
-                "y": 0.0
+                "x": 7.07384,
+                "y": -0.006660223
               },
               {
-                "x": 10.6105,
-                "y": 0.0
+                "x": 10.60384,
+                "y": -0.006660223
               },
               {
-                "x": 10.6105,
-                "y": 1.4300001
+                "x": 10.60384,
+                "y": 1.4233398
               }
             ]
           ],

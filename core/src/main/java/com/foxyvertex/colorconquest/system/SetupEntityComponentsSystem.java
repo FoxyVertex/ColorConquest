@@ -78,6 +78,8 @@ public class SetupEntityComponentsSystem extends EntitySystem {
                     e.edit().add(new ToDestroy(1000));
                 }
             }, 20f));
+        } else if (collisionCat.equals("levelBounds")) {
+            filter.categoryBits = Finals.BLOCK_BIT;
         }
         if (entity.getComponent(Variables.class).get("animation") != null && entity.getComponent(Animation.class) == null) {
             String animationPath = entity.getComponent(Variables.class).get("animation");
