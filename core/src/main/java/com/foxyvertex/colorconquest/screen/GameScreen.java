@@ -24,6 +24,7 @@ import com.foxyvertex.colorconquest.system.CollisionSystem;
 import com.foxyvertex.colorconquest.system.ZombieSystem;
 import com.kotcrab.vis.runtime.scene.Scene;
 import com.kotcrab.vis.runtime.scene.SceneConfig;
+import com.kotcrab.vis.runtime.scene.SceneFeature;
 import com.kotcrab.vis.runtime.scene.SceneLoader;
 import com.kotcrab.vis.runtime.scene.VisAssetManager;
 import com.kotcrab.vis.runtime.system.physics.Box2dDebugRenderSystem;
@@ -60,7 +61,6 @@ public class GameScreen implements Screen {
         if (!isStopped) {
             currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
             initLevel();
-            //com.kotcrab.vis.runtime.system.render.SpriteRenderSystem
         }
     }
 
@@ -106,12 +106,12 @@ public class GameScreen implements Screen {
         parameter.config.addSystem(PlayerSystem.class);
         parameter.config.addSystem(CameraSystem.class);
         parameter.config.addSystem(CollisionSystem.class);
-        if (Finals.ENABLE_BOX2D_DEBUG_RENDERER) parameter.config.addSystem(Box2dDebugRenderSystem.class);
+        if (Finals.ENABLE_BOX2D_DEBUG_RENDERER) parameter.config.enable(SceneFeature.BOX2D_DEBUG_RENDER_SYSTEM);
         parameter.config.addSystem(SetupEntityComponentsSystem.class);
         parameter.config.addSystem(SetBox2DUserDataSystem.class);
         parameter.config.addSystem(SetColorComponentSystem.class);
         parameter.config.addSystem(ColorTintSystem.class);
-        parameter.config.addSystem(HudSystem.class, SceneConfig.Priority.NORMAL);
+        parameter.config.addSystem(HudSystem.class);
         parameter.config.addSystem(ToDestroySystem.class);
         parameter.config.addSystem(AnimationSystem.class);
         parameter.config.addSystem(ZombieSystem.class);

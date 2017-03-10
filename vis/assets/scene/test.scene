@@ -272,8 +272,8 @@
         {
           "tint": {
             "r": 1.0,
-            "g": 0.0,
-            "b": 0.015686275,
+            "g": 1.0,
+            "b": 1.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -378,6 +378,12 @@
               "value": "environment",
               "@class-key": "String",
               "@class-value": "String"
+            },
+            {
+              "key": "effect",
+              "value": "{    \"color\": {        \"r\": 1.0,        \"g\": 0.0,        \"b\": 0.0,        \"a\": 1.0    }}",
+              "@class-key": "String",
+              "@class-value": "String"
             }
           ],
           "@class": "Variables"
@@ -388,7 +394,7 @@
     {
       "components": [
         {
-          "x": 3.5312,
+          "x": 3.5401,
           "y": 0.0,
           "scaleX": 1.0,
           "scaleY": 1.0,
@@ -403,8 +409,8 @@
         {
           "tint": {
             "r": 1.0,
-            "g": 0.0,
-            "b": 0.015686275,
+            "g": 1.0,
+            "b": 1.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -442,22 +448,22 @@
         {
           "vertices": [
             {
-              "x": 3.5312,
+              "x": 3.5401,
               "y": 0.0,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 7.0612,
+              "x": 7.0701003,
               "y": 0.0,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 7.0612,
+              "x": 7.0701003,
               "y": 1.43,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 3.5312,
+              "x": 3.5401,
               "y": 1.43,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
@@ -465,19 +471,19 @@
           "faces": [
             [
               {
-                "x": 3.5312,
+                "x": 3.5401,
                 "y": 1.43
               },
               {
-                "x": 3.5312,
+                "x": 3.5401,
                 "y": 0.0
               },
               {
-                "x": 7.0612,
+                "x": 7.0701003,
                 "y": 0.0
               },
               {
-                "x": 7.0612,
+                "x": 7.0701003,
                 "y": 1.43
               }
             ]
@@ -507,6 +513,12 @@
             {
               "key": "collisionCat",
               "value": "environment",
+              "@class-key": "String",
+              "@class-value": "String"
+            },
+            {
+              "key": "effect",
+              "value": "{    \"color\": {        \"r\": 1.0,        \"g\": 0.0,        \"b\": 0.0,        \"a\": 1.0    }}",
               "@class-key": "String",
               "@class-value": "String"
             }
@@ -865,9 +877,9 @@
         },
         {
           "tint": {
-            "r": 0.0,
+            "r": 1.0,
             "g": 1.0,
-            "b": 0.0,
+            "b": 1.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -972,6 +984,12 @@
               "value": "environment",
               "@class-key": "String",
               "@class-value": "String"
+            },
+            {
+              "key": "effect",
+              "value": "{    \"color\": {        \"r\": 0.0,        \"g\": 1.0,        \"b\": 0.0,        \"a\": 1.0    }}",
+              "@class-key": "String",
+              "@class-value": "String"
             }
           ],
           "@class": "Variables"
@@ -982,7 +1000,7 @@
     {
       "components": [
         {
-          "x": 7.0589,
+          "x": 7.0805,
           "y": 0.0,
           "scaleX": 1.0,
           "scaleY": 1.0,
@@ -997,8 +1015,8 @@
         {
           "tint": {
             "r": 1.0,
-            "g": 0.0,
-            "b": 0.0,
+            "g": 1.0,
+            "b": 1.0,
             "a": 1.0
           },
           "@class": "Tint"
@@ -1036,43 +1054,43 @@
         {
           "vertices": [
             {
-              "x": 7.0589,
+              "x": 7.0805,
               "y": 0.0,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 10.5889,
+              "x": 10.6105,
               "y": 0.0,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 10.5889,
-              "y": 1.43,
+              "x": 10.6105,
+              "y": 1.4300001,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 7.0589,
-              "y": 1.43,
+              "x": 7.0805,
+              "y": 1.4300001,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 7.0589,
-                "y": 1.43
+                "x": 7.0805,
+                "y": 1.4300001
               },
               {
-                "x": 7.0589,
+                "x": 7.0805,
                 "y": 0.0
               },
               {
-                "x": 10.5889,
+                "x": 10.6105,
                 "y": 0.0
               },
               {
-                "x": 10.5889,
-                "y": 1.43
+                "x": 10.6105,
+                "y": 1.4300001
               }
             ]
           ],
@@ -1101,6 +1119,12 @@
             {
               "key": "collisionCat",
               "value": "environment",
+              "@class-key": "String",
+              "@class-value": "String"
+            },
+            {
+              "key": "effect",
+              "value": "{    \"color\": {        \"r\": 1.0,        \"g\": 0.0,        \"b\": 0.0,        \"a\": 1.0    }}",
               "@class-key": "String",
               "@class-value": "String"
             }
@@ -1902,8 +1926,8 @@
     {
       "components": [
         {
-          "x": 8.823145,
-          "y": 7.22564,
+          "x": 6.983923,
+          "y": 6.446675,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,

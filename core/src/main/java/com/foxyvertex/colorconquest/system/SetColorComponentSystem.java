@@ -6,11 +6,16 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.graphics.Color;
+import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.ColorComponent;
 import com.kotcrab.vis.runtime.component.Tint;
 import com.kotcrab.vis.runtime.component.Variables;
 import com.kotcrab.vis.runtime.system.VisIDManager;
 import com.kotcrab.vis.runtime.util.AfterSceneInit;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Created by aidan on 2/28/2017.
@@ -23,14 +28,13 @@ public class SetColorComponentSystem extends BaseEntitySystem {
     VisIDManager idManager;
 
     ComponentMapper<Variables> variablesCm;
-    ComponentMapper<Tint> tintCm;
 
     /**
      * Creates an entity system that uses the specified aspect as a matcher
      * against entities.
      */
     public SetColorComponentSystem() {
-        super(Aspect.all(Variables.class, Tint.class).exclude(ColorComponent.class));
+        super(Aspect.all(Variables.class).exclude(ColorComponent.class));
     }
 
     /**
@@ -50,9 +54,20 @@ public class SetColorComponentSystem extends BaseEntitySystem {
         for (int i = 0; i < entities.size(); i++) {
             Entity e = getWorld().getEntity(entities.get(i));
             if (variablesCm.get(e) != null) {
-                Color tint = tintCm.get(e).getTint();
-                if (variablesCm.get(e).get("color") == null) {
-                    e.edit().add(new ColorComponent(tint));
+                if (variablesCm.get(e).get("effect") != null) {
+                    JSONParser parser = new JSONParser();
+                    String json = variablesCm.get(e).get("effect");
+                    try {
+                        JSONObject obj = (JSONObject)parser.parse(json);
+                        JSONObject colorObj = (JSONObject) obj.get("color");
+                        float colorR = (float)((double) colorObj.get("r"));
+                        float colorG = (float)((double) colorObj.get("g"));
+                        float colorB = (float)((double) colorObj.get("b"));
+                        float colorA = (float)((double) colorObj.get("a"));
+                        e.edit().add(new ColorComponent(new Color(colorR, colorG, colorB, colorA)));
+                    } catch (ParseException pe) {
+                        pe.printStackTrace();
+                    }
                 }
             }
         }
