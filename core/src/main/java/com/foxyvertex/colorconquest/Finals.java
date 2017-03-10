@@ -23,7 +23,7 @@ public class Finals {
 
     //DEBUG FEATURES
     public static final boolean SKIP_TO_GAME = true;
-    public static final boolean ENABLE_BOX2D_DEBUG_RENDERER = true;
+    public static final boolean ENABLE_BOX2D_DEBUG_RENDERER = false;
 
 
     public static final String ANSI_RESET = "\u001B[0m";

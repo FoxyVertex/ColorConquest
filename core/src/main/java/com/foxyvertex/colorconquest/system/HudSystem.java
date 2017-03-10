@@ -29,6 +29,8 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
     Entity player;
     Entity colorMeter;
 
+    boolean notStarted = true;
+
     public HudSystem() {
         super(Aspect.all(Hud.class));
     }
@@ -45,45 +47,49 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
     public void afterSceneInit() {
         player = idManager.get("player");
         colorMeter = idManager.get("colorMeter");
-        updateColorMeter();
+        if (notStarted) updateColorMeter();
     }
 
     /**
      * updateColorMeter gets called when the color meter's data get changed
      */
     public void updateColorMeter() {
-        colorIndicatorDrawer = new Pixmap(85, 255, Pixmap.Format.RGB888);
+        if (player.getComponent(Player.class) != null) {
+            colorIndicatorDrawer = new Pixmap(85, 255, Pixmap.Format.RGB888);
 
-        colorIndicatorDrawer.setColor(Color.BLACK);
-        colorIndicatorDrawer.drawRectangle(0, 0, colorIndicatorDrawer.getWidth(), colorIndicatorDrawer.getHeight());
+            colorIndicatorDrawer.setColor(Color.BLACK);
+            colorIndicatorDrawer.drawRectangle(0, 0, colorIndicatorDrawer.getWidth(), colorIndicatorDrawer.getHeight());
 
-        colorIndicatorDrawer.setColor(Color.RED);
-        colorIndicatorDrawer.fillRectangle(0, colorIndicatorDrawer.getHeight() - player.getComponent(Player.class).red, colorIndicatorDrawer.getWidth() / 3, player.getComponent(Player.class).red);
+            colorIndicatorDrawer.setColor(Color.RED);
+            colorIndicatorDrawer.fillRectangle(0, colorIndicatorDrawer.getHeight() - player.getComponent(Player.class).red, colorIndicatorDrawer.getWidth() / 3, player.getComponent(Player.class).red);
 
-        colorIndicatorDrawer.setColor(Color.GREEN);
-        colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3, colorIndicatorDrawer.getHeight() - player.getComponent(Player.class).green, colorIndicatorDrawer.getWidth() / 3, player.getComponent(Player.class).green);
+            colorIndicatorDrawer.setColor(Color.GREEN);
+            colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3, colorIndicatorDrawer.getHeight() - player.getComponent(Player.class).green, colorIndicatorDrawer.getWidth() / 3, player.getComponent(Player.class).green);
 
-        colorIndicatorDrawer.setColor(Color.BLUE);
-        colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3 * 2, colorIndicatorDrawer.getHeight() - player.getComponent(Player.class).blue, colorIndicatorDrawer.getWidth() / 3, player.getComponent(Player.class).blue);
+            colorIndicatorDrawer.setColor(Color.BLUE);
+            colorIndicatorDrawer.fillRectangle(colorIndicatorDrawer.getWidth() / 3 * 2, colorIndicatorDrawer.getHeight() - player.getComponent(Player.class).blue, colorIndicatorDrawer.getWidth() / 3, player.getComponent(Player.class).blue);
 
-        colorIndicatorDrawer.setColor(Color.WHITE);
-        int xLoc = 0;
-        switch (getWorld().getSystem(PlayerSystem.class).currentColorIndex) {
-            case (0):
-                colorIndicatorDrawer.drawRectangle(0, 0, colorIndicatorDrawer.getWidth() / 3, colorIndicatorDrawer.getHeight());
-                xLoc = 0;
-                break;
-            case (1):
-                colorIndicatorDrawer.drawRectangle((colorIndicatorDrawer.getWidth() / 3), 0, (colorIndicatorDrawer.getWidth() / 3), colorIndicatorDrawer.getHeight());
-                xLoc = colorIndicatorDrawer.getWidth() / 3;
-                break;
-            case (2):
-                colorIndicatorDrawer.drawRectangle((colorIndicatorDrawer.getWidth() / 3) * 2, 0, (colorIndicatorDrawer.getWidth() / 3), colorIndicatorDrawer.getHeight());
-                xLoc = colorIndicatorDrawer.getWidth() / 3 * 2;
-                break;
+            colorIndicatorDrawer.setColor(Color.WHITE);
+            int xLoc = 0;
+            switch (getWorld().getSystem(PlayerSystem.class).currentColorIndex) {
+                case (0):
+                    colorIndicatorDrawer.drawRectangle(0, 0, colorIndicatorDrawer.getWidth() / 3, colorIndicatorDrawer.getHeight());
+                    xLoc = 0;
+                    break;
+                case (1):
+                    colorIndicatorDrawer.drawRectangle((colorIndicatorDrawer.getWidth() / 3), 0, (colorIndicatorDrawer.getWidth() / 3), colorIndicatorDrawer.getHeight());
+                    xLoc = colorIndicatorDrawer.getWidth() / 3;
+                    break;
+                case (2):
+                    colorIndicatorDrawer.drawRectangle((colorIndicatorDrawer.getWidth() / 3) * 2, 0, (colorIndicatorDrawer.getWidth() / 3), colorIndicatorDrawer.getHeight());
+                    xLoc = colorIndicatorDrawer.getWidth() / 3 * 2;
+                    break;
+            }
+
+            colorIndicatorDrawer.fillRectangle(xLoc, colorIndicatorDrawer.getHeight() - 10, colorIndicatorDrawer.getWidth() / 3, 5);
+            colorMeter.getComponent(VisSprite.class).setRegion(new TextureRegion(new Texture(colorIndicatorDrawer)));
+        } else {
+            notStarted = true;
         }
-
-        colorIndicatorDrawer.fillRectangle(xLoc, colorIndicatorDrawer.getHeight() - 10, colorIndicatorDrawer.getWidth() / 3, 5);
-        colorMeter.getComponent(VisSprite.class).setRegion(new TextureRegion(new Texture(colorIndicatorDrawer)));
     }
 }

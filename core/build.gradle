@@ -21,5 +21,6 @@ dependencies {
   compile "com.bladecoder.ink:blade-ink:$bladeInkVersion"
   compile "com.github.ykrasik:jaci-libgdx-cli-java:$jaciVersion"
   compile "com.github.czyzby:gdx-kiwi:$kiwiVersion"
+  compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 }
         

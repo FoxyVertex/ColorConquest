@@ -12,14 +12,21 @@
     "allowSleep": false
   },
   "variables": {
-    "variables": []
+    "variables": [
+      {
+        "key": "ambientLight",
+        "value": "{    \"color\": {        \"r\": 1.0,        \"g\": 1.0,        \"b\": 1.0,        \"a\": 0.1    }}",
+        "@class-key": "String",
+        "@class-value": "String"
+      }
+    ]
   },
   "layers": [
     {
       "name": "Background",
       "id": 0,
       "locked": true,
-      "visible": true,
+      "visible": false,
       "cordsSystem": "WORLD",
       "@class": "EditorLayer"
     },
@@ -700,8 +707,8 @@
     {
       "components": [
         {
-          "x": 1.6539,
-          "y": 1.8783,
+          "x": 1.6756,
+          "y": 1.8132,
           "scaleX": 0.5,
           "scaleY": 0.5,
           "rotation": 0.0,
@@ -755,43 +762,43 @@
         {
           "vertices": [
             {
-              "x": 1.6539,
-              "y": 1.8783,
+              "x": 1.6756,
+              "y": 1.8132,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 2.3489003,
-              "y": 1.8783,
+              "x": 2.3706002,
+              "y": 1.8132,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 2.3489003,
-              "y": 3.1633,
+              "x": 2.3706002,
+              "y": 3.0982,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 1.6539,
-              "y": 3.1633,
+              "x": 1.6756,
+              "y": 3.0982,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
           ],
           "faces": [
             [
               {
-                "x": 1.6539,
-                "y": 3.1633
+                "x": 1.6756,
+                "y": 3.0982
               },
               {
-                "x": 1.6539,
-                "y": 1.8783
+                "x": 1.6756,
+                "y": 1.8132
               },
               {
-                "x": 2.3489003,
-                "y": 1.8783
+                "x": 2.3706002,
+                "y": 1.8132
               },
               {
-                "x": 2.3489003,
-                "y": 3.1633
+                "x": 2.3706002,
+                "y": 3.0982
               }
             ]
           ],
@@ -820,6 +827,12 @@
             {
               "key": "collisionCat",
               "value": "player",
+              "@class-key": "String",
+              "@class-value": "String"
+            },
+            {
+              "key": "light",
+              "value": "{    \"type\": \"point\",    \"color\": {        \"r\": 1.0,        \"g\": 0.0,        \"b\": 1.0,        \"a\": 0.9    },    \"rays\": 5000.0,    \"distance\": 9.0}",
               "@class-key": "String",
               "@class-value": "String"
             },
@@ -1660,6 +1673,9 @@
           "@class": "ProtoVisSprite"
         },
         {
+          "@class": "Invisible"
+        },
+        {
           "layerId": 0,
           "@class": "Layer"
         },
@@ -1720,6 +1736,9 @@
           "@class": "ProtoVisSprite"
         },
         {
+          "@class": "Invisible"
+        },
+        {
           "layerId": 0,
           "@class": "Layer"
         },
@@ -1740,7 +1759,7 @@
     {
       "components": [
         {
-          "x": 13.180201,
+          "x": 13.1802,
           "y": 1.7636,
           "scaleX": 0.125,
           "scaleY": 0.125,
@@ -1794,22 +1813,22 @@
         {
           "vertices": [
             {
-              "x": 13.180201,
+              "x": 13.1802,
               "y": 1.7636,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 14.1877,
+              "x": 14.187699,
               "y": 1.7636,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 14.1877,
+              "x": 14.187699,
               "y": 2.8885999,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
-              "x": 13.180201,
+              "x": 13.1802,
               "y": 2.8885999,
               "@class": "com.badlogic.gdx.math.Vector2"
             }
@@ -1817,19 +1836,19 @@
           "faces": [
             [
               {
-                "x": 13.180201,
+                "x": 13.1802,
                 "y": 2.8885999
               },
               {
-                "x": 13.180201,
+                "x": 13.1802,
                 "y": 1.7636
               },
               {
-                "x": 14.1877,
+                "x": 14.187699,
                 "y": 1.7636
               },
               {
-                "x": 14.1877,
+                "x": 14.187699,
                 "y": 2.8885999
               }
             ]
@@ -1863,8 +1882,74 @@
               "@class-value": "String"
             },
             {
+              "key": "light",
+              "value": "{    \"type\": \"cone\",    \"color\": {        \"r\": 0.1,        \"g\": 1.0,        \"b\": 0.8,        \"a\": 0.8    },    \"rays\": 5000.0,    \"distance\": 15.0,    \"directionDegree\": 180.0,    \"coneDegree\": 35.0}",
+              "@class-key": "String",
+              "@class-value": "String"
+            },
+            {
               "key": "animation",
               "value": "gfx/animations/Zombie/zombie.animation",
+              "@class-key": "String",
+              "@class-value": "String"
+            }
+          ],
+          "@class": "Variables"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 8.823145,
+          "y": 7.22564,
+          "scaleX": 1.0,
+          "scaleY": 1.0,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "@class": "Point"
+        },
+        {
+          "layerId": 1,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "0f03517a-6e1c-4bd7-87c6-19ee17d12bf7",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "id": "light",
+          "@class": "VisID"
+        },
+        {
+          "componentsToDrop": [
+            {
+              "@content": "Renderable",
+              "@class": "Class"
+            },
+            {
+              "@content": "Layer",
+              "@class": "Class"
+            }
+          ],
+          "@class": "ExporterDropsComponent"
+        },
+        {
+          "variables": [
+            {
+              "key": "light",
+              "value": "{    \"type\": \"cone\",    \"color\": {        \"r\": 1.0,        \"g\": 1.0,        \"b\": 1.0,        \"a\": 1.0    },    \"rays\": 5000.0,    \"distance\": 15.0,    \"directionDegree\": 270.0,    \"coneDegree\": 49.0}",
               "@class-key": "String",
               "@class-value": "String"
             }

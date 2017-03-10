@@ -10,6 +10,8 @@ import com.foxyvertex.colorconquest.manager.Levels;
 import com.foxyvertex.colorconquest.manager.UserPrefs;
 import com.foxyvertex.colorconquest.stages.PauseMenu;
 import com.foxyvertex.colorconquest.system.AnimationSystem;
+import com.foxyvertex.colorconquest.system.B2DLightsRenderSystem;
+import com.foxyvertex.colorconquest.system.B2DLightsSetupSystem;
 import com.foxyvertex.colorconquest.system.CameraSystem;
 import com.foxyvertex.colorconquest.system.ColorTintSystem;
 import com.foxyvertex.colorconquest.system.HudSystem;
@@ -21,9 +23,12 @@ import com.foxyvertex.colorconquest.system.ToDestroySystem;
 import com.foxyvertex.colorconquest.system.CollisionSystem;
 import com.foxyvertex.colorconquest.system.ZombieSystem;
 import com.kotcrab.vis.runtime.scene.Scene;
+import com.kotcrab.vis.runtime.scene.SceneConfig;
 import com.kotcrab.vis.runtime.scene.SceneLoader;
 import com.kotcrab.vis.runtime.scene.VisAssetManager;
 import com.kotcrab.vis.runtime.system.physics.Box2dDebugRenderSystem;
+
+import box2dLight.RayHandler;
 
 /**
  * Created by aidan on 2/19/2017.
@@ -40,6 +45,8 @@ public class GameScreen implements Screen {
 
     boolean isStopped = false;
 
+    public RayHandler b2dlHandler;
+
     public GameScreen() {
         super();
         manager = new VisAssetManager(Globals.game.batch);
@@ -53,6 +60,7 @@ public class GameScreen implements Screen {
         if (!isStopped) {
             currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
             initLevel();
+            //com.kotcrab.vis.runtime.system.render.SpriteRenderSystem
         }
     }
 
@@ -103,10 +111,12 @@ public class GameScreen implements Screen {
         parameter.config.addSystem(SetBox2DUserDataSystem.class);
         parameter.config.addSystem(SetColorComponentSystem.class);
         parameter.config.addSystem(ColorTintSystem.class);
-        parameter.config.addSystem(HudSystem.class);
+        parameter.config.addSystem(HudSystem.class, SceneConfig.Priority.NORMAL);
         parameter.config.addSystem(ToDestroySystem.class);
         parameter.config.addSystem(AnimationSystem.class);
         parameter.config.addSystem(ZombieSystem.class);
+        parameter.config.addSystem(B2DLightsSetupSystem.class);
+        parameter.config.addSystem(B2DLightsRenderSystem.class, SceneConfig.Priority.VIS_RENDERER);
         scene = manager.loadSceneNow(currentLevel.path, parameter);
     }
 
