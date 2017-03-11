@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.utils.Array;
+import com.foxyvertex.colorconquest.ColorConquest;
 import com.foxyvertex.colorconquest.ColorEffects;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
@@ -33,8 +34,6 @@ import com.kotcrab.vis.runtime.util.AfterSceneInit;
  */
 
 public class CollisionSystem extends EntitySystem implements ContactListener, AfterSceneInit {
-    ComponentMapper<PhysicsBody> physicsBodyCm;
-    public static Array<Body> deadBodies = new Array<Body>();
 
     /**
      * Creates an entity system that uses the specified aspect as a matcher
@@ -76,7 +75,6 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                 }
                 Color blockColor = null;
                 if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(ColorComponent.class).r, block1.getComponent(ColorComponent.class).g, block1.getComponent(ColorComponent.class).b, 1f);
-                Player playerComp = getWorld().getSystem(PlayerSystem.class).player.getComponent(Player.class);
                 if (blockColor != null) {
                     if (blockColor.r == 1 && blockColor.g == 1 && blockColor.b == 1) {
                         ColorEffects.WHITE.go(player1, block1);
@@ -123,7 +121,28 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                 }
                 bullet2.edit().add(new ToDestroy(100));
                 break;
-
+            case Finals.BULLET_BIT | Finals.ZOMBIE_BIT:
+                Entity bullet3, zombie3;
+                Fixture bullet3F, block3F;
+                if (fixtureA.getFilterData().categoryBits == Finals.BULLET_BIT) {
+                    bullet3 = (Entity) fixtureA.getUserData();
+                    bullet3F = fixtureA;
+                    zombie3 = (Entity) fixtureB.getUserData();
+                    block3F = fixtureB;
+                } else if (fixtureB.getFilterData().categoryBits == Finals.BULLET_BIT) {
+                    bullet3 = (Entity) fixtureB.getUserData();
+                    bullet3F = fixtureB;
+                    zombie3 = (Entity) fixtureA.getUserData();
+                    block3F = fixtureA;
+                } else {
+                    bullet3 = (Entity) fixtureA.getUserData();
+                    bullet3F = fixtureA;
+                    zombie3 = (Entity) fixtureB.getUserData();
+                    block3F = fixtureB;
+                }
+                
+                zombie3.getComponent(Health.class).currentHealth -= 4f;
+                break;
             case Finals.BULLET_BIT:
                 // TODO: 2/16/2017 implement bullet-on-bullet collision
                 break;
@@ -147,8 +166,12 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                     block4F = fixtureB;
                 }
 
-                zombie4.getComponent(Health.class).deathCallback.run(zombie4);
-                getWorld().getSystem(AnimationSystem.class).changeAnimState(zombie4, "hit", false, false, true);
+                ZombieCollision zombieCollision = new ZombieCollision();
+                zombieCollision.contact = contact;
+                zombieCollision.timer = 0f;
+
+                getWorld().getSystem(ZombieSystem.class).activeCollisions.add(zombieCollision);
+
                 break;
         }
     }
@@ -184,7 +207,6 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                 }
                 Color blockColor = null;
                 if (block1.getComponent(ColorComponent.class) != null) blockColor = new Color(block1.getComponent(ColorComponent.class).r, block1.getComponent(ColorComponent.class).g, block1.getComponent(ColorComponent.class).b, 1f);
-                Player playerComp = getWorld().getSystem(PlayerSystem.class).player.getComponent(Player.class);
                 if (blockColor != null) {
                     if (blockColor.r == 1 && blockColor.g == 1 && blockColor.b == 1) {
                         ColorEffects.WHITE.og(player1, block1);
@@ -213,7 +235,13 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                 }
                 break;
 
-            case Finals.BULLET_BIT:
+            case Finals.PLAYER_BIT | Finals.ZOMBIE_BIT:
+                for (ZombieCollision zc : getWorld().getSystem(ZombieSystem.class).activeCollisions) {
+                    if (zc.contact == contact) {
+                        getWorld().getSystem(ZombieSystem.class).activeCollisions.removeValue(zc, true);
+                        break;
+                    }
+                }
                 break;
         }
     }

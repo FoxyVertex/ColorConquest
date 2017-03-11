@@ -1,5 +1,6 @@
 package com.foxyvertex.colorconquest.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
@@ -14,6 +15,7 @@ import com.foxyvertex.colorconquest.system.B2DLightsRenderSystem;
 import com.foxyvertex.colorconquest.system.B2DLightsSetupSystem;
 import com.foxyvertex.colorconquest.system.CameraSystem;
 import com.foxyvertex.colorconquest.system.ColorTintSystem;
+import com.foxyvertex.colorconquest.system.HealthSystem;
 import com.foxyvertex.colorconquest.system.HudSystem;
 import com.foxyvertex.colorconquest.system.PlayerSystem;
 import com.foxyvertex.colorconquest.system.SetBox2DUserDataSystem;
@@ -116,15 +118,20 @@ public class GameScreen implements Screen {
         parameter.config.addSystem(AnimationSystem.class);
         parameter.config.addSystem(ZombieSystem.class);
         parameter.config.addSystem(B2DLightsSetupSystem.class);
+        parameter.config.addSystem(HealthSystem.class);
         parameter.config.addSystem(B2DLightsRenderSystem.class, SceneConfig.Priority.VIS_RENDERER);
         scene = manager.loadSceneNow(currentLevel.path, parameter);
     }
 
     public void resetLevel() {
+        Gdx.app.log(Finals.ANSI_PURPLE + "Game" + Finals.ANSI_RESET, "Resetting Level....");
+        isStopped = true;
         new GameScreen();
+        Globals.game.setScreen(Globals.gameScreen);
     }
 
     public void nextLevel() {
+        Gdx.app.log(Finals.ANSI_PURPLE + "Game" + Finals.ANSI_RESET, "Player achieved next level. Switching to it...");
         UserPrefs.setLevel(Globals.currentGameSave, 0);
         currentLevel = Levels.levels.get(UserPrefs.getLevel(Globals.currentGameSave));
         new GameScreen();

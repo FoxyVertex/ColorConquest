@@ -4,6 +4,8 @@ import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
 import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.utils.Array;
+import com.foxyvertex.colorconquest.ColorConquest;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.component.Animation;
 import com.foxyvertex.colorconquest.component.Health;
@@ -23,6 +25,9 @@ import com.kotcrab.vis.runtime.component.Variables;
  * SetupEntityComponentsSystem sets up entities created in the editor and in code based on their Variables component
  */
 public class SetupEntityComponentsSystem extends EntitySystem {
+    private Array<Entity> toAdd = new Array<>();
+    boolean isStarted = false;
+
     /**
      * Creates an entity system that uses the specified aspect as a matcher
      * against entities.
@@ -32,16 +37,27 @@ public class SetupEntityComponentsSystem extends EntitySystem {
     }
 
     /**
-     * processSystem is called every frame at a max of 60 times per second. It handles the stuff and things. #AwesomeJavaDoc
+     * processSystem is called every frame at a max of 60 times per second.
      */
     @Override
     protected void processSystem() {
-        for (Entity entity : getEntities()) {
-            try {
-                createCategoryBit(entity);
-            } catch (NoCategoryBitFoundOnPhysicsEntityException e) {
-                e.printStackTrace();
-            }
+        isStarted = true;
+        for (Entity e : toAdd) {
+            inserted(e);
+            toAdd.removeValue(e, true);
+        }
+    }
+
+    /**
+     * gets called when an entity with a physics body gets added to the scene
+     * @param e
+     */
+    @Override
+    public void inserted(Entity e) {
+        try {
+            createCategoryBit(e);
+        } catch (NoCategoryBitFoundOnPhysicsEntityException er) {
+            er.printStackTrace();
         }
     }
 
@@ -51,6 +67,10 @@ public class SetupEntityComponentsSystem extends EntitySystem {
      * @throws NoCategoryBitFoundOnPhysicsEntityException
      */
     private void createCategoryBit(Entity entity) throws NoCategoryBitFoundOnPhysicsEntityException {
+        if (!isStarted) {
+            toAdd.add(entity);
+            return;
+        }
         if (entity.getComponent(Variables.class) == null) {
             throw new NoCategoryBitFoundOnPhysicsEntityException(entity);
         }
@@ -71,11 +91,11 @@ public class SetupEntityComponentsSystem extends EntitySystem {
             filter.categoryBits = Finals.BULLET_BIT;
         } else if (collisionCat.equals("zombie")) {
             filter.categoryBits = Finals.ZOMBIE_BIT;
-            if (entity.getComponent(Zombie.class) == null) entity.edit().add(new Zombie());
-            if (entity.getComponent(Health.class) == null) entity.edit().add(new Health(new DeathRunnable() {
+            entity.edit().add(new Zombie());
+            entity.edit().add(new Health(new DeathRunnable() {
                 @Override
                 public void run(Entity e) {
-                    e.edit().add(new ToDestroy(1000));
+                    e.edit().add(new ToDestroy(100));
                 }
             }, 20f));
         } else if (collisionCat.equals("levelBounds")) {

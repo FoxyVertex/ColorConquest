@@ -3,6 +3,7 @@ package com.foxyvertex.colorconquest.system;
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
+import com.foxyvertex.colorconquest.ColorConquest;
 import com.foxyvertex.colorconquest.component.ToDestroy;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
 import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;

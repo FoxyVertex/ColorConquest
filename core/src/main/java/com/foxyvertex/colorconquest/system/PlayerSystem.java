@@ -21,9 +21,11 @@ import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Animation;
 import com.foxyvertex.colorconquest.component.Bullet;
+import com.foxyvertex.colorconquest.component.Health;
 import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.input.DesktopController;
 import com.foxyvertex.colorconquest.input.MobileController;
+import com.foxyvertex.colorconquest.tools.DeathRunnable;
 import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.Layer;
 import com.kotcrab.vis.runtime.component.Origin;
@@ -65,6 +67,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     private Vector2 initialBulletImpulse = new Vector2(4, 2);
     private Vector2 iInitialBulletImpulse = new Vector2(-4, 2);
 
+    public Health healthComp;
     public Entity player;
     public Player playerComp;
     private VisSprite sprite;
@@ -225,9 +228,19 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
     public void afterSceneInit() {
         // Get the player entity from the scene
         player = idManager.get("player");
+
         // Add the Player component to the player entity
         player.edit().add(new Player());
         playerComp = player.getComponent(Player.class);
+
+        // Add health component
+        player.edit().add(new Health(new DeathRunnable() {
+            @Override
+            public void run(Entity e) {
+                e.getWorld().getSystem(PlayerSystem.class).playerDeath();
+            }
+        }, 20f));
+        healthComp = player.getComponent(Health.class);
 
         // Configure the Player component
         playerComp.colors = new Array<>();
@@ -235,7 +248,6 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         playerComp.colors.add(Color.GREEN);
         playerComp.colors.add(Color.BLUE);
         player.getComponent(Variables.class).put("collisionCat", "player");
-
 
         // Get the sprite, transform, and body components of the player and put them in class variables
         sprite = spriteCm.get(player);
@@ -266,7 +278,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
     /**
      * Fire a color bullet when the input delegate tells me to.
-     * @param clickPoint used in firing mode for more acurate firing
+     * @param clickPoint used in firing mode for more accurate firing
      */
     public void shoot(Vector2 clickPoint) {
         // Subtract the correct amount of color from the player's stash
@@ -369,6 +381,13 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 .add(new OriginalRotation(transform.getRotation()))
                 .add(visSpriteComp)
                 .add(origin);
+    }
+
+    /**
+     * Called when the player dies
+     */
+    public void playerDeath() {
+        Globals.gameScreen.resetLevel();
     }
 
     /**
