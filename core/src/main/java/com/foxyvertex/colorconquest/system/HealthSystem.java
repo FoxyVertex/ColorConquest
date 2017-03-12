@@ -22,7 +22,7 @@ public class HealthSystem extends EntitySystem {
     @Override
     protected void processSystem() {
         for (Entity e : getEntities()) {
-            if (e.getComponent(Health.class).currentHealth <= 0 && e.getComponent(ToDestroy.class) == null) {
+            if (e.getComponent(Health.class).getCurrentHealth() <= 0 && e.getComponent(ToDestroy.class) == null) {
                 e.getComponent(Health.class).deathCallback.run(e);
             }
         }

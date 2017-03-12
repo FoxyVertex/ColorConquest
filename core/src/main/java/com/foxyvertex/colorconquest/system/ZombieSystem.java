@@ -47,9 +47,9 @@ public class ZombieSystem extends EntitySystem {
             float distanceBetweenThem = position1.dst(position2);
             if (distanceBetweenThem < 5) {
                 if (position1.x > position2.x)
-                    desiredVel = -15;
+                    desiredVel = -13;
                 else if (position2.x > position1.x)
-                    desiredVel = 15;
+                    desiredVel = 13;
             }
             float velChange = desiredVel - xVel;
             float impulse = body.getMass() * velChange;
@@ -58,7 +58,7 @@ public class ZombieSystem extends EntitySystem {
         for (ZombieCollision zc : activeCollisions) {
             zc.timer -= getWorld().getDelta();
             if (zc.timer < 0) {
-                getWorld().getSystem(PlayerSystem.class).healthComp.currentHealth -= 4f;
+                getWorld().getSystem(PlayerSystem.class).healthComp.dealDamage(getWorld().getSystem(PlayerSystem.class).player, 4f);
                 zc.timer = 2;
             }
         }

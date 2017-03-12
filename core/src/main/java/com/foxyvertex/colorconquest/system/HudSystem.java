@@ -1,18 +1,25 @@
 package com.foxyvertex.colorconquest.system;
 
 import com.artemis.Aspect;
+import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.foxyvertex.colorconquest.component.Health;
 import com.foxyvertex.colorconquest.component.Hud;
 import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.tools.Utilities;
+import com.kotcrab.vis.runtime.component.Origin;
+import com.kotcrab.vis.runtime.component.Transform;
 import com.kotcrab.vis.runtime.component.VisSprite;
 import com.kotcrab.vis.runtime.system.VisIDManager;
+import com.kotcrab.vis.runtime.system.render.RenderBatchingSystem;
 import com.kotcrab.vis.runtime.util.AfterSceneInit;
 
 /**
@@ -34,6 +41,11 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
     Entity healthBar;
 
     boolean notStarted = true;
+    Batch batch;
+
+    private ComponentMapper<VisSprite> spriteCm;
+    private com.artemis.ComponentMapper<Transform> transformCm;
+    private ComponentMapper<Origin> originCm;
 
     public HudSystem() {
         super(Aspect.all(Hud.class));
@@ -41,7 +53,36 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
 
     @Override
     protected void processSystem() {
-        updateHealthBar();
+        if (notStarted) {
+            updateColorMeter();
+            updateHealthBar();
+            notStarted = false;
+        }
+        batch = getWorld().getSystem(RenderBatchingSystem.class).getBatch();
+        renderSpriteEntity(colorMeter);
+        renderSpriteEntity(healthBar);
+    }
+
+    private void renderSpriteEntity (int entityId) {
+        VisSprite sprite = spriteCm.get(entityId);
+        Transform transform = transformCm.get(entityId);
+        Origin origin = originCm.get(entityId);
+
+        batch.begin();
+        batch.draw(sprite.getRegion(), transform.getX(), transform.getY(), origin.getOriginX(), origin.getOriginY(),
+                sprite.getWidth(), sprite.getHeight(), transform.getScaleX(), transform.getScaleY(), transform.getRotation());
+        batch.end();
+    }
+
+    private void renderSpriteEntity (Entity e) {
+        VisSprite sprite = spriteCm.get(e);
+        Transform transform = transformCm.get(e);
+        Origin origin = originCm.get(e);
+
+        batch.begin();
+        batch.draw(sprite.getRegion(), transform.getX(), transform.getY(), origin.getOriginX(), origin.getOriginY(),
+                sprite.getWidth(), sprite.getHeight(), transform.getScaleX(), transform.getScaleY(), transform.getRotation());
+        batch.end();
     }
 
     /**
@@ -52,7 +93,6 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
         player = idManager.get("player");
         colorMeter = idManager.get("colorMeter");
         healthBar = idManager.get("healthBar");
-        if (notStarted) updateColorMeter();
     }
 
     /**
@@ -60,9 +100,10 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
      */
     public void updateHealthBar() {
         if (player.getComponent(Health.class) != null) {
+            Gdx.app.log("", "");
             healthIndicatorDrawer = new Pixmap(255, 30, Pixmap.Format.RGB888);
             healthIndicatorDrawer.setColor(Color.RED);
-            healthIndicatorDrawer.fillRectangle(0, 0, (int)Utilities.map(player.getComponent(Health.class).currentHealth, 0, player.getComponent(Health.class).maxHealth, 0, healthIndicatorDrawer.getWidth()), healthIndicatorDrawer.getHeight());
+            healthIndicatorDrawer.fillRectangle(0, 0, (int)Utilities.map(player.getComponent(Health.class).getCurrentHealth(), 0, player.getComponent(Health.class).getMaxHealth(), 0, healthIndicatorDrawer.getWidth()), healthIndicatorDrawer.getHeight());
 
             healthBar.getComponent(VisSprite.class).setRegion(new TextureRegion(new Texture(healthIndicatorDrawer)));
         }

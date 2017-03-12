@@ -25,6 +25,7 @@ import com.foxyvertex.colorconquest.component.Health;
 import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.input.DesktopController;
 import com.foxyvertex.colorconquest.input.MobileController;
+import com.foxyvertex.colorconquest.tools.DamageRunnable;
 import com.foxyvertex.colorconquest.tools.DeathRunnable;
 import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.Layer;
@@ -238,8 +239,14 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             @Override
             public void run(Entity e) {
                 e.getWorld().getSystem(PlayerSystem.class).playerDeath();
+                getWorld().getSystem(HudSystem.class).updateHealthBar();
             }
-        }, 20f));
+        }, 20f, new DamageRunnable() {
+            @Override
+            public void run(Entity e, float damage) {
+                e.getWorld().getSystem(HudSystem.class).updateHealthBar();
+            }
+        }));
         healthComp = player.getComponent(Health.class);
 
         // Configure the Player component

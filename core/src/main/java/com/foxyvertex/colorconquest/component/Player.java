@@ -10,9 +10,9 @@ import com.kotcrab.vis.runtime.util.autotable.ATProperty;
  */
 
 public class Player extends Component {
-    public float normalJumpForce = 44f;
+    public float normalJumpForce = 46f;
     public float jumpForce = normalJumpForce;
-    public float normalRunSpeed = 66f;
+    public float normalRunSpeed = 77f;
     public float runSpeed = normalRunSpeed;
     public boolean isFiring = false;
 

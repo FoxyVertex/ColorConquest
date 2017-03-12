@@ -2123,7 +2123,7 @@
             },
             {
               "key": "light",
-              "value": "{    \"type\": \"cone\",    \"color\": {        \"r\": 0.1,        \"g\": 1.0,        \"b\": 0.8,        \"a\": 0.8    },    \"rays\": 5000.0,    \"distance\": 15.0,    \"directionDegree\": 180.0,    \"coneDegree\": 35.0}",
+              "value": "{    \"type\": \"cone\",    \"color\": {        \"r\": 0.1,        \"g\": 1.0,        \"b\": 0.8,        \"a\": 0.8    },    \"rays\": 5000.0,    \"distance\": 15.0,    \"directionDegree\": 270.0,    \"coneDegree\": 35.0}",
               "@class-key": "String",
               "@class-value": "String"
             },

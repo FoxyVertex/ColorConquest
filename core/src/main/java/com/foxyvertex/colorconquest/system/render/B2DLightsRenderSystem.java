@@ -1,4 +1,4 @@
-package com.foxyvertex.colorconquest.system;
+package com.foxyvertex.colorconquest.system.render;
 
 import com.artemis.BaseSystem;
 import com.foxyvertex.colorconquest.Globals;

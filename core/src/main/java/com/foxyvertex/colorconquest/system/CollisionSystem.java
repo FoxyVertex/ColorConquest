@@ -140,8 +140,8 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                     zombie3 = (Entity) fixtureB.getUserData();
                     block3F = fixtureB;
                 }
-                
-                zombie3.getComponent(Health.class).currentHealth -= 4f;
+
+                zombie3.getComponent(Health.class).dealDamage(zombie3, 4f);
                 break;
             case Finals.BULLET_BIT:
                 // TODO: 2/16/2017 implement bullet-on-bullet collision

@@ -11,7 +11,7 @@ import com.foxyvertex.colorconquest.manager.Levels;
 import com.foxyvertex.colorconquest.manager.UserPrefs;
 import com.foxyvertex.colorconquest.stages.PauseMenu;
 import com.foxyvertex.colorconquest.system.AnimationSystem;
-import com.foxyvertex.colorconquest.system.B2DLightsRenderSystem;
+import com.foxyvertex.colorconquest.system.render.B2DLightsRenderSystem;
 import com.foxyvertex.colorconquest.system.B2DLightsSetupSystem;
 import com.foxyvertex.colorconquest.system.CameraSystem;
 import com.foxyvertex.colorconquest.system.ColorTintSystem;
@@ -29,7 +29,6 @@ import com.kotcrab.vis.runtime.scene.SceneConfig;
 import com.kotcrab.vis.runtime.scene.SceneFeature;
 import com.kotcrab.vis.runtime.scene.SceneLoader;
 import com.kotcrab.vis.runtime.scene.VisAssetManager;
-import com.kotcrab.vis.runtime.system.physics.Box2dDebugRenderSystem;
 
 import box2dLight.RayHandler;
 
@@ -113,13 +112,13 @@ public class GameScreen implements Screen {
         parameter.config.addSystem(SetBox2DUserDataSystem.class);
         parameter.config.addSystem(SetColorComponentSystem.class);
         parameter.config.addSystem(ColorTintSystem.class);
-        parameter.config.addSystem(HudSystem.class);
+        parameter.config.addSystem(HudSystem.class, SceneConfig.Priority.VIS_RENDERER.toIntValue()-2);
         parameter.config.addSystem(ToDestroySystem.class);
         parameter.config.addSystem(AnimationSystem.class);
         parameter.config.addSystem(ZombieSystem.class);
         parameter.config.addSystem(B2DLightsSetupSystem.class);
         parameter.config.addSystem(HealthSystem.class);
-        parameter.config.addSystem(B2DLightsRenderSystem.class, SceneConfig.Priority.VIS_RENDERER);
+        parameter.config.addSystem(B2DLightsRenderSystem.class, SceneConfig.Priority.VIS_RENDERER.toIntValue()-1);
         scene = manager.loadSceneNow(currentLevel.path, parameter);
     }
 
