@@ -98,17 +98,6 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
                 } else {
                     Utilities.DrawDebugLine(firingModeStartPos, cp, 3, getWorld().getSystem(PlayerSystem.class).playerComp.selectedColor, cameraManager.getCombined());
                 }
-
-//                Vector2 l1 = new Vector2(cp);
-//                l1.y = firingModeStartPos.y;
-//                Utilities.DrawDebugLine(firingModeStartPos, l1, 3, Color.CYAN, cameraManager.getCombined());
-//                Utilities.DrawDebugLine(cp, l1, 3, Color.CYAN, cameraManager.getCombined());
-
-//                Vector2 l2 = new Vector2(clickPointBasedImpulse);
-//                l2.y = firingModeStartPos.y;
-//                Utilities.DrawDebugLine(firingModeStartPos, l2, 3, Color.GREEN, cameraManager.getCombined());
-//                Utilities.DrawDebugLine(clickPointBasedImpulse, l2, 3, Color.GREEN, cameraManager.getCombined());
-
             }
         }
     }

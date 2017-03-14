@@ -323,6 +323,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         updateHud();
 
         float bulletStartXValue;
+
         if (facingDIRECTION == FacingDIRECTION.LEFT) {
             bulletStartXValue = -0.2f;
         } else {
@@ -332,8 +333,8 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         float m = 2f * (float) Math.sqrt(20); // Direct velocity
         Vector2 cp = new Vector2();
         Vector2 pp = new Vector2(body.getPosition()).add(bulletStartXValue, 1f);
-        cp.x = Utilities.map(clickPoint.x, 0, Gdx.graphics.getWidth(), 0, cameraManager.getViewport().getWorldWidth());
-        cp.y = Utilities.map(clickPoint.y, 0, Gdx.graphics.getHeight(), cameraManager.getViewport().getWorldHeight(), 0);
+        cp.x = cameraManager.getCamera().position.x - getWorld().getSystem(CameraSystem.class).minX + Utilities.map(clickPoint.x, 0, Gdx.graphics.getWidth(), 0, cameraManager.getViewport().getWorldWidth());
+        cp.y = cameraManager.getCamera().position.y - getWorld().getSystem(CameraSystem.class).minY + Utilities.map(clickPoint.y, 0, Gdx.graphics.getHeight(), cameraManager.getViewport().getWorldHeight(), 0);
         double theta = Math.atan((cp.y-pp.y)/(cp.x-pp.x));
         double alpha = m * Math.sin(theta);
         double beta  = m * Math.cos(theta);
@@ -343,9 +344,8 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         }
 
         Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
-        
-        if (Math.toDegrees(theta) > -42f && Math.toDegrees(theta) < 80f && (facingDIRECTION == FacingDIRECTION.LEFT ? (cp.x < pp.x) : (cp.x > pp.x))) {
 
+        if (Math.toDegrees(theta) > -42f && Math.toDegrees(theta) < 80f && (facingDIRECTION == FacingDIRECTION.LEFT ? (cp.x < pp.x) : (cp.x > pp.x))) {
             // Create the bullet component
             Bullet bulletComp = new Bullet();
             bulletComp.color = playerComp.selectedColor;

@@ -17,6 +17,7 @@ public class Finals {
             PLAYER_FEET_BIT = 16,
             BULLET_BIT = 32,
             ZOMBIE_BIT = 64,
+            ALL_BUT_BULLET_BIT = BLOCK_BIT | PLAYER_BIT | END_LEVEL_BIT | PLAYER_FEET_BIT,
             EVERYTHING_BIT = BLOCK_BIT | PLAYER_BIT | END_LEVEL_BIT | PLAYER_FEET_BIT | BULLET_BIT;
     public static String TITLE = "Color Conquest";
     public static int firstLevel = 0;

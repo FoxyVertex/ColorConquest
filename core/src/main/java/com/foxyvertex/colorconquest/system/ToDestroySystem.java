@@ -35,7 +35,10 @@ public class ToDestroySystem extends EntitySystem {
             tdc.currentTimer -= (getWorld().getDelta()*1000);
             if (tdc.currentTimer <= 0) {
                 if (e.getComponent(Light.class) != null) e.getComponent(Light.class).light.remove(true);
-                if (e.getComponent(PhysicsBody.class) != null) getWorld().getSystem(PhysicsSystem.class).getPhysicsWorld().destroyBody(e.getComponent(PhysicsBody.class).body);
+                if (e.getComponent(PhysicsBody.class) != null) {
+                    getWorld().getSystem(PhysicsSystem.class).getPhysicsWorld().destroyBody(e.getComponent(PhysicsBody.class).body);
+                    e.edit().remove(PhysicsBody.class);
+                }
                 e.deleteFromWorld();
             }
         }

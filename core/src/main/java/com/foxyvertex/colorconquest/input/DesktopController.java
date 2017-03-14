@@ -35,9 +35,9 @@ public class DesktopController extends InputAdapter implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-        inputManager.currentColorIndex += amount;
         if (inputManager.currentColorIndex >= inputManager.playerComp.colors.size)
             inputManager.currentColorIndex = 0;
+        inputManager.currentColorIndex += amount;
         if (inputManager.currentColorIndex < 0)
             inputManager.currentColorIndex = inputManager.playerComp.colors.size - 1;
         inputManager.updateHud();
