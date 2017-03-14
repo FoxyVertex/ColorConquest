@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.ColorConquest;
+import com.foxyvertex.colorconquest.ColorEffects;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Animation;
@@ -140,10 +141,21 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
                 cameraManager.getCamera().zoom -= 1.3f * getWorld().getDelta();
 
             if (firingModePressed) {
-                // Firing Mode pressed logic
+
+                float bulletStartXValue;
+                if (facingDIRECTION == FacingDIRECTION.LEFT) {
+                    bulletStartXValue = -0.2f;
+                } else {
+                    bulletStartXValue = 0.75f;
+                }
+                getWorld().getSystem(HudSystem.class).renderFiringModeLine = true;
+                getWorld().getSystem(HudSystem.class).firingModeClickPoint = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+                getWorld().getSystem(HudSystem.class).firingModeStartPos = new Vector2(body.getPosition()).add(bulletStartXValue, 1f);
+                ColorEffects.NONCOLOR_FIRING_MODE_SLOWING.go(player, null);
                 firingModePressedPrev = true;
             } else if (firingModePressedPrev) {
-                // Firing Mode unpressed logic
+                getWorld().getSystem(HudSystem.class).renderFiringModeLine = false;
+                ColorEffects.NONCOLOR_FIRING_MODE_SLOWING.og(player, null);
                 firingModePressedPrev = false;
             }
 
@@ -309,21 +321,45 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         // Update the color meter
         updateHud();
 
+        float bulletStartXValue;
+        if (facingDIRECTION == FacingDIRECTION.LEFT) {
+            bulletStartXValue = -0.2f;
+        } else {
+            bulletStartXValue = 0.75f;
+        }
+
+        float m = 2f * (float) Math.sqrt(20); // Direct velocity
+        Vector2 cp = new Vector2();
+        Vector2 pp = new Vector2(body.getPosition()).add(bulletStartXValue, 1f);
+        cp.x = Utilities.map(clickPoint.x, 0, Gdx.graphics.getWidth(), 0, cameraManager.getViewport().getWorldWidth());
+        cp.y = Utilities.map(clickPoint.y, 0, Gdx.graphics.getHeight(), cameraManager.getViewport().getWorldHeight(), 0);
+        double theta = Math.atan((cp.y-pp.y)/(cp.x-pp.x));
+        double alpha = m * Math.sin(theta);
+        double beta  = m * Math.cos(theta);
+        if ((cp.x-pp.x) < 0 && !(beta < 0)) {
+            beta *= -1;
+            alpha *= -1;
+        }
+
+        Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
+
         // Create the bullet component
         Bullet bulletComp = new Bullet();
         bulletComp.color = playerComp.selectedColor;
 
-        float bulletStartXValue;
+
         Vector2 impulse;
 
-        // Determine the bullet's start-position's x value and velocity
-        if (facingDIRECTION == FacingDIRECTION.LEFT) {
-            bulletStartXValue = -0.2f;
-            impulse = iInitialBulletImpulse;
+        if (firingModePressed) {
+            impulse = clickPointBasedImpulse;
         } else {
-            bulletStartXValue = 0.75f;
-            impulse = initialBulletImpulse;
+            if (facingDIRECTION == FacingDIRECTION.LEFT) {
+                impulse = iInitialBulletImpulse;
+            } else {
+                impulse = initialBulletImpulse;
+            }
         }
+
 
         // Create the transform component
         Transform transformComp = new Transform(body.getPosition().x+bulletStartXValue, body.getPosition().y+1f);

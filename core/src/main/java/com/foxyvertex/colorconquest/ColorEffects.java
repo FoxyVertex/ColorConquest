@@ -1,6 +1,7 @@
 package com.foxyvertex.colorconquest;
 
 import com.artemis.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.foxyvertex.colorconquest.component.Player;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
@@ -15,13 +16,39 @@ public class ColorEffects {
     public static ColorEffect BLUE;
     public static ColorEffect WHITE;
 
+    public static ColorEffect NONCOLOR_FIRING_MODE_SLOWING;
+
     public interface ColorEffect {
         void go(Entity player, Entity environmentEntity);
         void og(Entity player, Entity environmentEntity);
     }
 
     public static void load() {
+        NONCOLOR_FIRING_MODE_SLOWING = new ColorEffect() {
+            boolean activated = false;
+            public float value = 0.5f;
+            @Override
+            public void go(Entity player, Entity environmentEntity) {
+                if (!activated) {
+                    Player playerComponent = player.getComponent(Player.class);
+                    playerComponent.runSpeed *= value;
+                    Gdx.app.log("", "" + playerComponent.runSpeed);
+                    activated = true;
+                }
+            }
+
+            @Override
+            public void og(Entity player, Entity environmentEntity) {
+                if (activated){
+                    Player playerComponent = player.getComponent(Player.class);
+                    playerComponent.runSpeed /= value;
+                    activated = false;
+                }
+            }
+        };
+
         RED = new ColorEffect() {
+            boolean activated = false;
             public float value = 4.5f;
             @Override
             public void go(Entity player, Entity environmentEntity) {
@@ -37,6 +64,7 @@ public class ColorEffects {
         };
 
         GREEN = new ColorEffect() {
+            boolean activated = false;
             public float value = 4.2f;
             @Override
             public void go(Entity player, Entity environmentEntity) {
@@ -52,6 +80,7 @@ public class ColorEffects {
         };
 
         BLUE = new ColorEffect() {
+            boolean activated = false;
             public float value = 0.5f;
             @Override
             public void go(Entity player, Entity environmentEntity) {
@@ -66,6 +95,7 @@ public class ColorEffects {
         };
 
         WHITE = new ColorEffect() {
+            boolean activated = false;
             @Override
             public void go(Entity player, Entity environmentEntity) {
                 Player playerComponent = player.getComponent(Player.class);

@@ -6,11 +6,15 @@ import com.artemis.Entity;
 import com.artemis.EntitySystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.foxyvertex.colorconquest.ColorConquest;
 import com.foxyvertex.colorconquest.component.Health;
 import com.foxyvertex.colorconquest.component.Hud;
 import com.foxyvertex.colorconquest.component.Player;
@@ -18,6 +22,7 @@ import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.Origin;
 import com.kotcrab.vis.runtime.component.Transform;
 import com.kotcrab.vis.runtime.component.VisSprite;
+import com.kotcrab.vis.runtime.system.CameraManager;
 import com.kotcrab.vis.runtime.system.VisIDManager;
 import com.kotcrab.vis.runtime.system.render.RenderBatchingSystem;
 import com.kotcrab.vis.runtime.util.AfterSceneInit;
@@ -30,6 +35,8 @@ import com.kotcrab.vis.runtime.util.AfterSceneInit;
  * The HudSystem manages the HUD
  */
 public class HudSystem extends EntitySystem implements AfterSceneInit {
+
+    CameraManager cameraManager;
 
     VisIDManager idManager;
 
@@ -51,6 +58,10 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
         super(Aspect.all(Hud.class));
     }
 
+    public boolean renderFiringModeLine = false;
+    public Vector2 firingModeClickPoint;
+    public Vector2 firingModeStartPos;
+
     @Override
     protected void processSystem() {
         if (notStarted) {
@@ -59,8 +70,37 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
             notStarted = false;
         }
         batch = getWorld().getSystem(RenderBatchingSystem.class).getBatch();
+        renderFiringMode();
         renderSpriteEntity(colorMeter);
         renderSpriteEntity(healthBar);
+    }
+
+    public void renderFiringMode() {
+        if (renderFiringModeLine) {
+            if (firingModeClickPoint != null && firingModeStartPos != null) {
+                float m = 0.5f * (float) Math.sqrt(20); // Direct velocity
+                Vector2 cp = new Vector2();
+                cp.x = Utilities.map(firingModeClickPoint.x, 0, Gdx.graphics.getWidth(), 0, cameraManager.getViewport().getWorldWidth());
+                cp.y = Utilities.map(firingModeClickPoint.y, 0, Gdx.graphics.getHeight(), cameraManager.getViewport().getWorldHeight(), 0);
+                double theta = Math.atan((cp.y-firingModeStartPos.y)/(cp.x-firingModeStartPos.x));
+                double alpha = m * Math.sin(theta);
+                double beta  = m * Math.cos(theta);
+                if ((cp.x-firingModeStartPos.x) < 0 && !(beta < 0)) {
+                    beta *= -1;
+                    alpha *= -1;
+                }
+
+                Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
+                clickPointBasedImpulse.add(firingModeStartPos);
+                Utilities.DrawDebugLine(firingModeStartPos, cp, 2, Color.RED, cameraManager.getCombined());
+                if (clickPointBasedImpulse.x <= cp.x && clickPointBasedImpulse.y <= cp.y) {
+                    Utilities.DrawDebugLine(firingModeStartPos, clickPointBasedImpulse, 2, Color.GREEN, cameraManager.getCombined());
+                } else {
+                    Utilities.DrawDebugLine(firingModeStartPos, cp, 2, Color.GREEN, cameraManager.getCombined());
+                }
+
+            }
+        }
     }
 
     private void renderSpriteEntity (int entityId) {

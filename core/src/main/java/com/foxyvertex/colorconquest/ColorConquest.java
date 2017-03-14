@@ -27,8 +27,6 @@ public class ColorConquest extends Game {
 
 	public Console console;
 
-    public FPSLogger fpsLogger;
-
     /** Called when the game is first created. */
 	@Override
 	public void create () {
@@ -61,8 +59,6 @@ public class ColorConquest extends Game {
             new TitleMenu();
             setScreen(new SplashScreen());
         }
-
-        fpsLogger = new FPSLogger();
 	}
 
     /**
@@ -70,7 +66,6 @@ public class ColorConquest extends Game {
      */
 	@Override
 	public void render () {
-        fpsLogger.log();
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.render();
 		console.draw();
