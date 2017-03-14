@@ -22,7 +22,7 @@ public class ColorEffects {
 
     public static void load() {
         RED = new ColorEffect() {
-            public float value = 7.5f;
+            public float value = 4.5f;
             @Override
             public void go(Entity player, Entity environmentEntity) {
                 Player playerComponent = player.getComponent(Player.class);

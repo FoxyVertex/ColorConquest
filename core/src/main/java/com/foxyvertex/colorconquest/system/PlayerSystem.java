@@ -169,24 +169,23 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
             if (downPressed)
                 body.applyLinearImpulse(new Vector2(0, -10f), body.getWorldCenter(), true);
 
-            if (forwardPressed && body.getLinearVelocity().x <= 2 * speedMultiplier) {
-                //body.applyLinearImpulse(new Vector2(playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+            if (forwardPressed) {
                 desiredXVel = playerComp.runSpeed;
                 forwardPressedPrev = true;
                 if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", false, false, true);
                 facingDIRECTION = FacingDIRECTION.RIGHT;
-            } else if (!backwardPressed && forwardPressedPrev) {
+            } else if (forwardPressedPrev) {
+                body.setLinearVelocity(0, body.getLinearVelocity().y);
                 forwardPressedPrev = false;
             }
 
-            if (backwardPressed && body.getLinearVelocity().x >= -2 * speedMultiplier) {
-                //body.applyLinearImpulse(new Vector2(-playerComp.runSpeed * speedMultiplier * forceScale, 0), body.getWorldCenter(), true);
+            if (backwardPressed) {
                 desiredXVel = -playerComp.runSpeed;
                 if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "walk", true, false, true);
                 facingDIRECTION = FacingDIRECTION.LEFT;
                 backwardPressedPrev = true;
-
-            } else if (!backwardPressed && backwardPressedPrev) {
+            } else if (backwardPressedPrev) {
+                body.setLinearVelocity(0, body.getLinearVelocity().y);
                 backwardPressedPrev = false;
             }
             if (body.getLinearVelocity().y < -0.01) {
