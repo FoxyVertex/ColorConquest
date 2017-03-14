@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
 import com.foxyvertex.colorconquest.ColorConquest;
+import com.foxyvertex.colorconquest.component.Light;
 import com.foxyvertex.colorconquest.component.ToDestroy;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
 import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
@@ -33,6 +34,7 @@ public class ToDestroySystem extends EntitySystem {
             ToDestroy tdc = e.getComponent(ToDestroy.class);
             tdc.currentTimer -= (getWorld().getDelta()*1000);
             if (tdc.currentTimer <= 0) {
+                if (e.getComponent(Light.class) != null) e.getComponent(Light.class).light.remove(true);
                 if (e.getComponent(PhysicsBody.class) != null) getWorld().getSystem(PhysicsSystem.class).getPhysicsWorld().destroyBody(e.getComponent(PhysicsBody.class).body);
                 e.deleteFromWorld();
             }

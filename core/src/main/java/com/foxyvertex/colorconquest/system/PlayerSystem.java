@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -342,87 +343,90 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         }
 
         Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
+        
+        if (Math.toDegrees(theta) > -42f && Math.toDegrees(theta) < 80f && (facingDIRECTION == FacingDIRECTION.LEFT ? (cp.x < pp.x) : (cp.x > pp.x))) {
 
-        // Create the bullet component
-        Bullet bulletComp = new Bullet();
-        bulletComp.color = playerComp.selectedColor;
+            // Create the bullet component
+            Bullet bulletComp = new Bullet();
+            bulletComp.color = playerComp.selectedColor;
 
 
-        Vector2 impulse;
+            Vector2 impulse;
 
-        if (firingModePressed) {
-            impulse = clickPointBasedImpulse;
-        } else {
-            if (facingDIRECTION == FacingDIRECTION.LEFT) {
-                impulse = iInitialBulletImpulse;
+            if (firingModePressed) {
+                impulse = clickPointBasedImpulse;
             } else {
-                impulse = initialBulletImpulse;
+                if (facingDIRECTION == FacingDIRECTION.LEFT) {
+                    impulse = iInitialBulletImpulse;
+                } else {
+                    impulse = initialBulletImpulse;
+                }
             }
+
+
+            // Create the transform component
+            Transform transformComp = new Transform(body.getPosition().x + bulletStartXValue, body.getPosition().y + 1f);
+
+            // Set the collisionCat variable for the SetupEntityComponentsSystem to set the category bit
+            Variables variables = new Variables();
+            variables.put("collisionCat", "bullet");
+
+            // Create the bullet
+            Entity thisBullet = world.createEntity().edit()
+                    .add(new Renderable(0))
+                    .add(new Layer(Globals.gameScreen.scene.getLayerDataByName("Foreground").id))
+                    .add(transformComp)
+                    .add(new Tint(playerComp.selectedColor))
+                    .add(bulletComp)
+                    .add(variables)
+                    .getEntity();
+
+            // Create a vector from the transform component
+            Vector2 worldPos = new Vector2(transformComp.getX(), transformComp.getY());
+
+            // Create a body definition and set it's position
+            BodyDef bodyDef = new BodyDef();
+            bodyDef.position.set(worldPos);
+
+            // Create the body from the body definition
+            Body body = getWorld().getSystem(PhysicsSystem.class).getPhysicsWorld().createBody(bodyDef);
+            body.setType(BodyDef.BodyType.DynamicBody);
+            body.setUserData(thisBullet);
+
+            // Configure the body's physics properties
+            body.setGravityScale(1f);
+            body.setBullet(true);
+            body.setFixedRotation(true);
+            body.setSleepingAllowed(false);
+            CircleShape shape = new CircleShape();
+            shape.setRadius(0.1f);
+            shape.setPosition(new Vector2(0.1f, 0.1f));
+
+            // Apply the initial velocity of the bullet
+            body.setLinearVelocity(impulse.x, impulse.y);
+
+            // Create the body's fixture and hitbox
+            FixtureDef fd = new FixtureDef();
+            fd.shape = shape;
+            body.createFixture(fd);
+            shape.dispose();
+
+            // Create the sprite component
+            VisSprite visSpriteComp = new VisSprite(bulletTextureRegion);
+            visSpriteComp.setSize(0.2f, 0.2f);
+
+            // Create the origin component
+            Origin origin = new Origin();
+            origin.setOrigin(0, 0);
+            origin.setDirty(true);
+
+            // Add the sprite, body, and fixed rotation to the bullet
+            thisBullet.edit()
+                    .add(new PhysicsBody(body))
+                    .add(new OriginalRotation(transform.getRotation()))
+                    .add(visSpriteComp)
+                    .add(origin);
         }
-
-
-        // Create the transform component
-        Transform transformComp = new Transform(body.getPosition().x+bulletStartXValue, body.getPosition().y+1f);
-
-        // Set the collisionCat variable for the SetupEntityComponentsSystem to set the category bit
-        Variables variables = new Variables();
-        variables.put("collisionCat", "bullet");
-
-        // Create the bullet
-        Entity thisBullet = world.createEntity().edit()
-                .add(new Renderable(0))
-                .add(new Layer(Globals.gameScreen.scene.getLayerDataByName("Foreground").id))
-                .add(transformComp)
-                .add(new Tint(playerComp.selectedColor))
-                .add(bulletComp)
-                .add(variables)
-                .getEntity();
-
-        // Create a vector from the transform component
-        Vector2 worldPos = new Vector2(transformComp.getX(), transformComp.getY());
-
-        // Create a body definition and set it's position
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(worldPos);
-
-        // Create the body from the body definition
-        Body body = getWorld().getSystem(PhysicsSystem.class).getPhysicsWorld().createBody(bodyDef);
-        body.setType(BodyDef.BodyType.DynamicBody);
-        body.setUserData(thisBullet);
-
-        // Configure the body's physics properties
-        body.setGravityScale(1f);
-        body.setBullet(true);
-        body.setFixedRotation(true);
-        body.setSleepingAllowed(false);
-        CircleShape shape = new CircleShape();
-        shape.setRadius(0.1f);
-        shape.setPosition(new Vector2(0.1f, 0.1f));
-
-        // Apply the initial velocity of the bullet
-        body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
-
-        // Create the body's fixture and hitbox
-        FixtureDef fd = new FixtureDef();
-        fd.shape = shape;
-        body.createFixture(fd);
-        shape.dispose();
-
-        // Create the sprite component
-        VisSprite visSpriteComp = new VisSprite(bulletTextureRegion);
-        visSpriteComp.setSize(0.2f, 0.2f);
-
-        // Create the origin component
-        Origin origin = new Origin();
-        origin.setOrigin(0, 0);
-        origin.setDirty(true);
-
-        // Add the sprite, body, and fixed rotation to the bullet
-        thisBullet.edit()
-                .add(new PhysicsBody(body))
-                .add(new OriginalRotation(transform.getRotation()))
-                .add(visSpriteComp)
-                .add(origin);
     }
 
     /**

@@ -80,8 +80,8 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
             if (firingModeClickPoint != null && firingModeStartPos != null) {
                 float m = 0.5f * (float) Math.sqrt(20); // Direct velocity
                 Vector2 cp = new Vector2();
-                cp.x = Utilities.map(firingModeClickPoint.x, 0, Gdx.graphics.getWidth(), 0, cameraManager.getViewport().getWorldWidth());
-                cp.y = Utilities.map(firingModeClickPoint.y, 0, Gdx.graphics.getHeight(), cameraManager.getViewport().getWorldHeight(), 0);
+                cp.x = cameraManager.getCamera().position.x - getWorld().getSystem(CameraSystem.class).minX + Utilities.map(firingModeClickPoint.x, 0, Gdx.graphics.getWidth(), 0, cameraManager.getViewport().getWorldWidth());
+                cp.y = cameraManager.getCamera().position.y - getWorld().getSystem(CameraSystem.class).minY + Utilities.map(firingModeClickPoint.y, 0, Gdx.graphics.getHeight(), cameraManager.getViewport().getWorldHeight(), 0);
                 double theta = Math.atan((cp.y-firingModeStartPos.y)/(cp.x-firingModeStartPos.x));
                 double alpha = m * Math.sin(theta);
                 double beta  = m * Math.cos(theta);
@@ -92,12 +92,22 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
 
                 Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
                 clickPointBasedImpulse.add(firingModeStartPos);
-                Utilities.DrawDebugLine(firingModeStartPos, cp, 2, Color.RED, cameraManager.getCombined());
-                if (clickPointBasedImpulse.x <= cp.x && clickPointBasedImpulse.y <= cp.y) {
-                    Utilities.DrawDebugLine(firingModeStartPos, clickPointBasedImpulse, 2, Color.GREEN, cameraManager.getCombined());
+                if (clickPointBasedImpulse.dst(firingModeStartPos) < cp.dst(firingModeStartPos)) {
+                    Utilities.DrawDebugLine(firingModeStartPos, cp, 2, Color.BLACK, cameraManager.getCombined());
+                    Utilities.DrawDebugLine(firingModeStartPos, clickPointBasedImpulse, 4, getWorld().getSystem(PlayerSystem.class).playerComp.selectedColor, cameraManager.getCombined());
                 } else {
-                    Utilities.DrawDebugLine(firingModeStartPos, cp, 2, Color.GREEN, cameraManager.getCombined());
+                    Utilities.DrawDebugLine(firingModeStartPos, cp, 3, getWorld().getSystem(PlayerSystem.class).playerComp.selectedColor, cameraManager.getCombined());
                 }
+
+//                Vector2 l1 = new Vector2(cp);
+//                l1.y = firingModeStartPos.y;
+//                Utilities.DrawDebugLine(firingModeStartPos, l1, 3, Color.CYAN, cameraManager.getCombined());
+//                Utilities.DrawDebugLine(cp, l1, 3, Color.CYAN, cameraManager.getCombined());
+
+//                Vector2 l2 = new Vector2(clickPointBasedImpulse);
+//                l2.y = firingModeStartPos.y;
+//                Utilities.DrawDebugLine(firingModeStartPos, l2, 3, Color.GREEN, cameraManager.getCombined());
+//                Utilities.DrawDebugLine(clickPointBasedImpulse, l2, 3, Color.GREEN, cameraManager.getCombined());
 
             }
         }
@@ -140,7 +150,6 @@ public class HudSystem extends EntitySystem implements AfterSceneInit {
      */
     public void updateHealthBar() {
         if (player.getComponent(Health.class) != null) {
-            Gdx.app.log("", "");
             healthIndicatorDrawer = new Pixmap(255, 30, Pixmap.Format.RGB888);
             healthIndicatorDrawer.setColor(Color.RED);
             healthIndicatorDrawer.fillRectangle(0, 0, (int)Utilities.map(player.getComponent(Health.class).getCurrentHealth(), 0, player.getComponent(Health.class).getMaxHealth(), 0, healthIndicatorDrawer.getWidth()), healthIndicatorDrawer.getHeight());

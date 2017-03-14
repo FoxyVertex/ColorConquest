@@ -32,7 +32,6 @@ public class ColorEffects {
                 if (!activated) {
                     Player playerComponent = player.getComponent(Player.class);
                     playerComponent.runSpeed *= value;
-                    Gdx.app.log("", "" + playerComponent.runSpeed);
                     activated = true;
                 }
             }

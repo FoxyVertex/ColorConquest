@@ -25,10 +25,10 @@ public class CameraSystem extends BaseSystem implements AfterSceneInit {
 
     Entity player;
     Transform playerTrans;
-    float minX;
-    float maxX;
-    float minY;
-    float maxY;
+    public float minX;
+    public float maxX;
+    public float minY;
+    public float maxY;
 
     Vector2 tmpVect;
 

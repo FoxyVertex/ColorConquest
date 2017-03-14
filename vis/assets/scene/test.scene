@@ -26,7 +26,7 @@
       "name": "Background",
       "id": 0,
       "locked": true,
-      "visible": true,
+      "visible": false,
       "cordsSystem": "WORLD",
       "@class": "EditorLayer"
     },
@@ -41,7 +41,7 @@
     {
       "name": "Points",
       "id": 2,
-      "locked": true,
+      "locked": false,
       "visible": true,
       "cordsSystem": "SCREEN",
       "@class": "EditorLayer"
@@ -55,7 +55,7 @@
       "@class": "EditorLayer"
     }
   ],
-  "activeLayerId": 1,
+  "activeLayerId": 2,
   "groupIds": [],
   "schemes": [
     {
@@ -230,8 +230,8 @@
         {
           "vertices": [
             {
-              "x": 28.287495,
-              "y": -0.02137804,
+              "x": 28.242813,
+              "y": 1.4240283,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
@@ -257,8 +257,8 @@
                 "y": 11.801628
               },
               {
-                "x": 28.287495,
-                "y": -0.02137804
+                "x": 28.242813,
+                "y": 1.4240283
               },
               {
                 "x": 28.390306,
@@ -1919,6 +1919,9 @@
           "@class": "ProtoVisSprite"
         },
         {
+          "@class": "Invisible"
+        },
+        {
           "layerId": 0,
           "@class": "Layer"
         },
@@ -1977,6 +1980,9 @@
           "width": 0.96,
           "height": 0.96,
           "@class": "ProtoVisSprite"
+        },
+        {
+          "@class": "Invisible"
         },
         {
           "layerId": 0,

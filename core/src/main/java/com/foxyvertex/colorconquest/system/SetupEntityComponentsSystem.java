@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.ColorConquest;
 import com.foxyvertex.colorconquest.Finals;
+import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Animation;
 import com.foxyvertex.colorconquest.component.Health;
 import com.foxyvertex.colorconquest.component.ToDestroy;
@@ -95,7 +96,7 @@ public class SetupEntityComponentsSystem extends EntitySystem {
             entity.edit().add(new Health(new DeathRunnable() {
                 @Override
                 public void run(Entity e) {
-                    e.edit().add(new ToDestroy(100));
+                    e.edit().add(new ToDestroy(0));
                 }
             }, 20f));
         } else if (collisionCat.equals("levelBounds")) {

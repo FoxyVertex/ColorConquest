@@ -71,6 +71,130 @@ public class Utilities {
         Gdx.gl.glLineWidth(1);
     }
 
+//    Doesn't work for some reason
+//    public static Color getComplimentaryColor(Color originalColor) {
+//        HSLColor hslColor = rgbColorToHSL(originalColor);
+//        float h2 = hslColor.h + 0.5f;
+//        if (h2 > 1) {
+//            h2 -= 1;
+//        }
+//        hslColor.h = h2;
+//        return hslColorToRGB(hslColor);
+//    }
+//
+//    public static Color hslColorToRGB(HSLColor hslColor) {
+//        float h = hslColor.h;
+//        float s = hslColor.s;
+//        float l = hslColor.l;
+//        float r = 0f;
+//        float g = 0f;
+//        float b = 0f;
+//        float var_2 = 0f;
+//        float var_1 = 0f;
+//        float h2 = 0f;
+//
+//        if (s == 0)
+//        {
+//            r = l * 255;
+//            g = l * 255;
+//            b = l * 255;
+//        }
+//        else
+//        {
+//            if (l < 0.5f)
+//            {
+//                var_2 = l * (1 + s);
+//            }
+//            else
+//            {
+//                var_2 = (l + s) - (s * l);
+//            }
+//
+//            var_1 = 2 * l - var_2;
+//            r = 255 * hue_2_rgb(var_1,var_2,h2 + (1 / 3));
+//            g = 255 * hue_2_rgb(var_1,var_2,h2);
+//            b = 255 * hue_2_rgb(var_1,var_2,h2 - (1 / 3));
+//        }
+//
+//        r = map(r, 0, 255, 0, 1);
+//        g = map(g, 0, 255, 0, 1);
+//        b = map(b, 0, 255, 0, 1);
+//
+//        return new Color(r, g, b, 1f);
+//    }
+//    private static float hue_2_rgb(float v1, float v2, float vh) {
+//        if (vh < 0)
+//        {
+//            vh += 1;
+//        }
+//
+//        if (vh > 1)
+//        {
+//            vh -= 1;
+//        }
+//
+//        if ((6 * vh) < 1)
+//        {
+//            return (v1 + (v2 - v1) * 6 * vh);
+//        }
+//
+//        if ((2 * vh) < 1)
+//        {
+//            return (v2);
+//        }
+//
+//        if ((3 * vh) < 2)
+//        {
+//            return (v1 + (v2 - v1) * ((2 / 3 - vh) * 6));
+//        }
+//        return v1;
+//    }
+//
+//    public static HSLColor rgbColorToHSL(Color color) {
+//        HSLColor hsl = new HSLColor();
+//        float r = color.r;
+//        float g = color.g;
+//        float b = color.b;
+//
+//        float min = Math.min(r, Math.min(g, b));
+//        float max = Math.max(r, Math.max(g, b));
+//        float del_max = max-min;
+//
+//        float l = (max+min)/2;
+//
+//        if (del_max == 0) {
+//            hsl.h = 0f;
+//            hsl.s = 0f;
+//        } else {
+//            if (l < 0.5f) {
+//                hsl.s = del_max / (max+min);
+//            } else {
+//                hsl.s = del_max / (2 - max - min);
+//            }
+//
+//            float del_r = (((max - r)/6)+(del_max/2))/del_max;
+//            float del_g = (((max - g)/6)+(del_max/2))/del_max;
+//            float del_b = (((max - b)/6)+(del_max/2))/del_max;
+//
+//            if (r == max) {
+//                hsl.h = del_b-del_g;
+//            } else if (g == max) {
+//                hsl.h = (1/3) + del_r - del_b;
+//            } else if (b == max) {
+//                hsl.h = (2/3) + del_g - del_r;
+//            }
+//
+//            if (hsl.h < 0) {
+//                hsl.h += 1;
+//            }
+//            if (hsl.h > 1) {
+//                hsl.h -= 1;
+//            }
+//        }
+//
+//        return hsl;
+//    }
+
     public static Animation parseAnimationFile(String path) {
         FileHandle fileHandle = Gdx.files.internal(path);
         Json json = new Json();

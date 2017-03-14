@@ -101,6 +101,7 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                     block2 = (Entity) fixtureA.getUserData();
                     bullet2 = (Entity) fixtureB.getUserData();
                 }
+                bullet2.edit().add(new ToDestroy(0));
                 if (block2.getComponent(ColorComponent.class) == null) break;
                 if (bullet2.getComponent(Bullet.class) == null) break;
                 if (bullet2.getComponent(Bullet.class).color == null) break;
@@ -119,7 +120,6 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                         cc1.b = Utilities.clamp(cc1.b + Utilities.map(10, 0, 255, 0, 1), 0, 1);
                     }
                 }
-                bullet2.edit().add(new ToDestroy(100));
                 break;
             case Finals.BULLET_BIT | Finals.ZOMBIE_BIT:
                 Entity bullet3, zombie3;
@@ -140,7 +140,7 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                     zombie3 = (Entity) fixtureB.getUserData();
                     block3F = fixtureB;
                 }
-
+                bullet3.edit().add(new ToDestroy(0));
                 zombie3.getComponent(Health.class).dealDamage(zombie3, 4f);
                 break;
             case Finals.BULLET_BIT:

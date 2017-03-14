@@ -8,7 +8,7 @@
   "physicsSettings": {
     "physicsEnabled": true,
     "gravityX": 0.0,
-    "gravityY": -10.0,
+    "gravityY": -13.0,
     "allowSleep": false
   },
   "variables": {
