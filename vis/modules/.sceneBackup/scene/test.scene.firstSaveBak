@@ -8,7 +8,7 @@
   "physicsSettings": {
     "physicsEnabled": true,
     "gravityX": 0.0,
-    "gravityY": -13.0,
+    "gravityY": -19.0,
     "allowSleep": false
   },
   "variables": {
@@ -41,7 +41,7 @@
     {
       "name": "Points",
       "id": 2,
-      "locked": true,
+      "locked": false,
       "visible": true,
       "cordsSystem": "SCREEN",
       "@class": "EditorLayer"
@@ -230,8 +230,8 @@
         {
           "vertices": [
             {
-              "x": 28.287495,
-              "y": -0.02137804,
+              "x": 28.242813,
+              "y": 1.4240283,
               "@class": "com.badlogic.gdx.math.Vector2"
             },
             {
@@ -257,8 +257,8 @@
                 "y": 11.801628
               },
               {
-                "x": 28.287495,
-                "y": -0.02137804
+                "x": 28.242813,
+                "y": 1.4240283
               },
               {
                 "x": 28.390306,
@@ -1041,7 +1041,7 @@
         {
           "bodyType": "DynamicBody",
           "friction": 1.0,
-          "density": 1.0,
+          "density": 3.0,
           "restitution": 0.0,
           "sensor": false,
           "gravityScale": 1.0,
@@ -2123,7 +2123,7 @@
             },
             {
               "key": "light",
-              "value": "{    \"type\": \"cone\",    \"color\": {        \"r\": 0.1,        \"g\": 1.0,        \"b\": 0.8,        \"a\": 0.8    },    \"rays\": 5000.0,    \"distance\": 15.0,    \"directionDegree\": 270.0,    \"coneDegree\": 35.0}",
+              "value": "{    \"type\": \"cone\",    \"color\": {        \"r\": 0.1,        \"g\": 1.0,        \"b\": 0.8,        \"a\": 0.8    },    \"rays\": 5000.0,    \"distance\": 15.0,    \"directionDegree\": 180.0,    \"coneDegree\": 35.0}",
               "@class-key": "String",
               "@class-value": "String"
             },

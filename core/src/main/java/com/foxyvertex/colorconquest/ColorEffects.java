@@ -48,7 +48,7 @@ public class ColorEffects {
 
         RED = new ColorEffect() {
             boolean activated = false;
-            public float value = 4.5f;
+            public float value = 1.7f;
             @Override
             public void go(Entity player, Entity environmentEntity) {
                 Player playerComponent = player.getComponent(Player.class);

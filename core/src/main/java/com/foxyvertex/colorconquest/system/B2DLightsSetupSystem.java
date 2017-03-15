@@ -90,8 +90,8 @@ public class B2DLightsSetupSystem extends EntitySystem {
             float colorA = (float)((double) colorObj.get("a"));
             int rays = (int) Math.floor((double) obj.get("rays"));
             float distance = (float)(double) obj.get("distance");
-            float directionDegree;
-            float coneDegree;
+            float directionDegree = 0f;
+            float coneDegree = 0f;
 
             PositionalLight light = null;
 
@@ -101,12 +101,11 @@ public class B2DLightsSetupSystem extends EntitySystem {
             } else if (type.equals("cone")) {
                 directionDegree = (float)(double) obj.get("directionDegree");
                 coneDegree = (float)(double) obj.get("coneDegree");
-                light = new ConeLight(Globals.gameScreen.b2dlHandler, rays, new Color(colorR, colorG, colorB, colorA), distance, transform.getX(), transform.getY(), directionDegree, coneDegree);
+                light = new ConeLight(Globals.gameScreen.b2dlHandler, rays, new Color(colorR, colorG, colorB, colorA), distance, transform.getX(), transform.getY(), 45f, coneDegree);
                 e.edit().add(new Light(light));
             }
 
-            if (e.getComponent(PhysicsBody.class) != null) light.attachToBody(e.getComponent(PhysicsBody.class).body);
-
+            if (e.getComponent(PhysicsBody.class) != null) light.attachToBody(e.getComponent(PhysicsBody.class).body, 0, 0, directionDegree);
         } catch (ParseException pe) {
             pe.printStackTrace();
         }

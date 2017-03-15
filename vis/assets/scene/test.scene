@@ -8,7 +8,7 @@
   "physicsSettings": {
     "physicsEnabled": true,
     "gravityX": 0.0,
-    "gravityY": -13.0,
+    "gravityY": -19.0,
     "allowSleep": false
   },
   "variables": {
@@ -26,7 +26,7 @@
       "name": "Background",
       "id": 0,
       "locked": true,
-      "visible": false,
+      "visible": true,
       "cordsSystem": "WORLD",
       "@class": "EditorLayer"
     },
@@ -55,7 +55,7 @@
       "@class": "EditorLayer"
     }
   ],
-  "activeLayerId": 2,
+  "activeLayerId": 1,
   "groupIds": [],
   "schemes": [
     {
@@ -1041,7 +1041,7 @@
         {
           "bodyType": "DynamicBody",
           "friction": 1.0,
-          "density": 1.0,
+          "density": 3.0,
           "restitution": 0.0,
           "sensor": false,
           "gravityScale": 1.0,
@@ -1919,9 +1919,6 @@
           "@class": "ProtoVisSprite"
         },
         {
-          "@class": "Invisible"
-        },
-        {
           "layerId": 0,
           "@class": "Layer"
         },
@@ -1980,9 +1977,6 @@
           "width": 0.96,
           "height": 0.96,
           "@class": "ProtoVisSprite"
-        },
-        {
-          "@class": "Invisible"
         },
         {
           "layerId": 0,
@@ -2129,7 +2123,7 @@
             },
             {
               "key": "light",
-              "value": "{    \"type\": \"cone\",    \"color\": {        \"r\": 0.1,        \"g\": 1.0,        \"b\": 0.8,        \"a\": 0.8    },    \"rays\": 5000.0,    \"distance\": 15.0,    \"directionDegree\": 270.0,    \"coneDegree\": 35.0}",
+              "value": "{    \"type\": \"cone\",    \"color\": {        \"r\": 0.1,        \"g\": 1.0,        \"b\": 0.8,        \"a\": 0.8    },    \"rays\": 5000.0,    \"distance\": 15.0,    \"directionDegree\": 180.0,    \"coneDegree\": 35.0}",
               "@class-key": "String",
               "@class-value": "String"
             },
@@ -2148,8 +2142,8 @@
     {
       "components": [
         {
-          "x": 8.2024,
-          "y": 20.0218,
+          "x": 5.065307,
+          "y": 10.06278,
           "scaleX": 1.0,
           "scaleY": 1.0,
           "rotation": 0.0,

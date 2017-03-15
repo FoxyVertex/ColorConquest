@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.ColorConquest;
 import com.foxyvertex.colorconquest.ColorEffects;
@@ -221,13 +222,15 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
 
             if (currentJumpLength > 0 && canJump && !jumpReleased) {
-                body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()), body.getWorldCenter(), true);
+                body.applyLinearImpulse(new Vector2(0, player.getComponent(Player.class).jumpForce * world.getDelta()*4), body.getWorldCenter(), true);
                 if (player.getComponent(Animation.class) != null) world.getSystem(AnimationSystem.class).changeAnimState(player, "jumpstart", shouldFlipX, false, false);
             }
 
-            float velChange = desiredXVel - xVel;
-            float impulse = body.getMass() * velChange;
-            body.applyForce(impulse, 0, body.getWorldCenter().x, body.getWorldCenter().y, true);
+//            float velChange = desiredXVel - xVel;
+//            float impulse = body.getMass() * velChange;
+//            body.applyForce(impulse, 0, body.getWorldCenter().x, body.getWorldCenter().y, true);
+
+            body.setLinearVelocity(desiredXVel, body.getLinearVelocity().y);
         } else {
             Gdx.input.setInputProcessor(Globals.pauseMenuStage.stage);
             Globals.pauseMenuStage.stage.act();
@@ -272,6 +275,9 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
         sprite = spriteCm.get(player);
         transform = transformCm.get(player);
         body = bodyCm.get(player).body;
+
+        MassData massData = new MassData();
+        massData.mass = 2f;
 
         // Set the player's category bit (might be redundant, not sure atm)
         Filter filter = new Filter();
@@ -345,7 +351,7 @@ public class PlayerSystem extends BaseSystem implements AfterSceneInit {
 
         Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
 
-        if (Math.toDegrees(theta) > -42f && Math.toDegrees(theta) < 80f && (facingDIRECTION == FacingDIRECTION.LEFT ? (cp.x < pp.x) : (cp.x > pp.x))) {
+        if (!firingModePressed || (Math.toDegrees(theta) > -42f && Math.toDegrees(theta) < 80f && (facingDIRECTION == FacingDIRECTION.LEFT ? (cp.x < pp.x) : (cp.x > pp.x)))) {
             // Create the bullet component
             Bullet bulletComp = new Bullet();
             bulletComp.color = playerComp.selectedColor;
