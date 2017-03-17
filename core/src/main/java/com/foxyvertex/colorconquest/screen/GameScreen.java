@@ -11,8 +11,7 @@ import com.foxyvertex.colorconquest.manager.Levels;
 import com.foxyvertex.colorconquest.manager.UserPrefs;
 import com.foxyvertex.colorconquest.stages.PauseMenu;
 import com.foxyvertex.colorconquest.system.AnimationSystem;
-import com.foxyvertex.colorconquest.system.render.B2DLightsRenderSystem;
-import com.foxyvertex.colorconquest.system.B2DLightsSetupSystem;
+import com.foxyvertex.colorconquest.system.simpleAiMovementSystem;
 import com.foxyvertex.colorconquest.system.CameraSystem;
 import com.foxyvertex.colorconquest.system.ColorTintSystem;
 import com.foxyvertex.colorconquest.system.HealthSystem;
@@ -23,7 +22,7 @@ import com.foxyvertex.colorconquest.system.SetColorComponentSystem;
 import com.foxyvertex.colorconquest.system.SetupEntityComponentsSystem;
 import com.foxyvertex.colorconquest.system.ToDestroySystem;
 import com.foxyvertex.colorconquest.system.CollisionSystem;
-import com.foxyvertex.colorconquest.system.ZombieSystem;
+import com.foxyvertex.colorconquest.system.SlitheriktorSystem;
 import com.kotcrab.vis.runtime.scene.Scene;
 import com.kotcrab.vis.runtime.scene.SceneConfig;
 import com.kotcrab.vis.runtime.scene.SceneFeature;
@@ -115,10 +114,11 @@ public class GameScreen implements Screen {
         parameter.config.addSystem(HudSystem.class, SceneConfig.Priority.VIS_RENDERER.toIntValue()-2);
         parameter.config.addSystem(ToDestroySystem.class);
         parameter.config.addSystem(AnimationSystem.class);
-        parameter.config.addSystem(ZombieSystem.class);
-        parameter.config.addSystem(B2DLightsSetupSystem.class);
+        parameter.config.addSystem(SlitheriktorSystem.class);
+        parameter.config.addSystem(simpleAiMovementSystem.class);
+        //parameter.config.addSystem(B2DLightsSetupSystem.class);
         parameter.config.addSystem(HealthSystem.class);
-        parameter.config.addSystem(B2DLightsRenderSystem.class, SceneConfig.Priority.VIS_RENDERER.toIntValue()-1);
+        //parameter.config.addSystem(B2DLightsRenderSystem.class, SceneConfig.Priority.VIS_RENDERER.toIntValue()-1);
         scene = manager.loadSceneNow(currentLevel.path, parameter);
     }
 

@@ -38,7 +38,6 @@ public class ColorConquest extends Game {
 
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-        Globals.systemsToDisableOnPause.add(PhysicsSystem.class);
 		Globals.game = this;
         UserPrefs.load();
         Levels.load();

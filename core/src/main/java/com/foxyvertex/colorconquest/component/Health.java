@@ -58,8 +58,8 @@ public class Health extends Component {
     }
 
     public float dealDamage(Entity e, float damage) {
-        if (damageCallback != null) damageCallback.run(e, damage);
         currentHealth -= damage;
+        if (damageCallback != null) damageCallback.run(e, damage);
         return currentHealth;
     }
 }

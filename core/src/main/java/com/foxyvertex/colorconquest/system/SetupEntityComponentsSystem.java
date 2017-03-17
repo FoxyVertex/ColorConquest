@@ -3,20 +3,25 @@ package com.foxyvertex.colorconquest.system;
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.utils.Array;
-import com.foxyvertex.colorconquest.ColorConquest;
 import com.foxyvertex.colorconquest.Finals;
-import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Animation;
 import com.foxyvertex.colorconquest.component.Health;
 import com.foxyvertex.colorconquest.component.ToDestroy;
-import com.foxyvertex.colorconquest.component.Zombie;
+import com.foxyvertex.colorconquest.component.Slitheriktor;
 import com.foxyvertex.colorconquest.exception.NoCategoryBitFoundOnPhysicsEntityException;
 import com.foxyvertex.colorconquest.tools.DeathRunnable;
 import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
 import com.kotcrab.vis.runtime.component.Variables;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Created by aidan on 2/16/2017.
@@ -90,9 +95,23 @@ public class SetupEntityComponentsSystem extends EntitySystem {
             filter.categoryBits = Finals.PLAYER_FEET_BIT;
         } else if (collisionCat.equals("bullet")) {
             filter.categoryBits = Finals.BULLET_BIT;
-        } else if (collisionCat.equals("zombie")) {
+        } else if (collisionCat.equals("slitheriktor")) {
             filter.categoryBits = Finals.ZOMBIE_BIT;
-            entity.edit().add(new Zombie());
+            if (entity.getComponent(Variables.class).get("waypoints") == null) return;
+            if (entity.getComponent(Variables.class).get("eyeColor") == null) return;
+            JSONParser parser = new JSONParser();
+            String jsonEyeColor = entity.getComponent(Variables.class).get("eyeColor");
+
+            try {
+                Slitheriktor slitheriktorComp = new Slitheriktor();
+                JSONObject colorObj = (JSONObject)parser.parse(jsonEyeColor);
+                colorObj = (JSONObject) colorObj.get("color");
+                slitheriktorComp.eyeColor = new Color((float)(double)colorObj.get("r"), (float)(double)colorObj.get("g"), (float)(double)colorObj.get("b"), (float)(double)colorObj.get("a"));
+                entity.edit().add(slitheriktorComp);
+            } catch (ParseException pe) {
+                pe.printStackTrace();
+            }
+
             entity.edit().add(new Health(new DeathRunnable() {
                 @Override
                 public void run(Entity e) {

@@ -1,29 +1,23 @@
 package com.foxyvertex.colorconquest.system;
 
 import com.artemis.Aspect;
-import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.utils.Array;
-import com.foxyvertex.colorconquest.ColorConquest;
 import com.foxyvertex.colorconquest.ColorEffects;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.component.Bullet;
 import com.foxyvertex.colorconquest.component.ColorComponent;
 import com.foxyvertex.colorconquest.component.Health;
-import com.foxyvertex.colorconquest.component.Player;
 import com.foxyvertex.colorconquest.component.ToDestroy;
 import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
-import com.kotcrab.vis.runtime.component.Tint;
 import com.kotcrab.vis.runtime.system.physics.PhysicsSystem;
 import com.kotcrab.vis.runtime.util.AfterSceneInit;
 
@@ -166,11 +160,11 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                     block4F = fixtureB;
                 }
 
-                ZombieCollision zombieCollision = new ZombieCollision();
-                zombieCollision.contact = contact;
-                zombieCollision.timer = 0f;
+                EnemyCollision enemyCollision = new EnemyCollision();
+                enemyCollision.contact = contact;
+                enemyCollision.timer = 0f;
 
-                getWorld().getSystem(ZombieSystem.class).activeCollisions.add(zombieCollision);
+                getWorld().getSystem(SlitheriktorSystem.class).activeCollisions.add(enemyCollision);
 
                 break;
         }
@@ -236,9 +230,9 @@ public class CollisionSystem extends EntitySystem implements ContactListener, Af
                 break;
 
             case Finals.PLAYER_BIT | Finals.ZOMBIE_BIT:
-                for (ZombieCollision zc : getWorld().getSystem(ZombieSystem.class).activeCollisions) {
+                for (EnemyCollision zc : getWorld().getSystem(SlitheriktorSystem.class).activeCollisions) {
                     if (zc.contact == contact) {
-                        getWorld().getSystem(ZombieSystem.class).activeCollisions.removeValue(zc, true);
+                        getWorld().getSystem(SlitheriktorSystem.class).activeCollisions.removeValue(zc, true);
                         break;
                     }
                 }
