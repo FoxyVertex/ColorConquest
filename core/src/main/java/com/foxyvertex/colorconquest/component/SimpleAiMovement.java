@@ -1,7 +1,6 @@
 package com.foxyvertex.colorconquest.component;
 
 import com.artemis.Component;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 /**
