@@ -7,6 +7,7 @@ import com.artemis.EntitySystem;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
+import com.foxyvertex.colorconquest.ColorConquest;
 import com.foxyvertex.colorconquest.component.SimpleAiMovement;
 import com.kotcrab.vis.runtime.component.PhysicsBody;
 import com.kotcrab.vis.runtime.component.Variables;
@@ -109,7 +110,7 @@ public class simpleAiMovementSystem extends EntitySystem {
             toAdd.add(e);
             return;
         }
-        if (variablesCm.get(e).get("simpleMovement") != null) {
+        if (variablesCm.get(e).get("simpleAiMovement") != null) {
             JSONParser parser = new JSONParser();
             String json = variablesCm.get(e).get("simpleAiMovement");
 
