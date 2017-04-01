@@ -63,6 +63,7 @@ public class DesktopController extends InputAdapter implements InputProcessor {
         inputManager.debugSpawnpointPressed = Gdx.input.isKeyPressed(Input.Keys.F);
         inputManager.debugSuperAbilityPressed = Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT);
         inputManager.debugZoomInPressed = Gdx.input.isKeyPressed(Input.Keys.EQUALS);
+        inputManager.firingModePressed = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
     }
 
 

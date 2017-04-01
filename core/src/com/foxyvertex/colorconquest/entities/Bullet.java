@@ -33,6 +33,16 @@ public class Bullet extends SpriteBody {
         super.destructionTime = this.destructionTime;
     }
 
+    Bullet(Vector2 spawnPoint, Color color, Vector2 initialImpulse) {
+        super(spawnPoint);
+        this.spawnPoint = spawnPoint;
+        this.color = color;
+        this.initialImpulse = initialImpulse;
+        def();
+        reDraw();
+        super.destructionTime = this.destructionTime;
+    }
+
     public void def() {
         super.CATIGORY_BIT = Finals.BULLET_BIT;
         super.bodyType = BodyDef.BodyType.DynamicBody;

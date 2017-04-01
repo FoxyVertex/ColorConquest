@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.managers.Levels;
+import com.foxyvertex.colorconquest.tools.Drawable;
 import com.foxyvertex.colorconquest.tools.Utilities;
 
 /**
@@ -21,14 +22,16 @@ public class PlayerInput extends InputMultiplexer {
     public MobileController mobileController;
     public int currentColorIndex = 0;
     public float speedMultiplier = 1f;
-    boolean jumpPressed, forwardPressed, backwardPressed, downPressed, debugSuperAbilityPressed, debugSpawnpointPressed, debugZoomInPressed, debugZoomOutPressed, debugNextLevelPressed;
-    boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev;
+    boolean jumpPressed, forwardPressed, backwardPressed, downPressed, debugSuperAbilityPressed, debugSpawnpointPressed, debugZoomInPressed, debugZoomOutPressed, debugNextLevelPressed, firingModePressed;
+    boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev, firingModePressedPrev;
     private float currentJumpLength = 0;
     private boolean canJump = true;
     private int iForRainbowEasterEgg = 0;
     private Vector3 rainBowCurrentColor = new Vector3();
 
     private float fireTimer = 0;
+
+    Drawable firingModeDrawable;
 
     public PlayerInput() {
         super();
@@ -42,6 +45,44 @@ public class PlayerInput extends InputMultiplexer {
             desktopController = new DesktopController(this);
             addProcessor(desktopController);
         }
+        firingModeDrawable = new Drawable() {
+            @Override
+            public void draw() {
+                if (Globals.gameMan.player.isFiring) {
+                    float bulletStartXValue;
+
+                    if (!Globals.gameMan.player.isRunningRight()) {
+                        bulletStartXValue = -1 / Finals.PPM;
+                    } else {
+                        bulletStartXValue = 2 / Finals.PPM;
+                    }
+
+                    Vector2 firingModeStartPos = new Vector2(Globals.gameMan.player.body.getPosition()).add(bulletStartXValue, 3 / Finals.PPM);
+
+                    float m = 0.1f * (float) Math.sqrt(20); // Direct velocity
+                    Vector2 cp = new Vector2();
+                    cp.x = Globals.gameMan.cam.position.x + Utilities.map(Gdx.input.getX(), 0, Gdx.graphics.getWidth(), 0, Globals.gameMan.viewport.getWorldWidth()) - (Globals.gameMan.viewport.getWorldWidth() / 2);
+                    cp.y = Globals.gameMan.cam.position.y + Utilities.map(Gdx.input.getY(), 0, Gdx.graphics.getHeight(), Globals.gameMan.viewport.getWorldHeight(), 0) - (Globals.gameMan.viewport.getWorldHeight() / 2);
+                    double theta = Math.atan((cp.y - firingModeStartPos.y) / (cp.x - firingModeStartPos.x));
+                    double alpha = m * Math.sin(theta);
+                    double beta = m * Math.cos(theta);
+                    if ((cp.x - firingModeStartPos.x) < 0 && !(beta < 0)) {
+                        beta *= -1;
+                        alpha *= -1;
+                    }
+
+                    Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
+                    clickPointBasedImpulse.add(firingModeStartPos);
+                    if (clickPointBasedImpulse.dst(firingModeStartPos) < cp.dst(firingModeStartPos)) {
+                        Utilities.DrawDebugLine(firingModeStartPos, cp, 2, new Color(Utilities.map(rainBowCurrentColor.x, 0, 255, 0, 1), Utilities.map(rainBowCurrentColor.y, 0, 255, 0, 1), Utilities.map(rainBowCurrentColor.z, 0, 255, 0, 1), 1), Globals.gameMan.cam.combined);
+                        Utilities.DrawDebugLine(firingModeStartPos, clickPointBasedImpulse, 4, Globals.gameMan.player.selectedColor, Globals.gameMan.cam.combined);
+                    } else {
+                        Utilities.DrawDebugLine(firingModeStartPos, cp, 3, Globals.gameMan.player.selectedColor, Globals.gameMan.cam.combined);
+                    }
+                }
+            }
+        };
+        Globals.gameMan.running.drawables.add(firingModeDrawable);
     }
 
     public void handleInput(float delta) {
@@ -78,8 +119,14 @@ public class PlayerInput extends InputMultiplexer {
             Globals.gameMan.switchLevel(nextLevel);
         }
 
-        Globals.gameMan.player.isFiring = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT);
-
+        Globals.gameMan.player.isFiring = firingModePressed;
+        if (Globals.gameMan.player.isFiring) {
+            Globals.gameMan.player.minRunSpeed = 0.1f;
+            Globals.gameMan.player.maxRunSpeed = 0.3f;
+        } else {
+            Globals.gameMan.player.minRunSpeed = 0.2f;
+            Globals.gameMan.player.maxRunSpeed = 0.4f;
+        }
         if (jumpPressed) {
             currentJumpLength += delta;
 

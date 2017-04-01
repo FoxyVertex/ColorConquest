@@ -14,6 +14,7 @@ import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.input.PlayerInput;
 import com.foxyvertex.colorconquest.managers.Assets;
+import com.foxyvertex.colorconquest.tools.Utilities;
 
 /**
  * Created by aidan on 12/24/2016.
@@ -46,9 +47,9 @@ public class Player extends SpriteBody {
     private float timer;
     private State currentState;
     private State previousState;
-    private boolean runningRight = false;
+    public boolean runningRight = false;
     private Array<Bullet> bullets;
-    private Color selectedColor = Color.RED;
+    public Color selectedColor = Color.RED;
 
     public Player(Vector2 spawnPoint) {
         super(spawnPoint.scl(1 / Finals.PPM));
@@ -95,8 +96,11 @@ public class Player extends SpriteBody {
     public void tick(float delta) {
         //Gdx.input.setInputProcessor(input);
         if (isFiring) {
-            //slow the player down
-            //runSpeed *= 0.75;
+            minRunSpeed = 0.1f;
+            maxRunSpeed = 0.3f;
+        } else {
+            minRunSpeed = 0.2f;
+            maxRunSpeed = 0.4f;
         }
         input.handleInput(delta);
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
@@ -200,10 +204,43 @@ public class Player extends SpriteBody {
 
 
         Globals.hudScene.updateData();
-        if (runningRight)
-            bullets.add(new Bullet(body.getPosition().add(1 / Finals.PPM, 1 / Finals.PPM), selectedColor));
-        else
-            bullets.add(new Bullet(body.getPosition().add(-1 / Finals.PPM, -1 / Finals.PPM), selectedColor));
+
+        float bulletStartXValue;
+
+        if (!runningRight) {
+            bulletStartXValue = -1/Finals.PPM;
+        } else {
+            bulletStartXValue = 2/Finals.PPM;
+        }
+
+        float m = 1f * (float) Math.sqrt(20); // Direct velocity
+        Vector2 cp = new Vector2();
+        Vector2 pp = new Vector2(body.getPosition()).add(bulletStartXValue, 1f);
+
+        cp.x = Globals.gameMan.cam.position.x + Utilities.map(clickPoint.x, 0, Gdx.graphics.getWidth(), 0, Globals.gameMan.viewport.getWorldWidth());
+        cp.y = Globals.gameMan.cam.position.y + Utilities.map(clickPoint.y, 0, Gdx.graphics.getHeight(), Globals.gameMan.viewport.getWorldHeight(), 0);
+
+        double theta = Math.atan((cp.y-pp.y)/(cp.x-pp.x));
+        double alpha = m * Math.sin(theta);
+        double beta  = m * Math.cos(theta);
+        if ((cp.x-pp.x) < 0 && !(beta < 0)) {
+            beta *= -1;
+            alpha *= -1;
+        }
+
+        Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
+        if (isFiring) {
+            if (runningRight)
+                bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor, clickPointBasedImpulse));
+            else
+                bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor, clickPointBasedImpulse));
+        } else {
+            if (runningRight)
+                bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor));
+            else
+                bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor));
+        }
+
     }
 
     public boolean isRunningRight() {
