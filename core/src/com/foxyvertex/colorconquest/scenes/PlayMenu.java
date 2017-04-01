@@ -18,7 +18,7 @@ import com.foxyvertex.colorconquest.screens.Screen;
 
 public class PlayMenu extends Scene {
 
-    Table table;
+    Table      table;
     TextButton btnContinue;
 
     public PlayMenu(final Screen screen) {
@@ -57,6 +57,25 @@ public class PlayMenu extends Scene {
             }
         });
         table.add(btnNew).expandX();
+
+        TextButton btnLoadLevel = new TextButton("Load Custom Level", Assets.guiSkin);
+        //Call the newSave() method when the new button is pushed.
+        btnLoadLevel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent i, float x, float y) {
+                Assets.playSound(Assets.clickSound);
+
+                if (Globals.LoadLevelScreen != null)
+                    ((Screen) Globals.game.getScreen()).switchScene(Globals.LoadLevelScreen);
+                else {
+                    Globals.LoadLevelScreen = new LoadLevel((Screen) Globals.game.getScreen());
+                    ((Screen) Globals.game.getScreen()).switchScene(Globals.LoadLevelScreen);
+                }
+
+            }
+        });
+        table.add(btnLoadLevel).expandX();
+
 
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);

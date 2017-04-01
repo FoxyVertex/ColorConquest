@@ -25,8 +25,10 @@ public class Utilities {
         return Math.max(min, Math.min(max, val));
     }
 
+    private static ShapeRenderer debugRenderer = new ShapeRenderer();
+
     public static int findBiggestIndex(float nums[]) {
-        int val = 0;
+        int   val     = 0;
         float largest = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] > largest) {
@@ -37,8 +39,16 @@ public class Utilities {
         return val;
     }
 
-    private static ShapeRenderer debugRenderer = new ShapeRenderer();
+    public static float map(float input, float origMin, float origMax, float newMin, float newMax) {
+        return (input - origMin) / (origMax - origMin) * (newMax - newMin) + newMin;
+    }
 
+    public static Color complement(Color initial) {
+        initial.r = 1f - initial.r / 1f;
+        initial.g = 1f - initial.g / 1f;
+        initial.b = 1f - initial.b / 1f;
+        return initial;
+    }
     public static void DrawDebugLine(Vector2 start, Vector2 end, int lineWidth, Color color, Matrix4 projectionMatrix)
     {
         Gdx.gl.glLineWidth(lineWidth);
@@ -48,9 +58,5 @@ public class Utilities {
         debugRenderer.line(start, end);
         debugRenderer.end();
         Gdx.gl.glLineWidth(1);
-    }
-
-    public static float map(float input, float origMin, float origMax, float newMin, float newMax) {
-        return (input - origMin) / (origMax - origMin) * (newMax - newMin) + newMin;
     }
 }

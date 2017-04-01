@@ -10,9 +10,9 @@ import java.util.List;
  */
 
 public class Levels {
-    public static List<Level> levels = new ArrayList<Level>();
-    public static int currentLevel = 0;
-    public static String pathPrefix = "levels/";
+    public static List<Level> levels       = new ArrayList<Level>();
+    public static int         currentLevel = 0;
+    public static String      pathPrefix   = "levels/";
 
     public static void load() {
         Level level1 = new Level();
@@ -50,9 +50,9 @@ public class Levels {
 
 
     public static class Level {
-        public String path;
-        public Level nextLevel;
+        public String  path;
+        public Level   nextLevel;
         public boolean hasCutscene;
-        public int index;
+        public int     index;
     }
 }

@@ -27,25 +27,20 @@ import static com.foxyvertex.colorconquest.tools.Utilities.map;
 
 public class Block extends SpriteBody {
 
-    public static List<Block> blocks = new ArrayList<Block>();
-    public Color color;
+    public        boolean     rainbow = false;
     Vector2 spawnPoint;
     private MapObject mapObject;
-    public boolean rainbow = false;
     private int iForRainbow = 0;
     private Color rainbowColor;
 
     public Block(MapObject object) {
         super(new Vector2(object.getProperties().get("x", float.class), object.getProperties().get("y", float.class)));
         this.mapObject = object;
-        //The worst 1 liner ever written, I'm delirious, it's 5:30 AM okay? Okay!
-//        super.setRegion(new Texture(new Pixmap((int) Math.floor(object.getProperties().get("width", float.class)) * (int) Finals.PPM,(int) Math.floor(object.getProperties().get("height",float.class) * (int) Finals.PPM),Pixmap.Format.RGBA8888)));
-
 
         def();
 
         MapProperties objectProps = mapObject.getProperties();
-        Color color = new Color(0, 0, 0, 0);
+        Color         color       = new Color(0, 0, 0, 0);
 
         if (objectProps.get("red", Float.class) != null) {
             if (objectProps.get("alpha", Float.class) == null || objectProps.get("blue", Float.class) == null || objectProps.get("green", Float.class) == null) {
@@ -62,22 +57,27 @@ public class Block extends SpriteBody {
         }
         this.color = color;
         tintTexture();
-        blocks.add(this);
+    }
 
+    protected BodyDef.BodyType bodyType() {
+        return BodyDef.BodyType.StaticBody;
+    }
+
+    protected short CATIGORY_BIT() {
+        return Finals.BLOCK_BIT;
+    }
+
+    protected short MASKED_BIT() {
+        return Finals.EVERYTHING_BIT;
     }
 
     public void def() {
-        super.CATIGORY_BIT = Finals.BLOCK_BIT;
-        super.MASKED_BIT = Finals.EVERYTHING_BIT;
-        super.bodyType = BodyDef.BodyType.StaticBody;
-
         PolygonShape polygon = new PolygonShape();
-        Rectangle rect = ((RectangleMapObject) mapObject).getRectangle();
+        Rectangle    rect    = ((RectangleMapObject) mapObject).getRectangle();
         polygon.setAsBox((rect.getWidth() / 2) / Finals.PPM, (rect.getHeight() / 2) / Finals.PPM);
 
-        super.def(polygon, new Vector2((rect.getX() + rect.getWidth() / 2) / Finals.PPM, (rect.getY() + rect.getHeight() / 2) / Finals.PPM), true);
+        super.def(polygon, new Vector2((rect.getX() + rect.getWidth() / 2) / Finals.PPM, (rect.getY() + rect.getHeight() / 2) / Finals.PPM));
         setPosition((rect.getX()) / Finals.PPM, (rect.getY()) / Finals.PPM);
-        primaryFixture.setUserData(this);
     }
 
     @Override
@@ -85,9 +85,9 @@ public class Block extends SpriteBody {
         if (rainbow) {
             if (rainbowColor == null) rainbowColor = new Color();
             float frequency = 0.3f;
-            rainbowColor.r = Utilities.map((float) Math.sin(frequency*iForRainbow + 0) * 127 + 128, 0, 255, 0, 1);
-            rainbowColor.g = Utilities.map((float) Math.sin(frequency*iForRainbow + 2) * 127 + 128, 0, 255, 0, 1);
-            rainbowColor.b = Utilities.map((float) Math.sin(frequency*iForRainbow + 4) * 127 + 128, 0, 255, 0, 1);
+            rainbowColor.r = Utilities.map((float) Math.sin(frequency * iForRainbow + 0) * 127 + 128, 0, 255, 0, 1);
+            rainbowColor.g = Utilities.map((float) Math.sin(frequency * iForRainbow + 2) * 127 + 128, 0, 255, 0, 1);
+            rainbowColor.b = Utilities.map((float) Math.sin(frequency * iForRainbow + 4) * 127 + 128, 0, 255, 0, 1);
             rainbowColor.a = 1.0f;
             iForRainbow++;
 

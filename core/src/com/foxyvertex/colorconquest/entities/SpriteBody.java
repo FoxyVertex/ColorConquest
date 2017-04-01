@@ -1,10 +1,10 @@
 package com.foxyvertex.colorconquest.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Shape;
@@ -18,49 +18,63 @@ import com.foxyvertex.colorconquest.Globals;
 public abstract class SpriteBody extends Sprite {
 
     public Body body;
-    public Vector2 spawnPoint;
     public boolean setToDestroy = false;
-    public boolean wasDestroyed = false;
+    public Fixture primaryFixture;
+    public Color   color;
+    Vector2 spawnPoint;
+    float destructionTime = 0;
+    private boolean wasDestroyed = false;
+    private boolean shouldFlip;
 
-    public boolean setToRedifine = false;
-    public boolean Redifined = false;
-
-    protected float destructionTime = 0;
-
-    protected Fixture primaryFixture;
-    protected BodyDef.BodyType bodyType = BodyDef.BodyType.DynamicBody;
-    protected short CATIGORY_BIT = 0;
-    protected short MASKED_BIT = Finals.EVERYTHING_BIT;
-    protected Shape shape;
-
-    protected SpriteBody(Vector2 spawnpoint) {
-        this.spawnPoint = spawnpoint;
+    SpriteBody(Vector2 spawnPoint) {
+        this.spawnPoint = spawnPoint;
+        EntityController.entities.add(this);
     }
 
-    protected void def(Shape shape) {
+    protected BodyDef.BodyType bodyType() {
+        return BodyDef.BodyType.DynamicBody;
+    }
+
+    protected short CATIGORY_BIT() {
+        return 0;
+    }
+
+    protected short MASKED_BIT() {
+        return Finals.EVERYTHING_BIT;
+    }
+
+    protected boolean isSensor() {
+        return false;
+    }
+
+    void def(Shape shape) {
         BodyDef bdef = new BodyDef();
-        bdef.type = bodyType;
+        bdef.type = bodyType();
         bdef.position.set(spawnPoint);
         body = Globals.gameMan.world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
-        fdef.filter.categoryBits = this.CATIGORY_BIT;
-        //fdef.filter.categoryBits = this.MASKED_BIT;
+        fdef.filter.categoryBits = this.CATIGORY_BIT();
+        //fdef.filter.categoryBits = this.MASKED_BIT();
         fdef.shape = shape;
+        fdef.isSensor = this.isSensor();
         primaryFixture = body.createFixture(fdef);
+        primaryFixture.setUserData(this);
     }
 
-    protected void def(Shape shape, Vector2 newSpawnPoint, boolean isStaticBody) {
+    void def(Shape shape, Vector2 newSpawnPoint) {
         BodyDef bdef = new BodyDef();
-        bdef.type = bodyType;
+        bdef.type = bodyType();
         bdef.position.set(newSpawnPoint);
         body = Globals.gameMan.world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
-        fdef.filter.categoryBits = this.CATIGORY_BIT;
-        //fdef.filter.maskBits = this.MASKED_BIT;
+        fdef.filter.categoryBits = this.CATIGORY_BIT();
+        //fdef.filter.maskBits = this.MASKED_BIT();
+        fdef.isSensor = isSensor();
         fdef.shape = shape;
         primaryFixture = body.createFixture(fdef);
+        primaryFixture.setUserData(this);
     }
 
     public void tick(float delta) {
@@ -77,22 +91,15 @@ public abstract class SpriteBody extends Sprite {
             wasDestroyed = true;
         }
 
-        setBounds(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2, bodySize().x, bodySize().y);
+        setBounds(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2, primaryFixture.getShape().getRadius() * 2, primaryFixture.getShape().getRadius() * 2);
         setRotation((float) Math.toDegrees(body.getAngle()));
     }
 
-    public Vector2 bodySize() {
-        Vector2 vect = new Vector2(0, 0);
-        for (Fixture f : body.getFixtureList()) {
-            CircleShape shape = (CircleShape) f.getShape();
-            vect = new Vector2(shape.getRadius() * 2, shape.getRadius() * 2);
-        }
-        return vect;
-    }
 
     protected void dispose() {
         //this.getTexture().dispose();
         //this.shape.dispose();
     }
+
 
 }

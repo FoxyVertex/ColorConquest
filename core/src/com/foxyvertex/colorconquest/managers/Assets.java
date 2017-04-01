@@ -28,12 +28,13 @@ public class Assets {
     public static Animation<TextureAtlas.AtlasRegion> playerJumpStartAnimation;
     public static Animation<TextureAtlas.AtlasRegion> playerJumpLoopAnimation;
 
-    public static Skin guiSkin;
+    public static Skin         guiSkin;
     public static TextureAtlas mainAtlas;
-    public static Sound clickSound;
+    public static Sound        clickSound;
     public static List<Image> splashScreenLogos = new ArrayList<Image>();
-    public static Texture badlogic;
-    public static Texture blankPixel;
+    public static  Texture      badlogic;
+    public static  Texture      blankPixel;
+    public static  Texture      slitherikter;
     private static AssetManager manager;
 
     /**
@@ -62,6 +63,7 @@ public class Assets {
 
         badlogic = new Texture("badlogic.jpg");
         blankPixel = new Texture(new Pixmap(1, 1, Pixmap.Format.RGBA8888));
+        slitherikter = new Texture("slitherikter.png");
     }
 
     public static void playSound(Sound sound) {

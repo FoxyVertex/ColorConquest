@@ -10,9 +10,9 @@ import com.foxyvertex.colorconquest.Finals;
  */
 
 public class UserPrefs {
-    public static Preferences gdxPrefs;
+    public static  Preferences gdxPrefs;
     // Prefs
-    private static boolean soundEnabled;
+    private static boolean     soundEnabled;
 
     /**
      * A getter for the soundEnabled variable

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.entities.Block;
+import com.foxyvertex.colorconquest.entities.EntityController;
 import com.foxyvertex.colorconquest.entities.Player;
 import com.foxyvertex.colorconquest.managers.Levels;
 import com.foxyvertex.colorconquest.managers.UserPrefs;
@@ -27,22 +28,22 @@ public class GameManager {
 
     public static com.foxyvertex.colorconquest.game.GameState gameState;
 
-    public TiledMap tiledMap;
+    public TiledMap     tiledMap;
     public Levels.Level currentLevel;
-    public Player player;
-    public float timeSinceStartLevel = 0;
+    public Player       player;
+    public float timeSinceStartLevel = -100;
     //Camera stuff
     public OrthographicCamera cam;
-    public Viewport viewport;
-    public TiledMapRenderer mapRenderer;
-    public World world;
+    public Viewport           viewport;
+    public TiledMapRenderer   mapRenderer;
+    public World              world;
     public Box2DDebugRenderer b2dRenderer;
 
-    public Ready ready;
-    public Running running;
-    public Paused paused;
+    public Ready    ready;
+    public Running  running;
+    public Paused   paused;
     public LevelEnd levelEnd;
-    public GameEnd gameEnd;
+    public GameEnd  gameEnd;
 
     public WorldPhysicsContactListener contactListener;
 
@@ -57,7 +58,6 @@ public class GameManager {
     }
 
     public void setup() {
-        Block.blocks.clear();
         ready = new Ready();
         running = new Running();
         paused = new Paused();
@@ -124,7 +124,8 @@ public class GameManager {
             UserPrefs.setLevel(Globals.currentGameSave, nextLevel.index);
             Globals.gameScreen.show();
         }
-
+        EntityController.entities.clear();
+        EntityController.entities.add(player);
     }
 
     public void switchState(GameState newState) {

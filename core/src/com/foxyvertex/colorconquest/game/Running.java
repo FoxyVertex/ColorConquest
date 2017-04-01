@@ -7,6 +7,8 @@ import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.entities.Block;
+import com.foxyvertex.colorconquest.entities.EntityController;
+import com.foxyvertex.colorconquest.entities.Slitherikter;
 import com.foxyvertex.colorconquest.tools.Drawable;
 import com.foxyvertex.colorconquest.tools.Utilities;
 import com.foxyvertex.colorconquest.tools.WorldPhysicsContactListener;
@@ -21,9 +23,9 @@ import static com.badlogic.gdx.Gdx.input;
 
 public class Running extends GameState {
 
-    public Array<Drawable> drawables = new Array<Drawable>();
-    public Array<Method> anonymousMethods = new Array<Method>();
-    public boolean hasWorldStepped = false;
+    public Array<Drawable>     drawables        = new Array<Drawable>();
+    public Array<Method>       anonymousMethods = new Array<Method>();
+    public boolean             hasWorldStepped  = false;
 
     @Override
     public void update(float delta) {
@@ -45,17 +47,17 @@ public class Running extends GameState {
 
         Globals.gameMan.cam.position.x = Globals.gameMan.player.body.getPosition().x;
         Globals.gameMan.cam.position.y = Globals.gameMan.player.body.getPosition().y;
-        MapProperties levelProps = Globals.gameMan.tiledMap.getProperties();
-        int mapPixelWidth = levelProps.get("width", Integer.class) * levelProps.get("tilewidth", Integer.class);
-        int mapPixelHeight = levelProps.get("height", Integer.class) * levelProps.get("tileheight", Integer.class);
+        MapProperties levelProps     = Globals.gameMan.tiledMap.getProperties();
+        int           mapPixelWidth  = levelProps.get("width", Integer.class) * levelProps.get("tilewidth", Integer.class);
+        int           mapPixelHeight = levelProps.get("height", Integer.class) * levelProps.get("tileheight", Integer.class);
         Globals.gameMan.cam.position.x = Utilities.clamp(Globals.gameMan.player.body.getPosition().x, Globals.gameMan.cam.viewportWidth / 2, (mapPixelWidth / Finals.PPM) - (Globals.gameMan.cam.viewportWidth / 2));
         Globals.gameMan.cam.position.y = Utilities.clamp(Globals.gameMan.player.body.getPosition().y, Globals.gameMan.cam.viewportHeight / 2, (mapPixelHeight / Finals.PPM) - (Globals.gameMan.cam.viewportHeight / 2));
+        //Render all the entities
+        EntityController.tick(delta);
 
-        Globals.gameMan.player.tick(delta);
         Globals.gameMan.cam.update();
         Globals.gameMan.mapRenderer.setView(Globals.gameMan.cam);
         Globals.hudScene.stage.act();
-        for (Block block : Block.blocks) block.tick(delta);
     }
 
     @Override
@@ -64,9 +66,9 @@ public class Running extends GameState {
         Globals.gameMan.b2dRenderer.render(Globals.gameMan.world, Globals.gameMan.cam.combined);
         Globals.game.batch.setProjectionMatrix(Globals.gameMan.cam.combined);
         Globals.game.batch.begin();
-        Globals.gameMan.player.draw(Globals.game.batch);
-        Globals.gameMan.player.render(Globals.game.batch);
-        for (Block block : Block.blocks) block.draw(Globals.game.batch);
+        //Render all the entities
+        EntityController.render(Globals.game.batch);
+
         Globals.game.batch.end();
         Globals.game.batch.setProjectionMatrix(Globals.hudScene.stage.getCamera().combined);
         Globals.hudScene.stage.draw();
@@ -89,5 +91,4 @@ public class Running extends GameState {
     public void dispose() {
 
     }
-
 }

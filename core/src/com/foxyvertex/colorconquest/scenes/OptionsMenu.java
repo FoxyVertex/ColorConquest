@@ -18,8 +18,8 @@ import static com.badlogic.gdx.Gdx.input;
 
 public class OptionsMenu extends Scene {
 
-    private CheckBox soundEnabledCheckBox;
-    private CheckBox musicEnabledCheckBox;
+    private CheckBox   soundEnabledCheckBox;
+    private CheckBox   musicEnabledCheckBox;
     private TextButton backButton;
 
     private Screen screen;

@@ -22,7 +22,7 @@ import com.foxyvertex.colorconquest.tools.Drawable;
  */
 public class MobileController implements Drawable, InputProcessor {
     public Stage stage;
-    Viewport viewport;
+    Viewport           viewport;
     OrthographicCamera cam;
     boolean superToggle = false;
     boolean upTouched, leftTouched, rightTouched;
@@ -130,10 +130,10 @@ public class MobileController implements Drawable, InputProcessor {
             }
         });
 
-        Table outsideTable = new Table();
-        Table bottomLeftTable = new Table();
+        Table outsideTable      = new Table();
+        Table bottomLeftTable   = new Table();
         Table bottomMiddleTable = new Table();
-        Table bottomRightTable = new Table();
+        Table bottomRightTable  = new Table();
 
         bottomLeftTable.left();
         bottomLeftTable.setSize(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 3);

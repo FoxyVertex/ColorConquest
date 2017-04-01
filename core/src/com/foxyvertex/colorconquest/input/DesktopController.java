@@ -14,8 +14,8 @@ public class DesktopController extends InputAdapter implements InputProcessor {
     private PlayerInput inputManager;
 
     private boolean isSpacePreviousPressed = false;
-    private boolean backKeyPrev = false;
-    private boolean forwardKeyPrev = false;
+    private boolean backKeyPrev            = false;
+    private boolean forwardKeyPrev         = false;
 
     /**
      * Sets the classes player variable to the player

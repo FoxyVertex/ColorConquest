@@ -27,6 +27,7 @@ public class TitleScreen extends Scene {
         table = new Table();
         table.center();
         table.setFillParent(true);
+
         //When the play button is clicked, load the play options options table.
         TextButton btnPlay = new TextButton("Play", Assets.guiSkin, "default");
         btnPlay.setSize(200, 50);

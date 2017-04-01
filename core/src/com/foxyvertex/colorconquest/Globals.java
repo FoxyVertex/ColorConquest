@@ -23,10 +23,11 @@ public class Globals {
     // Scene Cache:
     public static Scene titleScreenScene;
     public static Scene pauseMenuScene;
-    public static Hud hudScene;
+    public static Hud   hudScene;
     public static Scene optionsMenuScreen;
     public static Scene playMenuScene;
     public static Scene gameReadyScene;
 
     public static GameManager gameMan;
+    public static Scene         LoadLevelScreen;
 }

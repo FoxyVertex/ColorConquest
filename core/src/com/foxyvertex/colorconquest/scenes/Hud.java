@@ -21,16 +21,16 @@ public class Hud extends Scene {
 
     public Image colorIndicator;
     Pixmap colorIndicatorDrawer;
-    Table bottomHud;
+    Table  bottomHud;
     //Mario score/time Tracking Variables
     private Integer worldTimer;
     private Integer score;
     //Scene2D widgets
-    private Label lblCountDown;
-    private Label lblScore;
-    private Label lblTime;
-    private Label lblLvl;
-    private Label lblPlayer;
+    private Label   lblCountDown;
+    private Label   lblScore;
+    private Label   lblTime;
+    private Label   lblLvl;
+    private Label   lblPlayer;
 
     /**
      * The constructor sets up the stage.

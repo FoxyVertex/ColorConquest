@@ -2,12 +2,9 @@ package com.foxyvertex.colorconquest.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
@@ -20,26 +17,18 @@ import com.foxyvertex.colorconquest.tools.Utilities;
  * Created by aidan on 12/24/2016.
  */
 
-public class Player extends SpriteBody {
+public class Player extends Interactant {
 
     public int lives = 10;
     public PlayerInput input;
-    public InputProcessor inputProcessor;
-    public Vector2 spawnPoint;
+    public Vector2     spawnPoint;
     //Might replace with Vector
-    public int red = 255;
-    public int green = 255;
-    public int blue = 255;
-    public int score = 0;
-    public float fireSpeed = 0.1f;
-    //Physical Properties
-    public float maxJumpForce = 300;
-    public float minJumpForce = 55;
-    public float jumpForce = minJumpForce;
-    public float maxRunSpeed = 0.4f;
-    public float minRunSpeed = 0.2f;
-    public float runSpeed = minRunSpeed;
-    public boolean isFiring = false;
+    public int     red       = 255;
+    public int     green     = 255;
+    public int     blue      = 255;
+    public int     score     = 0;
+    public float   fireSpeed = 0.1f;
+    public boolean isFiring  = false;
     public Array<Color> colors;
     //FixtureDef fdef;
     //Properties
@@ -47,10 +36,9 @@ public class Player extends SpriteBody {
     private float timer;
     private State currentState;
     private State previousState;
-    public boolean runningRight = false;
-    private Array<Bullet> bullets;
-    public Color selectedColor = Color.RED;
-
+    private boolean runningRight  = false;
+    public Color   selectedColor = Color.RED;
+    public Array<Bullet> bullets = new Array<Bullet>();
     public Player(Vector2 spawnPoint) {
         super(spawnPoint.scl(1 / Finals.PPM));
         setRegion(Assets.mainAtlas.findRegion("idle"));
@@ -63,13 +51,22 @@ public class Player extends SpriteBody {
 
         currentState = State.IDLE;
 
-        bullets = new Array<Bullet>();
         colors = new Array<Color>();
         colors.add(Color.RED);
         colors.add(Color.GREEN);
         colors.add(Color.BLUE);
         input = new PlayerInput();
+        bullets = new Array<Bullet>();
+    }
 
+    @Override
+    public void reInitVars() {
+
+    }
+
+    @Override
+    protected short CATIGORY_BIT() {
+        return Finals.PLAYER_BIT;
     }
 
     public void setSelectedColor(Color selectedColor) {
@@ -80,44 +77,36 @@ public class Player extends SpriteBody {
      * Defines all fixtures to create the body of the player.
      */
     private void def() {
-        super.CATIGORY_BIT = Finals.PLAYER_BIT;
-        super.bodyType = BodyDef.BodyType.DynamicBody;
 
+//        PolygonShape shape = new PolygonShape();
+//        Vector2[] verts = {
+//                new Vector2(0, 0).scl(1 / Finals.PPM),
+//                new Vector2(20, 0).scl(1 / Finals.PPM),
+//                new Vector2(0, 30).scl(1 / Finals.PPM),
+//                new Vector2(20, 30).scl(1 / Finals.PPM)
+//        };
         CircleShape shape = new CircleShape();
         shape.setRadius(13.4f / Finals.PPM);
+        //shape.set(verts);
 
         super.def(shape);
-
+        primaryFixture.setDensity(1f);
+        primaryFixture.setFriction(1f);
         body.setLinearDamping(5f);
-        body.setUserData(this);
     }
 
     @Override
     public void tick(float delta) {
+        super.tick(delta);
         //Gdx.input.setInputProcessor(input);
         if (isFiring) {
-            minRunSpeed = 0.1f;
-            maxRunSpeed = 0.3f;
-        } else {
-            minRunSpeed = 0.2f;
-            maxRunSpeed = 0.4f;
+            //slow the player down
+            //runSpeed *= 0.75;
         }
         input.handleInput(delta);
-        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
-        setRotation((float) Math.toDegrees(body.getAngle()));
         timer += delta;
         setRegion(getFrame(delta));
-        for (Bullet b : bullets) {
-            b.tick(delta);
-        }
     }
-
-    public void render(SpriteBatch batch) {
-        for (Bullet b : bullets) {
-            b.draw(batch);
-        }
-    }
-
 
     /**
      * Determent the cornet state in which to the player is, based on the player's current state of motion.
@@ -201,17 +190,10 @@ public class Player extends SpriteBody {
             return;
         else
             blue--;
-
-
         Globals.hudScene.updateData();
 
-        float bulletStartXValue;
 
-        if (!runningRight) {
-            bulletStartXValue = -1/Finals.PPM;
-        } else {
-            bulletStartXValue = 2/Finals.PPM;
-        }
+        float bulletStartXValue = (!runningRight) ? -1/Finals.PPM : 2/Finals.PPM;
 
         float m = 1f * (float) Math.sqrt(20); // Direct velocity
         Vector2 cp = new Vector2();
@@ -230,17 +212,18 @@ public class Player extends SpriteBody {
 
         Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
         if (isFiring) {
+            Gdx.app.log("" + runningRight, "" + clickPointBasedImpulse);
+
             if (runningRight)
                 bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor, clickPointBasedImpulse));
             else
                 bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor, clickPointBasedImpulse));
         } else {
             if (runningRight)
-                bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor));
+                bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor, new Vector2(4,2)));
             else
-                bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor));
+                bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor, new Vector2(4,2)));
         }
-
     }
 
     public boolean isRunningRight() {
@@ -249,9 +232,17 @@ public class Player extends SpriteBody {
 
     public void dispose() {
         super.dispose();
-        for (Bullet b : bullets)
-            b.dispose();
         getTexture().dispose();
+    }
+
+    @Override
+    public void attacked(SpriteBody attacker) {
+
+    }
+
+    @Override
+    public void die() {
+
     }
 
     /**

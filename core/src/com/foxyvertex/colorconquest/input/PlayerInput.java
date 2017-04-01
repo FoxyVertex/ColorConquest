@@ -19,22 +19,21 @@ import com.foxyvertex.colorconquest.tools.Utilities;
 public class PlayerInput extends InputMultiplexer {
 
     public DesktopController desktopController;
-    public MobileController mobileController;
-    public int currentColorIndex = 0;
-    public float speedMultiplier = 1f;
+    public MobileController  mobileController;
+    public int   currentColorIndex = 0;
+    public float speedMultiplier   = 1f;
     boolean jumpPressed, forwardPressed, backwardPressed, downPressed, debugSuperAbilityPressed, debugSpawnpointPressed, debugZoomInPressed, debugZoomOutPressed, debugNextLevelPressed, firingModePressed;
     boolean jumpPressedPrev, forwardPressedPrev, backwardPressedPrev, downPressedPrev, debugSuperAbilityPressedPrev, debugSpawnpointPressedPrev, debugZoomInPressedPrev, debugZoomOutPressedPrev, debugNextLevelPressedPrev, firingModePressedPrev;
-    private float currentJumpLength = 0;
-    private boolean canJump = true;
-    private int iForRainbowEasterEgg = 0;
-    private Vector3 rainBowCurrentColor = new Vector3();
+    private float   currentJumpLength    = 0;
+    private boolean canJump              = true;
+    private int     iForRainbowEasterEgg = 0;
+    private Vector3 rainBowCurrentColor  = new Vector3();
 
     private float fireTimer = 0;
 
-    Drawable firingModeDrawable;
-
     public PlayerInput() {
         super();
+        Drawable firingModeDrawable;
         Gdx.input.setInputProcessor(this);
         if (Globals.isMobileApp) {
             mobileController = new MobileController(this);
@@ -59,13 +58,13 @@ public class PlayerInput extends InputMultiplexer {
 
                     Vector2 firingModeStartPos = new Vector2(Globals.gameMan.player.body.getPosition()).add(bulletStartXValue, 3 / Finals.PPM);
 
-                    float m = 0.1f * (float) Math.sqrt(20); // Direct velocity
+                    float   m  = 0.1f * (float) Math.sqrt(20); // Direct velocity
                     Vector2 cp = new Vector2();
                     cp.x = Globals.gameMan.cam.position.x + Utilities.map(Gdx.input.getX(), 0, Gdx.graphics.getWidth(), 0, Globals.gameMan.viewport.getWorldWidth()) - (Globals.gameMan.viewport.getWorldWidth() / 2);
                     cp.y = Globals.gameMan.cam.position.y + Utilities.map(Gdx.input.getY(), 0, Gdx.graphics.getHeight(), Globals.gameMan.viewport.getWorldHeight(), 0) - (Globals.gameMan.viewport.getWorldHeight() / 2);
                     double theta = Math.atan((cp.y - firingModeStartPos.y) / (cp.x - firingModeStartPos.x));
                     double alpha = m * Math.sin(theta);
-                    double beta = m * Math.cos(theta);
+                    double beta  = m * Math.cos(theta);
                     if ((cp.x - firingModeStartPos.x) < 0 && !(beta < 0)) {
                         beta *= -1;
                         alpha *= -1;
@@ -107,9 +106,9 @@ public class PlayerInput extends InputMultiplexer {
             Globals.hudScene.updateData();
         }
         if (debugZoomInPressed)
-            Globals.gameMan.cam.zoom += 3 / Finals.PPM;
+            Globals.gameMan.cam.zoom += 3; /// Finals.PPM;
         if (debugZoomOutPressed)
-            Globals.gameMan.cam.zoom -= 3 / Finals.PPM;
+            Globals.gameMan.cam.zoom -= 3; /// Finals.PPM;
         if (debugSpawnpointPressed) {
             Globals.gameMan.player.body.setLinearVelocity(new Vector2(0, 0));
             Globals.gameMan.player.body.setTransform(Globals.gameMan.player.spawnPoint, Globals.gameMan.player.body.getAngle());
@@ -127,6 +126,7 @@ public class PlayerInput extends InputMultiplexer {
             Globals.gameMan.player.minRunSpeed = 0.2f;
             Globals.gameMan.player.maxRunSpeed = 0.4f;
         }
+
         if (jumpPressed) {
             currentJumpLength += delta;
 
@@ -148,7 +148,7 @@ public class PlayerInput extends InputMultiplexer {
         if (downPressed)
             Globals.gameMan.player.body.applyLinearImpulse(new Vector2(0, -10f), Globals.gameMan.player.body.getWorldCenter(), true);
 
-        if (forwardPressed && Globals.gameMan.player.body.getLinearVelocity().x <= 2 * speedMultiplier) {
+        if (forwardPressed) { // && Globals.gameMan.player.body.getLinearVelocity().x <= 2 * speedMultiplier) {
             Globals.gameMan.player.body.applyLinearImpulse(new Vector2(Globals.gameMan.player.runSpeed * speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             forwardPressedPrev = true;
         } else if (!backwardPressed && forwardPressedPrev) {
@@ -156,7 +156,7 @@ public class PlayerInput extends InputMultiplexer {
             forwardPressedPrev = false;
         }
 
-        if (backwardPressed && Globals.gameMan.player.body.getLinearVelocity().x >= -2 * speedMultiplier) {
+        if (backwardPressed) { // && Globals.gameMan.player.body.getLinearVelocity().x >= -2 * speedMultiplier) {
             Globals.gameMan.player.body.applyLinearImpulse(new Vector2(-Globals.gameMan.player.runSpeed * speedMultiplier, 0), Globals.gameMan.player.body.getWorldCenter(), true);
             backwardPressedPrev = true;
         } else if (!Gdx.input.isKeyPressed(Input.Keys.A) && backwardPressedPrev) {
