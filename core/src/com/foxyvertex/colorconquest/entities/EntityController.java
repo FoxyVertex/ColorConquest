@@ -22,4 +22,8 @@ public class EntityController {
             sprite.draw(batch);
         }
     }
+
+    public static void reset() {
+        entities = new Array<SpriteBody>();
+    }
 }

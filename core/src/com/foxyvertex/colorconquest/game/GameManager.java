@@ -58,6 +58,7 @@ public class GameManager {
     }
 
     public void setup() {
+        EntityController.reset();
         ready = new Ready();
         running = new Running();
         paused = new Paused();
@@ -125,7 +126,6 @@ public class GameManager {
             Globals.gameScreen.show();
         }
         EntityController.entities.clear();
-        EntityController.entities.add(player);
     }
 
     public void switchState(GameState newState) {

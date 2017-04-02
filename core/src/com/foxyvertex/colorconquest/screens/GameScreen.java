@@ -2,6 +2,7 @@ package com.foxyvertex.colorconquest.screens;
 
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.game.GameManager;
+import com.foxyvertex.colorconquest.managers.Assets;
 import com.foxyvertex.colorconquest.scenes.GameReadyScreen;
 import com.foxyvertex.colorconquest.scenes.Hud;
 import com.foxyvertex.colorconquest.scenes.PauseMenu;
@@ -32,6 +33,7 @@ public class GameScreen extends Screen {
     @Override
     public void show() {
         gameManager.setup();
+        Assets.playMusic(Assets.gameMusic);
     }
 
     /**

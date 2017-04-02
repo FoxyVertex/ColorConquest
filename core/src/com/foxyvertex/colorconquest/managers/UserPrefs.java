@@ -14,6 +14,9 @@ public class UserPrefs {
     // Prefs
     private static boolean soundEnabled;
     private static boolean musicEnabled;
+    private static float masterVolume;
+    private static float soundVolume;
+    private static float musicVolume;
 
     /**
      * A getter for the soundEnabled variable
@@ -70,6 +73,57 @@ public class UserPrefs {
         gdxPrefs.flush();
     }
 
+    public static void setSoundVolume(float percent) {
+        UserPrefs.soundVolume = percent;
+        gdxPrefs.putFloat("soundVolume", percent);
+        gdxPrefs.flush();
+        Assets.volumeChanged();
+    }
+
+    public static float getSoundVolume() {
+        if (gdxPrefs.contains("soundVolume")) {
+            soundVolume = gdxPrefs.getFloat("soundVolume");
+        } else {
+            gdxPrefs.putFloat("soundVolume", 100);
+            soundVolume = 100;
+        }
+        return soundVolume;
+    }
+
+    public static void setMusicVolume(float percent) {
+        UserPrefs.musicVolume = percent;
+        gdxPrefs.putFloat("musicVolume", percent);
+        gdxPrefs.flush();
+        Assets.volumeChanged();
+    }
+
+    public static float getMusicVolume() {
+        if (gdxPrefs.contains("musicVolume")) {
+            musicVolume = gdxPrefs.getFloat("musicVolume");
+        } else {
+            gdxPrefs.putFloat("musicVolume", 100);
+            musicVolume = 100;
+        }
+        return musicVolume;
+    }
+
+    public static void setMasterVolume(float percent) {
+        UserPrefs.masterVolume = percent;
+        gdxPrefs.putFloat("masterVolume", percent);
+        gdxPrefs.flush();
+        Assets.volumeChanged();
+    }
+
+    public static float getMasterVolume() {
+        if (gdxPrefs.contains("masterVolume")) {
+            masterVolume = gdxPrefs.getFloat("masterVolume");
+        } else {
+            gdxPrefs.putFloat("masterVolume", 100);
+            masterVolume = 100;
+        }
+        return masterVolume;
+    }
+
     /**
      * A getter for the tiledMap variable
      *
@@ -102,20 +156,6 @@ public class UserPrefs {
      */
     public static void load() {
         gdxPrefs = Gdx.app.getPreferences("User Data");
-
-        if (gdxPrefs.contains("soundEnabled"))
-            soundEnabled = gdxPrefs.getBoolean("soundEnabled");
-        else {
-            gdxPrefs.putBoolean("soundEnabled", true);
-            soundEnabled = true;
-        }
-
-        if (gdxPrefs.contains("musicEnabled"))
-            musicEnabled = gdxPrefs.getBoolean("musicEnabled");
-        else {
-            gdxPrefs.putBoolean("musicEnabled", true);
-            musicEnabled = true;
-        }
     }
 
     public static void dispose() {

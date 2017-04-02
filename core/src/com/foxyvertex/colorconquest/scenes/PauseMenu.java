@@ -51,6 +51,7 @@ public class PauseMenu extends Scene {
                 Globals.game.setScreen(Globals.menuScreen);
                 Assets.playSound(Assets.clickSound);
                 Gdx.input.setInputProcessor(Globals.menuScreen.currentScene.stage);
+                Assets.playMusic(Assets.menuMusic);
             }
         });
 

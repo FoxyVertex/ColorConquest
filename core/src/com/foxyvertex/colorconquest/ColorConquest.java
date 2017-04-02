@@ -26,6 +26,7 @@ public class ColorConquest extends Game {
         Assets.load();
         UserPrefs.load();
         Levels.load();
+        Assets.volumeChanged();
         switch (Finals.debugMode) {
             case SKIP_SPLASH:
                 new GameScreen();

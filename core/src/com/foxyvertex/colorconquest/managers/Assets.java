@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.foxyvertex.colorconquest.screens.SplashScreen;
+import com.foxyvertex.colorconquest.tools.Utilities;
 import com.kotcrab.vis.ui.VisUI;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class Assets {
     private static AssetManager manager;
 
     public static Music menuMusic;
+    public static Music gameMusic;
 
     /**
      * Called on game start. Loads all assets into easily accessible variables.
@@ -49,10 +51,12 @@ public class Assets {
 
         manager.load("click.wav", Sound.class);
         manager.load("music/menu.wav", Music.class);
+        manager.load("music/inGame.mp3", Music.class);
 
         manager.finishLoading();
         clickSound = manager.get("click.wav", Sound.class);
         menuMusic = manager.get("music/menu.wav", Music.class);
+        gameMusic = manager.get("music/inGame.mp3", Music.class);
         Assets.mainAtlas = new TextureAtlas("GreyGuy.pack");
 
         playerIdleAnim = new Animation<TextureAtlas.AtlasRegion>(1 / 12f, Assets.mainAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
@@ -64,8 +68,6 @@ public class Assets {
         guiSkin = VisUI.getSkin();
 
         splashScreenLogos.add(new SplashScreen.SplashLogo("FoxyVertex.png", 0.8f).actorImage);
-        splashScreenLogos.add(new SplashScreen.SplashLogo("thefoxarmy.jpg", 3f).actorImage);
-        splashScreenLogos.add(new SplashScreen.SplashLogo("badlogic.jpg", 2f).actorImage);
 
         badlogic = new Texture("badlogic.jpg");
         blankPixel = new Texture(new Pixmap(1, 1, Pixmap.Format.RGBA8888));
@@ -83,6 +85,8 @@ public class Assets {
     }
 
     public static void playMusic(Music music) {
+        if (menuMusic.isPlaying()) menuMusic.stop();
+        if (gameMusic.isPlaying()) gameMusic.stop();
         if (UserPrefs.isMusicEnabled()) music.play();
     }
 
@@ -90,5 +94,11 @@ public class Assets {
         manager.dispose();
         mainAtlas.dispose();
         guiSkin.dispose();
+    }
+
+    public static void volumeChanged() {
+        menuMusic.setVolume(Utilities.map(UserPrefs.getMusicVolume(), 0, 100, 0, Utilities.map(UserPrefs.getMasterVolume(), 0, 100, 0, 1)));
+        gameMusic.setVolume(Utilities.map(UserPrefs.getMusicVolume(), 0, 100, 0, Utilities.map(UserPrefs.getMasterVolume(), 0, 100, 0, 1)));
+        clickSound.setVolume(0, Utilities.map(UserPrefs.getSoundVolume(), 0, 100, 0, Utilities.map(UserPrefs.getMasterVolume(), 0, 100, 0, 1)));
     }
 }
