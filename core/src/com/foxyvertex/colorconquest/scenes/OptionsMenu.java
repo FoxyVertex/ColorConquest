@@ -22,11 +22,9 @@ public class OptionsMenu extends Scene {
     private CheckBox   musicEnabledCheckBox;
     private TextButton backButton;
 
-    private Screen screen;
 
     public OptionsMenu(final Screen screen) {
         super(screen);
-        this.screen = screen;
         Table table = new Table();
         table.center();
         table.setFillParent(true);
@@ -37,7 +35,7 @@ public class OptionsMenu extends Scene {
             @Override
             public void clicked(InputEvent i, float x, float y) {
                 Assets.playSound(Assets.clickSound);
-                UserPrefs.setSoundEnabled(musicEnabledCheckBox.isChecked());
+                UserPrefs.setMusicEnabled(musicEnabledCheckBox.isChecked());
             }
         });
         table.add(musicEnabledCheckBox).expandX();
@@ -57,6 +55,7 @@ public class OptionsMenu extends Scene {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent i, float x, float y) {
+                Assets.playSound(Assets.clickSound);
                 ((Screen) Globals.game.getScreen()).switchScene(Globals.titleScreenScene);
                 Globals.titleScreenScene.show();
             }

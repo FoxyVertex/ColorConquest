@@ -15,10 +15,10 @@ import com.foxyvertex.colorconquest.screens.MenuScreen;
  * Parent class for all of my scenes
  */
 public abstract class Scene implements Disposable {
-    public final Stage      stage;
-    private      Viewport   viewport;
-    private      Screen     screen;
-    private      MenuScreen menuScreen;
+    public final Stage stage;
+    private Viewport viewport;
+    protected Screen screen;
+    private MenuScreen menuScreen;
 
     /**
      * Creates the main variables for a scene

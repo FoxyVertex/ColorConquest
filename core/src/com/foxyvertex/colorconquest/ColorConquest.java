@@ -10,6 +10,7 @@ import com.foxyvertex.colorconquest.managers.UserPrefs;
 import com.foxyvertex.colorconquest.screens.GameScreen;
 import com.foxyvertex.colorconquest.screens.MenuScreen;
 import com.foxyvertex.colorconquest.screens.SplashScreen;
+import com.kotcrab.vis.ui.VisUI;
 
 /**
  * The main game class
@@ -21,17 +22,26 @@ public class ColorConquest extends Game {
     public void create() {
         Globals.game = this;
         batch = new SpriteBatch();
+        VisUI.load();
         Assets.load();
         UserPrefs.load();
         Levels.load();
-        if (Finals.SKIP_TO_GAME) {
-            new SplashScreen();
-            new MenuScreen();
-            setScreen(new GameScreen());
-        } else {
-            new GameScreen();
-            new MenuScreen();
-            setScreen(new SplashScreen());
+        switch (Finals.debugMode) {
+            case SKIP_SPLASH:
+                new GameScreen();
+                setScreen(new MenuScreen());
+                new SplashScreen();
+                break;
+            case SKIP_TO_GAME:
+                new SplashScreen();
+                new MenuScreen();
+                setScreen(new GameScreen());
+                break;
+            case NORMAL:
+                new GameScreen();
+                new MenuScreen();
+                setScreen(new SplashScreen());
+                break;
         }
     }
 
@@ -48,6 +58,6 @@ public class ColorConquest extends Game {
         batch.dispose();
         Assets.dispose();
         UserPrefs.dispose();
-
+        VisUI.dispose();
     }
 }

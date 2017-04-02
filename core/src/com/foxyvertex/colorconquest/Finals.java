@@ -21,11 +21,16 @@ public class Finals {
             INTERACTENT_BIT               = 256,
             BARRIER_BIT                   = 512,
             EVERYTHING_BIT                = BLOCK_BIT | PLAYER_BIT | END_LEVEL_BIT | PLAYER_FEET_BIT | BULLET_BIT | SLITHERIKTER_BIT | SLIME_BIT;
-    public static final boolean SKIP_TO_GAME = true;
-
 
     public static String TITLE                          = "Color Conquest";
     public static int    firstLevel                     = 0;
     public static int    Slitherikter_INITIAL_EYE_COLOR = 2080413439;
 
+    public static DebugMode debugMode = DebugMode.NORMAL;
+
+    public enum DebugMode {
+        SKIP_SPLASH,
+        SKIP_TO_GAME,
+        NORMAL
+    }
 }

@@ -2,6 +2,7 @@ package com.foxyvertex.colorconquest.managers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.foxyvertex.colorconquest.screens.SplashScreen;
+import com.kotcrab.vis.ui.VisUI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,8 @@ public class Assets {
     public static  Texture      slitherikter;
     private static AssetManager manager;
 
+    public static Music menuMusic;
+
     /**
      * Called on game start. Loads all assets into easily accessible variables.
      */
@@ -44,9 +48,11 @@ public class Assets {
         manager = new AssetManager();
 
         manager.load("click.wav", Sound.class);
+        manager.load("music/menu.wav", Music.class);
 
         manager.finishLoading();
         clickSound = manager.get("click.wav", Sound.class);
+        menuMusic = manager.get("music/menu.wav", Music.class);
         Assets.mainAtlas = new TextureAtlas("GreyGuy.pack");
 
         playerIdleAnim = new Animation<TextureAtlas.AtlasRegion>(1 / 12f, Assets.mainAtlas.findRegions("idle"), Animation.PlayMode.LOOP);
@@ -55,7 +61,7 @@ public class Assets {
         playerJumpStartAnimation = new Animation<TextureAtlas.AtlasRegion>(1 / 4f, Assets.mainAtlas.findRegions("jumpstart"), Animation.PlayMode.NORMAL);
         playerJumpLoopAnimation = new Animation<TextureAtlas.AtlasRegion>(1 / 8f, Assets.mainAtlas.findRegions("jumploop"), Animation.PlayMode.LOOP);
 
-        guiSkin = new Skin(Gdx.files.internal("skin/clean-crispy-ui.json"));
+        guiSkin = VisUI.getSkin();
 
         splashScreenLogos.add(new SplashScreen.SplashLogo("FoxyVertex.png", 0.8f).actorImage);
         splashScreenLogos.add(new SplashScreen.SplashLogo("thefoxarmy.jpg", 3f).actorImage);
@@ -68,6 +74,16 @@ public class Assets {
 
     public static void playSound(Sound sound) {
         if (UserPrefs.isSoundEnabled()) sound.play(1);
+    }
+
+    public static void stopPlayingMusic() {
+        if (menuMusic.isPlaying()) {
+            menuMusic.stop();
+        }
+    }
+
+    public static void playMusic(Music music) {
+        if (UserPrefs.isMusicEnabled()) music.play();
     }
 
     public static void dispose() {

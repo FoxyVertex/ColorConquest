@@ -63,6 +63,8 @@ public class SplashScreen extends Screen {
             }
         }
         stage.addActor(Assets.splashScreenLogos.get(currentImageIndex));
+        Assets.playMusic(Assets.menuMusic);
+        Assets.menuMusic.setLooping(true);
     }
 
     @Override

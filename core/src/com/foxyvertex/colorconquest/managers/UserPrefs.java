@@ -12,7 +12,8 @@ import com.foxyvertex.colorconquest.Finals;
 public class UserPrefs {
     public static  Preferences gdxPrefs;
     // Prefs
-    private static boolean     soundEnabled;
+    private static boolean soundEnabled;
+    private static boolean musicEnabled;
 
     /**
      * A getter for the soundEnabled variable
@@ -27,6 +28,35 @@ public class UserPrefs {
             soundEnabled = true;
         }
         return soundEnabled;
+    }
+
+    /**
+     * A getter for the musicEnabled variable
+     *
+     * @return the value of the soundEnabled variable
+     */
+    public static boolean isMusicEnabled() {
+        if (gdxPrefs.contains("musicEnabled")) {
+            musicEnabled = gdxPrefs.getBoolean("musicEnabled");
+        } else {
+            gdxPrefs.putBoolean("musicEnabled", true);
+            musicEnabled = true;
+        }
+        return musicEnabled;
+    }
+
+    /**
+     * A setter for the musicEnabled variable
+     *
+     * @param musicEnabled value to set the soundEnabled boolean to
+     */
+    public static void setMusicEnabled(boolean musicEnabled) {
+        UserPrefs.musicEnabled = musicEnabled;
+        gdxPrefs.putBoolean("musicEnabled", musicEnabled);
+        gdxPrefs.flush();
+        if (!musicEnabled) {
+            Assets.stopPlayingMusic();
+        }
     }
 
     /**
@@ -78,6 +108,13 @@ public class UserPrefs {
         else {
             gdxPrefs.putBoolean("soundEnabled", true);
             soundEnabled = true;
+        }
+
+        if (gdxPrefs.contains("musicEnabled"))
+            musicEnabled = gdxPrefs.getBoolean("musicEnabled");
+        else {
+            gdxPrefs.putBoolean("musicEnabled", true);
+            musicEnabled = true;
         }
     }
 

@@ -2,6 +2,7 @@ package com.foxyvertex.colorconquest.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.managers.Assets;
 import com.foxyvertex.colorconquest.scenes.TitleScreen;
 
 /**
