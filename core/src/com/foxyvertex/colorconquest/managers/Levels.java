@@ -25,6 +25,11 @@ public class Levels {
         level3.path = pathPrefix + "level2.tmx";
         level4.path = pathPrefix + "lvl3.tmx";
 
+        level1.name = "level1";
+        level2.name = "level2";
+        level3.name = "level3";
+        level4.name = "level4";
+
         level1.hasCutscene = false;
         level2.hasCutscene = false;
         level3.hasCutscene = false;
@@ -54,5 +59,6 @@ public class Levels {
         public Level   nextLevel;
         public boolean hasCutscene;
         public int     index;
+        public String  name;
     }
 }

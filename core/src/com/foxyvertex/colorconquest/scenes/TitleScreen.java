@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.managers.Assets;
 import com.foxyvertex.colorconquest.screens.Screen;
+import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 
 /**
  * Created by aidan on 11/27/2016.
@@ -16,7 +18,7 @@ import com.foxyvertex.colorconquest.screens.Screen;
 public class TitleScreen extends Scene {
 
     //Scene2D widgets
-    private Table table;
+    private VisTable table;
 
     /**
      * This sets up the pause menu's stage and lets it be amazing
@@ -24,12 +26,12 @@ public class TitleScreen extends Scene {
     public TitleScreen(final Screen screen) {
         super(screen);
 
-        table = new Table();
+        table = new VisTable();
         table.center();
         table.setFillParent(true);
 
         //When the play button is clicked, load the play options options table.
-        TextButton btnPlay = new TextButton("Play", Assets.guiSkin, "default");
+        VisTextButton btnPlay = new VisTextButton("Play");
         btnPlay.setSize(200, 50);
         btnPlay.addListener(new ClickListener() {
             @Override
@@ -45,7 +47,9 @@ public class TitleScreen extends Scene {
         });
         table.add(btnPlay);
         table.row();
-        TextButton btnOptions = new TextButton("Options", Assets.guiSkin, "default");
+        table.add().height(5);
+        table.row();
+        VisTextButton btnOptions = new VisTextButton("Options");
         btnOptions.setSize(200, 50);
         btnOptions.addListener(new ClickListener() {
             @Override
@@ -60,6 +64,18 @@ public class TitleScreen extends Scene {
             }
         });
         table.add(btnOptions);
+        table.row();
+        table.add().height(5);
+        table.row();
+        VisTextButton btnQuit = new VisTextButton("Quit");
+        btnQuit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent i, float x, float y) {
+                Assets.playSound(Assets.clickSound);
+                Gdx.app.exit();
+            }
+        });
+        table.add(btnQuit);
 
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
@@ -77,6 +93,7 @@ public class TitleScreen extends Scene {
     public void show() {
         Gdx.input.setInputProcessor(stage);
         stage.act();
+        if (!Assets.menuMusic.isPlaying()) Assets.playMusic(Assets.menuMusic);
     }
 
     public void tick(float delta) {

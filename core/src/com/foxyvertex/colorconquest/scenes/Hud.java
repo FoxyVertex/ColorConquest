@@ -22,15 +22,6 @@ public class Hud extends Scene {
     public Image colorIndicator;
     Pixmap colorIndicatorDrawer;
     Table  bottomHud;
-    //Mario score/time Tracking Variables
-    private Integer worldTimer;
-    private Integer score;
-    //Scene2D widgets
-    private Label   lblCountDown;
-    private Label   lblScore;
-    private Label   lblTime;
-    private Label   lblLvl;
-    private Label   lblPlayer;
 
     /**
      * The constructor sets up the stage.
@@ -39,42 +30,6 @@ public class Hud extends Scene {
      */
     public Hud(final Screen screen) {
         super(screen);
-
-        //define our tracking variables
-        worldTimer = 300;
-        score = 0;
-
-        //define a table used to organize our hud's labels
-        Table table = new Table();
-        //Top-Align table
-        table.top();
-        //make the table fill the entire stage
-        table.setFillParent(true);
-
-        //define our labels using the String, and a Label style consisting of a font and color
-        lblCountDown = new Label(String.format("%03d", worldTimer), Assets.guiSkin);
-        lblScore = new Label(String.format("%06d", score), Assets.guiSkin);
-        lblTime = new Label("TIME", Assets.guiSkin);
-        lblLvl = new Label("1-1", Assets.guiSkin);
-        Label worldLabel = new Label("WORLD", Assets.guiSkin);
-        lblPlayer = new Label("MARIO", Assets.guiSkin);
-
-        lblCountDown.setFontScale(1.5f);
-        lblScore.setFontScale(1.5f);
-        lblTime.setFontScale(1.5f);
-        lblLvl.setFontScale(1.5f);
-        worldLabel.setFontScale(1.5f);
-        lblPlayer.setFontScale(1.5f);
-
-        //add our labels to our table, padding the top, and giving them all equal width with expandX
-        table.add(lblPlayer).expandX().padTop(10);
-        table.add(worldLabel).expandX().padTop(10);
-        table.add(lblTime).expandX().padTop(10);
-        //add a second row to our table
-        table.row();
-        table.add(lblScore).expandX();
-        table.add(lblLvl).expandX();
-        table.add(lblCountDown).expandX();
 
         //Bottom of the HUD that displays color information
         bottomHud = new Table(Assets.guiSkin);
@@ -85,7 +40,6 @@ public class Hud extends Scene {
         bottomHud.right();
 
         //add our table to the stage
-        stage.addActor(table);
         stage.addActor(bottomHud);
     }
 
@@ -110,8 +64,6 @@ public class Hud extends Scene {
     }
 
     public void updateData() {
-
-        lblScore.setText(String.format("%06d", Globals.gameMan.player.score));
 
         colorIndicatorDrawer = new Pixmap(85, 255, Pixmap.Format.RGB888);
 

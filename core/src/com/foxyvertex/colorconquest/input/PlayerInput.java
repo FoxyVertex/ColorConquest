@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.managers.Assets;
 import com.foxyvertex.colorconquest.managers.Levels;
 import com.foxyvertex.colorconquest.tools.Drawable;
 import com.foxyvertex.colorconquest.tools.Utilities;
@@ -115,7 +116,11 @@ public class PlayerInput extends InputMultiplexer {
         }
         if (debugNextLevelPressed) {
             Levels.Level nextLevel = Globals.gameMan.currentLevel.nextLevel;
-            Globals.gameMan.switchLevel(nextLevel);
+            if (nextLevel != null) Globals.gameMan.nextLevel(nextLevel);
+            else {
+                Assets.playMusic(Assets.menuMusic);
+                Globals.game.setScreen(Globals.menuScreen);
+            }
         }
 
         Globals.gameMan.player.isFiring = firingModePressed;

@@ -51,6 +51,8 @@ public class OptionsMenu extends Scene {
         table.add(masterLabel);
         table.add(masterVolumeSlider).expandX();
         table.row();
+        table.add().height(5);
+        table.row();
 
         VisLabel musicLabel = new VisLabel("Music Volume");
         musicVolumeSlider = new VisSlider(0, 100, 1, false);
@@ -65,6 +67,8 @@ public class OptionsMenu extends Scene {
         table.add(musicLabel);
         table.add(musicVolumeSlider).expandX();
         table.row();
+        table.add().height(5);
+        table.row();
 
         VisLabel soundLabel = new VisLabel("Sound Volume");
         soundVolumeSlider = new VisSlider(0, 100, 1, false);
@@ -78,6 +82,8 @@ public class OptionsMenu extends Scene {
         });
         table.add(soundLabel);
         table.add(soundVolumeSlider).expandX();
+        table.row();
+        table.add().height(10);
         table.row();
         backButton = new TextButton("Back", Assets.guiSkin);
         backButton.addListener(new ClickListener() {

@@ -20,6 +20,7 @@ import com.foxyvertex.colorconquest.entities.Player;
 import com.foxyvertex.colorconquest.entities.Slitherikter;
 import com.foxyvertex.colorconquest.entities.SpriteBody;
 import com.foxyvertex.colorconquest.game.GameManager;
+import com.foxyvertex.colorconquest.managers.Assets;
 import com.foxyvertex.colorconquest.managers.Levels;
 
 /**
@@ -59,7 +60,11 @@ public class WorldPhysicsContactListener implements ContactListener {
             case Finals.PLAYER_BIT | Finals.END_LEVEL_BIT:
 
                 Levels.Level nextLevel = Globals.gameMan.currentLevel.nextLevel;
-                Globals.gameMan.switchLevel(nextLevel);
+                if (nextLevel != null) Globals.gameMan.nextLevel(nextLevel);
+                else {
+                    Assets.playMusic(Assets.menuMusic);
+                    Globals.game.setScreen(Globals.menuScreen);
+                }
                 break;
             case Finals.SLITHERIKTER_BIT | Finals.BLOCK_BIT:
             case Finals.PLAYER_BIT | Finals.SLIME_BIT:

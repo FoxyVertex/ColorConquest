@@ -26,7 +26,7 @@ public class Finals {
     public static int    firstLevel                     = 0;
     public static int    Slitherikter_INITIAL_EYE_COLOR = 2080413439;
 
-    public static DebugMode debugMode = DebugMode.NORMAL;
+    public static DebugMode debugMode = DebugMode.SKIP_SPLASH;
 
     public enum DebugMode {
         SKIP_SPLASH,

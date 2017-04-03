@@ -53,8 +53,14 @@ public class GameManager {
         //Camera stuff
         cam = new OrthographicCamera();
         viewport = new StretchViewport(Finals.V_WIDTH / Finals.PPM, Finals.V_HEIGHT / Finals.PPM, cam);
+    }
 
+    public GameManager(Levels.Level lvl) {
+        currentLevel = lvl;
 
+        //Camera stuff
+        cam = new OrthographicCamera();
+        viewport = new StretchViewport(Finals.V_WIDTH / Finals.PPM, Finals.V_HEIGHT / Finals.PPM, cam);
     }
 
     public void setup() {
@@ -110,10 +116,16 @@ public class GameManager {
 
     }
 
+    public void playLevel(Levels.Level level) {
+        currentLevel = level;
+        EntityController.entities.clear();
+        Globals.gameScreen.show();
+    }
+
     /**
      * Update the user's preferences file and create a new playScreen based on the nextLevel property of the current TiledMap.
      */
-    public void switchLevel(Levels.Level nextLevel) {
+    public void nextLevel(Levels.Level nextLevel) {
         if (currentLevel.hasCutscene) {
             // TODO: Implement CutScenes
             // For now, this will just load the next level

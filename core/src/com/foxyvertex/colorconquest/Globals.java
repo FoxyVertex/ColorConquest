@@ -25,6 +25,7 @@ public class Globals {
     public static Scene pauseMenuScene;
     public static Hud   hudScene;
     public static Scene optionsMenuScreen;
+    public static Scene levelSelectScene;
     public static Scene playMenuScene;
     public static Scene gameReadyScene;
 
