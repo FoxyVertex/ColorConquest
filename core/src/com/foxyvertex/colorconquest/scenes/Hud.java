@@ -74,7 +74,7 @@ public class Hud extends Scene {
 
     public void updateData() {
 
-        healthBarDrawer = new Pixmap( Globals.gameMan.player.maxHealth, 25, Pixmap.Format.RGBA8888 );
+        healthBarDrawer = new Pixmap( Globals.gameMan.player.maxHealth, 15, Pixmap.Format.RGBA8888 );
         healthBarDrawer.setColor( 0, 0, 0, 0.5f );
         healthBarDrawer.fill();
         healthBarDrawer.setColor( 0.75f, 0, 0, 0.75f );

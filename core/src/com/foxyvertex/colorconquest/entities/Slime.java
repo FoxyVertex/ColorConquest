@@ -64,7 +64,7 @@ public class Slime extends SpriteBody {
     public void tick(float delta) {
         timer -= delta;
         if (timer < 0 && !dead) {
-            WorldPhysicsContactListener.deadBodies.add(body);
+            setToDestroy = true;
             EntityController.entities.removeValue(this, false);
             dead = true;
             return;
