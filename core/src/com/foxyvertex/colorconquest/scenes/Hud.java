@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.managers.Assets;
 
+import net.dermetfan.gdx.scenes.scene2d.Scene2DUtils;
+
 /**
  * Created by aidan on 11/26/2016.
  * <p>
@@ -80,6 +82,7 @@ public class Hud extends Scene {
         healthBarDrawer.setColor( 0.75f, 0, 0, 0.75f );
         healthBarDrawer.fillRectangle( 0, 0, Globals.gameMan.player.health, healthBarDrawer.getHeight() );
         healthBar = new Image( new Texture( new PixmapTextureData( healthBarDrawer, healthBarDrawer.getFormat(), false, false, true ) ));
+        tables.right().bottom();
         tables.addActor( healthBar );
         colorIndicatorDrawer = new Pixmap( 85, 255, Pixmap.Format.RGB888 );
 
@@ -115,9 +118,9 @@ public class Hud extends Scene {
         colorIndicatorDrawer.fillRectangle( xLoc, colorIndicatorDrawer.getHeight( ) - 10, colorIndicatorDrawer.getWidth( ) / 3, 5 );
 
         colorIndicator = new Image( new Texture( new PixmapTextureData( colorIndicatorDrawer, Pixmap.Format.RGBA8888, false, false, true ) ) );
-
+        colorIndicator.setPosition(-colorIndicatorDrawer.getWidth()+20, 0);
+        bottomHud.left();
+        bottomHud.bottom();
         bottomHud.addActor( colorIndicator );
-        bottomHud.right( );
-        bottomHud.bottom( );
     }
 }
