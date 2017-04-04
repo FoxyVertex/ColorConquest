@@ -31,6 +31,7 @@ public class Finals {
     public enum DebugMode {
         SKIP_SPLASH,
         SKIP_TO_GAME,
-        NORMAL
+        NORMAL,
+        PRODUCTION
     }
 }

@@ -24,6 +24,10 @@ public class SplashScreen extends Screen {
     private Stage stage;
     private int currentImageIndex = 0;
 
+    public SplashScreen() {
+        Globals.splashScreen = this;
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -63,8 +67,10 @@ public class SplashScreen extends Screen {
             }
         }
         stage.addActor(Assets.splashScreenLogos.get(currentImageIndex));
-        Assets.playMusic(Assets.menuMusic);
-        Assets.menuMusic.setLooping(true);
+        if (!Assets.menuMusic.isPlaying()) {
+            Assets.playMusic(Assets.menuMusic);
+            Assets.menuMusic.setLooping(true);
+        }
     }
 
     @Override

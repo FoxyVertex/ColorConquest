@@ -32,16 +32,29 @@ public class ColorConquest extends Game {
                 new GameScreen();
                 setScreen(new MenuScreen());
                 new SplashScreen();
+                UserPrefs.gdxPrefs.putString("mode", "skip_splash");
                 break;
             case SKIP_TO_GAME:
                 new SplashScreen();
                 new MenuScreen();
                 setScreen(new GameScreen());
+                UserPrefs.gdxPrefs.putString("mode", "skip_to_game");
                 break;
             case NORMAL:
                 new GameScreen();
                 new MenuScreen();
                 setScreen(new SplashScreen());
+                UserPrefs.gdxPrefs.putString("mode", "normal");
+                break;
+            case PRODUCTION:
+                if (!UserPrefs.gdxPrefs.getString("mode").equals("production")) {
+                    UserPrefs.gdxPrefs.clear();
+                    UserPrefs.load();
+                }
+                new GameScreen();
+                new MenuScreen();
+                setScreen(new SplashScreen());
+                UserPrefs.gdxPrefs.putString("mode", "production");
                 break;
         }
     }
