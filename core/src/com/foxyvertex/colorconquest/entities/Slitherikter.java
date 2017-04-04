@@ -42,9 +42,6 @@ public class Slitherikter extends Interactant {
         super.color = color;
         def();
         setBounds(0, 0, getRegionWidth() / 4.5f / Finals.PPM, getRegionHeight() / 4.5f / Finals.PPM);
-        //Prepare the Texture for pixmap creation
-        if (!getTexture().getTextureData().isPrepared()) getTexture().getTextureData().prepare();
-
         fillColor();
     }
 
@@ -57,6 +54,8 @@ public class Slitherikter extends Interactant {
      */
     private void fillColor() {
         long   start          = System.nanoTime();
+        //Prepare the Texture for pixmap creation
+        if (!getTexture().getTextureData().isPrepared()) getTexture().getTextureData().prepare();
         Pixmap eyeColorPixmap = getTexture().getTextureData().consumePixmap();
         //Loop though every x and y value of the pixmap
         for (int x = 400; x < eyeColorPixmap.getWidth(); x++) {
@@ -99,7 +98,6 @@ public class Slitherikter extends Interactant {
 
     public void tick(float delta) {
         super.tick(delta);
-        Gdx.app.log("", "" + runSpeed);
         if (!shouldFlip) {
             TextureRegion t = new TextureRegion(Assets.slitherikter);
             t.flip(true, false);
