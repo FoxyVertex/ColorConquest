@@ -90,14 +90,16 @@ public class WorldPhysicsContactListener implements ContactListener {
                     if ((blockColor.b > 0f && blockColor.r < 0.5f && blockColor.g < 0.5f)) {
                         //objectTouched.primaryFixture.setRestitution( ((SpriteBody) objectCollidedWith.getUserData( )).minResitution + blockColor.g * (((SpriteBody) objectCollidedWith.getUserData( )).maxResitution - ((SpriteBody) objectCollidedWith.getUserData( )).minResitution) );
                         objectTouched.primaryFixture.setRestitution( 10f );
-                        Gdx.app.log( "", "" + blockColor );
+
                     }
-                        //Yellow Speed
-                    if (blockColor.r > 0.5f && blockColor.g > 0.5f && blockColor.b < 0.5f)
-                        objectTouched.runSpeed = objectTouched.minRunSpeed + (blockColor.g + blockColor.r)/2 * (objectTouched.maxRunSpeed - objectTouched.minJumpForce);
-                    //Purple Slow Speed + No Fall Damage
+                    //Yellow Speed
+                    if (blockColor.r > 0.5f && blockColor.g > 0.5f && blockColor.b < 0.5f) {
+                        objectTouched.runSpeed = objectTouched.minRunSpeed + (((blockColor.g + blockColor.r) / 2) / 2) * (objectTouched.maxRunSpeed - objectTouched.minJumpForce);
+                        Gdx.app.log( "", "" + blockColor);
+                    }
+                        //Purple Slow Speed + No Fall Damage
                     if (blockColor.r > 0.5f && blockColor.b > 0.5f && blockColor.g < 0.5f) {
-                        objectTouched.runSpeed /= 2;
+                        objectTouched.runSpeed = objectTouched.minRunSpeed / 1.5f;
                         objectTouched.doFallDamage = false;
                     }
                     //Teal Invincibility + no shoot + ammo reduction
@@ -121,24 +123,24 @@ public class WorldPhysicsContactListener implements ContactListener {
                 switch (Utilities.findBiggestIndex( RGBColors )) {
                     case 0:
                         attackedBlock.color.r = Utilities.clamp( attackedBlock.color.r + 0.1f, 0, 1 );
-                        if (attackedBlock.color.g >= 0.5f)
+                        if (attackedBlock.color.g >= 1f)
                             attackedBlock.color.g = Utilities.clamp( attackedBlock.color.g - 0.1f, 0, 1 );
-                        if (attackedBlock.color.b >= 0.5f)
+                        if (attackedBlock.color.b >= 1f)
                             attackedBlock.color.b = Utilities.clamp( attackedBlock.color.b - 0.1f, 0, 1 );
 
                         break;
                     case 1:
                         attackedBlock.color.g = Utilities.clamp( attackedBlock.color.g + 0.1f, 0, 1 );
-                        if (attackedBlock.color.r >= 0.5f)
+                        if (attackedBlock.color.r >= 1f)
                             attackedBlock.color.r = Utilities.clamp( attackedBlock.color.r - 0.1f, 0, 1 );
-                        if (attackedBlock.color.b >= 0.5f)
+                        if (attackedBlock.color.b >= 1f)
                             attackedBlock.color.b = Utilities.clamp( attackedBlock.color.b - 0.1f, 0, 1 );
                         break;
                     case 2:
                         attackedBlock.color.b = Utilities.clamp( attackedBlock.color.b + 0.1f, 0, 1 );
-                        if (attackedBlock.color.r >= 0.5f)
+                        if (attackedBlock.color.r >= 1f)
                             attackedBlock.color.r = Utilities.clamp( attackedBlock.color.r - 0.1f, 0, 1 );
-                        if (attackedBlock.color.g >= 0.5f)
+                        if (attackedBlock.color.g >= 1f)
                             attackedBlock.color.g = Utilities.clamp( attackedBlock.color.g - 0.1f, 0, 1 );
                         break;
                 }

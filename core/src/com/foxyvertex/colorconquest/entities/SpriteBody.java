@@ -29,6 +29,7 @@ public abstract class SpriteBody extends Sprite {
     public float minResitution = 0.05f;
 
     public float resitituion = 0;
+    public float damangeDealtOnContact = 5f;
 
     SpriteBody(Vector2 spawnPoint) {
         this.spawnPoint = spawnPoint;

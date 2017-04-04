@@ -118,6 +118,7 @@ public class Slitherikter extends Interactant {
     public void reInitVars() {
         minJumpForce = 0.5f;
         maxJumpForce = 1f;
+        damangeDealtOnContact = 10f;
     }
 
     /**
@@ -131,8 +132,9 @@ public class Slitherikter extends Interactant {
         color.g += Utilities.clamp(attacker.color.g, 0, 1);
         color.b += Utilities.clamp(attacker.color.b, 0, 1);
         fillColor();
-        //Gdx.app.log(color + "", "" + Utilities.complement(initialColor));
-        if (color.r == Utilities.complement(initialColor).r && color.g == Utilities.complement(initialColor).g && color.b == Utilities.complement(initialColor).b)
+        if (color.r == Utilities.complement(initialColor).r &&
+                color.g == Utilities.complement(initialColor).g &&
+                color.b == Utilities.complement(initialColor).b)
             die();
     }
 

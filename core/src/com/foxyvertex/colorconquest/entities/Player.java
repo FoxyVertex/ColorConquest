@@ -41,7 +41,7 @@ public class Player extends Interactant {
     public Array<Bullet> bullets = new Array<Bullet>();
     public boolean reduceAmmo = false;
     public float maxAmmoReducedPerSecond = 30;
-    public float minammoReducedPerSecond = 1;
+    public float minammoReducedPerSecond = 10;
     public float ammoReducedPerSecond = minammoReducedPerSecond;
     public boolean canShoot = true;
     public float ammoTimer = 0;
@@ -113,11 +113,12 @@ public class Player extends Interactant {
         }
         if(reduceAmmo) {
             ammoTimer += delta;
-            if(delta >= 1) {
+            if(ammoTimer >= 1) {
                 red -= ammoReducedPerSecond;
                 green -= ammoReducedPerSecond;
                 blue -= ammoReducedPerSecond;
-                delta = 0;
+                Globals.hudScene.updateData();
+                ammoTimer = 0;
             }
         }
 
@@ -253,12 +254,12 @@ public class Player extends Interactant {
 
     @Override
     public void attacked(SpriteBody attacker) {
-
+        health -= ((Interactant) attacker).damangeDealtOnContact;
     }
 
     @Override
     public void die() {
-
+        Globals.gameMan.playLevel( Globals.gameMan.currentLevel );
     }
 
     /**

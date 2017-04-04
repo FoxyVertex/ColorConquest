@@ -1,5 +1,6 @@
 package com.foxyvertex.colorconquest.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.foxyvertex.colorconquest.tools.WorldPhysicsContactListener;
 
@@ -12,7 +13,7 @@ public abstract class Interactant extends SpriteBody {
     public float maxJumpForce = 300;
     public float minJumpForce = 55;
     public float jumpForce    = minJumpForce;
-    public float maxRunSpeed  = 10f;
+    public float maxRunSpeed  = 0.25f;
     public float minRunSpeed  = 0.2f;
     public float runSpeed     = minRunSpeed;
     public int health = 20;
@@ -37,7 +38,7 @@ public abstract class Interactant extends SpriteBody {
         super.tick( delta );
         if (isBeingDamaged) {
             DPStimer += delta;
-            if (delta >= 1) {
+            if (DPStimer >= 1) {
                 health -= DPS;
                 DPStimer = 0;
             }
