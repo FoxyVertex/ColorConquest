@@ -10,7 +10,10 @@ import com.foxyvertex.colorconquest.managers.UserPrefs;
 import com.foxyvertex.colorconquest.screens.GameScreen;
 import com.foxyvertex.colorconquest.screens.MenuScreen;
 import com.foxyvertex.colorconquest.screens.SplashScreen;
+import com.foxyvertex.colorconquest.screens.TutorialScreen;
 import com.kotcrab.vis.ui.VisUI;
+
+import java.util.Objects;
 
 /**
  * The main game class
@@ -32,16 +35,37 @@ public class ColorConquest extends Game {
                 new GameScreen();
                 setScreen(new MenuScreen());
                 new SplashScreen();
+                UserPrefs.gdxPrefs.putString("mode", "skip_splash");
                 break;
             case SKIP_TO_GAME:
                 new SplashScreen();
                 new MenuScreen();
                 setScreen(new GameScreen());
+                UserPrefs.gdxPrefs.putString("mode", "skip_to_game");
                 break;
             case NORMAL:
                 new GameScreen();
                 new MenuScreen();
                 setScreen(new SplashScreen());
+                UserPrefs.gdxPrefs.putString("mode", "normal");
+                break;
+            case PRODUCTION:
+                if (UserPrefs.gdxPrefs.getBoolean("playedTutorial")) {
+                    new GameScreen();
+                    new MenuScreen();
+                    setScreen(new SplashScreen());
+                    new TutorialScreen();
+                } else {
+                    new GameScreen();
+                    new MenuScreen();
+                    new SplashScreen();
+                    setScreen(new TutorialScreen());
+                    UserPrefs.gdxPrefs.putBoolean("playerTutorial", true);
+                    UserPrefs.gdxPrefs.clear();
+                    UserPrefs.load();
+                }
+
+                UserPrefs.gdxPrefs.putString("mode", "production");
                 break;
         }
     }

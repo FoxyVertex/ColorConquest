@@ -24,6 +24,10 @@ public class MenuScreen extends Screen {
     @Override
     public void show() {
         currentScene = Globals.titleScreenScene;
+        if (!Assets.menuMusic.isPlaying()) {
+            Assets.playMusic(Assets.menuMusic);
+            Assets.menuMusic.setLooping(true);
+        }
     }
 
     @Override

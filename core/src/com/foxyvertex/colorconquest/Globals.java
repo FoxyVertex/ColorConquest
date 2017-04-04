@@ -5,6 +5,8 @@ import com.foxyvertex.colorconquest.scenes.Hud;
 import com.foxyvertex.colorconquest.scenes.Scene;
 import com.foxyvertex.colorconquest.screens.GameScreen;
 import com.foxyvertex.colorconquest.screens.MenuScreen;
+import com.foxyvertex.colorconquest.screens.SplashScreen;
+import com.foxyvertex.colorconquest.screens.TutorialScreen;
 
 /**
  * Created by aidan on 11/27/2016.
@@ -19,6 +21,8 @@ public class Globals {
     // Screen Cache:
     public static MenuScreen menuScreen;
     public static GameScreen gameScreen;
+    public static SplashScreen splashScreen;
+    public static TutorialScreen tutorialScreen;
 
     // Scene Cache:
     public static Scene titleScreenScene;

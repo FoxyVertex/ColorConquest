@@ -102,19 +102,19 @@ public class PlayerInput extends InputMultiplexer {
         float maxJumpForceLength = 0.2f;
 
         //DEBUG JUNK
-        if (Gdx.input.isKeyPressed(Input.Keys.B)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.B) && Finals.debugMode != Finals.DebugMode.PRODUCTION) {
             Globals.gameMan.player.blue += 1;
             Globals.hudScene.updateData();
         }
-        if (debugZoomInPressed)
+        if (debugZoomInPressed && Finals.debugMode != Finals.DebugMode.PRODUCTION)
             Globals.gameMan.cam.zoom += 3; /// Finals.PPM;
-        if (debugZoomOutPressed)
+        if (debugZoomOutPressed && Finals.debugMode != Finals.DebugMode.PRODUCTION)
             Globals.gameMan.cam.zoom -= 3; /// Finals.PPM;
-        if (debugSpawnpointPressed) {
+        if (debugSpawnpointPressed && Finals.debugMode != Finals.DebugMode.PRODUCTION) {
             Globals.gameMan.player.body.setLinearVelocity(new Vector2(0, 0));
             Globals.gameMan.player.body.setTransform(Globals.gameMan.player.spawnPoint, Globals.gameMan.player.body.getAngle());
         }
-        if (debugNextLevelPressed) {
+        if (debugNextLevelPressed && Finals.debugMode != Finals.DebugMode.PRODUCTION) {
             Levels.Level nextLevel = Globals.gameMan.currentLevel.nextLevel;
             if (nextLevel != null) Globals.gameMan.nextLevel(nextLevel);
             else {
@@ -144,7 +144,7 @@ public class PlayerInput extends InputMultiplexer {
             jumpPressedPrev = false;
         }
 
-        if (debugSuperAbilityPressed) {
+        if (debugSuperAbilityPressed && Finals.debugMode != Finals.DebugMode.PRODUCTION) {
             Globals.gameMan.player.runSpeed = Globals.gameMan.player.maxRunSpeed;
             Globals.gameMan.player.jumpForce = Globals.gameMan.player.maxJumpForce;
         }
