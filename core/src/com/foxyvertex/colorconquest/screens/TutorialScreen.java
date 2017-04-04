@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
@@ -37,6 +39,8 @@ public class TutorialScreen extends Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (Gdx.input.isTouched()) Globals.game.setScreen(Globals.splashScreen);
+
         stage.act(delta);
         stage.draw();
     }
@@ -51,18 +55,8 @@ public class TutorialScreen extends Screen {
 
         VisImage image = new VisImage(new Texture(Gdx.files.internal("tutorial.png")));
         image.setFillParent(true);
-        image.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent i, float x, float y) {
-                Assets.playSound(Assets.clickSound);
-                Globals.game.setScreen(Globals.splashScreen);
-            }
-        });
 
         stage.addActor(image);
-
-        Assets.playMusic(Assets.menuMusic);
-        Assets.menuMusic.setLooping(true);
     }
 
     @Override
