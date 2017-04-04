@@ -25,6 +25,10 @@ public abstract class SpriteBody extends Sprite {
     float destructionTime = 0;
     private boolean wasDestroyed = false;
     private boolean shouldFlip;
+    public float maxResitution = 3f;
+    public float minResitution = 0.05f;
+
+    public float resitituion = 0;
 
     SpriteBody(Vector2 spawnPoint) {
         this.spawnPoint = spawnPoint;
@@ -79,7 +83,7 @@ public abstract class SpriteBody extends Sprite {
 
     public void tick(float delta) {
 
-        if (setToDestroy && !wasDestroyed && Globals.gameMan.running.hasWorldStepped) {
+        if (    setToDestroy && !wasDestroyed && Globals.gameMan.running.hasWorldStepped) {
             //SCHEDULING WILL CRASH THE GAME!
 //            Timer.schedule(new Timer.Task() {
 //                @Override

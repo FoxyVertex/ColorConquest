@@ -75,40 +75,37 @@ public class WorldPhysicsContactListener implements ContactListener {
                 Interactant objectTouched = (fixtureA.getUserData( ) instanceof Interactant) ? (Interactant) fixtureA.getUserData( ) : (Interactant) fixtureB.getUserData( );
                 Color blockColor = ((SpriteBody) objectCollidedWith.getUserData( )).color;
                 if (blockColor != null) {
-                    //Red
-                    if ((blockColor.r > 0f && blockColor.g < 0.5f && blockColor.b < 0.5f))
-                        Gdx.app.log( "red", "" );
-                        objectTouched.attacked( (SpriteBody) objectCollidedWith.getUserData( ) );
-                    //Green
-                    if ((blockColor.g > 0f && blockColor.r < 0.5f && blockColor.b < 0.5f))
-                        Gdx.app.log( "green", "" );
+
+                    //Red Damage
+                    if ((blockColor.r > 0f && blockColor.g < 0.5f && blockColor.b < 0.5f)) {
+                        objectTouched.isBeingDamaged = true;
+                        objectTouched.DPS = objectTouched.minDPS + blockColor.r * (objectTouched.maxDPS - objectTouched.minDPS);
+                    }
+                    //Green Jump
+                    if ((blockColor.g > 0f && blockColor.r < 0.5f && blockColor.b < 0.5f)) {
                         objectTouched.jumpForce = objectTouched.minJumpForce + blockColor.g * (objectTouched.maxJumpForce - objectTouched.minJumpForce);
-                    //Blue
-                    if ((blockColor.b > 0f && blockColor.r < 0.5f && blockColor.g < 0.5f))
-                        Gdx.app.log( "blue","" );
-                        if (objectCollidedWith.getFilterData( ).categoryBits == Finals.BLOCK_BIT)
-                            objectTouched.primaryFixture.setRestitution( 0 );
-                        else
-                            Globals.gameMan.player.primaryFixture.setRestitution( 0 );
 
-                    //Yellow
+                    }
+                        //Blue Restitution
+                    if ((blockColor.b > 0f && blockColor.r < 0.5f && blockColor.g < 0.5f)) {
+                        //objectTouched.primaryFixture.setRestitution( ((SpriteBody) objectCollidedWith.getUserData( )).minResitution + blockColor.g * (((SpriteBody) objectCollidedWith.getUserData( )).maxResitution - ((SpriteBody) objectCollidedWith.getUserData( )).minResitution) );
+                        objectTouched.primaryFixture.setRestitution( 10f );
+                        Gdx.app.log( "", "" + blockColor );
+                    }
+                        //Yellow Speed
                     if (blockColor.r > 0.5f && blockColor.g > 0.5f && blockColor.b < 0.5f)
-                        if (objectCollidedWith.getFilterData( ).categoryBits == Finals.BLOCK_BIT)
-                            objectTouched.primaryFixture.setRestitution( 0.4f );
-                        else
-                            Globals.gameMan.player.primaryFixture.setRestitution( 0.4f );
-                    //isPurple
+                        objectTouched.runSpeed = objectTouched.minRunSpeed + (blockColor.g + blockColor.r)/2 * (objectTouched.maxRunSpeed - objectTouched.minJumpForce);
+                    //Purple Slow Speed + No Fall Damage
                     if (blockColor.r > 0.5f && blockColor.b > 0.5f && blockColor.g < 0.5f) {
-
                         objectTouched.runSpeed /= 2;
                         objectTouched.doFallDamage = false;
                     }
-                    //isTeal
+                    //Teal Invincibility + no shoot + ammo reduction
                     if (blockColor.g > 0.5f && blockColor.b > 0.5f && blockColor.r < 0.5f) {
                         objectTouched.isInvulnerable = true;
                         if (objectTouched instanceof Player) {
                             ((Player) objectTouched).reduceAmmo = true;
-                            ((Player) objectTouched).canShoot = true;
+                            ((Player) objectTouched).canShoot = false;
                         }
                     }
                 }
@@ -124,24 +121,24 @@ public class WorldPhysicsContactListener implements ContactListener {
                 switch (Utilities.findBiggestIndex( RGBColors )) {
                     case 0:
                         attackedBlock.color.r = Utilities.clamp( attackedBlock.color.r + 0.1f, 0, 1 );
-//                        if (attackedBlock.color.g >= 0.5f)
+                        if (attackedBlock.color.g >= 0.5f)
                             attackedBlock.color.g = Utilities.clamp( attackedBlock.color.g - 0.1f, 0, 1 );
-//                        if (attackedBlock.color.b >= 0.5f)
+                        if (attackedBlock.color.b >= 0.5f)
                             attackedBlock.color.b = Utilities.clamp( attackedBlock.color.b - 0.1f, 0, 1 );
 
                         break;
                     case 1:
                         attackedBlock.color.g = Utilities.clamp( attackedBlock.color.g + 0.1f, 0, 1 );
-//                        if (attackedBlock.color.r >= 0.5f)
+                        if (attackedBlock.color.r >= 0.5f)
                             attackedBlock.color.r = Utilities.clamp( attackedBlock.color.r - 0.1f, 0, 1 );
-//                        if (attackedBlock.color.b >= 0.5f)
+                        if (attackedBlock.color.b >= 0.5f)
                             attackedBlock.color.b = Utilities.clamp( attackedBlock.color.b - 0.1f, 0, 1 );
                         break;
                     case 2:
                         attackedBlock.color.b = Utilities.clamp( attackedBlock.color.b + 0.1f, 0, 1 );
-//                        if (attackedBlock.color.r >= 0.5f)
+                        if (attackedBlock.color.r >= 0.5f)
                             attackedBlock.color.r = Utilities.clamp( attackedBlock.color.r - 0.1f, 0, 1 );
-//                        if (attackedBlock.color.g >= 0.5f)
+                        if (attackedBlock.color.g >= 0.5f)
                             attackedBlock.color.g = Utilities.clamp( attackedBlock.color.g - 0.1f, 0, 1 );
                         break;
                 }
@@ -188,7 +185,7 @@ public class WorldPhysicsContactListener implements ContactListener {
             case Finals.PLAYER_BIT | Finals.BARRIER_BIT:
                 //IF the player's Downward force is greater than or equal to the force required to break the barrier
                 if (((Player) ((fixtureA.getUserData( ) instanceof Player) ? fixtureA.getUserData( ) : fixtureB.getUserData( ))).body.getLinearVelocity( ).y <= ((Barrier) ((fixtureA.getUserData( ) instanceof Barrier) ? fixtureA.getUserData( ) : fixtureB.getUserData( ))).requiredBreakingForce) {    //Break the Barrier
-                    ((Barrier) ((fixtureA.getUserData( ) instanceof Barrier) ? fixtureA.getUserData( ) : fixtureB.getUserData( ))).setToDestroy = true;
+                     ((Barrier) ((fixtureA.getUserData( ) instanceof Barrier) ? fixtureA.getUserData( ) : fixtureB.getUserData( ))).setToDestroy = true;
                 }
                 break;
             case Finals.PLAYER_BIT | Finals.ENEMY_BUFFER_BIT:
@@ -219,30 +216,21 @@ public class WorldPhysicsContactListener implements ContactListener {
         switch (collisionDefinition) {
             case Finals.PLAYER_BIT | Finals.SLIME_BIT:
             case Finals.PLAYER_BIT | Finals.BLOCK_BIT:
-                //Determines which fixture is the player and which is the block
-                // This can be shortened to 1 line!
+            case Finals.SLITHERIKTER_BIT | Finals.BLOCK_BIT:
                 Fixture objectCollidedWith = (fixtureA.getUserData( ) instanceof Interactant) ? fixtureB : fixtureA;
                 Interactant objectTouched = (fixtureA.getUserData( ) instanceof Interactant) ? (Interactant) fixtureA.getUserData( ) : (Interactant) fixtureB.getUserData( );
-
-                Color blockColor = ((SpriteBody) objectCollidedWith.getUserData( )).color;
-                if (blockColor != null) {
-                    float RGBColors[] = {blockColor.r, blockColor.g, blockColor.b};
-
-                    switch (Utilities.findBiggestIndex( RGBColors )) {
-                        case 0:
-                            objectTouched.runSpeed = objectTouched.minRunSpeed;
-                            break;
-                        case 1:
-                            objectTouched.jumpForce = objectTouched.minJumpForce;
-                            break;
-                        case 2:
-                            //objectTouched.primaryFixture.setRestitution(0);
-                            break;
-                    }
-                } else {
-                    Globals.gameMan.player.runSpeed = Globals.gameMan.player.minRunSpeed;
-                    Globals.gameMan.player.jumpForce = Globals.gameMan.player.minJumpForce;
+                objectTouched.DPS = objectTouched.minDPS; //Negate Red
+                objectTouched.isBeingDamaged = false;    //
+                objectCollidedWith.setRestitution( 0 ); //Negate Blue
+                objectTouched.jumpForce = objectTouched.minJumpForce; //Negate Green
+                objectTouched.runSpeed = objectTouched.minRunSpeed; // Negate Yellow
+                objectTouched.isInvulnerable = true;   //Negate Teal
+                if (objectTouched instanceof Player) {//
+                    ((Player) objectTouched).reduceAmmo = false;
+                    ((Player) objectTouched).canShoot = true;
                 }
+                objectTouched.doFallDamage = true; //Negate Purple
+
                 break;
             case Finals.SLITHERIKTER_BIT | Finals.SLIME_BIT:
                 ((Slitherikter) ((fixtureA.getFilterData( ).categoryBits == Finals.SLITHERIKTER_BIT) ? fixtureA.getUserData( ) : fixtureB.getUserData( ))).isColidingWithSlime = false;
