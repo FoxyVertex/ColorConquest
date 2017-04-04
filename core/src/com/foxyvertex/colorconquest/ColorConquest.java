@@ -22,7 +22,7 @@ public class ColorConquest extends Game {
     public void create() {
         Globals.game = this;
         batch = new SpriteBatch();
-        VisUI.load();
+        VisUI.load(VisUI.SkinScale.X2);
         Assets.load();
         UserPrefs.load();
         Levels.load();

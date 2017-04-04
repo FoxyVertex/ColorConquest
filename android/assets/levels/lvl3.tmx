@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="12" tilewidth="16" tileheight="16" nextobjectid="25">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="12" tilewidth="16" tileheight="16" nextobjectid="28">
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="418" columns="22">
   <image source="ts_test.jpg" width="353" height="305"/>
  </tileset>
@@ -57,7 +57,7 @@
   <object id="23" x="224" y="64" width="70" height="6"/>
  </objectgroup>
  <objectgroup name="Slitherikters">
-  <object id="24" x="275" y="162.5" width="10" height="6.5">
+  <object id="24" x="371.5" y="160" width="10" height="6.5">
    <properties>
     <property name="b" type="float" value="0"/>
     <property name="g" type="float" value="0"/>

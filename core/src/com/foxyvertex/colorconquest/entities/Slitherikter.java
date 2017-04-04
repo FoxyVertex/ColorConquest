@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
@@ -99,6 +100,15 @@ public class Slitherikter extends Interactant {
     public void tick(float delta) {
         super.tick(delta);
         Gdx.app.log("", "" + runSpeed);
+        if (!shouldFlip) {
+            TextureRegion t = new TextureRegion(Assets.slitherikter);
+            t.flip(true, false);
+            setRegion(t);
+        } else {
+            TextureRegion t = new TextureRegion(Assets.slitherikter);
+            t.flip(false, false);
+            setRegion(t);
+        }
         body.applyLinearImpulse(new Vector2((!shouldFlip) ? runSpeed : -runSpeed, 0), body.getWorldCenter(), true);
 
         if (!isColidingWithSlime && body.getLinearVelocity().y == 0)
