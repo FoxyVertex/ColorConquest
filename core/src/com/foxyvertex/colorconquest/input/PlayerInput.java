@@ -100,7 +100,7 @@ public class PlayerInput extends InputMultiplexer {
             mobileController.handleInput();
         }
 
-        if (Gdx.input.isButtonPressed(Input.Keys.F11)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F11) && Finals.debugMode == Finals.DebugMode.PRODUCTION) {
             if (Gdx.graphics.isFullscreen()) {
                 Gdx.graphics.setWindowedMode(1920, 1080);
             } else {
