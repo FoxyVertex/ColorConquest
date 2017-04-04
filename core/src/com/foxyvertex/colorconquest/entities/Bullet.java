@@ -16,7 +16,7 @@ import com.foxyvertex.colorconquest.Globals;
 public class Bullet extends SpriteBody {
 
     public Vector2 spawnPoint;
-    public float destructionTime = 2f;
+    public float destructionTime = 0.2f;
     Pixmap tex;
     private Vector2 initialImpulse = new Vector2(4,2);
     private float   initialRadius  = 2f;
@@ -26,14 +26,6 @@ public class Bullet extends SpriteBody {
     Bullet(Vector2 spawnPoint, Color color, Vector2 angle) {
         super(spawnPoint);
         this.initialImpulse = angle;
-        this.spawnPoint = spawnPoint;
-        super.color = color;
-        def();
-        reDraw();
-        super.destructionTime = this.destructionTime;
-    }
-    Bullet(Vector2 spawnPoint, Color color) {
-        super(spawnPoint);
         this.spawnPoint = spawnPoint;
         super.color = color;
         def();
@@ -59,10 +51,8 @@ public class Bullet extends SpriteBody {
             body.applyLinearImpulse(initialImpulse.scl(-1, 1), body.getWorldCenter(), true);
     }
 
-    @Override
     public void tick(float delta) {
         super.tick(delta);
-
     }
 
     public void reDraw() {

@@ -184,6 +184,7 @@ public class PlayerInput extends InputMultiplexer {
         Globals.gameMan.player.setSelectedColor(Globals.gameMan.player.colors.get(currentColorIndex));
 
         fireTimer += delta;
+        if (Globals.gameMan.player.canShoot)
         if (Gdx.input.isTouched() && fireTimer >= Globals.gameMan.player.fireSpeed) {
             Globals.gameMan.player.shoot(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
             fireTimer = 0;

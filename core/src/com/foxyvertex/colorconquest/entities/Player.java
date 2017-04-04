@@ -39,6 +39,14 @@ public class Player extends Interactant {
     private boolean runningRight  = false;
     public Color   selectedColor = Color.RED;
     public Array<Bullet> bullets = new Array<Bullet>();
+    public boolean reduceAmmo = false;
+    public float maxAmmoReducedPerSecond = 30;
+    public float minammoReducedPerSecond = 1;
+    public float ammoReducedPerSecond = minammoReducedPerSecond;
+    public boolean canShoot = true;
+    public float ammoTimer = 0;
+    public int maxHealth = 100;
+
     public Player(Vector2 spawnPoint) {
         super(spawnPoint.scl(1 / Finals.PPM));
         setRegion(Assets.mainAtlas.findRegion("idle"));
@@ -103,6 +111,16 @@ public class Player extends Interactant {
             //slow the player down
             //runSpeed *= 0.75;
         }
+        if(reduceAmmo) {
+            ammoTimer += delta;
+            if(delta >= 1) {
+                red -= ammoReducedPerSecond;
+                green -= ammoReducedPerSecond;
+                blue -= ammoReducedPerSecond;
+                delta = 0;
+            }
+        }
+
         input.handleInput(delta);
         timer += delta;
         setRegion(getFrame(delta));
@@ -212,8 +230,6 @@ public class Player extends Interactant {
 
         Vector2 clickPointBasedImpulse = new Vector2((float) beta, (float) alpha);
         if (isFiring) {
-            Gdx.app.log("" + runningRight, "" + clickPointBasedImpulse);
-
             if (runningRight)
                 bullets.add(new Bullet(body.getPosition().add(new Vector2(bulletStartXValue, 3/Finals.PPM)), selectedColor, clickPointBasedImpulse));
             else

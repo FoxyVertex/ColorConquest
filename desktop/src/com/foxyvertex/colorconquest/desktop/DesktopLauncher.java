@@ -15,8 +15,8 @@ public class DesktopLauncher {
         config.title = Finals.TITLE;
         config.addIcon("icon/32.png", Files.FileType.Internal);
         config.addIcon("icon/128.png", Files.FileType.Internal);
-        config.width = 1920;
-        config.height = 1080;
+        //config.width = 1920;
+        //config.height = 1080;
         new LwjglApplication(new ColorConquest(), config);
     }
 }
