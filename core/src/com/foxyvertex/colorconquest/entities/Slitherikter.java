@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.utils.Array;
 import com.foxyvertex.colorconquest.Finals;
 import com.foxyvertex.colorconquest.Globals;
 import com.foxyvertex.colorconquest.managers.Assets;
@@ -24,6 +25,7 @@ public class Slitherikter extends Interactant {
     private int     prevColor;
     private boolean hasBeenShotByColor = false;
     private Color initialColor;
+    public Array<Slime> slimes = new Array<Slime>();
 
     /**
      * Slitherikter is snail like enemy that leaves a trail of color based on the specefied eye color and is defeated by shooting a complementary color
@@ -38,7 +40,7 @@ public class Slitherikter extends Interactant {
         this.spawnPoint = spawnPoint;
         super.color = color;
         def();
-        setBounds(0, 0, getRegionWidth() / 8.5f / Finals.PPM, getRegionHeight() / 8.5f / Finals.PPM);
+        setBounds(0, 0, getRegionWidth() / 4.5f / Finals.PPM, getRegionHeight() / 4.5f / Finals.PPM);
         //Prepare the Texture for pixmap creation
         if (!getTexture().getTextureData().isPrepared()) getTexture().getTextureData().prepare();
 
@@ -79,7 +81,7 @@ public class Slitherikter extends Interactant {
 
     private void def() {
         CircleShape shape = new CircleShape();
-        shape.setRadius(30f / Finals.PPM);
+        shape.setRadius(8f / Finals.PPM);
         super.def(shape);
         FixtureDef bufferFdef = new FixtureDef();
         EdgeShape  buffer     = new EdgeShape();
@@ -91,7 +93,7 @@ public class Slitherikter extends Interactant {
         buffer.set(new Vector2(-shape.getRadius(), shape.getRadius()), new Vector2(-shape.getRadius(), 0));
         bufferFdef.shape = buffer;
         body.createFixture(bufferFdef).setUserData(this);
-        body.setLinearDamping(5f);
+        body.setLinearDamping(7f);
     }
 
     public void tick(float delta) {

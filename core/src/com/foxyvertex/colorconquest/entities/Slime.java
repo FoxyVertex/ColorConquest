@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.foxyvertex.colorconquest.Finals;
+import com.foxyvertex.colorconquest.Globals;
+import com.foxyvertex.colorconquest.tools.WorldPhysicsContactListener;
 
 /**
  * Created by seth on 3/23/2017.
@@ -17,6 +19,8 @@ public class Slime extends SpriteBody {
     Vector2   spawnPoint;
     Pixmap    tex;
     Vector2[] verts;
+    float timer = 6f;
+    boolean dead = false;
 
     Slime(Vector2 spawnPoint, Color color) {
         super(spawnPoint);
@@ -58,7 +62,13 @@ public class Slime extends SpriteBody {
     }
 
     public void tick(float delta) {
-        //super.tick(delta);
+        timer -= delta;
+        if (timer < 0 && !dead) {
+            WorldPhysicsContactListener.deadBodies.add(body);
+            EntityController.entities.removeValue(this, false);
+            dead = true;
+            return;
+        }
         setPosition(body.getPosition().x, body.getPosition().y);
     }
 }

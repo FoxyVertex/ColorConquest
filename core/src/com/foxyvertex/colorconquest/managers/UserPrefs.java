@@ -101,8 +101,8 @@ public class UserPrefs {
         if (gdxPrefs.contains("musicVolume")) {
             musicVolume = gdxPrefs.getFloat("musicVolume");
         } else {
-            gdxPrefs.putFloat("musicVolume", 100);
-            musicVolume = 100;
+            gdxPrefs.putFloat("musicVolume", 40);
+            musicVolume = 40;
         }
         return musicVolume;
     }
