@@ -1,6 +1,7 @@
 package com.foxyvertex.colorconquest.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
@@ -97,6 +98,14 @@ public class PlayerInput extends InputMultiplexer {
             desktopController.handleInput(delta);
         } else {
             mobileController.handleInput();
+        }
+
+        if (Gdx.input.isButtonPressed(Input.Keys.F11)) {
+            if (Gdx.graphics.isFullscreen()) {
+                Gdx.graphics.setWindowedMode(1920, 1080);
+            } else {
+                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+            }
         }
 
         float maxJumpForceLength = 0.2f;
